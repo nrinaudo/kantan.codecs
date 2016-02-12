@@ -10,6 +10,7 @@ import org.scalacheck.Prop._
 trait DecoderTests[E, D, F] extends Laws {
   def laws: DecoderLaws[E, D, F]
 
+  implicit def arbE: Arbitrary[E]
   implicit def arbD: Arbitrary[D]
   implicit def arbF: Arbitrary[F]
 
@@ -27,6 +28,8 @@ trait DecoderTests[E, D, F] extends Laws {
 object DecoderTests {
   def apply[E, D: Arbitrary, F: Arbitrary](l: DecoderLaws[E, D, F]): DecoderTests[E, D, F] = new DecoderTests[E, D, F] {
     override val laws = l
+
+    override val arbE = Arbitrary(Arbitrary.arbitrary[D].map(l.encode))
     override val arbD = implicitly[Arbitrary[D]]
     override val arbF = implicitly[Arbitrary[F]]
   }
