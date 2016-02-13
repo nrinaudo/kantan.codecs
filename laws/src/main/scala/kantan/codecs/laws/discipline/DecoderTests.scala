@@ -1,23 +1,27 @@
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.{Decoder, Encoder}
-import kantan.codecs.laws.DecoderLaws
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.{CodecValue, DecoderLaws}
 import org.scalacheck.Arbitrary
-import arbitrary._
-import org.typelevel.discipline.Laws
 import org.scalacheck.Prop._
+import org.typelevel.discipline.Laws
+import arbitrary._
 
 trait DecoderTests[E, D, F] extends Laws {
   def laws: DecoderLaws[E, D, F]
 
-  implicit def arbE: Arbitrary[E]
-  implicit def arbD: Arbitrary[D]
+
+  implicit def arbLegal: Arbitrary[LegalValue[E, D]]
+  implicit def arbIlllegal: Arbitrary[IllegalValue[E]]
+
   implicit def arbF: Arbitrary[F]
+  implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
+
 
   def decoder[A: Arbitrary, B: Arbitrary]: RuleSet = new DefaultRuleSet(
     name = "decoder",
     parent = None,
-    "decode"                → forAll(laws.decode _),
+    "decode"                → forAll(laws.otherDecode _),
     "map identity"          → forAll(laws.mapIdentity _),
     "mapResult identity"    → forAll(laws.mapResultIdentity _),
     "map composition"       → forAll(laws.mapComposition[A, B] _),
@@ -26,14 +30,12 @@ trait DecoderTests[E, D, F] extends Laws {
 }
 
 object DecoderTests {
-  def apply[E, D: Arbitrary, F: Arbitrary](l: DecoderLaws[E, D, F]): DecoderTests[E, D, F] = new DecoderTests[E, D, F] {
+  def apply[E, D, F: Arbitrary](implicit l: DecoderLaws[E, D, F],
+                                al: Arbitrary[LegalValue[E, D]],
+                                ai: Arbitrary[IllegalValue[E]]): DecoderTests[E, D, F] = new DecoderTests[E, D, F] {
     override val laws = l
-
-    override val arbE = Arbitrary(Arbitrary.arbitrary[D].map(l.encode))
-    override val arbD = implicitly[Arbitrary[D]]
+    override val arbLegal = al
+    override val arbIlllegal = ai
     override val arbF = implicitly[Arbitrary[F]]
   }
-
-  implicit def fromCodec[E, D: Arbitrary, F: Arbitrary](implicit de: Decoder[E, D, F], ee: Encoder[D, E]): DecoderTests[E, D, F] =
-    DecoderTests(DecoderLaws.fromCodec)
 }

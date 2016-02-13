@@ -12,7 +12,6 @@ sealed abstract class DecodeResult[+F, +S] extends Product with Serializable {
   def isFailure: Boolean = !isSuccess
 
 
-
   // - Value retrieval -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def orElse[F2 >: F, S2 >: S](default: ⇒ DecodeResult[F2, S2]): DecodeResult[F2, S2]

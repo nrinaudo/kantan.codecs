@@ -1,30 +1,42 @@
 package kantan.codecs.laws
 
+import kantan.codecs.laws.CodecValue.{LegalValue, IllegalValue}
 import kantan.codecs.{Encoder, DecodeResult, Decoder}
 
 trait DecoderLaws[E, D, F] {
   def decoder: Decoder[E, D, F]
-  def encode(d: D): E
+
+  private def cmp(result: DecodeResult[F, D], cv: CodecValue[E, D]): Boolean = (cv, result) match {
+    case (IllegalValue(_),  DecodeResult.Failure(_))  ⇒ true
+    case (LegalValue(_, d), DecodeResult.Success(d2)) ⇒ d == d2
+    case _                                            ⇒ false
+  }
+
 
 
   // - Simple laws -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def decode(d: D): Boolean = decoder.decode(encode(d)) == d
+  def otherDecode(v: CodecValue[E, D]): Boolean =
+    cmp(decoder.decode(v.encoded), v)
 
 
   // - Functor laws ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def mapIdentity(e: E): Boolean = decoder.decode(e) == decoder.map(identity).decode(e)
-  def mapComposition[A, B](e: E, f: D ⇒ A, g: A ⇒ B): Boolean =
-    decoder.map(f andThen g).decode(e) == decoder.map(f).map(g).decode(e)
+  def mapIdentity(v: CodecValue[E, D]): Boolean =
+    decoder.decode(v.encoded) == decoder.map(identity).decode(v.encoded)
+
+  def mapComposition[A, B](v: CodecValue[E, D], f: D ⇒ A, g: A ⇒ B): Boolean =
+    decoder.map(f andThen g).decode(v.encoded) == decoder.map(f).map(g).decode(v.encoded)
 
 
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def mapResultIdentity(e: E): Boolean =
-    decoder.decode(e) == decoder.mapResult(DecodeResult.success).decode(e)
-  def mapResultComposition[A, B](e: E, f: D ⇒ DecodeResult[F, A], g: A ⇒ DecodeResult[F, B]): Boolean =
-    decoder.mapResult(d ⇒ f(d).flatMap(g)).decode(e) ==  decoder.mapResult(f).mapResult(g).decode(e)
+  def mapResultIdentity(v: CodecValue[E, D]): Boolean =
+    decoder.decode(v.encoded) == decoder.mapResult(DecodeResult.success).decode(v.encoded)
+
+  def mapResultComposition[A, B](v: CodecValue[E, D], f: D ⇒ DecodeResult[F, A], g: A ⇒ DecodeResult[F, B]): Boolean =
+    decoder.mapResult(d ⇒ f(d).flatMap(g)).decode(v.encoded) ==  decoder.mapResult(f).mapResult(g).decode(v.encoded)
+
 
 
 
@@ -34,11 +46,7 @@ trait DecoderLaws[E, D, F] {
 }
 
 object DecoderLaws {
-  def apply[E, D, F](f: D ⇒ E)(implicit de: Decoder[E, D, F]): DecoderLaws[E, D, F] = new DecoderLaws[E, D, F] {
+  implicit def apply[E, D, F](implicit de: Decoder[E, D, F]): DecoderLaws[E, D, F] = new DecoderLaws[E, D, F] {
     override val decoder = de
-    override def encode(d: D) = f(d)
   }
-
-  def fromCodec[E, D, F](implicit de: Decoder[E, D, F], en: Encoder[D, E]): DecoderLaws[E, D, F] =
-    DecoderLaws(en.encode)
 }

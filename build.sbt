@@ -32,7 +32,6 @@ lazy val compilerOptions = Seq("-deprecation",
 lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
   libraryDependencies += compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full),
-  coverageExcludedPackages := "kantan\\.codecs\\.laws\\..*",
   incOptions     := incOptions.value.withNameHashing(true)
 )
 
@@ -84,7 +83,8 @@ lazy val laws = project
   )
   .settings(libraryDependencies ++= Seq(
     "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
-    "org.typelevel"  %% "discipline" % disciplineVersion
+    "org.typelevel"  %% "discipline" % disciplineVersion,
+    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
   ))
   .settings(allSettings: _*)
   .dependsOn(core)
