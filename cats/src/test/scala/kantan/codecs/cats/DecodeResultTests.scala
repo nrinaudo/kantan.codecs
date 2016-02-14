@@ -1,11 +1,11 @@
 package kantan.codecs.cats
 
+import algebra.laws.OrderLaws
 import cats.Eq
 import kantan.codecs.DecodeResult
 import kantan.codecs.laws.discipline.arbitrary._
-import cats.laws.discipline.{BifunctorTests, CartesianTests, MonadTests}
-import cats.std.int._
-import cats.std.boolean._
+import cats.laws.discipline.{TraverseTests, BifunctorTests, CartesianTests, MonadTests}
+import cats.std.all._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
@@ -21,5 +21,7 @@ class DecodeResultTests  extends FunSuite with GeneratorDrivenPropertyChecks wit
   implicit val test = CartesianTests.Isomorphisms.invariant[DecodeResult[Boolean, ?]]
 
   checkAll("DecodeResult[Boolean, ?]", MonadTests[DecodeResult[Boolean, ?]].monad[Int, Int, Int])
-  checkAll("DecodeResult", BifunctorTests[DecodeResult].bifunctor[Int, Int, Int, Int, Int, Int])
+  checkAll("DecodeResult[?, ?]", BifunctorTests[DecodeResult].bifunctor[Int, Int, Int, Int, Int, Int])
+  checkAll("DecodeResult[Boolean, ?]", TraverseTests[DecodeResult[Boolean, ?]].traverse[Int, Int, Int, Int, Option, Option])
+  checkAll("DecodeResult[Int, String]", OrderLaws[DecodeResult[Int, String]].order)
 }
