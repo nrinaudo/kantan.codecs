@@ -72,9 +72,11 @@ sealed abstract class DecodeResult[+F, +S] extends Product with Serializable {
 object DecodeResult {
   // - Instance construction -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def catchNonFatal[S](s: ⇒ S): DecodeResult[Throwable, S] =
+  def nonFatal[S](s: ⇒ S): DecodeResult[Throwable, S] =
     try {success(s)}
     catch { case scala.util.control.NonFatal(t) ⇒ failure(t) }
+
+  def nonFatalOr[F, S](f: ⇒ F)(s: ⇒ S): DecodeResult[F, S] = nonFatal(s).leftMap(_ ⇒ f)
 
   def fromTry[S](t: Try[S]): DecodeResult[Throwable, S] = t match {
     case scala.util.Success(s) ⇒ success(s)

@@ -7,7 +7,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class BigIntCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val BigIntDecoder = Decoder[String, BigInt, Boolean](s ⇒ DecodeResult(BigInt(s)).leftMap(_ ⇒ true))
+  implicit val BigIntDecoder = Decoder[String, BigInt, Boolean](s ⇒ DecodeResult.nonFatalOr(true)(BigInt(s)))
   implicit val BigIntEncoder = Encoder[String, BigInt](_.toString)
 
   checkAll("Decoder[String, BigInt, Boolean]", DecoderTests[String, BigInt, Boolean].decoder[Int, Int])

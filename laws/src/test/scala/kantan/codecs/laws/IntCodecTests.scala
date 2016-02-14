@@ -7,7 +7,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class IntCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val intDecoder = Decoder[String, Int, Boolean](s ⇒ DecodeResult(s.toInt).leftMap(_ ⇒ true))
+  implicit val intDecoder = Decoder[String, Int, Boolean](s ⇒ DecodeResult.nonFatalOr(true)(s.toInt))
   implicit val intEncoder = Encoder[String, Int](_.toString)
 
   checkAll("Decoder[String, Int, Boolean]", DecoderTests[String, Int, Boolean].decoder[Int, Int])

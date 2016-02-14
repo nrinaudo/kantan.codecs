@@ -7,7 +7,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class LongCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val LongDecoder = Decoder[String, Long, Boolean](s ⇒ DecodeResult(s.toLong).leftMap(_ ⇒ true))
+  implicit val LongDecoder = Decoder[String, Long, Boolean](s ⇒ DecodeResult.nonFatalOr(true)(s.toLong))
   implicit val LongEncoder = Encoder[String, Long](_.toString)
 
   checkAll("Decoder[String, Long, Boolean]", DecoderTests[String, Long, Boolean].decoder[Int, Int])
