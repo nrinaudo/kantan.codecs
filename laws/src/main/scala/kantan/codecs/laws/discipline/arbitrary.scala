@@ -1,13 +1,18 @@
 package kantan.codecs.laws.discipline
 
 import kantan.codecs.DecodeResult
+import kantan.codecs.DecodeResult.{Failure, Success}
 import org.scalacheck.{Gen, Arbitrary}
 
 object arbitrary {
-  def success[S: Arbitrary]: Gen[DecodeResult[Nothing, S]] =
-    Arbitrary.arbitrary[S].map(DecodeResult.success)
-  def failure[F: Arbitrary]: Gen[DecodeResult[F, Nothing]] =
-    Arbitrary.arbitrary[F].map(DecodeResult.failure)
+  def success[S: Arbitrary]: Gen[Success[S]] =
+    Arbitrary.arbitrary[S].map(Success.apply)
+  def failure[F: Arbitrary]: Gen[Failure[F]] =
+    Arbitrary.arbitrary[F].map(Failure.apply)
+
+  implicit def arbSuccess[S: Arbitrary]: Arbitrary[Success[S]] = Arbitrary(success)
+  implicit def arbFailure[F: Arbitrary]: Arbitrary[Failure[F]] = Arbitrary(failure)
+
   implicit def arbDecodeResult[F: Arbitrary, S: Arbitrary]: Arbitrary[DecodeResult[F, S]] =
     Arbitrary(Gen.oneOf(success[S], failure[F]))
 }

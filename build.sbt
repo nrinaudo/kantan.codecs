@@ -71,7 +71,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws, cats)
+  .aggregate(core, laws, cats, tests)
 
 lazy val core = project
   .settings(
@@ -82,7 +82,7 @@ lazy val core = project
 
 lazy val laws = project
   .settings(
-    moduleName := "kantan.xpath-laws",
+    moduleName := "kantan.codecs-laws",
     name       := "laws"
   )
   .settings(libraryDependencies ++= Seq(
@@ -104,4 +104,10 @@ lazy val cats = project
     "org.scalatest" %% "scalatest" % scalatestVersion % "test"
   ))
   .settings(allSettings: _*)
+  .dependsOn(core, laws % "test")
+
+lazy val tests = project
+  .settings(allSettings: _*)
+  .settings(noPublishSettings: _*)
+  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
   .dependsOn(core, laws % "test")

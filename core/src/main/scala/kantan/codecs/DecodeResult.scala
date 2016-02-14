@@ -130,7 +130,7 @@ object DecodeResult {
 
     override def orElse[FF >: F, SS >: Nothing](default: ⇒ DecodeResult[FF, SS]) = default
     override def getOrElse[SS >: Nothing](default: => SS) = default
-    override def get = sys.error(s"get on a Failure($value)")
+    override def get = throw new NoSuchElementException(s"get on a Failure($value)")
 
     override def fold[C](ff: F => C, fs: Nothing => C): C = ff(value)
 
