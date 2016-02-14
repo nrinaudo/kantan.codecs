@@ -1,7 +1,7 @@
 package kantan.codecs.laws
 
-import kantan.codecs.laws.CodecValue.{LegalValue, IllegalValue}
-import kantan.codecs.{Encoder, DecodeResult, Decoder}
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.{DecodeResult, Decoder}
 
 trait DecoderLaws[E, D, F] {
   def decoder: Decoder[E, D, F]
@@ -16,7 +16,7 @@ trait DecoderLaws[E, D, F] {
 
   // - Simple laws -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def otherDecode(v: CodecValue[E, D]): Boolean =
+  def decode(v: CodecValue[E, D]): Boolean =
     cmp(decoder.decode(v.encoded), v)
 
 
@@ -36,13 +36,6 @@ trait DecoderLaws[E, D, F] {
 
   def mapResultComposition[A, B](v: CodecValue[E, D], f: D ⇒ DecodeResult[F, A], g: A ⇒ DecodeResult[F, B]): Boolean =
     decoder.mapResult(d ⇒ f(d).flatMap(g)).decode(v.encoded) ==  decoder.mapResult(f).mapResult(g).decode(v.encoded)
-
-
-
-
-  // - Monad laws ------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  // TODO
 }
 
 object DecoderLaws {

@@ -6,8 +6,6 @@ trait Decoder[E, D, F] {
 
   def map[D2](f: D ⇒ D2): Decoder[E, D2, F] = Decoder(e ⇒ decode(e).map(f))
   def mapResult[D2](f: D ⇒ DecodeResult[F, D2]): Decoder[E, D2, F] = Decoder(e ⇒ decode(e).flatMap(f))
-
-  def flatMap[D2](f: D ⇒ Decoder[E, D2, F]): Decoder[E, D2, F] = Decoder(e ⇒ decode(e).flatMap(d ⇒ f(d).decode(e)))
 }
 
 object Decoder {

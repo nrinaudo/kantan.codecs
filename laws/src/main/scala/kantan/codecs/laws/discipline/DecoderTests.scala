@@ -18,7 +18,7 @@ trait DecoderTests[E, D, F] extends Laws {
   private def rules[A: Arbitrary, B: Arbitrary](name: String)(implicit arbED: Arbitrary[CodecValue[E, D]]): RuleSet = new DefaultRuleSet(
     name = name,
     parent = None,
-    "decode" → forAll(laws.otherDecode _),
+    "decode" → forAll(laws.decode _),
     "map identity" → forAll(laws.mapIdentity _),
     "mapResult identity" → forAll(laws.mapResultIdentity _),
     "map composition" → forAll(laws.mapComposition[A, B] _),
