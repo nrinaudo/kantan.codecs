@@ -3,7 +3,7 @@ package kantan.codecs.cats
 import cats.Eq
 import kantan.codecs.DecodeResult
 import kantan.codecs.laws.discipline.arbitrary._
-import cats.laws.discipline.{CartesianTests, MonadTests}
+import cats.laws.discipline.{BifunctorTests, CartesianTests, MonadTests}
 import cats.std.int._
 import cats.std.boolean._
 import org.scalatest.FunSuite
@@ -20,5 +20,6 @@ class DecodeResultTests  extends FunSuite with GeneratorDrivenPropertyChecks wit
   // TODO: not sure why this isn't resolved automatically. Investigate.
   implicit val test = CartesianTests.Isomorphisms.invariant[DecodeResult[Boolean, ?]]
 
-  checkAll("DecodeResult[Boolean, Int]", MonadTests[DecodeResult[Boolean, ?]].monad[Int, Int, Int])
+  checkAll("DecodeResult[Boolean, ?]", MonadTests[DecodeResult[Boolean, ?]].monad[Int, Int, Int])
+  checkAll("DecodeResult", BifunctorTests[DecodeResult].bifunctor[Int, Int, Int, Int, Int, Int])
 }
