@@ -6,6 +6,39 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
+  // - Generic tests ---------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  test("foreach should not be executed for failures and pass the correct value for successes") {
+    forAll { (d: DecodeResult[String, Int]) ⇒ d match {
+      case Success(i) ⇒ d.foreach(v ⇒ assert(i == v))
+      case Failure(_) ⇒ d.foreach(_ ⇒ fail())
+    }}
+  }
+
+  test("forall should return true for failures, or the expected value for successes") {
+    forAll { (d: DecodeResult[String, Int], f: Int ⇒ Boolean) ⇒ d match {
+      case Success(i) ⇒ assert(d.forall(f) == f(i))
+      case Failure(_) ⇒ assert(d.forall(f))
+    }}
+  }
+
+  test("get should throw for failures and return the expected value for successes") {
+    forAll { (d: DecodeResult[String, Int]) ⇒ d match {
+      case Success(i) ⇒ assert(d.get == i)
+      case Failure(_) ⇒
+        intercept[NoSuchElementException](d.get)
+        ()
+    }}
+  }
+
+  test("getOrElse should return the default value for failures and the expected one for successes") {
+      forAll { (d: DecodeResult[String, Int], v: Int) ⇒ d match {
+        case Success(i) ⇒ assert(d.getOrElse(v) == i)
+        case Failure(_) ⇒ assert(d.getOrElse(v) == v)
+      }}
+    }
+
+
   // - Success specific tests ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   test("Success should be a success") {
@@ -27,15 +60,6 @@ class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
     forAll { s: Success[Int] ⇒ assert(s.toList == List(s.value)) }
   }
 
-  test("Success.get should succeed") {
-    forAll { s: Success[Int] ⇒ assert(s.get == s.value) }
-  }
-
-  test("Success.getOrElse should ignore the orElse") {
-    forAll { (s: Success[Int], f: String) ⇒ assert(s.getOrElse(f) == s.value) }
-  }
-
-
 
   // - Failure specific tests ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -56,16 +80,5 @@ class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   test("Failure.toList should be Nil") {
     forAll { f: Failure[Int] ⇒ assert(f.toList == Nil) }
-  }
-
-  test("Failure.get should throw NoSuchElementException") {
-    forAll { f: Failure[Int] ⇒
-      intercept[NoSuchElementException](f.get)
-      ()
-    }
-  }
-
-  test("Failure.getOrElse should return the orElse part") {
-    forAll { (f: Failure[Int], s: String) ⇒ assert(f.getOrElse(s) == s) }
   }
 }
