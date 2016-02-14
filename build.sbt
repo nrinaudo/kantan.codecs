@@ -2,6 +2,7 @@ import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
+val catsVersion          = "0.4.1"
 val macroParadiseVersion = "2.1.0"
 val scalatestVersion     = "3.0.0-M9"
 val scalaCheckVersion    = "1.12.5"
@@ -31,7 +32,10 @@ lazy val compilerOptions = Seq("-deprecation",
 
 lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
-  libraryDependencies += compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full),
+  libraryDependencies ++= Seq(
+    compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full),
+    compilerPlugin("org.spire-math" % "kind-projector" % "0.7.1" cross CrossVersion.binary)
+  ),
   incOptions     := incOptions.value.withNameHashing(true)
 )
 
@@ -67,7 +71,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws)
+  .aggregate(core, laws, cats)
 
 lazy val core = project
   .settings(
@@ -88,3 +92,16 @@ lazy val laws = project
   ))
   .settings(allSettings: _*)
   .dependsOn(core)
+
+lazy val cats = project
+  .settings(
+    moduleName := "kantan.codecs-cats",
+    name       := "cats"
+  )
+  .settings(libraryDependencies ++= Seq(
+    "org.typelevel" %% "cats"      % catsVersion,
+    "org.typelevel" %% "cats-laws" % catsVersion      % "test",
+    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+  ))
+  .settings(allSettings: _*)
+  .dependsOn(core, laws % "test")

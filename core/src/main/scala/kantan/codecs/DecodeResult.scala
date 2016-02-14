@@ -19,6 +19,13 @@ sealed abstract class DecodeResult[+F, +S] extends Product with Serializable {
   def get: S
 
 
+  // - Foldable operations ---------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def fold[A](ff: F => A, fs: S => A): A
+  def foldLeft[A](acc: A)(f: (A, S) => A): A = fold(_ => acc, f(acc, _))
+  def foldRight[A](acc: A)(f: (S, A) ⇒ A): A =
+    fold(_ ⇒ acc, s ⇒ f(s, acc))
+
 
   // - Monad operations ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -69,6 +76,8 @@ object DecodeResult {
     override def getOrElse[S2 >: S](default: => S2) = value
     override def get = value
 
+    override def fold[C](ff: Nothing => C, fs: S => C): C = fs(value)
+
     override def map[S2](f: S => S2) = copy(value = f(value))
     override def flatMap[F2 >: Nothing, S2](f: S => DecodeResult[F2, S2]) = f(value)
 
@@ -89,6 +98,8 @@ object DecodeResult {
     override def orElse[F2 >: F, S2 >: Nothing](default: ⇒ DecodeResult[F2, S2]) = default
     override def getOrElse[S2 >: Nothing](default: => S2) = default
     override def get = sys.error(s"get on a Failure($value)")
+
+    override def fold[C](ff: F => C, fs: Nothing => C): C = ff(value)
 
     override def map[S](f: Nothing => S) = this
     override def flatMap[F2 >: F, S](f: Nothing => DecodeResult[F2, S]) = this
