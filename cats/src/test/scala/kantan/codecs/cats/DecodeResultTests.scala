@@ -2,9 +2,11 @@ package kantan.codecs.cats
 
 import algebra.laws.{GroupLaws, OrderLaws}
 import cats.Eq
+import cats.data.NonEmptyList
 import kantan.codecs.DecodeResult
 import kantan.codecs.laws.discipline.arbitrary._
 import cats.laws.discipline.{TraverseTests, BifunctorTests, CartesianTests, MonadTests}
+import cats.laws.discipline.arbitrary._
 import cats.std.all._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -25,4 +27,5 @@ class DecodeResultTests  extends FunSuite with GeneratorDrivenPropertyChecks wit
   checkAll("DecodeResult[String, ?]", TraverseTests[DecodeResult[String, ?]].traverse[Int, Int, Int, Int, Option, Option])
   checkAll("DecodeResult[Int, String]", OrderLaws[DecodeResult[Int, String]].order)
   checkAll("DecodeResult[String, Int]", GroupLaws[DecodeResult[String, Int]].monoid)
+  checkAll("DecodeResult[String, NonEmptyList[Int]]", GroupLaws[DecodeResult[String, NonEmptyList[Int]]].semigroup)
 }

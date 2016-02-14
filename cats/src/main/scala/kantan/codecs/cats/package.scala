@@ -4,7 +4,7 @@ import _root_.cats._
 import _root_.cats.functor.Bifunctor
 import kantan.codecs.DecodeResult.{Failure, Success}
 
-package object cats {
+trait LowPriorityInstances {
   implicit def decodeResultEq[A, B](implicit ea: Eq[A], eb: Eq[B]): Eq[DecodeResult[A, B]] = new Eq[DecodeResult[A, B]] {
     override def eqv(x: DecodeResult[A, B], y: DecodeResult[A, B]): Boolean = x match {
       case Failure(a1) ⇒ y match {
@@ -18,6 +18,22 @@ package object cats {
     }
   }
 
+  implicit def decodeResultSemigroup[F, S](implicit sf: Semigroup[F], ss: Semigroup[S]): Semigroup[DecodeResult[F, S]] =
+    new Semigroup[DecodeResult[F, S]] {
+      override def combine(x: DecodeResult[F, S], y: DecodeResult[F, S]) = x match {
+        case Failure(f1) ⇒ y match {
+          case Failure(f2) ⇒ DecodeResult.Failure(sf.combine(f1, f2))
+          case Success(_)  ⇒ x
+        }
+        case Success(s1) ⇒ y match {
+          case Failure(f)  ⇒ y
+          case Success(s2) ⇒ DecodeResult.Success(ss.combine(s1, s2))
+        }
+      }
+    }
+}
+
+package object cats extends LowPriorityInstances {
   implicit def decodeResultOrder[A, B](implicit oa: Order[A], ob: Order[B]): Order[DecodeResult[A, B]] = new Order[DecodeResult[A, B]] {
     override def compare(x: DecodeResult[A, B], y: DecodeResult[A, B]): Int = x match {
       case Failure(a1) ⇒ y match {
@@ -60,7 +76,7 @@ package object cats {
         fa.foldRight(lb)(f)
       def traverse[G[_], S1, S2](fa: DecodeResult[F, S1])(f: S1 => G[S2])(implicit ag: Applicative[G]): G[DecodeResult[F, S2]] = fa match {
         case f@Failure(_) ⇒ ag.pure(f)
-        case Success(b)   ⇒ ag.map(f(b))(Success.apply _)
+        case Success(b)   ⇒ ag.map(f(b))(DecodeResult.success)
       }
 
       override def flatMap[A, B](fa: DecodeResult[F, A])(f: A => DecodeResult[F, B])= fa.flatMap(f)
