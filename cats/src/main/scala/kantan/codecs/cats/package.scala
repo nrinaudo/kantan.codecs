@@ -5,15 +5,15 @@ import _root_.cats.functor.Bifunctor
 import kantan.codecs.DecodeResult.{Failure, Success}
 
 trait LowPriorityInstances {
-  implicit def decodeResultEq[A, B](implicit ea: Eq[A], eb: Eq[B]): Eq[DecodeResult[A, B]] = new Eq[DecodeResult[A, B]] {
-    override def eqv(x: DecodeResult[A, B], y: DecodeResult[A, B]): Boolean = x match {
-      case Failure(a1) ⇒ y match {
-        case Failure(a2) ⇒ ea.eqv(a1, a2)
+  implicit def decodeResultEq[F, S](implicit ef: Eq[F], es: Eq[S]): Eq[DecodeResult[F, S]] = new Eq[DecodeResult[F, S]] {
+    override def eqv(x: DecodeResult[F, S], y: DecodeResult[F, S]): Boolean = x match {
+      case Failure(f1) ⇒ y match {
+        case Failure(f2) ⇒ ef.eqv(f1, f2)
         case Success(_)  ⇒ false
       }
-      case Success(b1) ⇒ y match {
+      case Success(s1) ⇒ y match {
         case Failure(_) ⇒ false
-        case Success(b2) ⇒ eb.eqv(b1, b2)
+        case Success(s2) ⇒ es.eqv(s1, s2)
       }
     }
   }
@@ -34,36 +34,36 @@ trait LowPriorityInstances {
 }
 
 package object cats extends LowPriorityInstances {
-  implicit def decodeResultOrder[A, B](implicit oa: Order[A], ob: Order[B]): Order[DecodeResult[A, B]] = new Order[DecodeResult[A, B]] {
-    override def compare(x: DecodeResult[A, B], y: DecodeResult[A, B]): Int = x match {
-      case Failure(a1) ⇒ y match {
-        case Failure(a2) ⇒ oa.compare(a1, a2)
+  implicit def decodeResultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[DecodeResult[F, S]] = new Order[DecodeResult[F, S]] {
+    override def compare(x: DecodeResult[F, S], y: DecodeResult[F, S]): Int = x match {
+      case Failure(f1) ⇒ y match {
+        case Failure(f2) ⇒ of.compare(f1, f2)
         case Success(_)  ⇒ -1
       }
-      case Success(b1) ⇒ y match {
+      case Success(s1) ⇒ y match {
         case Failure(_) ⇒ 1
-        case Success(b2) ⇒ ob.compare(b1, b2)
+        case Success(s2) ⇒ os.compare(s1, s2)
       }
     }
   }
 
-  implicit def decodeResultShow[A, B](implicit sa: Show[A], sb: Show[B]): Show[DecodeResult[A, B]] =
-    new Show[DecodeResult[A, B]] {
-      override def show(f: DecodeResult[A, B]) = f match {
-        case Failure(a) ⇒ s"Failure(${sa.show(a)})"
-        case Success(b) ⇒ s"Success(${sb.show(b)})"
+  implicit def decodeResultShow[F, S](implicit sf: Show[F], ss: Show[S]): Show[DecodeResult[F, S]] =
+    new Show[DecodeResult[F, S]] {
+      override def show(f: DecodeResult[F, S]) = f match {
+        case Failure(f) ⇒ s"Failure(${sf.show(f)})"
+        case Success(s) ⇒ s"Success(${ss.show(s)})"
       }
     }
 
-  implicit def decodeResultMonoid[A, B](implicit sa: Semigroup[A], mb: Monoid[B]) = new Monoid[DecodeResult[A, B]] {
-    override def empty = DecodeResult.success(mb.empty)
-    override def combine(x: DecodeResult[A, B], y: DecodeResult[A, B]) = x match {
-      case Failure(a1) ⇒ y match {
-        case Failure(a2) ⇒ Failure(sa.combine(a1, a2))
+  implicit def decodeResultMonoid[F, S](implicit sf: Semigroup[F], ms: Monoid[S]) = new Monoid[DecodeResult[F, S]] {
+    override def empty = DecodeResult.success(ms.empty)
+    override def combine(x: DecodeResult[F, S], y: DecodeResult[F, S]) = x match {
+      case Failure(f1) ⇒ y match {
+        case Failure(f2) ⇒ Failure(sf.combine(f1, f2))
         case Success(_)  ⇒ x
       }
-      case Success(b1) ⇒ y match {
-        case Success(b2) ⇒ Success(mb.combine(b1, b2))
+      case Success(s1) ⇒ y match {
+        case Success(s2) ⇒ Success(ms.combine(s1, s2))
         case Failure(_)  ⇒ y
       }
     }
@@ -76,7 +76,7 @@ package object cats extends LowPriorityInstances {
         fa.foldRight(lb)(f)
       def traverse[G[_], S1, S2](fa: DecodeResult[F, S1])(f: S1 => G[S2])(implicit ag: Applicative[G]): G[DecodeResult[F, S2]] = fa match {
         case f@Failure(_) ⇒ ag.pure(f)
-        case Success(b)   ⇒ ag.map(f(b))(DecodeResult.success)
+        case Success(s)   ⇒ ag.map(f(s))(DecodeResult.success)
       }
 
       override def flatMap[A, B](fa: DecodeResult[F, A])(f: A => DecodeResult[F, B])= fa.flatMap(f)
