@@ -1,6 +1,6 @@
 package kantan.codecs.cats
 
-import algebra.laws.OrderLaws
+import algebra.laws.{GroupLaws, OrderLaws}
 import cats.Eq
 import kantan.codecs.DecodeResult
 import kantan.codecs.laws.discipline.arbitrary._
@@ -18,10 +18,11 @@ class DecodeResultTests  extends FunSuite with GeneratorDrivenPropertyChecks wit
   }
 
   // TODO: not sure why this isn't resolved automatically. Investigate.
-  implicit val test = CartesianTests.Isomorphisms.invariant[DecodeResult[Boolean, ?]]
+  implicit val test = CartesianTests.Isomorphisms.invariant[DecodeResult[String, ?]]
 
-  checkAll("DecodeResult[Boolean, ?]", MonadTests[DecodeResult[Boolean, ?]].monad[Int, Int, Int])
+  checkAll("DecodeResult[String, ?]", MonadTests[DecodeResult[String, ?]].monad[Int, Int, Int])
   checkAll("DecodeResult[?, ?]", BifunctorTests[DecodeResult].bifunctor[Int, Int, Int, Int, Int, Int])
-  checkAll("DecodeResult[Boolean, ?]", TraverseTests[DecodeResult[Boolean, ?]].traverse[Int, Int, Int, Int, Option, Option])
+  checkAll("DecodeResult[String, ?]", TraverseTests[DecodeResult[String, ?]].traverse[Int, Int, Int, Int, Option, Option])
   checkAll("DecodeResult[Int, String]", OrderLaws[DecodeResult[Int, String]].order)
+  checkAll("DecodeResult[String, Int]", GroupLaws[DecodeResult[String, Int]].monoid)
 }
