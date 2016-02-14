@@ -2,7 +2,7 @@ package kantan.codecs
 
 trait Encoder[E, D] {
   def encode(d: D): E
-  def contramap[D2](f: D2 ⇒ D): Encoder[E, D2] = Encoder(f andThen encode)
+  def contramap[DD](f: DD ⇒ D): Encoder[E, DD] = Encoder(f andThen encode)
 }
 
 object Encoder {
