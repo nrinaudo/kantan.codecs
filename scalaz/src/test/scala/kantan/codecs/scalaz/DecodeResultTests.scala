@@ -18,13 +18,11 @@ class DecodeResultTests extends ScalazSuite {
   implicit val arbNoEqual = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
 
 
-  checkAll("DecodeResult[String, ?]", traverse.laws[DecodeResult[String, ?]])
-  checkAll("DecodeResult[String, ?]", monad.laws[DecodeResult[String, ?]])
-  checkAll("DecodeResult[String, Int]", equal.laws[DecodeResult[String, NoOrder]])
-  checkAll("DecodeResult[String, Int]", monoid.laws[DecodeResult[String, Int]])
-  checkAll("DecodeResult[String, NonEmptyList[Int]]", semigroup.laws[DecodeResult[String, NonEmptyList[Int]]])
   checkAll("DecodeResult[String, Int]", order.laws[DecodeResult[String, Int]])
-
-  // TODO: currently causes the tests to fail due to property name clashes.
-  //checkAll("DecodeResult[?, ?]", bifunctor.laws[DecodeResult[?, ?]])
+  checkAll("DecodeResult[String, Int]", equal.laws[DecodeResult[String, NoOrder]])
+  checkAll("DecodeResult[String, NonEmptyList[Int]]", semigroup.laws[DecodeResult[String, NonEmptyList[Int]]])
+  checkAll("DecodeResult[String, Int]", monoid.laws[DecodeResult[String, Int]])
+  checkAll("DecodeResult[String, ?]", monad.laws[DecodeResult[String, ?]])
+  checkAll("DecodeResult[String, ?]", traverse.laws[DecodeResult[String, ?]])
+  checkAll("DecodeResult[?, ?]", bitraverse.laws[DecodeResult[?, ?]])
 }

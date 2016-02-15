@@ -2,6 +2,7 @@ package kantan.codecs
 
 import kantan.codecs.DecodeResult.{Failure, Success}
 
+import _root_.scalaz.Alpha.G
 import _root_.scalaz._
 
 package object scalaz extends LowPriorityInstances {
@@ -55,8 +56,12 @@ package object scalaz extends LowPriorityInstances {
       override def foldLeft[S, A](r: DecodeResult[F, S], z: A)(f: (A, S) ⇒ A) = r.foldLeft(z)(f)
     }
 
-  implicit def decodeResultBiFunctor = new Bifunctor[DecodeResult] {
-    override def bimap[A, B, C, D](fab: DecodeResult[A, B])(f: A => C, g: B => D): DecodeResult[C, D] =
-      fab.bimap(f, g)
+  implicit def decodeResultBitraverse = new Bitraverse[DecodeResult] {
+    override def bitraverseImpl[G[_], A, B, C, D](fab: DecodeResult[A, B])(f: A => G[C], g: B => G[D])(implicit ag: Applicative[G])=
+      fab match {
+        case Failure(a) => Functor[G].map(f(a))(Failure.apply)
+        case Success(b) => Functor[G].map(g(b))(Success.apply)
+      }
+    override def bimap[A, B, C, D](fab: DecodeResult[A, B])(f: A => C, g: B => D) = fab.bimap(f, g)
   }
 }
