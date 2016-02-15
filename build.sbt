@@ -3,6 +3,7 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
 val catsVersion          = "0.4.1"
+val scalazVersion        = "7.2.0"
 val macroParadiseVersion = "2.1.0"
 val scalatestVersion     = "3.0.0-M9"
 val scalaCheckVersion    = "1.12.5"
@@ -71,7 +72,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws, cats, tests)
+  .aggregate(core, laws, cats, scalaz, tests)
 
 lazy val core = project
   .settings(
@@ -105,6 +106,20 @@ lazy val cats = project
   ))
   .settings(allSettings: _*)
   .dependsOn(core, laws % "test")
+
+lazy val scalaz = project
+  .settings(
+    moduleName := "kantan.codecs-scalaz",
+    name       := "scalaz"
+  )
+  .settings(allSettings: _*)
+  .settings(libraryDependencies ++= Seq(
+    "org.scalaz"    %% "scalaz-core"               % scalazVersion,
+    "org.scalaz"    %% "scalaz-scalacheck-binding" % scalazVersion    % "test",
+    "org.scalatest" %% "scalatest"                 % scalatestVersion % "test"
+  ))
+  .dependsOn(core, laws % "test")
+
 
 lazy val tests = project
   .settings(allSettings: _*)
