@@ -3,9 +3,9 @@ package kantan.codecs.scalaz
 import kantan.codecs.DecodeResult
 import kantan.codecs.laws.discipline.arbitrary._
 
-import scalaz.{Semigroup, NonEmptyList}
-import scalaz.scalacheck.ScalazProperties._
+import scalaz.NonEmptyList
 import scalaz.scalacheck.ScalazArbitrary._
+import scalaz.scalacheck.ScalazProperties._
 import scalaz.std.anyVal._
 import scalaz.std.string._
 
