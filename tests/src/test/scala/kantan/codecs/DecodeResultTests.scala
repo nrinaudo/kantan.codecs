@@ -2,8 +2,11 @@ package kantan.codecs
 
 import kantan.codecs.DecodeResult.{Failure, Success}
 import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
+
+import scala.util.Try
 
 class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   // - Generic tests ---------------------------------------------------------------------------------------------------
@@ -72,6 +75,27 @@ class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }}
   }
   */
+
+  test("fromTry should return a Failure from a Failure and a Success from a Success") {
+    forAll { (t: Try[Int]) ⇒ t match {
+      case scala.util.Failure(e) ⇒ assert(DecodeResult.fromTry(t) == Failure(e))
+      case scala.util.Success(i) ⇒ assert(DecodeResult.fromTry(t) == Success(i))
+    }}
+  }
+
+  test("fromEither should return a Failure from a Left and a Success from a Right") {
+    forAll { (e: Either[String, Int]) ⇒ e match {
+      case Left(s) ⇒ assert(DecodeResult.fromEither(e) == Failure(s))
+      case Right(i) ⇒ assert(DecodeResult.fromEither(e) == Success(i))
+    }}
+  }
+
+  test("fromOption should return a Failure from a None and a Success from a Some") {
+    forAll { (o: Option[Int], s: String) ⇒ o match {
+      case None ⇒ assert(DecodeResult.fromOption(o, s) == Failure(s))
+      case Some(i) ⇒ assert(DecodeResult.fromOption(o, s) == Success(i))
+    }}
+  }
 
 
   // - Success specific tests ------------------------------------------------------------------------------------------
