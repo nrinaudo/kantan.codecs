@@ -32,11 +32,46 @@ class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("getOrElse should return the default value for failures and the expected one for successes") {
-      forAll { (d: DecodeResult[String, Int], v: Int) ⇒ d match {
-        case Success(i) ⇒ assert(d.getOrElse(v) == i)
-        case Failure(_) ⇒ assert(d.getOrElse(v) == v)
-      }}
-    }
+    forAll { (d: DecodeResult[String, Int], v: Int) ⇒ d match {
+      case Success(i) ⇒ assert(d.getOrElse(v) == i)
+      case Failure(_) ⇒ assert(d.getOrElse(v) == v)
+    }}
+  }
+
+  test("valueOr should apply the specified function to a failure's value, or do nothing for a success") {
+    forAll { (d: DecodeResult[String, Int], or: String ⇒ Int) ⇒ d match {
+      case Success(i) ⇒ assert(d.valueOr(or) == i)
+      case Failure(s) ⇒ assert(d.valueOr(or) == or(s))
+    }}
+  }
+
+  test("exists should return false for failures, true for successes where it applies") {
+    forAll { (d: DecodeResult[String, Int], f: Int ⇒ Boolean) ⇒ d match {
+      case Success(i) ⇒ assert(d.exists(f) == f(i))
+      case Failure(s) ⇒ assert(!d.exists(f))
+    }}
+  }
+
+  test("ensure should only modify successes for which the specified predicate returns false") {
+    forAll { (d: DecodeResult[String, Int], failure: String, f: Int ⇒ Boolean) ⇒ d match {
+      case Success(i) ⇒
+        if(f(i)) assert(d.ensure(failure)(f) == d)
+        else     assert(d.ensure(failure)(f) == DecodeResult.failure(failure))
+      case Failure(s) ⇒ assert(d.ensure(failure)(f) == d)
+    }}
+  }
+
+  // TODO: this requires Arbitrary[PartialFunction[String, Int]]. Write when time allows.
+  /*
+  test("recover should only modify failures for which the specified function is defined") {
+    forAll { (d: DecodeResult[String, Int], f: PartialFunction[String, Int]) ⇒ d match {
+      case Success(i) ⇒ assert(d.recover(f) == DecodeResult.success(i))
+      case Failure(s) ⇒
+        if(f.isDefinedAt(s)) assert(d.recover(f) == DecodeResult.success(f(s)))
+        else                 assert(d.recover(f) == d)
+    }}
+  }
+  */
 
 
   // - Success specific tests ------------------------------------------------------------------------------------------
