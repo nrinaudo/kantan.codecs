@@ -5,7 +5,7 @@ import kantan.codecs.DecodeResult.{Success, Failure}
 
 import scalaz.{Semigroup, Equal}
 
-trait LowPriorityInstances {
+trait LowPriorityScalazInstances {
   implicit def decodeResultEqual[F, S](implicit ef: Equal[F], es: Equal[S]): Equal[DecodeResult[F, S]] =
     new Equal[DecodeResult[F, S]] {
       override def equal(x: DecodeResult[F, S], y: DecodeResult[F, S]) = x match {

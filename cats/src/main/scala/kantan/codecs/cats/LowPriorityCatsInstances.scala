@@ -4,7 +4,7 @@ import cats._
 import kantan.codecs.DecodeResult
 import kantan.codecs.DecodeResult.{Success, Failure}
 
-trait LowPriorityInstances {
+trait LowPriorityCatsInstances {
   implicit def decodeResultEq[F, S](implicit ef: Eq[F], es: Eq[S]): Eq[DecodeResult[F, S]] = new Eq[DecodeResult[F, S]] {
     override def eqv(x: DecodeResult[F, S], y: DecodeResult[F, S]): Boolean = x match {
       case Failure(f1) ⇒ y match {
