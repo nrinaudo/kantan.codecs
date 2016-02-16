@@ -1,12 +1,9 @@
 package kantan.codecs
 
-trait Encoder[E, D] {
+trait Encoder[E, D, R[DD] <: Encoder[E, DD, R]] { self: R[D] ⇒
   def encode(d: D): E
-  def contramap[DD](f: DD ⇒ D): Encoder[E, DD] = Encoder(f andThen encode)
-}
 
-object Encoder {
-  def apply[E, D](f: D ⇒ E): Encoder[E, D] = new Encoder[E, D] {
-    override def encode(d: D) = f(d)
-  }
+  protected def copy[DD](f: DD ⇒ E): R[DD]
+
+  def contramap[DD](f: DD ⇒ D): R[DD] = copy(f andThen encode)
 }

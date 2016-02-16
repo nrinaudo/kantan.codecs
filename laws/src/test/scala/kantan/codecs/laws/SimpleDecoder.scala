@@ -3,7 +3,6 @@ package kantan.codecs.laws
 import kantan.codecs.{DecodeResult, Decoder}
 
 trait SimpleDecoder[A] extends Decoder[String, A, Boolean, SimpleDecoder] {
-  def decode(e: String): DecodeResult[Boolean, A]
   override protected def copy[DD](f: String => DecodeResult[Boolean, DD]) = SimpleDecoder(f)
 }
 
