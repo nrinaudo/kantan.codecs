@@ -1,15 +1,11 @@
 package kantan.codecs
 
-trait Decoder[E, D, F] {
+trait Decoder[E, D, F, R[DD] <: Decoder[E, DD, F, R]] { self: R[D] ⇒
   /** Decodes encoded data. */
   def decode(e: E): DecodeResult[F, D]
 
-  def map[DD](f: D ⇒ DD): Decoder[E, DD, F] = Decoder(e ⇒ decode(e).map(f))
-  def mapResult[DD](f: D ⇒ DecodeResult[F, DD]): Decoder[E, DD, F] = Decoder(e ⇒ decode(e).flatMap(f))
-}
+  protected def copy[DD](f: E ⇒ DecodeResult[F, DD]): R[DD]
 
-object Decoder {
-  def apply[E, D, F](f: E ⇒ DecodeResult[F, D]): Decoder[E, D, F] = new Decoder[E, D, F] {
-    override def decode(e: E) = f(e)
-  }
+  def map[DD](f: D ⇒ DD): R[DD] = copy(e ⇒ decode(e).map(f))
+  def mapResult[DD](f: D ⇒ DecodeResult[F, DD]): R[DD] = copy(e ⇒ decode(e).flatMap(f))
 }

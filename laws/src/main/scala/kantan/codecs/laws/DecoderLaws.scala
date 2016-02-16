@@ -3,8 +3,8 @@ package kantan.codecs.laws
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.{DecodeResult, Decoder}
 
-trait DecoderLaws[E, D, F] {
-  def decoder: Decoder[E, D, F]
+trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
+  def decoder: Decoder[E, D, F, R]
 
   private def cmp(result: DecodeResult[F, D], cv: CodecValue[E, D]): Boolean = (cv, result) match {
     case (IllegalValue(_),  DecodeResult.Failure(_))  ⇒ true
@@ -25,8 +25,9 @@ trait DecoderLaws[E, D, F] {
   def mapIdentity(v: CodecValue[E, D]): Boolean =
     decoder.decode(v.encoded) == decoder.map(identity).decode(v.encoded)
 
-  def mapComposition[A, B](v: CodecValue[E, D], f: D ⇒ A, g: A ⇒ B): Boolean =
+  def mapComposition[A, B](v: CodecValue[E, D], f: D ⇒ A, g: A ⇒ B): Boolean = {
     decoder.map(f andThen g).decode(v.encoded) == decoder.map(f).map(g).decode(v.encoded)
+  }
 
 
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------
@@ -39,7 +40,7 @@ trait DecoderLaws[E, D, F] {
 }
 
 object DecoderLaws {
-  implicit def apply[E, D, F](implicit de: Decoder[E, D, F]): DecoderLaws[E, D, F] = new DecoderLaws[E, D, F] {
+  implicit def apply[E, D, F, R[DD] <: Decoder[E, DD, F, R]](implicit de: Decoder[E, D, F, R]): DecoderLaws[E, D, F, R] = new DecoderLaws[E, D, F, R] {
     override val decoder = de
   }
 }
