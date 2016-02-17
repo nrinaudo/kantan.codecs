@@ -1,14 +1,14 @@
 package kantan.codecs.laws
 
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.{DecodeResult, Decoder}
+import kantan.codecs.{Result, Decoder}
 
 trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
   def decoder: Decoder[E, D, F, R]
 
-  private def cmp(result: DecodeResult[F, D], cv: CodecValue[E, D]): Boolean = (cv, result) match {
-    case (IllegalValue(_),  DecodeResult.Failure(_))  ⇒ true
-    case (LegalValue(_, d), DecodeResult.Success(d2)) ⇒ d == d2
+  private def cmp(result: Result[F, D], cv: CodecValue[E, D]): Boolean = (cv, result) match {
+    case (IllegalValue(_),  Result.Failure(_))  ⇒ true
+    case (LegalValue(_, d), Result.Success(d2)) ⇒ d == d2
     case _                                            ⇒ false
   }
 
@@ -33,9 +33,9 @@ trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def mapResultIdentity(v: CodecValue[E, D]): Boolean =
-    decoder.decode(v.encoded) == decoder.mapResult(DecodeResult.success).decode(v.encoded)
+    decoder.decode(v.encoded) == decoder.mapResult(Result.success).decode(v.encoded)
 
-  def mapResultComposition[A, B](v: CodecValue[E, D], f: D ⇒ DecodeResult[F, A], g: A ⇒ DecodeResult[F, B]): Boolean =
+  def mapResultComposition[A, B](v: CodecValue[E, D], f: D ⇒ Result[F, A], g: A ⇒ Result[F, B]): Boolean =
     decoder.mapResult(d ⇒ f(d).flatMap(g)).decode(v.encoded) ==  decoder.mapResult(f).mapResult(g).decode(v.encoded)
 }
 

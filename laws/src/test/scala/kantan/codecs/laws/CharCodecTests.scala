@@ -1,6 +1,6 @@
 package kantan.codecs.laws
 
-import kantan.codecs.DecodeResult
+import kantan.codecs.Result
 import kantan.codecs.laws.discipline.{DecoderTests, EncoderTests}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -8,8 +8,8 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class CharCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val decoder = SimpleDecoder { s ⇒
-    if(s.length == 1) DecodeResult.success(s.charAt(0))
-    else              DecodeResult.failure(true)
+    if(s.length == 1) Result.success(s.charAt(0))
+    else              Result.failure(true)
   }
   implicit val encoder = SimpleEncoder[Char](_.toString)
 

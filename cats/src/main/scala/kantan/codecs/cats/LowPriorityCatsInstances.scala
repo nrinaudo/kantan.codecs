@@ -1,12 +1,12 @@
 package kantan.codecs.cats
 
 import cats._
-import kantan.codecs.DecodeResult
-import kantan.codecs.DecodeResult.{Success, Failure}
+import kantan.codecs.Result
+import kantan.codecs.Result.{Success, Failure}
 
 trait LowPriorityCatsInstances {
-  implicit def decodeResultEq[F, S](implicit ef: Eq[F], es: Eq[S]): Eq[DecodeResult[F, S]] = new Eq[DecodeResult[F, S]] {
-    override def eqv(x: DecodeResult[F, S], y: DecodeResult[F, S]): Boolean = x match {
+  implicit def decodeResultEq[F, S](implicit ef: Eq[F], es: Eq[S]): Eq[Result[F, S]] = new Eq[Result[F, S]] {
+    override def eqv(x: Result[F, S], y: Result[F, S]): Boolean = x match {
       case Failure(f1) ⇒ y match {
         case Failure(f2) ⇒ ef.eqv(f1, f2)
         case Success(_)  ⇒ false
@@ -18,16 +18,16 @@ trait LowPriorityCatsInstances {
     }
   }
 
-  implicit def decodeResultSemigroup[F, S](implicit sf: Semigroup[F], ss: Semigroup[S]): Semigroup[DecodeResult[F, S]] =
-    new Semigroup[DecodeResult[F, S]] {
-      override def combine(x: DecodeResult[F, S], y: DecodeResult[F, S]) = x match {
+  implicit def decodeResultSemigroup[F, S](implicit sf: Semigroup[F], ss: Semigroup[S]): Semigroup[Result[F, S]] =
+    new Semigroup[Result[F, S]] {
+      override def combine(x: Result[F, S], y: Result[F, S]) = x match {
         case Failure(f1) ⇒ y match {
-          case Failure(f2) ⇒ DecodeResult.Failure(sf.combine(f1, f2))
+          case Failure(f2) ⇒ Result.Failure(sf.combine(f1, f2))
           case Success(_)  ⇒ x
         }
         case Success(s1) ⇒ y match {
           case Failure(f)  ⇒ y
-          case Success(s2) ⇒ DecodeResult.Success(ss.combine(s1, s2))
+          case Success(s2) ⇒ Result.Success(ss.combine(s1, s2))
         }
       }
     }

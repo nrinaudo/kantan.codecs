@@ -1,6 +1,6 @@
 package kantan.codecs
 
-import kantan.codecs.DecodeResult.{Failure, Success}
+import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.arbitrary._
 import org.scalatest.FunSuite
@@ -8,25 +8,25 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 import scala.util.Try
 
-class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   // - Generic tests ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   test("foreach should not be executed for failures and pass the correct value for successes") {
-    forAll { (d: DecodeResult[String, Int]) ⇒ d match {
+    forAll { (d: Result[String, Int]) ⇒ d match {
       case Success(i) ⇒ d.foreach(v ⇒ assert(i == v))
       case Failure(_) ⇒ d.foreach(_ ⇒ fail())
     }}
   }
 
   test("forall should return true for failures, or the expected value for successes") {
-    forAll { (d: DecodeResult[String, Int], f: Int ⇒ Boolean) ⇒ d match {
+    forAll { (d: Result[String, Int], f: Int ⇒ Boolean) ⇒ d match {
       case Success(i) ⇒ assert(d.forall(f) == f(i))
       case Failure(_) ⇒ assert(d.forall(f))
     }}
   }
 
   test("get should throw for failures and return the expected value for successes") {
-    forAll { (d: DecodeResult[String, Int]) ⇒ d match {
+    forAll { (d: Result[String, Int]) ⇒ d match {
       case Success(i) ⇒ assert(d.get == i)
       case Failure(_) ⇒
         intercept[NoSuchElementException](d.get)
@@ -35,31 +35,31 @@ class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("getOrElse should return the default value for failures and the expected one for successes") {
-    forAll { (d: DecodeResult[String, Int], v: Int) ⇒ d match {
+    forAll { (d: Result[String, Int], v: Int) ⇒ d match {
       case Success(i) ⇒ assert(d.getOrElse(v) == i)
       case Failure(_) ⇒ assert(d.getOrElse(v) == v)
     }}
   }
 
   test("valueOr should apply the specified function to a failure's value, or do nothing for a success") {
-    forAll { (d: DecodeResult[String, Int], or: String ⇒ Int) ⇒ d match {
+    forAll { (d: Result[String, Int], or: String ⇒ Int) ⇒ d match {
       case Success(i) ⇒ assert(d.valueOr(or) == i)
       case Failure(s) ⇒ assert(d.valueOr(or) == or(s))
     }}
   }
 
   test("exists should return false for failures, true for successes where it applies") {
-    forAll { (d: DecodeResult[String, Int], f: Int ⇒ Boolean) ⇒ d match {
+    forAll { (d: Result[String, Int], f: Int ⇒ Boolean) ⇒ d match {
       case Success(i) ⇒ assert(d.exists(f) == f(i))
       case Failure(s) ⇒ assert(!d.exists(f))
     }}
   }
 
   test("ensure should only modify successes for which the specified predicate returns false") {
-    forAll { (d: DecodeResult[String, Int], failure: String, f: Int ⇒ Boolean) ⇒ d match {
+    forAll { (d: Result[String, Int], failure: String, f: Int ⇒ Boolean) ⇒ d match {
       case Success(i) ⇒
         if(f(i)) assert(d.ensure(failure)(f) == d)
-        else     assert(d.ensure(failure)(f) == DecodeResult.failure(failure))
+        else     assert(d.ensure(failure)(f) == Result.failure(failure))
       case Failure(s) ⇒ assert(d.ensure(failure)(f) == d)
     }}
   }
@@ -78,22 +78,22 @@ class DecodeResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   test("fromTry should return a Failure from a Failure and a Success from a Success") {
     forAll { (t: Try[Int]) ⇒ t match {
-      case scala.util.Failure(e) ⇒ assert(DecodeResult.fromTry(t) == Failure(e))
-      case scala.util.Success(i) ⇒ assert(DecodeResult.fromTry(t) == Success(i))
+      case scala.util.Failure(e) ⇒ assert(Result.fromTry(t) == Failure(e))
+      case scala.util.Success(i) ⇒ assert(Result.fromTry(t) == Success(i))
     }}
   }
 
   test("fromEither should return a Failure from a Left and a Success from a Right") {
     forAll { (e: Either[String, Int]) ⇒ e match {
-      case Left(s) ⇒ assert(DecodeResult.fromEither(e) == Failure(s))
-      case Right(i) ⇒ assert(DecodeResult.fromEither(e) == Success(i))
+      case Left(s) ⇒ assert(Result.fromEither(e) == Failure(s))
+      case Right(i) ⇒ assert(Result.fromEither(e) == Success(i))
     }}
   }
 
   test("fromOption should return a Failure from a None and a Success from a Some") {
     forAll { (o: Option[Int], s: String) ⇒ o match {
-      case None ⇒ assert(DecodeResult.fromOption(o, s) == Failure(s))
-      case Some(i) ⇒ assert(DecodeResult.fromOption(o, s) == Success(i))
+      case None ⇒ assert(Result.fromOption(o, s) == Failure(s))
+      case Some(i) ⇒ assert(Result.fromOption(o, s) == Success(i))
     }}
   }
 

@@ -1,6 +1,6 @@
 package kantan.codecs.laws
 
-import kantan.codecs.{DecodeResult, Encoder}
+import kantan.codecs.{Result, Encoder}
 
 trait SimpleEncoder[A] extends Encoder[String, A, SimpleEncoder] {
   override protected def copy[DD](f: DD => String) = SimpleEncoder(f)

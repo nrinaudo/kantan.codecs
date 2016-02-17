@@ -1,7 +1,7 @@
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.DecodeResult
-import kantan.codecs.DecodeResult.{Failure, Success}
+import kantan.codecs.Result
+import kantan.codecs.Result.{Failure, Success}
 import org.scalacheck.{Gen, Arbitrary}
 
 object arbitrary {
@@ -13,6 +13,6 @@ object arbitrary {
   implicit def arbSuccess[S: Arbitrary]: Arbitrary[Success[S]] = Arbitrary(success)
   implicit def arbFailure[F: Arbitrary]: Arbitrary[Failure[F]] = Arbitrary(failure)
 
-  implicit def arbDecodeResult[F: Arbitrary, S: Arbitrary]: Arbitrary[DecodeResult[F, S]] =
+  implicit def arbDecodeResult[F: Arbitrary, S: Arbitrary]: Arbitrary[Result[F, S]] =
     Arbitrary(Gen.oneOf(success[S], failure[F]))
 }
