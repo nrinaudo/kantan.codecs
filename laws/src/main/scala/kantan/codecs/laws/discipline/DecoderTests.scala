@@ -16,21 +16,24 @@ trait DecoderTests[E, D, F, R[DD] <: Decoder[E, DD, F, R]] extends Laws {
   implicit def arbF: Arbitrary[F]
   implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
 
-  private def rules[A: Arbitrary, B: Arbitrary](name: String)(implicit arbED: Arbitrary[CodecValue[E, D]]): RuleSet = new DefaultRuleSet(
-    name = name,
-    parent = None,
-    "decode" → forAll(laws.decode _),
-    "map identity" → forAll(laws.mapIdentity _),
-    "mapResult identity" → forAll(laws.mapResultIdentity _),
-    "map composition" → forAll(laws.mapComposition[A, B] _),
-    "mapResult composition" → forAll(laws.mapResultComposition[A, B] _)
+  def bijectiveDecoder[A: Arbitrary, B: Arbitrary]: RuleSet = {
+    implicit val arbED: Arbitrary[CodecValue[E, D]] = Arbitrary(arbLegal.arbitrary)
+    new DefaultRuleSet(
+      name = "bijective decoder",
+      parent = None,
+      "decode" → forAll(laws.decode _),
+      "map identity" → forAll(laws.mapIdentity _),
+      "mapResult identity" → forAll(laws.mapResultIdentity _),
+      "map composition" → forAll(laws.mapComposition[A, B] _),
+      "mapResult composition" → forAll(laws.mapResultComposition[A, B] _)
+    )
+  }
+
+  def decoder[A: Arbitrary, B: Arbitrary](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D]]): RuleSet = new DefaultRuleSet(
+    name = "decoder",
+    parent = Some(bijectiveDecoder(arbA, arbB)),
+    "decode failure" → forAll(laws.decodeFailure _)
   )
-
-  def bijectiveDecoder[A: Arbitrary, B: Arbitrary]: RuleSet =
-    rules("bijective decoder")(implicitly[Arbitrary[A]], implicitly[Arbitrary[B]], Arbitrary(arbLegal.arbitrary))
-
-  def decoder[A: Arbitrary, B: Arbitrary](implicit ai: Arbitrary[IllegalValue[E, D]]): RuleSet = rules[A, B]("decoder")
-
 }
 
 object DecoderTests {

@@ -11,6 +11,9 @@ trait Decoder[E, D, F, R[DD] <: Decoder[E, DD, F, R]] { self: R[D] ⇒
   /** Decodes encoded data. */
   def decode(e: E): Result[F, D]
 
+  /** Decodes encoded data, throws if a failure occurs. */
+  def unsafeDecode(e: E): D = decode(e).get
+
   /** Clones this decoder to create a new one with a different decoding function. */
   protected def copy[DD](f: E ⇒ Result[F, DD]): R[DD]
 

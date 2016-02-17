@@ -2,6 +2,7 @@ package kantan.codecs.laws
 
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.{Result, Decoder}
+import org.scalacheck.Prop
 
 trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
   def decoder: Decoder[E, D, F, R]
@@ -17,6 +18,9 @@ trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
   // - Simple laws -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def decode(v: CodecValue[E, D]): Boolean = cmp(decoder.decode(v.encoded), v)
+
+  def decodeFailure(v: IllegalValue[E, D]): Boolean =
+    Prop.throws(classOf[NoSuchElementException])(decoder.unsafeDecode(v.encoded))
 
 
   // - Functor laws ----------------------------------------------------------------------------------------------------
