@@ -2,14 +2,10 @@ package kantan.codecs.laws
 
 import java.util.UUID
 
-import kantan.codecs.laws.discipline.arbitrary
-import org.scalacheck.Arbitrary.{arbitrary ⇒ arb}
-import arbitrary._
-
+import kantan.codecs.laws.discipline.arbitrary._
+import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen}
-
-import scala.util.Try
 
 // TODO: investigate what type variance annotations can be usefully applied to CodecValue.
 sealed abstract class CodecValue[E, D] extends Product with Serializable {
@@ -64,45 +60,45 @@ object CodecValue {
 
   // Encoding to / decoding from strings is such a common patterns that default arbitrary instances are provided for
   // common types.
-  implicit val arbLegalStrStr: Arbitrary[LegalValue[String, String]] = arbLegal(identity)
+  implicit val arbLegalStrStr: Arbitrary[LegalString[String]] = arbLegal(identity)
 
-  implicit val arbLegalStrInt: Arbitrary[LegalValue[String, Int]] = arbLegal(_.toString)
-  implicit def arbIllegalStrInt: Arbitrary[IllegalValue[String, Int]] = arbIllegal(Integer.parseInt)
+  implicit val arbLegalStrInt: Arbitrary[LegalString[Int]] = arbLegal(_.toString)
+  implicit def arbIllegalStrInt: Arbitrary[IllegalString[Int]] = arbIllegal(Integer.parseInt)
 
-  implicit val arbLegalStrFloat: Arbitrary[LegalValue[String, Float]] = arbLegal(_.toString)
-  implicit val arbIllegalStrFloat: Arbitrary[IllegalValue[String, Float]] = arbIllegal(_.toFloat)
+  implicit val arbLegalStrFloat: Arbitrary[LegalString[Float]] = arbLegal(_.toString)
+  implicit val arbIllegalStrFloat: Arbitrary[IllegalString[Float]] = arbIllegal(_.toFloat)
 
-  implicit val arbLegalStrDouble: Arbitrary[LegalValue[String, Double]] = arbLegal(_.toString)
-  implicit val arbIllegalStrDouble: Arbitrary[IllegalValue[String, Double]] = arbIllegal(_.toDouble)
+  implicit val arbLegalStrDouble: Arbitrary[LegalString[Double]] = arbLegal(_.toString)
+  implicit val arbIllegalStrDouble: Arbitrary[IllegalString[Double]] = arbIllegal(_.toDouble)
 
-  implicit val arbLegalStrLong: Arbitrary[LegalValue[String, Long]] = arbLegal(_.toString)
-  implicit val arbIllegalStrLong: Arbitrary[IllegalValue[String, Long]] = arbIllegal(_.toLong)
+  implicit val arbLegalStrLong: Arbitrary[LegalString[Long]] = arbLegal(_.toString)
+  implicit val arbIllegalStrLong: Arbitrary[IllegalString[Long]] = arbIllegal(_.toLong)
 
-  implicit val arbLegalStrShort: Arbitrary[LegalValue[String, Short]] = arbLegal(_.toString)
-  implicit val arbIllegalStrShort: Arbitrary[IllegalValue[String, Short]] = arbIllegal(_.toShort)
+  implicit val arbLegalStrShort: Arbitrary[LegalString[Short]] = arbLegal(_.toString)
+  implicit val arbIllegalStrShort: Arbitrary[IllegalString[Short]] = arbIllegal(_.toShort)
 
-  implicit val arbLegalStrByte: Arbitrary[LegalValue[String, Byte]] = arbLegal(_.toString)
-  implicit val arbIllegalStrByte: Arbitrary[IllegalValue[String, Byte]] = arbIllegal(_.toByte)
+  implicit val arbLegalStrByte: Arbitrary[LegalString[Byte]] = arbLegal(_.toString)
+  implicit val arbIllegalStrByte: Arbitrary[IllegalString[Byte]] = arbIllegal(_.toByte)
 
-  implicit val arbLegalStrBoolean: Arbitrary[LegalValue[String, Boolean]] = arbLegal(_.toString)
-  implicit val arbIllegalStrBoolean: Arbitrary[IllegalValue[String, Boolean]] = arbIllegal(_.toBoolean)
+  implicit val arbLegalStrBoolean: Arbitrary[LegalString[Boolean]] = arbLegal(_.toString)
+  implicit val arbIllegalStrBoolean: Arbitrary[IllegalString[Boolean]] = arbIllegal(_.toBoolean)
 
-  implicit val arbLegalStrBigInt: Arbitrary[LegalValue[String, BigInt]] = arbLegal(_.toString)
-  implicit val arbIllegalStrBigInt: Arbitrary[IllegalValue[String, BigInt]] = arbIllegal(BigInt.apply)
+  implicit val arbLegalStrBigInt: Arbitrary[LegalString[BigInt]] = arbLegal(_.toString)
+  implicit val arbIllegalStrBigInt: Arbitrary[IllegalString[BigInt]] = arbIllegal(BigInt.apply)
 
-  implicit val arbLegalStrBigDecimal: Arbitrary[LegalValue[String, BigDecimal]] = arbLegal(_.toString)
-  implicit val arbIllegalStrBigDecimal: Arbitrary[IllegalValue[String, BigDecimal]] = arbIllegal(BigDecimal.apply)
+  implicit val arbLegalStrBigDecimal: Arbitrary[LegalString[BigDecimal]] = arbLegal(_.toString)
+  implicit val arbIllegalStrBigDecimal: Arbitrary[IllegalString[BigDecimal]] = arbIllegal(BigDecimal.apply)
 
-  implicit val arbLegalStrUUID: Arbitrary[LegalValue[String, UUID]] = arbLegal[String, UUID](_.toString)(Arbitrary(Gen.uuid))
-  implicit val arbIllegalStrUUID: Arbitrary[IllegalValue[String, UUID]] = arbIllegal(UUID.fromString)
+  implicit val arbLegalStrUUID: Arbitrary[LegalString[UUID]] = arbLegal[String, UUID](_.toString)(Arbitrary(Gen.uuid))
+  implicit val arbIllegalStrUUID: Arbitrary[IllegalString[UUID]] = arbIllegal(UUID.fromString)
 
-  implicit val arbLegalStrChar: Arbitrary[LegalValue[String, Char]] = arbLegal(_.toString)
-  implicit val arbIllegalStrChar: Arbitrary[IllegalValue[String, Char]] = arbIllegal { str =>
+  implicit val arbLegalStrChar: Arbitrary[LegalString[Char]] = arbLegal(_.toString)
+  implicit val arbIllegalStrChar: Arbitrary[IllegalString[Char]] = arbIllegal { str =>
     if(str.length == 1) str.charAt(0)
     else                sys.error(s"not a valid char: '$str'")
   }
 
-  implicit def arbLegalStrEither[L, R](implicit al: Arbitrary[LegalValue[String, L]], ar: Arbitrary[LegalValue[String, R]])
+  implicit def arbLegalStrEither[L, R](implicit al: Arbitrary[LegalString[L]], ar: Arbitrary[LegalString[R]])
   : Arbitrary[LegalValue[String, Either[L, R]]] = Arbitrary {
     arb[Either[LegalValue[String, L], LegalValue[String, R]]].map {
       case Left(l) ⇒ l.mapDecoded(Left.apply)
@@ -110,7 +106,7 @@ object CodecValue {
     }
   }
 
-  implicit def arbIllegalStrEither[L, R](implicit al: Arbitrary[IllegalValue[String, L]], ar: Arbitrary[IllegalValue[String, R]])
+  implicit def arbIllegalStrEither[L, R](implicit al: Arbitrary[IllegalString[L]], ar: Arbitrary[IllegalString[R]])
   : Arbitrary[IllegalValue[String, Either[L, R]]] = Arbitrary {
     arb[Either[IllegalValue[String, L], IllegalValue[String, R]]].map {
       case Left(l)  ⇒ IllegalValue(l.encoded)
@@ -118,14 +114,14 @@ object CodecValue {
     }
   }
 
-  implicit def arbLegalStrOption[D](implicit dl: Arbitrary[LegalValue[String, D]]): Arbitrary[LegalValue[String, Option[D]]] =
+  implicit def arbLegalStrOption[D](implicit dl: Arbitrary[LegalString[D]]): Arbitrary[LegalString[Option[D]]] =
     Arbitrary {
       arb[Option[LegalValue[String, D]]]
         .suchThat(_.map(_.encoded.nonEmpty).getOrElse(true))
         .map(_.map(l ⇒ l.copy(decoded = Option(l.decoded))).getOrElse(LegalValue("", None)))
     }
 
-  implicit def arbIllegalStrOption[D](implicit dl: Arbitrary[IllegalValue[String, D]]): Arbitrary[IllegalValue[String, Option[D]]] =
+  implicit def arbIllegalStrOption[D](implicit dl: Arbitrary[IllegalString[D]]): Arbitrary[IllegalString[Option[D]]] =
     Arbitrary {
       arb[IllegalValue[String, D]].suchThat(_.encoded.nonEmpty).map(d ⇒ IllegalValue(d.encoded))
     }
