@@ -72,7 +72,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws, cats, scalaz, tests)
+  .aggregate(core, laws, cats, scalaz, docs, tests)
 
 lazy val core = project
   .settings(
@@ -126,3 +126,29 @@ lazy val tests = project
   .settings(noPublishSettings: _*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
   .dependsOn(core, laws % "test")
+
+
+lazy val docs = project
+  .settings(allSettings: _*)
+  .settings(site.settings: _*)
+  .settings(ghpages.settings: _*)
+  .settings(unidocSettings: _*)
+  .settings(
+    autoAPIMappings := true,
+    apiURL := Some(url("http://nrinaudo.github.io/kantan.codecs/api/")),
+    scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
+      "-doc-source-url", scmInfo.value.get.browseUrl + "/tree/master€{FILE_PATH}.scala",
+      "-sourcepath", baseDirectory.in(LocalRootProject).value.getAbsolutePath
+    )
+  )
+  .settings(tutSettings: _*)
+  .settings(
+    site.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), "api"),
+    site.addMappingsToSiteDir(tut, "_tut"),
+    git.remoteRepo := "git@github.com:nrinaudo/kantan.codecs.git",
+    ghpagesNoJekyll := false,
+    includeFilter in makeSite := "*.yml" | "*.md" | "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" |
+                                 "*.eot" | "*.svg" | "*.ttf" | "*.woff" | "*.woff2" | "*.otf"
+  )
+  .settings(noPublishSettings:_*)
+  .dependsOn(core)
