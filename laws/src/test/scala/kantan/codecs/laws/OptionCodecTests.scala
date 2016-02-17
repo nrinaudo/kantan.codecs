@@ -1,7 +1,7 @@
 package kantan.codecs.laws
 
 import kantan.codecs.Result
-import kantan.codecs.laws.discipline.{arbitrary, EncoderTests, DecoderTests}
+import kantan.codecs.laws.discipline.{DecoderTests, EncoderTests}
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

@@ -6,7 +6,7 @@ import kantan.codecs.Result
 import kantan.codecs.Result.{Failure, Success}
 
 trait CatsInstances extends LowPriorityCatsInstances {
-  implicit def decodeResultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] = new Order[Result[F, S]] {
+  implicit def resultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] = new Order[Result[F, S]] {
     override def compare(x: Result[F, S], y: Result[F, S]): Int = x match {
       case Failure(f1) ⇒ y match {
         case Failure(f2) ⇒ of.compare(f1, f2)
@@ -19,7 +19,7 @@ trait CatsInstances extends LowPriorityCatsInstances {
     }
   }
 
-  implicit def decodeResultShow[F, S](implicit sf: Show[F], ss: Show[S]): Show[Result[F, S]] =
+  implicit def resultShow[F, S](implicit sf: Show[F], ss: Show[S]): Show[Result[F, S]] =
     new Show[Result[F, S]] {
       override def show(f: Result[F, S]) = f match {
         case Failure(f) ⇒ s"Failure(${sf.show(f)})"
@@ -27,7 +27,7 @@ trait CatsInstances extends LowPriorityCatsInstances {
       }
     }
 
-  implicit def decodeResultMonoid[F, S](implicit sf: Semigroup[F], ms: Monoid[S]) = new Monoid[Result[F, S]] {
+  implicit def resultMonoid[F, S](implicit sf: Semigroup[F], ms: Monoid[S]) = new Monoid[Result[F, S]] {
     override def empty = Result.success(ms.empty)
     override def combine(x: Result[F, S], y: Result[F, S]) = x match {
       case Failure(f1) ⇒ y match {
@@ -41,7 +41,7 @@ trait CatsInstances extends LowPriorityCatsInstances {
     }
   }
 
-  implicit def decodeResultInstances[F]: Traverse[Result[F, ?]] with Monad[Result[F, ?]] =
+  implicit def resultInstances[F]: Traverse[Result[F, ?]] with Monad[Result[F, ?]] =
     new Traverse[Result[F, ?]] with Monad[Result[F, ?]] {
       def foldLeft[A, B](fa: Result[F, A], b: B)(f: (B, A) => B): B = fa.foldLeft(b)(f)
       def foldRight[A, B](fa: Result[F, A], lb: Eval[B])(f: (A, Eval[B]) => Eval[B]): Eval[B] =
@@ -55,7 +55,7 @@ trait CatsInstances extends LowPriorityCatsInstances {
       override def pure[A](a: A) = Result.success(a)
     }
 
-  implicit def decodeResultBiFunctor = new Bifunctor[Result] {
+  implicit def resultBiFunctor = new Bifunctor[Result] {
     override def bimap[A, B, C, D](fab: Result[A, B])(f: A => C, g: B => D): Result[C, D] =
       fab.bimap(f, g)
   }

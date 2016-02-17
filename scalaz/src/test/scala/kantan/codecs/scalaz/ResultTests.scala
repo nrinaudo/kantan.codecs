@@ -18,11 +18,11 @@ class ResultTests extends ScalazSuite {
   implicit val arbNoEqual = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
 
 
-  checkAll("DecodeResult[String, Int]", order.laws[Result[String, Int]])
-  checkAll("DecodeResult[String, Int]", equal.laws[Result[String, NoOrder]])
-  checkAll("DecodeResult[String, NonEmptyList[Int]]", semigroup.laws[Result[String, NonEmptyList[Int]]])
-  checkAll("DecodeResult[String, Int]", monoid.laws[Result[String, Int]])
-  checkAll("DecodeResult[String, ?]", monad.laws[Result[String, ?]])
-  checkAll("DecodeResult[String, ?]", traverse.laws[Result[String, ?]])
-  checkAll("DecodeResult[?, ?]", bitraverse.laws[Result[?, ?]])
+  checkAll("Result[String, Int]", order.laws[Result[String, Int]])
+  checkAll("Result[String, Int]", equal.laws[Result[String, NoOrder]])
+  checkAll("Result[String, NonEmptyList[Int]]", semigroup.laws[Result[String, NonEmptyList[Int]]])
+  checkAll("Result[String, Int]", monoid.laws[Result[String, Int]])
+  checkAll("Result[String, ?]", monad.laws[Result[String, ?]])
+  checkAll("Result[String, ?]", traverse.laws[Result[String, ?]])
+  checkAll("Result[?, ?]", bitraverse.laws[Result[?, ?]])
 }

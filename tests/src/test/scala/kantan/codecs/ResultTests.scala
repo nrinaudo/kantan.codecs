@@ -67,10 +67,10 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   // TODO: this requires Arbitrary[PartialFunction[String, Int]]. Write when time allows.
   /*
   test("recover should only modify failures for which the specified function is defined") {
-    forAll { (d: DecodeResult[String, Int], f: PartialFunction[String, Int]) ⇒ d match {
-      case Success(i) ⇒ assert(d.recover(f) == DecodeResult.success(i))
+    forAll { (d: Result[String, Int], f: PartialFunction[String, Int]) ⇒ d match {
+      case Success(i) ⇒ assert(d.recover(f) == Result.success(i))
       case Failure(s) ⇒
-        if(f.isDefinedAt(s)) assert(d.recover(f) == DecodeResult.success(f(s)))
+        if(f.isDefinedAt(s)) assert(d.recover(f) == Result.success(f(s)))
         else                 assert(d.recover(f) == d)
     }}
   }

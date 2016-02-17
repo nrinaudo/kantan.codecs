@@ -6,7 +6,7 @@ import kantan.codecs.Result.{Success, Failure}
 import scalaz._
 
 trait ScalazInstances extends LowPriorityScalazInstances {
-  implicit def decodeResultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] =
+  implicit def resultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] =
     new Order[Result[F, S]] {
       override def order(x: Result[F, S], y: Result[F, S]): Ordering = x match {
         case Failure(f1) ⇒ y match {
@@ -20,7 +20,7 @@ trait ScalazInstances extends LowPriorityScalazInstances {
       }
     }
 
-  implicit def decodeResultShow[F, S](implicit sf: Show[F], ss: Show[S]): Show[Result[F, S]] =
+  implicit def resultShow[F, S](implicit sf: Show[F], ss: Show[S]): Show[Result[F, S]] =
     new Show[Result[F, S]] {
       override def shows(d: Result[F, S]) = d match {
         case Failure(f) ⇒ s"Failure(${sf.show(f)})"
@@ -28,7 +28,7 @@ trait ScalazInstances extends LowPriorityScalazInstances {
       }
     }
 
-  implicit def decodeResultMonoid[F, S](implicit sf: Semigroup[F], ms: Monoid[S]): Monoid[Result[F, S]] =
+  implicit def resultMonoid[F, S](implicit sf: Semigroup[F], ms: Monoid[S]): Monoid[Result[F, S]] =
     new Monoid[Result[F, S]] {
       override def zero = Result.success(ms.zero)
 
@@ -44,7 +44,7 @@ trait ScalazInstances extends LowPriorityScalazInstances {
       }
     }
 
-  implicit def decodeResultInstances[F]: Monad[Result[F, ?]] with Traverse[Result[F, ?]] =
+  implicit def resultInstances[F]: Monad[Result[F, ?]] with Traverse[Result[F, ?]] =
     new Monad[Result[F, ?]] with Traverse[Result[F, ?]] {
       override def traverseImpl[G[_], S, SS](d: Result[F, S])(f: S ⇒ G[SS])(implicit ag: Applicative[G]) = d match {
         case f@Failure(_) ⇒ ag.pure(f)
@@ -56,7 +56,7 @@ trait ScalazInstances extends LowPriorityScalazInstances {
       override def foldLeft[S, A](r: Result[F, S], z: A)(f: (A, S) ⇒ A) = r.foldLeft(z)(f)
     }
 
-  implicit def decodeResultBitraverse = new Bitraverse[Result] {
+  implicit def resultBitraverse = new Bitraverse[Result] {
     override def bitraverseImpl[G[_], A, B, C, D](fab: Result[A, B])(f: A => G[C], g: B => G[D])(implicit ag: Applicative[G])=
       fab match {
         case Failure(a) => Functor[G].map(f(a))(Failure.apply)

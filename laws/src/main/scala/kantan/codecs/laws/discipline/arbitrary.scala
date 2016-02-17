@@ -13,6 +13,6 @@ object arbitrary {
   implicit def arbSuccess[S: Arbitrary]: Arbitrary[Success[S]] = Arbitrary(success)
   implicit def arbFailure[F: Arbitrary]: Arbitrary[Failure[F]] = Arbitrary(failure)
 
-  implicit def arbDecodeResult[F: Arbitrary, S: Arbitrary]: Arbitrary[Result[F, S]] =
+  implicit def arbResult[F: Arbitrary, S: Arbitrary]: Arbitrary[Result[F, S]] =
     Arbitrary(Gen.oneOf(success[S], failure[F]))
 }

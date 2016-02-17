@@ -22,10 +22,10 @@ class ResultTests  extends FunSuite with GeneratorDrivenPropertyChecks with Disc
   // TODO: not sure why this isn't resolved automatically. Investigate.
   implicit val test = CartesianTests.Isomorphisms.invariant[Result[String, ?]]
 
-  checkAll("DecodeResult[String, ?]", MonadTests[Result[String, ?]].monad[Int, Int, Int])
-  checkAll("DecodeResult[?, ?]", BifunctorTests[Result].bifunctor[Int, Int, Int, Int, Int, Int])
-  checkAll("DecodeResult[String, ?]", TraverseTests[Result[String, ?]].traverse[Int, Int, Int, Int, Option, Option])
-  checkAll("DecodeResult[Int, String]", OrderLaws[Result[Int, String]].order)
-  checkAll("DecodeResult[String, Int]", GroupLaws[Result[String, Int]].monoid)
-  checkAll("DecodeResult[String, NonEmptyList[Int]]", GroupLaws[Result[String, NonEmptyList[Int]]].semigroup)
+  checkAll("Result[String, ?]", MonadTests[Result[String, ?]].monad[Int, Int, Int])
+  checkAll("Result[?, ?]", BifunctorTests[Result].bifunctor[Int, Int, Int, Int, Int, Int])
+  checkAll("Result[String, ?]", TraverseTests[Result[String, ?]].traverse[Int, Int, Int, Int, Option, Option])
+  checkAll("Result[Int, String]", OrderLaws[Result[Int, String]].order)
+  checkAll("Result[String, Int]", GroupLaws[Result[String, Int]].monoid)
+  checkAll("Result[String, NonEmptyList[Int]]", GroupLaws[Result[String, NonEmptyList[Int]]].semigroup)
 }

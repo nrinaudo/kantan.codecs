@@ -5,7 +5,7 @@ import kantan.codecs.Result
 import kantan.codecs.Result.{Success, Failure}
 
 trait LowPriorityCatsInstances {
-  implicit def decodeResultEq[F, S](implicit ef: Eq[F], es: Eq[S]): Eq[Result[F, S]] = new Eq[Result[F, S]] {
+  implicit def resultEq[F, S](implicit ef: Eq[F], es: Eq[S]): Eq[Result[F, S]] = new Eq[Result[F, S]] {
     override def eqv(x: Result[F, S], y: Result[F, S]): Boolean = x match {
       case Failure(f1) ⇒ y match {
         case Failure(f2) ⇒ ef.eqv(f1, f2)
@@ -18,7 +18,7 @@ trait LowPriorityCatsInstances {
     }
   }
 
-  implicit def decodeResultSemigroup[F, S](implicit sf: Semigroup[F], ss: Semigroup[S]): Semigroup[Result[F, S]] =
+  implicit def resultSemigroup[F, S](implicit sf: Semigroup[F], ss: Semigroup[S]): Semigroup[Result[F, S]] =
     new Semigroup[Result[F, S]] {
       override def combine(x: Result[F, S], y: Result[F, S]) = x match {
         case Failure(f1) ⇒ y match {

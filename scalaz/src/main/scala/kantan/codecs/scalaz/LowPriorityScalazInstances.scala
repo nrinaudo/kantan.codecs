@@ -6,7 +6,7 @@ import kantan.codecs.Result.{Success, Failure}
 import scalaz.{Semigroup, Equal}
 
 trait LowPriorityScalazInstances {
-  implicit def decodeResultEqual[F, S](implicit ef: Equal[F], es: Equal[S]): Equal[Result[F, S]] =
+  implicit def resultEqual[F, S](implicit ef: Equal[F], es: Equal[S]): Equal[Result[F, S]] =
     new Equal[Result[F, S]] {
       override def equal(x: Result[F, S], y: Result[F, S]) = x match {
         case Failure(f1) ⇒ y match {
@@ -20,7 +20,7 @@ trait LowPriorityScalazInstances {
       }
     }
 
-  implicit def decodeResultSemigroup[F, S](implicit sf: Semigroup[F], ss: Semigroup[S]): Semigroup[Result[F, S]] =
+  implicit def resultSemigroup[F, S](implicit sf: Semigroup[F], ss: Semigroup[S]): Semigroup[Result[F, S]] =
     new Semigroup[Result[F, S]] {
       override def append(x: Result[F, S], y: ⇒ Result[F, S]) = x match {
         case Failure(f1) ⇒ y match {
