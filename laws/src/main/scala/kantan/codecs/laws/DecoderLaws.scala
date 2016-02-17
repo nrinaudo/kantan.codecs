@@ -9,7 +9,7 @@ trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
   private def cmp(result: Result[F, D], cv: CodecValue[E, D]): Boolean = (cv, result) match {
     case (IllegalValue(_),  Result.Failure(_))  ⇒ true
     case (LegalValue(_, d), Result.Success(d2)) ⇒ d == d2
-    case _                                            ⇒ false
+    case _                                      ⇒ false
   }
 
 

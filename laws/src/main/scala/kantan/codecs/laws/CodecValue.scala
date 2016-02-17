@@ -8,6 +8,7 @@ import org.scalacheck.{Arbitrary, Gen}
 
 import scala.util.Try
 
+// TODO: investigate what type variance annotations can be usefully applied to CodecValue.
 sealed abstract class CodecValue[E, D] extends Product with Serializable {
   def encoded: E
   def map[EE](f: E ⇒ EE): CodecValue[EE, D]
@@ -122,5 +123,15 @@ object CodecValue {
       case Left(l) ⇒ IllegalValue(l.encoded)
       case Right(r) ⇒ IllegalValue(r.encoded)
     }
+  }
+
+  implicit def arbLegalStrOption[D](implicit dl: Arbitrary[LegalValue[String, D]]): Arbitrary[LegalValue[String, Option[D]]] =
+    Arbitrary {
+      arbitrary[Option[LegalValue[String, D]]].map(_.map(l ⇒ l.copy(decoded = Option(l.decoded))).getOrElse(LegalValue("", None)))
+    }
+
+  implicit def arbIllegalStrOption[D](implicit dl: Arbitrary[IllegalValue[String, D]]): Arbitrary[IllegalValue[String, Option[D]]] =
+  Arbitrary {
+    arbitrary[IllegalValue[String, D]].map(d ⇒ IllegalValue(d.encoded))
   }
 }
