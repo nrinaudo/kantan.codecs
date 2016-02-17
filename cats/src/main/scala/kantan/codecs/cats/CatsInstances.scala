@@ -2,7 +2,7 @@ package kantan.codecs.cats
 
 import cats._
 import cats.functor.Bifunctor
-import kantan.codecs.Result
+import kantan.codecs.{Decoder, Result}
 import kantan.codecs.Result.{Failure, Success}
 
 trait CatsInstances extends LowPriorityCatsInstances {

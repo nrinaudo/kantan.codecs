@@ -2,7 +2,7 @@ package kantan.codecs.laws
 
 import java.util.UUID
 
-import org.scalacheck.Arbitrary._
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen}
 
@@ -32,6 +32,7 @@ object CodecValue {
 
   def arbLegal[E, D: Arbitrary](f: D ⇒ E): Arbitrary[LegalValue[E, D]] = Arbitrary(genLegal(f))
   def arbIllegal[E: Arbitrary, D](f: E ⇒ D): Arbitrary[IllegalValue[E, D]] = Arbitrary(genIllegal(f))
+
 
   implicit def arbValue[E, D](implicit arbL: Arbitrary[LegalValue[E, D]], arbI: Arbitrary[IllegalValue[E, D]]): Arbitrary[CodecValue[E, D]] =
     Arbitrary {
@@ -74,7 +75,7 @@ object CodecValue {
   implicit val arbLegalStrStr: Arbitrary[LegalValue[String, String]] = CodecValue.arbLegal(identity)
 
   implicit val arbLegalStrInt: Arbitrary[LegalValue[String, Int]] = CodecValue.arbLegal(_.toString)
-  implicit val arbIllegalStrInt: Arbitrary[IllegalValue[String, Int]] = CodecValue.arbIllegal(Integer.parseInt)
+  implicit def arbIllegalStrInt: Arbitrary[IllegalValue[String, Int]] = CodecValue.arbIllegal(Integer.parseInt)
 
   implicit val arbLegalStrFloat: Arbitrary[LegalValue[String, Float]] = CodecValue.arbLegal(_.toString)
   implicit val arbIllegalStrFloat: Arbitrary[IllegalValue[String, Float]] = CodecValue.arbIllegal(_.toFloat)
@@ -127,11 +128,13 @@ object CodecValue {
 
   implicit def arbLegalStrOption[D](implicit dl: Arbitrary[LegalValue[String, D]]): Arbitrary[LegalValue[String, Option[D]]] =
     Arbitrary {
-      arbitrary[Option[LegalValue[String, D]]].map(_.map(l ⇒ l.copy(decoded = Option(l.decoded))).getOrElse(LegalValue("", None)))
+      arbitrary[Option[LegalValue[String, D]]]
+          .suchThat(_.map(_.encoded.nonEmpty).getOrElse(true))
+        .map(_.map(l ⇒ l.copy(decoded = Option(l.decoded))).getOrElse(LegalValue("", None)))
     }
 
   implicit def arbIllegalStrOption[D](implicit dl: Arbitrary[IllegalValue[String, D]]): Arbitrary[IllegalValue[String, Option[D]]] =
   Arbitrary {
-    arbitrary[IllegalValue[String, D]].map(d ⇒ IllegalValue(d.encoded))
+    arbitrary[IllegalValue[String, D]].suchThat(_.encoded.nonEmpty).map(d ⇒ IllegalValue(d.encoded))
   }
 }

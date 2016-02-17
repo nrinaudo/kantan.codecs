@@ -16,8 +16,14 @@ trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
 
   // - Simple laws -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def decode(v: CodecValue[E, D]): Boolean =
+  def decode(v: CodecValue[E, D]): Boolean = {
+    if(!cmp(decoder.decode(v.encoded), v)) {
+      println(v)
+      println(decoder.decode(v.encoded))
+      println("-------------------")
+    }
     cmp(decoder.decode(v.encoded), v)
+  }
 
 
   // - Functor laws ----------------------------------------------------------------------------------------------------
