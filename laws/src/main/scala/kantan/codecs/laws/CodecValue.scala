@@ -10,11 +10,16 @@ import scala.util.Try
 
 sealed abstract class CodecValue[E, D] extends Product with Serializable {
   def encoded: E
+  def map[EE](f: E ⇒ EE): CodecValue[EE, D]
 }
 
 object CodecValue {
-  final case class LegalValue[E, D](encoded: E, decoded: D) extends CodecValue[E, D]
-  final case class IllegalValue[E, D](encoded: E) extends CodecValue[E, D]
+  final case class LegalValue[E, D](encoded: E, decoded: D) extends CodecValue[E, D] {
+    override def map[EE](f: E => EE) = copy(encoded = f(encoded))
+  }
+  final case class IllegalValue[E, D](encoded: E) extends CodecValue[E, D] {
+    override def map[EE](f: E => EE) = copy(encoded = f(encoded))
+  }
 
 
   // - Generic arbitrary / gen -----------------------------------------------------------------------------------------
@@ -22,6 +27,7 @@ object CodecValue {
   def genLegal[E, D: Arbitrary](f: D ⇒ E): Gen[LegalValue[E, D]] = arbitrary[D].map(d ⇒ LegalValue(f(d), d))
   def genIllegal[E: Arbitrary, D](f: E ⇒ D): Gen[IllegalValue[E, D]] =
     arbitrary[E].suchThat(e ⇒ Try(f(e)).isFailure).map(IllegalValue.apply)
+
 
   def arbLegal[E, D: Arbitrary](f: D ⇒ E): Arbitrary[LegalValue[E, D]] = Arbitrary(genLegal(f))
   def arbIllegal[E: Arbitrary, D](f: E ⇒ D): Arbitrary[IllegalValue[E, D]] = Arbitrary(genIllegal(f))
@@ -100,5 +106,21 @@ object CodecValue {
   implicit val arbIllegalStrChar: Arbitrary[IllegalValue[String, Char]] = CodecValue.arbIllegal { str =>
     if(str.length == 1) str.charAt(0)
     else                sys.error(s"not a valid char: '$str'")
+  }
+
+  implicit def arbLegalStrEither[L, R](implicit al: Arbitrary[LegalValue[String, L]], ar: Arbitrary[LegalValue[String, R]])
+  : Arbitrary[LegalValue[String, Either[L, R]]] = Arbitrary {
+    arbitrary[Either[LegalValue[String, L], LegalValue[String, R]]].map {
+      case Left(l) ⇒ l.copy(decoded = Left(l.decoded))
+      case Right(r) ⇒ r.copy(decoded = Right(r.decoded))
+    }
+  }
+
+  implicit def arbIllegalStrEither[L, R](implicit al: Arbitrary[IllegalValue[String, L]], ar: Arbitrary[IllegalValue[String, R]])
+  : Arbitrary[IllegalValue[String, Either[L, R]]] = Arbitrary {
+    arbitrary[Either[IllegalValue[String, L], IllegalValue[String, R]]].map {
+      case Left(l) ⇒ IllegalValue(l.encoded)
+      case Right(r) ⇒ IllegalValue(r.encoded)
+    }
   }
 }
