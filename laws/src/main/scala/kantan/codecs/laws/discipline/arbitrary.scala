@@ -8,7 +8,9 @@ import org.scalacheck.{Arbitrary, Gen}
 
 import scala.util.Try
 
-object arbitrary {
+object arbitrary extends ArbitraryInstances
+
+trait ArbitraryInstances {
   // - Arbitrary results -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def success[S: Arbitrary]: Gen[Success[S]] =
