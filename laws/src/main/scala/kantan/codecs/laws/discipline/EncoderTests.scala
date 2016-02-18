@@ -21,8 +21,8 @@ trait EncoderTests[E, D, R[DD] <: Encoder[E, DD, R]] extends Laws {
     "contramap composition" → forAll(laws.contramapComposition[A, B] _)
   )
 
-  def bijectiveEncoder[A: Arbitrary, B: Arbitrary]: RuleSet =
-    rules("bijective encoder")(implicitly[Arbitrary[A]], implicitly[Arbitrary[B]], Arbitrary(arbLegal.arbitrary))
+  def bijectiveEncoder[A, B](implicit aa: Arbitrary[A], ab: Arbitrary[B]): RuleSet =
+    rules("bijective encoder")(aa, ab, Arbitrary(arbLegal.arbitrary))
 
   def encoder[A: Arbitrary, B: Arbitrary](implicit ai: Arbitrary[IllegalValue[E, D]]): RuleSet = rules[A, B]("encoder")
 }

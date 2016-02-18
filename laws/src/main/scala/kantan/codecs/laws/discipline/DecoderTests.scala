@@ -29,16 +29,17 @@ trait DecoderTests[E, D, F, R[DD] <: Decoder[E, DD, F, R]] extends Laws {
     )
   }
 
-  def decoder[A: Arbitrary, B: Arbitrary](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D]]): RuleSet = new DefaultRuleSet(
-    name = "decoder",
-    parent = Some(bijectiveDecoder(arbA, arbB)),
-    "decode failure" → forAll(laws.decodeFailure _)
-  )
+  def decoder[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D]]): RuleSet =
+    new DefaultRuleSet(
+      name = "decoder",
+      parent = Some(bijectiveDecoder(arbA, arbB)),
+      "decode failure" → forAll(laws.decodeFailure _)
+    )
 }
 
 object DecoderTests {
   def apply[E, D, F: Arbitrary, R[DD] <: Decoder[E, DD, F, R]](implicit l: DecoderLaws[E, D, F, R],
-                                                                         al: Arbitrary[LegalValue[E, D]]): DecoderTests[E, D, F, R] = new DecoderTests[E, D, F, R] {
+                                                               al: Arbitrary[LegalValue[E, D]]): DecoderTests[E, D, F, R] = new DecoderTests[E, D, F, R] {
     override val laws = l
     override val arbLegal = al
     override val arbF = implicitly[Arbitrary[F]]
