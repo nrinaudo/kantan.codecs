@@ -19,6 +19,7 @@ trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
   // -------------------------------------------------------------------------------------------------------------------
   def decode(v: CodecValue[E, D]): Boolean = cmp(decoder.decode(v.encoded), v)
 
+
   def decodeFailure(v: IllegalValue[E, D]): Boolean =
     Prop.throws(classOf[NoSuchElementException])(decoder.unsafeDecode(v.encoded))
 

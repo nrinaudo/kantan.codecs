@@ -1,7 +1,7 @@
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.laws.CodecValue.{LegalValue, IllegalValue}
-import kantan.codecs.laws.{CodecLaws, CodecValue}
+import kantan.codecs.laws.CodecLaws
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.{Decoder, Encoder}
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
@@ -13,6 +13,13 @@ trait CodecTests[E, D, F, Dec[DD] <: Decoder[E, DD, F, Dec], Enc[DD] <: Encoder[
   override implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
   implicit val arbE: Arbitrary[E] = Arbitrary(arbLegal.arbitrary.map(_.encoded))
 
+  private def coreRules[A: Arbitrary, B: Arbitrary]: RuleSet = new DefaultRuleSet(
+    "round trip",
+    Some(encoder[A, B]),
+    "round trip (encoding)" → forAll(laws.roundTripEncoding _),
+    "round trip (decoding)" → forAll(laws.roundTripDecoding _)
+  )
+
   def roundTrip: RuleSet = new DefaultRuleSet(
     name = "round trip",
     parent = None,
@@ -20,22 +27,19 @@ trait CodecTests[E, D, F, Dec[DD] <: Decoder[E, DD, F, Dec], Enc[DD] <: Encoder[
     "round trip (decoding)" → forAll(laws.roundTripDecoding _)
   )
 
-  def bijectiveCodec[A: Arbitrary, B: Arbitrary]: RuleSet = {
-    implicit val arbED: Arbitrary[CodecValue[E, D]] = Arbitrary(arbLegal.arbitrary)
-    new RuleSet {
-      def name = "bijective codec"
-      def bases = Nil
-      def parents = Seq(roundTrip, bijectiveDecoder[A, B], bijectiveEncoder[A, B])
-      def props = Seq.empty
-    }
+  def bijectiveCodec[A: Arbitrary, B: Arbitrary]: RuleSet = new RuleSet {
+    val name = "bijective codec"
+    val bases = Nil
+    val parents = Seq(coreRules[A, B], bijectiveDecoder[A, B])
+    val props = Seq.empty
   }
 
   def codec[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D]]): RuleSet =
     new RuleSet {
-      def name = "codec"
-      def bases = Nil
-      def parents = Seq(roundTrip, decoder[A, B], encoder[A, B])
-      def props = Seq.empty
+      val name = "codec"
+      val bases = Nil
+      val parents = Seq(coreRules[A, B], decoder[A, B])
+      val props = Seq.empty
     }
 }
 

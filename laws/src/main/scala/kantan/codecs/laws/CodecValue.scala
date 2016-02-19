@@ -51,12 +51,7 @@ object CodecValue {
   }
 
   implicit def arbValue[E, D](implicit arbL: Arbitrary[LegalValue[E, D]], arbI: Arbitrary[IllegalValue[E, D]]): Arbitrary[CodecValue[E, D]] =
-    Arbitrary {
-      for {
-        legal ← Arbitrary.arbitrary[Boolean]
-        value ← if(legal) arbL.arbitrary else arbI.arbitrary
-      } yield value
-    }
+    Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
 
   // Encoding to / decoding from strings is such a common patterns that default arbitrary instances are provided for
   // common types.

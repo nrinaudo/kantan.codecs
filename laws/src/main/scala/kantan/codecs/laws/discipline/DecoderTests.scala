@@ -4,7 +4,7 @@ import kantan.codecs.Decoder
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.laws.{CodecValue, DecoderLaws}
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Prop, Arbitrary}
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
 
@@ -16,25 +16,29 @@ trait DecoderTests[E, D, F, R[DD] <: Decoder[E, DD, F, R]] extends Laws {
   implicit def arbF: Arbitrary[F]
   implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
 
-  def bijectiveDecoder[A: Arbitrary, B: Arbitrary]: RuleSet = {
-    implicit val arbED: Arbitrary[CodecValue[E, D]] = Arbitrary(arbLegal.arbitrary)
-    new DefaultRuleSet(
-      name = "bijective decoder",
-      parent = None,
+  private def coreRules[A: Arbitrary, B: Arbitrary](implicit arbED: Arbitrary[CodecValue[E, D]]) =
+    new SimpleRuleSet("core",
       "decode" → forAll(laws.decode _),
       "map identity" → forAll(laws.mapIdentity _),
       "mapResult identity" → forAll(laws.mapResultIdentity _),
       "map composition" → forAll(laws.mapComposition[A, B] _),
       "mapResult composition" → forAll(laws.mapResultComposition[A, B] _)
     )
-  }
+
+  def bijectiveDecoder[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B]): RuleSet = new DefaultRuleSet(
+    "bijective decoder",
+    Some(coreRules(arbA, arbB, Arbitrary(arbLegal.arbitrary)))
+  )
+
 
   def decoder[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D]]): RuleSet =
     new DefaultRuleSet(
-      name = "decoder",
-      parent = Some(bijectiveDecoder(arbA, arbB)),
+      "decoder",
+      Some(coreRules(arbA, arbB, CodecValue.arbValue(arbLegal, ai))),
       "decode failure" → forAll(laws.decodeFailure _)
     )
+
+
 }
 
 object DecoderTests {

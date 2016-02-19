@@ -12,6 +12,7 @@ trait EncoderLaws[E, D, R[DD] <: Encoder[E, DD, R]] {
   def encode(v: LegalValue[E, D]): Boolean = encoder.encode(v.decoded) == v.encoded
 
 
+
   // - Contravariant functor laws --------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def contramapIdentity(d: D): Boolean = encoder.encode(d) == encoder.contramap(identity[D]).encode(d)
