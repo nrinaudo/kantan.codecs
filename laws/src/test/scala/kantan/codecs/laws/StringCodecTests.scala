@@ -1,17 +1,17 @@
 package kantan.codecs.laws
 
 import kantan.codecs.Result
-import kantan.codecs.laws.discipline.{DecoderTests, EncoderTests}
+import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class StringCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val decoder = SimpleDecoder(s ⇒ Result.success(s))
-  implicit val encoder = SimpleEncoder[String](s ⇒ s)
+  implicit val codec = SimpleCodec(s ⇒ Result.success(s))(identity)
 
   checkAll("Decoder[String, String, Boolean]", DecoderTests[String, String, Boolean, SimpleDecoder].bijectiveDecoder[Int, Int])
   checkAll("Encoder[String, String]", EncoderTests[String, String, SimpleEncoder].bijectiveEncoder[Int, Int])
+  checkAll("Codec[String, String]", CodecTests[String, String, Boolean, SimpleDecoder, SimpleEncoder].bijectiveCodec[Int, Int])
 }
 
 
