@@ -20,13 +20,6 @@ trait CodecTests[E, D, F, Dec[DD] <: Decoder[E, DD, F, Dec], Enc[DD] <: Encoder[
     "round trip (decoding)" → forAll(laws.roundTripDecoding _)
   )
 
-  def roundTrip: RuleSet = new DefaultRuleSet(
-    name = "round trip",
-    parent = None,
-    "round trip (encoding)" → forAll(laws.roundTripEncoding _),
-    "round trip (decoding)" → forAll(laws.roundTripDecoding _)
-  )
-
   def bijectiveCodec[A: Arbitrary, B: Arbitrary]: RuleSet = new RuleSet {
     val name = "bijective codec"
     val bases = Nil
