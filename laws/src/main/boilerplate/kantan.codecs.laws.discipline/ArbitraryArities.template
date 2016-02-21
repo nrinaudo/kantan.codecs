@@ -1,0 +1,31 @@
+package kantan.codecs.laws.discipline
+
+import kantan.codecs.laws.CodecValue
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import org.scalacheck.{Arbitrary, Gen}
+import scala.collection.generic.CanBuildFrom
+
+trait ArbitraryArities {
+  [#def genLegalWith1[[#E1#], [#D1#], EE, DD](decoded: ([#D1#]) ⇒ DD)(encoded: ([#E1#]) ⇒ EE)(implicit [#arb1: Arbitrary[LegalValue[E1, D1]]#]): Gen[LegalValue[EE, DD]] =
+    for {
+      [#l1 ← arb1.arbitrary#
+      ]
+    } yield LegalValue(encoded([#l1.encoded#]), decoded([#l1.decoded#]))
+
+  def genIllegalWith1[[#E1#], [#D1#], EE, DD](encoded: ([#E1#]) ⇒ EE)(implicit [#arb1: Arbitrary[IllegalValue[E1, D1]]#]): Gen[IllegalValue[EE, DD]] =
+    for {
+      [#l1 ← arb1.arbitrary#
+      ]
+    } yield IllegalValue(encoded([#l1.encoded#]))#
+
+  ]
+
+
+  [#def genLegalTuple1[[#E1#], [#D1#]](implicit [#arbD1: Arbitrary[LegalValue[E1, D1]]#]): Gen[LegalValue[Tuple1[[#E1#]], Tuple1[[#D1#]]]] =
+    genLegalWith1(([#d1: D1#]) ⇒ Tuple1([#d1#]))(([#e1: E1#]) ⇒ Tuple1([#e1#]))
+
+  def genIllegalTuple1[[#E1#], [#D1#]](implicit [#arbD1: Arbitrary[IllegalValue[E1, D1]]#]): Gen[IllegalValue[Tuple1[[#E1#]], Tuple1[[#D1#]]]] =
+    genIllegalWith1(([#e1: E1#]) ⇒ Tuple1([#e1#]))([#arbD1#])#
+
+  ]
+}
