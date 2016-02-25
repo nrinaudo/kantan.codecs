@@ -2,7 +2,7 @@ package kantan.codecs.laws
 
 import java.util.UUID
 
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.CodecValue._
 import org.scalacheck.{Prop, Arbitrary}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

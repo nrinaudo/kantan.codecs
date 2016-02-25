@@ -3,6 +3,7 @@ package kantan.codecs.laws
 import java.util.UUID
 
 import kantan.codecs.Result
+import kantan.codecs.laws.CodecValue._
 import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
