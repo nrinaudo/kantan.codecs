@@ -4,35 +4,75 @@ import scala.util.Try
 
 /** Represents the result of a decode operation
   *
-  * This is very similar to [[Either]], with a few more bells and whistles and a more specific type. It's also much
+  * This is very similar to `Either`, with a few more bells and whistles and a more specific type. It's also much
   * more convenient to use in for-comprehensions, as it has proper [[map]] and [[flatMap]] methods.
   *
-  * @tparam F failure type.
-  * @tparam S success type.
+  * @define success [[kantan.codecs.Result.Success success]]
+  * @define failure [[kantan.codecs.Result.Failure failure]]
+  * @tparam F failure type: how to describe errors.
+  * @tparam S success type: result of a successful operation.
   */
 sealed abstract class Result[+F, +S] extends Product with Serializable {
   // - Result status ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Returns `true` if the result is a success. */
   def isSuccess: Boolean
+  /** Returns `true` if the result is a failure. */
   def isFailure: Boolean = !isSuccess
 
 
   // - Value retrieval -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Returns the specified default value if a $failure, does nothing otherwise. */
   def orElse[FF >: F, SS >: S](default: ⇒ Result[FF, SS]): Result[FF, SS]
+
+  /** Returns the underlying value if a $success, the result of applying the specified function to the failure value
+    * otherwise.
+    *
+    * This is typically useful when one needs to provide a default value that depends on how an operation failed.
+    *
+    * @see [[recover]], [[recoverWith]]
+    */
+  def valueOr[SS >: S](f: F ⇒ SS): SS
+
+  /** Returns the underlying value if a $success, the specified default value otherwise.
+    *
+    * This is useful when one needs to provide a default value in case of a $failure.
+    */
   def getOrElse[SS >: S](default: ⇒ SS): SS
+
+  /** Returns the underlying value if a $success, throws an exception otherwise.
+    *
+    * Other value retrieval methods, such as [[getOrElse]] or [[valueOr]], should almost always be preferred.
+    */
   def get: S
 
 
 
   // - Standard Scala operations ---------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Applies the specified procedure on the underlying value if a $success, does nothing otherwise.
+    *
+    * This is useful when one wants to have side-effects that depend on the success' value - print it, for example.
+    */
   def foreach(f: S ⇒ Unit): Unit
+
   def recover[SS >: S](pf: PartialFunction[F, SS]): Result[F, SS]
   def recoverWith[SS >: S, FF >: F](pf: PartialFunction[F, Result[FF, SS]]): Result[FF, SS]
-  def valueOr[SS >: S](f: F ⇒ SS): SS
+
+  /** Returns the result of applying the specified predicate to the underlying value if a $success, `false` otherwise.
+    */
   def forall(f: S ⇒ Boolean): Boolean
+
+  /** Returns the result of applying the specified predicate to the underlying value if a $success, `false` otherwise.
+    */
   def exists(f: S ⇒ Boolean): Boolean
+
+  /** Turns any $success whose underlying value doesn't validate the specified predicate into a $failure.
+    *
+    * This is useful when not all successes are interesting. One might receive, for example, a $success containing an
+    * int, but need to further reduce its domain to positive ints and turn any other into a $failure.
+    */
   def ensure[FF >: F](fail: ⇒ FF)(f: S ⇒ Boolean): Result[FF, S]
 
 
@@ -67,8 +107,11 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
 
   // - Conversion to standard types ------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Turns a $success into a `Some` and a $failure into a `None`. */
   def toOption: Option[S]
+  /** Turns a $success into a `Right` and a $failure into a `Left`. */
   def toEither: Either[F, S]
+  /** Turns a $success into a singleton list and a $failure into an empty list. */
   def toList: List[S]
 }
 
