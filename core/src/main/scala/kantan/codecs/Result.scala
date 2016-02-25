@@ -57,7 +57,19 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
     */
   def foreach(f: S ⇒ Unit): Unit
 
+  /** Turns any $failure whose value is defined for specified partial function into a $success with the corresponding
+    * value.
+    *
+    * This is useful when some error conditions are actually valid answers - one could imagine, for instance, that
+    * failure to parse a boolean could be turned into a successful parsing of `false`.
+    */
   def recover[SS >: S](pf: PartialFunction[F, SS]): Result[F, SS]
+
+  /** Turns any $failure whose value is defined for specified partial function into the corresponding value.
+    *
+    * This is useful when some error conditions have fallback solutions - one could imagine, for instance, that failure
+    * to parse a file because it does not exist can be retried on a secondary possible location for the file.
+    */
   def recoverWith[SS >: S, FF >: F](pf: PartialFunction[F, Result[FF, SS]]): Result[FF, SS]
 
   /** Returns the result of applying the specified predicate to the underlying value if a $success, `false` otherwise.
