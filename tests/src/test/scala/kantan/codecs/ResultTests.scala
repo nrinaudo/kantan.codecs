@@ -1,5 +1,7 @@
 package kantan.codecs
 
+import java.util.NoSuchElementException
+
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.arbitrary._
@@ -108,7 +110,7 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("Success.toOption should be a Some") {
-    forAll { s: Success[Int] ⇒ assert(s.toOption.contains(s.value)) }
+    forAll { s: Success[Int] ⇒ assert(s.toOption == Some(s.value)) }
   }
 
   test("Success.toEither should be a Right") {
