@@ -43,6 +43,7 @@ kantan.codecs tries to unify these types and provide generic laws and tests for 
 duplication and provides a common vocabulary for all kantan libraries.
 
 It really isn't meant to be used directly and is more of a support library for more directly useful ones.
+
 ## Tutorials
 
 The following tutorials are available:

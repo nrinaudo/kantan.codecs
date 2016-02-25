@@ -4,6 +4,9 @@ import scala.util.Try
 
 /** Represents the result of a decode operation
   *
+  * This is very similar to [[Either]], with a few more bells and whistles and a more specific type. It's also much
+  * more convenient to use in for-comprehensions, as it has proper [[map]] and [[flatMap]] methods.
+  *
   * @tparam F failure type.
   * @tparam S success type.
   */

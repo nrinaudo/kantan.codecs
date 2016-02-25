@@ -33,8 +33,8 @@ trait Decoder[E, D, F, R[DD] <: Decoder[E, DD, F, R]] { self: R[D] ⇒
 
   /** Creates a new [[Decoder]] instance that applies the specified function after decoding.
     *
-    * This is convenient when building [[Decoder]] instances: when writing a `Decoder[A]`, it often happens that you
-    * already have an instance of `Decoder[B]` and a `B ⇒ A`.
+    * This is convenient when building [[Decoder]] instances: when writing a `Decoder[E, D, F, R]`, it often happens
+    * that you already have an instance of `Decoder[E, DD, F, R]` and a `D ⇒ DD`.
     */
   def map[DD](f: D ⇒ DD): R[DD] = copy(e ⇒ decode(e).map(f))
 
