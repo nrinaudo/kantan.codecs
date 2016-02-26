@@ -1,11 +1,19 @@
 package kantan.codecs.scalaz
 
-import kantan.codecs.Result
+import kantan.codecs.{Encoder, Decoder, Result}
 import kantan.codecs.Result.{Success, Failure}
 
 import scalaz._
 
 trait ScalazInstances extends LowPriorityScalazInstances {
+  implicit def decoderFunctor[E, F, R[D] <: Decoder[E, D, F, R]]: Functor[R] = new Functor[R] {
+    override def map[A, B](fa: R[A])(f: A ⇒ B): R[B] = fa.map(f)
+  }
+
+  implicit def encoderContravariant[E, R[D] <: Encoder[E, D, R]]: Contravariant[R] = new Contravariant[R] {
+    override def contramap[A, B](fa: R[A])(f: B ⇒ A) = fa.contramap(f)
+  }
+
   implicit def resultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] =
     new Order[Result[F, S]] {
       override def order(x: Result[F, S], y: Result[F, S]): Ordering = x match {

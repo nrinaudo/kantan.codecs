@@ -4,7 +4,7 @@ import kantan.codecs.Decoder
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.laws.{CodecValue, DecoderLaws}
-import org.scalacheck.{Prop, Arbitrary}
+import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
 

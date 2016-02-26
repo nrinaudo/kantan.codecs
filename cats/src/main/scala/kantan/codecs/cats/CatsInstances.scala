@@ -1,11 +1,19 @@
 package kantan.codecs.cats
 
 import cats._
-import cats.functor.Bifunctor
-import kantan.codecs.Result
+import cats.functor.{Contravariant, Bifunctor}
+import kantan.codecs.{Encoder, Decoder, Result}
 import kantan.codecs.Result.{Failure, Success}
 
 trait CatsInstances extends LowPriorityCatsInstances {
+  implicit def decoderFunctor[E, F, R[D] <: Decoder[E, D, F, R]]: Functor[R] = new Functor[R] {
+    override def map[A, B](fa: R[A])(f: A ⇒ B): R[B] = fa.map(f)
+  }
+
+  implicit def encoderContravariant[E, R[D] <: Encoder[E, D, R]]: Contravariant[R] = new Contravariant[R] {
+    override def contramap[A, B](fa: R[A])(f: B ⇒ A) = fa.contramap(f)
+  }
+
   implicit def resultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] = new Order[Result[F, S]] {
     override def compare(x: Result[F, S], y: Result[F, S]): Int = x match {
       case Failure(f1) ⇒ y match {
