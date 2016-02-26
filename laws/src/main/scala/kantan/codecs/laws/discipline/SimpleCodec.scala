@@ -1,7 +1,12 @@
-package kantan.codecs.laws
+package kantan.codecs.laws.discipline
 
-import kantan.codecs.{Result, Codec}
+import kantan.codecs.{Codec, Result}
 
+/** Simple codec implementation.
+  *
+  * This is mostly meant for the cats & scalaz modules that need valid encoder and decoder implementations to test
+  * their abstraction instances.
+  */
 trait SimpleCodec[A] extends Codec[String, A, Boolean, SimpleDecoder, SimpleEncoder] with SimpleDecoder[A] with SimpleEncoder[A]
 
 object SimpleCodec {

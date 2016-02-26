@@ -44,4 +44,12 @@ trait ArbitraryInstances extends ArbitraryArities {
   implicit def genIllegalOption[E, D](f: E ⇒ Boolean)(implicit dl: Arbitrary[IllegalValue[E, D]]): Gen[IllegalValue[E, Option[D]]] =
     arb[IllegalValue[E, D]].suchThat(v ⇒ !f(v.encoded)).map(d ⇒ IllegalValue(d.encoded))
 
+
+  // - Arbitrary simple codecs -----------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def arbSimpleEncoder[A: Arbitrary]: Arbitrary[SimpleEncoder[A]] =
+    Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(f ⇒ SimpleEncoder(f)))
+
+  implicit def arbSimpleDecoder[A: Arbitrary]: Arbitrary[SimpleDecoder[A]] =
+    Arbitrary(Arbitrary.arbitrary[String ⇒ Result[Boolean, A]].map(f ⇒ SimpleDecoder(f)))
 }
