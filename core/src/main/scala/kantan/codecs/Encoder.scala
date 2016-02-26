@@ -6,7 +6,7 @@ package kantan.codecs
   * @tparam D decoded type - what to encode from.
   * @tparam R implementation type - what will be returned by [[contramap]].
   */
-trait Encoder[E, D, R[DD] <: Encoder[E, DD, R]] { self: R[D] ⇒
+trait Encoder[E, D, R[DD] <: Encoder[E, DD, R]] extends Serializable { self: R[D] ⇒
   /** Encodes the specified value. */
   def encode(d: D): E
 

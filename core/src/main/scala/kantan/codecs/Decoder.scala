@@ -7,7 +7,7 @@ package kantan.codecs
   * @tparam F failure type - how to represent errors.
   * @tparam R implementation type - what will be returned by the various map operations.
   */
-trait Decoder[E, D, F, R[DD] <: Decoder[E, DD, F, R]] { self: R[D] ⇒
+trait Decoder[E, D, F, R[DD] <: Decoder[E, DD, F, R]] extends Serializable { self: R[D] ⇒
   /** Decodes encoded data.
     *
     * This method is safe, in that it won't throw for run-of-the-mill errors. Unrecoverable errors such as out of memory
