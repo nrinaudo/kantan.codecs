@@ -7,7 +7,7 @@ import org.scalacheck.Arbitrary
 import scalaz.Equal
 import scalaz.scalacheck.ScalazProperties.contravariant
 
-object EncoderTests extends ScalazSuite {
+class EncoderTests extends ScalazSuite {
   implicit def simpleEncoderEq[A: Arbitrary]: Equal[SimpleEncoder[A]] = new Equal[SimpleEncoder[A]] {
     override def equal(a1: SimpleEncoder[A], a2: SimpleEncoder[A]): Boolean =
       equality.simpleEncoderEquals(a1, a2)
