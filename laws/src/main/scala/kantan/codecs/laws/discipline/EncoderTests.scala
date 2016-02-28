@@ -1,8 +1,8 @@
 package kantan.codecs.laws.discipline
 
 import kantan.codecs.Encoder
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.laws.{CodecValue, EncoderLaws}
+import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.codecs.laws.EncoderLaws
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws

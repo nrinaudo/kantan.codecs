@@ -73,7 +73,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws, lawsCats, cats, scalaz, docs, tests)
+  .aggregate(core, laws, lawsCats, lawsScalaz, cats, scalaz, docs, tests)
 
 lazy val core = project
   .settings(
@@ -110,11 +110,7 @@ lazy val scalaz = project
     name       := "scalaz"
   )
   .settings(allSettings: _*)
-  .settings(libraryDependencies ++= Seq(
-    "org.scalaz"    %% "scalaz-core"               % scalazVersion,
-    "org.scalaz"    %% "scalaz-scalacheck-binding" % scalazVersion    % "test",
-    "org.scalatest" %% "scalatest"                 % scalatestVersion % "test"
-  ))
+  .settings(libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion)
   .dependsOn(core, laws % "test")
 
 lazy val lawsCats = Project(id = "laws-cats", base = file("laws-cats"))
@@ -124,17 +120,28 @@ lazy val lawsCats = Project(id = "laws-cats", base = file("laws-cats"))
   )
   .settings(libraryDependencies ++= Seq(
     "org.typelevel" %% "cats"      % catsVersion,
-    "org.typelevel" %% "cats-laws" % catsVersion      % "test",
-    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+    "org.typelevel" %% "cats-laws" % catsVersion
   ))
   .settings(allSettings: _*)
   .dependsOn(core, laws, cats)
+
+lazy val lawsScalaz = Project(id = "laws-scalaz", base = file("laws-scalaz"))
+  .settings(
+    moduleName := "kantan.codecs-laws-scalaz",
+    name       := "laws-scalaz"
+  )
+  .settings(libraryDependencies ++= Seq(
+    "org.scalaz"    %% "scalaz-core"               % scalazVersion,
+    "org.scalaz"    %% "scalaz-scalacheck-binding" % scalazVersion
+  ))
+  .settings(allSettings: _*)
+  .dependsOn(core, laws, scalaz)
 
 lazy val tests = project
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
-  .dependsOn(core, laws % "test", lawsCats % "test")
+  .dependsOn(core, laws % "test", lawsCats % "test", lawsScalaz % "test")
 
 lazy val docs = project
   .settings(allSettings: _*)
