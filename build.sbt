@@ -73,7 +73,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws, lawsCats, lawsScalaz, cats, scalaz, docs, tests)
+  .aggregate(core, laws, catsLaws, scalazLaws, cats, scalaz, docs, tests)
 
 lazy val core = project
   .settings(
@@ -112,10 +112,10 @@ lazy val scalaz = project
   .settings(libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion)
   .dependsOn(core, laws % "test")
 
-lazy val lawsCats = Project(id = "laws-cats", base = file("laws-cats"))
+lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
   .settings(
-    moduleName := "kantan.codecs-laws-cats",
-    name       := "laws-cats"
+    moduleName := "kantan.codecs-cats-laws",
+    name       := "cats-laws"
   )
   .settings(libraryDependencies ++= Seq(
     "org.typelevel" %% "cats"      % catsVersion,
@@ -124,10 +124,10 @@ lazy val lawsCats = Project(id = "laws-cats", base = file("laws-cats"))
   .settings(allSettings: _*)
   .dependsOn(core, laws, cats)
 
-lazy val lawsScalaz = Project(id = "laws-scalaz", base = file("laws-scalaz"))
+lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
   .settings(
-    moduleName := "kantan.codecs-laws-scalaz",
-    name       := "laws-scalaz"
+    moduleName := "kantan.codecs-scalaz-laws",
+    name       := "scalaz-laws"
   )
   .settings(libraryDependencies ++= Seq(
     "org.scalaz"    %% "scalaz-core"               % scalazVersion,
@@ -140,7 +140,7 @@ lazy val tests = project
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
-  .dependsOn(core, laws % "test", lawsCats % "test", lawsScalaz % "test")
+  .dependsOn(core, laws % "test", catsLaws % "test", scalazLaws % "test")
 
 lazy val docs = project
   .settings(allSettings: _*)
