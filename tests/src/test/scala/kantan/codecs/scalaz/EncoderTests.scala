@@ -1,6 +1,7 @@
 package kantan.codecs.scalaz
 
-import kantan.codecs.laws.discipline.SimpleEncoder
+import kantan.codecs.SimpleEncoder
+import kantan.codecs.arbitrary._
 import kantan.codecs.scalaz.laws.arbitrary._
 import kantan.codecs.scalaz.laws.equality._
 

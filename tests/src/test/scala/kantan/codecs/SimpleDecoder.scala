@@ -1,8 +1,6 @@
-package kantan.codecs.laws.discipline
+package kantan.codecs
 
 import java.util.UUID
-
-import kantan.codecs.{Decoder, Result}
 
 /** Simple decoder implementation.
   *

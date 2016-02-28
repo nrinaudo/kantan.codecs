@@ -1,6 +1,5 @@
-package kantan.codecs.laws
+package kantan.codecs
 
-import kantan.codecs.Result
 import kantan.codecs.laws.discipline._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

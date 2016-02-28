@@ -1,6 +1,4 @@
-package kantan.codecs.laws.discipline
-
-import kantan.codecs.{Codec, Result}
+package kantan.codecs
 
 /** Simple codec implementation.
   *

@@ -10,10 +10,4 @@ object equality {
     }
     samples.forall(b ⇒ f(a1(b), a2(b)))
   }
-
-  def simpleEncoderEquals[A: Arbitrary](c1: SimpleEncoder[A], c2: SimpleEncoder[A]): Boolean =
-    eq(c1.encode, c2.encode)(_ == _)
-
-  def simpleDecoderEquals[A: Arbitrary](c1: SimpleDecoder[A], c2: SimpleDecoder[A]): Boolean =
-    eq(c1.decode, c2.decode)(_ == _)
 }

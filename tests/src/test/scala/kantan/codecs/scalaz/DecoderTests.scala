@@ -1,8 +1,9 @@
 package kantan.codecs.scalaz
 
+import kantan.codecs.SimpleDecoder
 import kantan.codecs.scalaz.laws.equality._
-import kantan.codecs.laws.discipline.SimpleDecoder
 import kantan.codecs.scalaz.laws.arbitrary._
+import kantan.codecs.arbitrary._
 import org.scalacheck.Arbitrary
 
 import scalaz.Equal

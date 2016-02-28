@@ -3,8 +3,9 @@ package kantan.codecs.cats
 import cats.Eq
 import cats.std.all._
 import cats.laws.discipline.FunctorTests
-import kantan.codecs.laws.discipline.SimpleDecoder
+import kantan.codecs.SimpleDecoder
 import kantan.codecs.cats.laws.arbitrary._
+import kantan.codecs.arbitrary._
 import kantan.codecs.cats.laws.equality._
 import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite

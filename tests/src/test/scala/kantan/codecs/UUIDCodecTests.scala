@@ -1,8 +1,7 @@
-package kantan.codecs.laws
+package kantan.codecs
 
 import java.util.UUID
 
-import kantan.codecs.Result
 import kantan.codecs.laws.CodecValue._
 import kantan.codecs.laws.discipline._
 import org.scalatest.FunSuite

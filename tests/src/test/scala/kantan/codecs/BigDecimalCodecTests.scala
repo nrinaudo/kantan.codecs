@@ -1,4 +1,4 @@
-package kantan.codecs.laws
+package kantan.codecs
 
 import kantan.codecs.laws.discipline._
 import org.scalatest.FunSuite
