@@ -89,8 +89,7 @@ lazy val laws = project
   )
   .settings(libraryDependencies ++= Seq(
     "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
-    "org.typelevel"  %% "discipline" % disciplineVersion,
-    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+    "org.typelevel"  %% "discipline" % disciplineVersion
   ))
   .settings(allSettings: _*)
   .dependsOn(core)
