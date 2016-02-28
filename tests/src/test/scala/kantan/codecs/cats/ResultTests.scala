@@ -4,7 +4,7 @@ import algebra.laws.{GroupLaws, OrderLaws}
 import cats.Eq
 import cats.data.NonEmptyList
 import kantan.codecs.Result
-import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.cats.laws.arbitrary._
 import cats.laws.discipline.{TraverseTests, BifunctorTests, CartesianTests, MonadTests}
 import cats.laws.discipline.arbitrary._
 import cats.std.all._
