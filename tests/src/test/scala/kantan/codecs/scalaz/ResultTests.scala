@@ -1,7 +1,7 @@
 package kantan.codecs.scalaz
 
 import kantan.codecs.Result
-import kantan.codecs.scalaz.laws.arbitrary._
+import kantan.codecs.scalaz.laws._
 import org.scalacheck.Arbitrary
 
 import scalaz.scalacheck.ScalazArbitrary._

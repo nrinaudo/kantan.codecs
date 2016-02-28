@@ -1,12 +1,11 @@
-package kantan.codecs.scalaz.laws
+package kantan.codecs.scalaz
 
-import kantan.codecs.scalaz._
-import kantan.codecs.{Decoder, Encoder, Result}
+import kantan.codecs.{Encoder, Result, Decoder}
 import org.scalacheck.Arbitrary
 
-import _root_.scalaz.Equal
+import scalaz.Equal
 
-object equality {
+package object laws extends ScalazInstances {
   implicit def decoderEqual[E: Arbitrary, D: Equal, F: Equal, R[DD] <: Decoder[E, DD, F, R]]: Equal[R[D]] = new Equal[R[D]] {
     override def equal(a1: R[D], a2: R[D]) =
       kantan.codecs.laws.discipline.equality.eq(a1.decode, a2.decode) { (d1, d2) ⇒

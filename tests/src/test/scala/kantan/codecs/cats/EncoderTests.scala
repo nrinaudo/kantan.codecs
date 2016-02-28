@@ -3,10 +3,9 @@ package kantan.codecs.cats
 import cats.Eq
 import cats.laws.discipline.ContravariantTests
 import cats.std.all._
+import kantan.codecs.cats.laws._
 import kantan.codecs.SimpleEncoder
-import kantan.codecs.cats.laws.arbitrary._
 import kantan.codecs.arbitrary._
-import kantan.codecs.cats.laws.equality._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline

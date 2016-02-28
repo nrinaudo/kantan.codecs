@@ -1,11 +1,10 @@
-package kantan.codecs.cats.laws
+package kantan.codecs.cats
 
 import cats.Eq
 import kantan.codecs.{Encoder, Decoder, Result}
 import org.scalacheck.Arbitrary
-import kantan.codecs.cats._
 
-object equality {
+package object laws extends CatsInstances {
   implicit def decoderEq[E: Arbitrary, D: Eq, F: Eq, R[DD] <: Decoder[E, DD, F, R]]: Eq[R[D]] = new Eq[R[D]] {
     override def eqv(a1: R[D], a2: R[D]) =
       kantan.codecs.laws.discipline.equality.eq(a1.decode, a2.decode) { (d1, d2) ⇒
