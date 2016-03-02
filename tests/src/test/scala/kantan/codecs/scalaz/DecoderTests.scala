@@ -1,17 +1,12 @@
 package kantan.codecs.scalaz
 
-import kantan.codecs.simple._
 import kantan.codecs.arbitrary._
 import kantan.codecs.scalaz.laws._
-import org.scalacheck.Arbitrary
+import kantan.codecs.simple._
 
-import scalaz.Equal
-import scalaz.std.anyVal._
 import _root_.scalaz.scalacheck.ScalazProperties._
+import scalaz.std.anyVal._
 
 class DecoderTests extends ScalazSuite {
-  implicit def simpleDecoderEqual[A: Arbitrary: Equal] = decoderEqual[String, A, Boolean, Simple]
-  implicit val fct = decoderFunctor[String, Boolean, Simple]
-
   checkAll("SimpleDecoder", functor.laws[SimpleDecoder])
 }
