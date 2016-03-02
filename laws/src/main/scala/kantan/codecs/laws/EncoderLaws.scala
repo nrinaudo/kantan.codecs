@@ -3,8 +3,8 @@ package kantan.codecs.laws
 import kantan.codecs.Encoder
 import kantan.codecs.laws.CodecValue.LegalValue
 
-trait EncoderLaws[E, D, R[DD] <: Encoder[E, DD, R]] {
-  def encoder: Encoder[E, D, R]
+trait EncoderLaws[E, D, T] {
+  def encoder: Encoder[E, D, T]
 
 
   // - Simple laws -----------------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ trait EncoderLaws[E, D, R[DD] <: Encoder[E, DD, R]] {
 }
 
 object EncoderLaws {
-  implicit def apply[E, D, R[DD] <: Encoder[E, DD, R]](implicit ee: Encoder[E, D, R]): EncoderLaws[E, D, R] = new EncoderLaws[E, D, R] {
+  implicit def apply[E, D, T](implicit ee: Encoder[E, D, T]): EncoderLaws[E, D, T] = new EncoderLaws[E, D, T] {
     override val encoder = ee
   }
 }

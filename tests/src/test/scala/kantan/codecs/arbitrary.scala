@@ -2,6 +2,7 @@ package kantan.codecs
 
 import java.io.FileNotFoundException
 
+import kantan.codecs.simple.{SimpleEncoder, SimpleDecoder}
 import org.scalacheck.{Gen, Arbitrary}
 import kantan.codecs.laws.discipline.arbitrary._
 

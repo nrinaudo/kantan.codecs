@@ -6,12 +6,12 @@ import kantan.codecs.{Encoder, Decoder, Result}
 import kantan.codecs.Result.{Failure, Success}
 
 trait CatsInstances extends LowPriorityCatsInstances {
-  implicit def decoderFunctor[E, F, R[D] <: Decoder[E, D, F, R]]: Functor[R] = new Functor[R] {
-    override def map[A, B](fa: R[A])(f: A ⇒ B): R[B] = fa.map(f)
+  implicit def decoderFunctor[E, F, T]: Functor[Decoder[E, ?, F, T]] = new Functor[Decoder[E, ?, F, T]] {
+    override def map[A, B](fa: Decoder[E, A, F, T])(f: A ⇒ B) = fa.map(f)
   }
 
-  implicit def encoderContravariant[E, R[D] <: Encoder[E, D, R]]: Contravariant[R] = new Contravariant[R] {
-    override def contramap[A, B](fa: R[A])(f: B ⇒ A) = fa.contramap(f)
+  implicit def encoderContravariant[E, T]: Contravariant[Encoder[E, ?, T]] = new Contravariant[Encoder[E, ?, T]] {
+    override def contramap[A, B](fa: Encoder[E, A, T])(f: B ⇒ A) = fa.contramap(f)
   }
 
   implicit def resultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] = new Order[Result[F, S]] {

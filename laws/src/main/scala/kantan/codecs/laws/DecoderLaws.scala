@@ -4,8 +4,8 @@ import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.{Result, Decoder}
 import org.scalacheck.Prop
 
-trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
-  def decoder: Decoder[E, D, F, R]
+trait DecoderLaws[E, D, F, T] {
+  def decoder: Decoder[E, D, F, T]
 
   private def cmp(result: Result[F, D], cv: CodecValue[E, D]): Boolean = (cv, result) match {
     case (IllegalValue(_),  Result.Failure(_))  ⇒ true
@@ -43,7 +43,7 @@ trait DecoderLaws[E, D, F, R[DD] <: Decoder[E, DD, F, R]] {
 }
 
 object DecoderLaws {
-  implicit def apply[E, D, F, R[DD] <: Decoder[E, DD, F, R]](implicit de: Decoder[E, D, F, R]): DecoderLaws[E, D, F, R] = new DecoderLaws[E, D, F, R] {
+  implicit def apply[E, D, F, T](implicit de: Decoder[E, D, F, T]): DecoderLaws[E, D, F, T] = new DecoderLaws[E, D, F, T] {
     override val decoder = de
   }
 }

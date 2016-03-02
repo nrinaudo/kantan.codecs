@@ -1,14 +1,13 @@
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.Encoder
 import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.EncoderLaws
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws
 
-trait EncoderTests[E, D, R[DD] <: Encoder[E, DD, R]] extends Laws {
-  def laws: EncoderLaws[E, D, R]
+trait EncoderTests[E, D, T] extends Laws {
+  def laws: EncoderLaws[E, D, T]
 
   implicit def arbLegal: Arbitrary[LegalValue[E, D]]
   implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
@@ -21,9 +20,9 @@ trait EncoderTests[E, D, R[DD] <: Encoder[E, DD, R]] extends Laws {
 }
 
 object EncoderTests {
-  def apply[E, D, R[DD] <: Encoder[E, DD, R]](implicit l: EncoderLaws[E, D, R],
-                                              al: Arbitrary[LegalValue[E, D]]): EncoderTests[E, D, R] = new EncoderTests[E, D, R] {
-    override val laws = l
-    override val arbLegal = al
-  }
+  def apply[E, D, T](implicit l: EncoderLaws[E, D, T], al: Arbitrary[LegalValue[E, D]]): EncoderTests[E, D, T] =
+    new EncoderTests[E, D, T] {
+      override val laws = l
+      override val arbLegal = al
+    }
 }

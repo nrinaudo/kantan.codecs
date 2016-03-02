@@ -2,13 +2,11 @@ package kantan.codecs.laws.discipline
 
 import kantan.codecs.laws.CodecLaws
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.{Decoder, Encoder}
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
 
-trait CodecTests[E, D, F, Dec[DD] <: Decoder[E, DD, F, Dec], Enc[DD] <: Encoder[E, DD, Enc]]
-  extends DecoderTests[E, D, F, Dec] with EncoderTests[E, D, Enc] {
-  def laws: CodecLaws[E, D, F, Dec, Enc]
+trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[E, D, T] {
+  def laws: CodecLaws[E, D, F, T]
 
   override implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
   implicit val arbE: Arbitrary[E] = Arbitrary(arbLegal.arbitrary.map(_.encoded))
@@ -37,11 +35,10 @@ trait CodecTests[E, D, F, Dec[DD] <: Decoder[E, DD, F, Dec], Enc[DD] <: Encoder[
 }
 
 object CodecTests {
-  def apply[E, D, F, Dec[DD] <: Decoder[E, DD, F, Dec], Enc[DD] <: Encoder[E, DD, Enc]]
-  (implicit l: CodecLaws[E, D, F, Dec, Enc], af: Arbitrary[F], al: Arbitrary[LegalValue[E, D]])
-  : CodecTests[E, D, F, Dec, Enc] = new CodecTests[E, D, F, Dec, Enc] {
-    override def laws = l
-    override implicit def arbLegal = al
-    override implicit def arbF = af
-  }
+  def apply[E, D, F, T](implicit l: CodecLaws[E, D, F, T], af: Arbitrary[F], al: Arbitrary[LegalValue[E, D]]): CodecTests[E, D, F, T] =
+    new CodecTests[E, D, F, T] {
+      override def laws = l
+      override implicit def arbLegal = al
+      override implicit def arbF = af
+    }
 }

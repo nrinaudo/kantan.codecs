@@ -8,6 +8,11 @@ package kantan.codecs
   * alternative would be to require it to have a [[Decoder]] and an [[Encoder]] instance, which a [[Codec]] would
   * fulfill.
   */
-trait Codec[E, D, F, Dec[DD] <: Decoder[E, DD, F, Dec], Enc[DD] <: Encoder[E, DD, Enc]]
-  extends Decoder[E, D, F, Dec] with Encoder[E, D, Enc] { self: Dec[D] with Enc[D] =>
+trait Codec[E, D, F, T] extends Decoder[E, D, F, T] with Encoder[E, D, T]
+
+object Codec {
+  def apply[E, D, F, T](f: E ⇒ Result[F, D])(g: D ⇒ E): Codec[E, D, F, T] = new Codec[E, D, F, T] {
+    override def encode(d: D) = g(d)
+    override def decode(e: E) = f(e)
+  }
 }
