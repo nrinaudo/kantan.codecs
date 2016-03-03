@@ -7,7 +7,7 @@ package kantan.codecs
   * @tparam F failure type - how to represent errors.
   * @tparam T tag type
   */
-trait Decoder[E, D, F, T] extends Serializable {
+trait Decoder[E, D, F, T] extends Any with Serializable {
   /** Decodes encoded data.
     *
     * This method is safe, in that it won't throw for run-of-the-mill errors. Unrecoverable errors such as out of memory

@@ -6,7 +6,7 @@ package kantan.codecs
   * @tparam D decoded type - what to encode from.
   * @tparam T tag type.
   */
-trait Encoder[E, D, T] extends Serializable {
+trait Encoder[E, D, T] extends Any with Serializable {
   /** Encodes the specified value. */
   def encode(d: D): E
 
