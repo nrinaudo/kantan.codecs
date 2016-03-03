@@ -1,6 +1,5 @@
 import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
-import spray.boilerplate.BoilerplatePlugin._
 import UnidocKeys._
 
 val catsVersion          = "0.4.1"
@@ -39,7 +38,7 @@ lazy val baseSettings = Seq(
     compilerPlugin("org.spire-math" % "kind-projector" % "0.7.1" cross CrossVersion.binary)
   ),
   incOptions     := incOptions.value.withNameHashing(true)
-) ++ Boilerplate.settings
+)
 
 lazy val noPublishSettings = Seq(
   publish         := (),
@@ -91,6 +90,7 @@ lazy val laws = project
     "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
     "org.typelevel"  %% "discipline" % disciplineVersion
   ))
+  .enablePlugins(spray.boilerplate.BoilerplatePlugin)
   .settings(allSettings: _*)
   .dependsOn(core)
 
