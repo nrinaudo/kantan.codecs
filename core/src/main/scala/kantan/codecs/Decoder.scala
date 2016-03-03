@@ -1,6 +1,6 @@
 package kantan.codecs
 
-/** Parent trait for all type classes used to decode a useful type from an encoded value.
+/** Type class for types that can be decoded from other types.
   *
   * @tparam E encoded type - what to decode from.
   * @tparam D decoded type - what to decode to.
@@ -8,6 +8,8 @@ package kantan.codecs
   * @tparam T tag type
   */
 trait Decoder[E, D, F, T] extends Any with Serializable {
+  // - Decoding --------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   /** Decodes encoded data.
     *
     * This method is safe, in that it won't throw for run-of-the-mill errors. Unrecoverable errors such as out of memory
@@ -22,26 +24,61 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
     *
     * The main difference between this and [[decode]] is that the former throws exceptions when errors occur where the
     * later safely encodes error conditions in its return type.
+    *
+    * [[decode]] should almost always be preferred, but this can be useful for code where crashing is an acceptable
+    * reaction to failure.
     */
   def unsafeDecode(e: E): D = decode(e).get
 
-  /** Creates a new [[Decoder]] instance that applies the specified function after decoding.
+
+
+  // - Composition -----------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Creates a new [[Decoder]] instance by transforming successful results with the specified function.
     *
-    * This is convenient when building [[Decoder]] instances: when writing a `Decoder[E, D, F, R]`, it often happens
-    * that you already have an instance of `Decoder[E, DD, F, R]` and a `D ⇒ DD`.
+    * This differs from [[mapResult]] in that the transformation function cannot fail.
     */
   def map[DD](f: D ⇒ DD): Decoder[E, DD, F, T] = Decoder(e ⇒ decode(e).map(f))
 
-  /** Creates a new [[Decoder]] instance that applies the specified function after decoding.
+  /** Creates a new [[Decoder]] instance by transforming successful results with the specified function.
     *
-    * This is similar to [[map]], but is used for these cases when the transformation function is unsafe - you have
-    * a `Decoder[String]` and want to turn it into a `Decoder[Int]`, for example.
+    * This differs from [[map]] in that it allows the transformation function to fail.
     */
   def mapResult[DD](f: D ⇒ Result[F, DD]): Decoder[E, DD, F, T] = Decoder(e ⇒ decode(e).flatMap(f))
+
+  /** Creates a new [[Decoder]] instance by transforming errors with the specified function. */
+  def mapError[FF](f: F ⇒ FF): Decoder[E, D, FF, T] = Decoder(e ⇒ decode(e).leftMap(f))
+
+  /** Creates a new [[Decoder]] instance by transforming encoded values with the specified function. */
+  def contramapEncoded[EE](f: EE ⇒ E): Decoder[EE, D, F, T] = Decoder(ee ⇒ decode(f(ee)))
+
+  /** Changes the type with which the decoder is tagged.
+    *
+    * This makes it possible to share similar decoders across various libraries. Extracting values from strings, for
+    * example, is a common task for which the default implementation can be shared rather than copy / pasted.
+    */
+  def tag[TT]: Decoder[E, D, F, TT] = this.asInstanceOf[Decoder[E, D, F, TT]]
 }
 
 object Decoder {
+  /** Creates a new [[Decoder]] instance that applies the specified function when decoding. */
   def apply[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
     override def decode(e: E) = f(e)
+  }
+
+  /** Creates a new [[Decoder]] instance that applies the specified, non-throwing function when decoding. */
+  def fromSafe[E, D, F, T](f: E ⇒ D): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
+    override def decode(e: E) = Result.success(f(e))
+    override def unsafeDecode(e: E) = f(e)
+  }
+
+  /** Creates a new [[Decoder]] instance that applies the specified function when decoding.
+    *
+    * `Throwable` is not a very useful failure type and should usually be turned into something more meaningful through
+    * [[Decoder.mapError]]
+    */
+  def fromUnsafe[E, D, T](f: E ⇒ D): Decoder[E, D, Throwable, T] = new Decoder[E, D, Throwable, T] {
+    override def decode(e: E) = Result.nonFatal(f(e))
+    override def unsafeDecode(e: E) = f(e)
   }
 }
