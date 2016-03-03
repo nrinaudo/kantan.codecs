@@ -7,7 +7,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class EitherCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("Decoder[String, Either[Int, Boolean], Boolean]", DecoderTests[String, Either[Int, Boolean], Boolean, Simple].decoder[Int, Int])
-  checkAll("Encoder[String, Either[Int, Boolean]]", EncoderTests[String, Either[Int, Boolean], Simple].encoder[Int, Int])
-  checkAll("Codec[String, Either[Int, Boolean]]", CodecTests[String, Either[Int, Boolean], Boolean, Simple].codec[Int, Int])
+  checkAll("Decoder[String, Either[Int, Boolean], Boolean]", DecoderTests[String, Either[Int, Boolean], Boolean, Codecs.type].decoder[Int, Int])
+  checkAll("Encoder[String, Either[Int, Boolean]]", EncoderTests[String, Either[Int, Boolean], Codecs.type].encoder[Int, Int])
+  checkAll("Codec[String, Either[Int, Boolean]]", CodecTests[String, Either[Int, Boolean], Boolean, Codecs.type].codec[Int, Int])
 }

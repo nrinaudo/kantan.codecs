@@ -7,7 +7,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class DoubleCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("Decoder[String, Double, Boolean]", DecoderTests[String, Double, Boolean, Simple].decoder[Int, Int])
-  checkAll("Encoder[String, Double]", EncoderTests[String, Double, Simple].encoder[Int, Int])
-  checkAll("Codec[String, Double]", CodecTests[String, Double, Boolean, Simple].codec[Int, Int])
+  checkAll("Decoder[String, Double, Boolean]", DecoderTests[String, Double, Boolean, Codecs.type].decoder[Int, Int])
+  checkAll("Encoder[String, Double]", EncoderTests[String, Double, Codecs.type].encoder[Int, Int])
+  checkAll("Codec[String, Double]", CodecTests[String, Double, Boolean, Codecs.type].codec[Int, Int])
 }
