@@ -9,7 +9,6 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
   def laws: CodecLaws[E, D, F, T]
 
   override implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
-  implicit val arbE: Arbitrary[E] = Arbitrary(arbLegal.arbitrary.map(_.encoded))
 
   private def coreRules[A: Arbitrary, B: Arbitrary]: RuleSet = new DefaultRuleSet(
     "round trip",

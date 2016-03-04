@@ -13,9 +13,11 @@ trait EncoderTests[E, D, T] extends Laws {
   implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
 
   def encoder[A: Arbitrary, B: Arbitrary]: RuleSet = new SimpleRuleSet("core",
-    "encode"                → forAll(laws.encode _),
-    "contramap identity"    → forAll(laws.contramapIdentity _),
-    "contramap composition" → forAll(laws.contramapComposition[A, B] _)
+    "encode"                 → forAll(laws.encode _),
+    "contramap identity"     → forAll(laws.contramapIdentity _),
+    "contramap composition"  → forAll(laws.contramapComposition[A, B] _),
+    "mapEncoded identity"    → forAll(laws.mapEncodedIdentity _),
+    "mapEncoded composition" → forAll(laws.mapEncodedComposition[A, B] _)
   )
 }
 

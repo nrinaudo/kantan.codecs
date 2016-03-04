@@ -23,6 +23,7 @@ trait DecoderLaws[E, D, F, T] {
     Prop.throws(classOf[Exception])(decoder.unsafeDecode(v.encoded))
 
 
+
   // - Functor laws ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def mapIdentity(v: CodecValue[E, D]): Boolean =
@@ -30,6 +31,22 @@ trait DecoderLaws[E, D, F, T] {
 
   def mapComposition[A, B](v: CodecValue[E, D], f: D ⇒ A, g: A ⇒ B): Boolean =
     decoder.map(f andThen g).decode(v.encoded) == decoder.map(f).map(g).decode(v.encoded)
+
+  def mapErrorIdentity[A](v: IllegalValue[E, D]): Boolean =
+      decoder.decode(v.encoded) == decoder.mapError(identity).decode(v.encoded)
+
+  def mapErrorComposition[A, B](v: CodecValue[E, D], f: F ⇒ A, g: A ⇒ B): Boolean =
+    decoder.mapError(f andThen g).decode(v.encoded) == decoder.mapError(f).mapError(g).decode(v.encoded)
+
+
+
+  // - Contravariant laws ----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def contramapEncodedIdentity(v: CodecValue[E, D]): Boolean =
+    decoder.decode(v.encoded) == decoder.contramapEncoded(identity[E]).decode(v.encoded)
+
+  def contramapEncodedComposition[A, B](b: B, f: A ⇒ E, g: B ⇒ A): Boolean =
+    decoder.contramapEncoded(g andThen f).decode(b) == decoder.contramapEncoded(f).contramapEncoded(g).decode(b)
 
 
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------

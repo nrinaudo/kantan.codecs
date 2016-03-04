@@ -14,6 +14,7 @@ trait DecoderTests[E, D, F, T] extends Laws {
 
   implicit def arbF: Arbitrary[F]
   implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
+  implicit val arbE: Arbitrary[E] = Arbitrary(arbLegal.arbitrary.map(_.encoded))
 
   private def coreRules[A: Arbitrary, B: Arbitrary](implicit arbED: Arbitrary[CodecValue[E, D]]) =
     new SimpleRuleSet("core",
@@ -21,7 +22,9 @@ trait DecoderTests[E, D, F, T] extends Laws {
       "map identity" → forAll(laws.mapIdentity _),
       "mapResult identity" → forAll(laws.mapResultIdentity _),
       "map composition" → forAll(laws.mapComposition[A, B] _),
-      "mapResult composition" → forAll(laws.mapResultComposition[A, B] _)
+      "mapResult composition" → forAll(laws.mapResultComposition[A, B] _),
+      "contramapEncoded identity" → forAll(laws.contramapEncodedIdentity _),
+      "contramapEncoded composition" → forAll(laws.contramapEncodedComposition[A, B] _)
     )
 
   def bijectiveDecoder[A: Arbitrary, B: Arbitrary]: RuleSet = {
@@ -36,7 +39,9 @@ trait DecoderTests[E, D, F, T] extends Laws {
     new DefaultRuleSet(
       "decoder",
       Some(coreRules[A, B]),
-      "decode failure" → forAll(laws.decodeFailure _)
+      "decode failure" → forAll(laws.decodeFailure _),
+      "mapError identity" → forAll(laws.mapErrorIdentity _),
+      "mapError composition" → forAll(laws.mapErrorComposition[A, B] _)
     )
 }
 

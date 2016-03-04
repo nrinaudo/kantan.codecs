@@ -12,6 +12,14 @@ trait EncoderLaws[E, D, T] {
   def encode(v: LegalValue[E, D]): Boolean = encoder.encode(v.decoded) == v.encoded
 
 
+  // - Covariant functor laws ------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def mapEncodedIdentity(d: D): Boolean = encoder.encode(d) == encoder.mapEncoded(identity).encode(d)
+
+  def mapEncodedComposition[A, B](d: D, f: E ⇒ A, g: A ⇒ B): Boolean =
+    encoder.mapEncoded(f andThen g).encode(d) == encoder.mapEncoded(f).mapEncoded(g).encode(d)
+
+
 
   // - Contravariant functor laws --------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
