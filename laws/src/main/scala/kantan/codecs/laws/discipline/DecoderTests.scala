@@ -24,20 +24,20 @@ trait DecoderTests[E, D, F, T] extends Laws {
       "mapResult composition" → forAll(laws.mapResultComposition[A, B] _)
     )
 
-  def bijectiveDecoder[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B]): RuleSet = new DefaultRuleSet(
-    "bijective decoder",
-    Some(coreRules(arbA, arbB, Arbitrary(arbLegal.arbitrary)))
-  )
-
+  def bijectiveDecoder[A: Arbitrary, B: Arbitrary]: RuleSet = {
+    implicit val arbValues: Arbitrary[CodecValue[E, D]] = Arbitrary(arbLegal.arbitrary)
+    new DefaultRuleSet(
+      "bijective decoder",
+      Some(coreRules[A, B])
+    )
+  }
 
   def decoder[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D]]): RuleSet =
     new DefaultRuleSet(
       "decoder",
-      Some(coreRules(arbA, arbB, CodecValue.arbValue(arbLegal, ai))),
+      Some(coreRules[A, B]),
       "decode failure" → forAll(laws.decodeFailure _)
     )
-
-
 }
 
 object DecoderTests {
