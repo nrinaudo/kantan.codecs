@@ -65,20 +65,4 @@ object Decoder {
   def apply[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
     override def decode(e: E) = f(e)
   }
-
-  /** Creates a new [[Decoder]] instance that applies the specified, non-throwing function when decoding. */
-  def fromSafe[E, D, F, T](f: E ⇒ D): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
-    override def decode(e: E) = Result.success(f(e))
-    override def unsafeDecode(e: E) = f(e)
-  }
-
-  /** Creates a new [[Decoder]] instance that applies the specified function when decoding.
-    *
-    * `Throwable` is not a very useful failure type and should usually be turned into something more meaningful through
-    * [[Decoder.mapError]]
-    */
-  def fromUnsafe[E, D, T](f: E ⇒ D): Decoder[E, D, Throwable, T] = new Decoder[E, D, Throwable, T] {
-    override def decode(e: E) = Result.nonFatal(f(e))
-    override def unsafeDecode(e: E) = f(e)
-  }
 }
