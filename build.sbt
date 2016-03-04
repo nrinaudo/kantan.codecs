@@ -3,7 +3,8 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
 val catsVersion          = "0.4.1"
-val scalazVersion        = "7.2.0"
+val scalazVersion        = "7.2.1"
+val scalazVersion        = "7.2.1"
 val macroParadiseVersion = "2.1.0"
 val scalatestVersion     = "3.0.0-M9"
 val scalaCheckVersion    = "1.12.5"
