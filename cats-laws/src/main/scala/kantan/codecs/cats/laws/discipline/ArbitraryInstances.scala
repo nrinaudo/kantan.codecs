@@ -1,4 +1,4 @@
-package kantan.codecs.cats.laws
+package kantan.codecs.cats.laws.discipline
 
 import cats.data.Xor
 import kantan.codecs.laws.CodecValue.{LegalValue, IllegalValue}

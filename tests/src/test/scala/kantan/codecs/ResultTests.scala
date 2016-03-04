@@ -4,7 +4,6 @@ import java.util.NoSuchElementException
 
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 

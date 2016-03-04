@@ -1,7 +1,7 @@
 package kantan.codecs.scalaz
 
 import kantan.codecs.Result
-import kantan.codecs.scalaz.laws._
+import kantan.codecs.scalaz.laws.discipline._
 import org.scalacheck.Arbitrary
 
 import scalaz.scalacheck.ScalazArbitrary._
@@ -16,7 +16,6 @@ class ResultTests extends ScalazSuite {
     override def equal(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value
   }
   implicit val arbNoEqual = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
-
 
   checkAll("Result[String, Int]", order.laws[Result[String, Int]])
   checkAll("Result[String, Int]", equal.laws[Result[String, NoOrder]])

@@ -1,10 +1,10 @@
 package kantan.codecs.cats
 
 import algebra.laws.{GroupLaws, OrderLaws}
+import laws.discipline._
 import cats.laws.discipline.eq._
 import cats.data.NonEmptyList
 import kantan.codecs.Result
-import kantan.codecs.cats.laws._
 import cats.laws.discipline.{TraverseTests, BifunctorTests, CartesianTests, MonadTests}
 import cats.laws.discipline.arbitrary._
 import cats.std.all._

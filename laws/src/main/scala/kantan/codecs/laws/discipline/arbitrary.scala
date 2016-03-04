@@ -1,8 +1,11 @@
 package kantan.codecs.laws.discipline
 
+import java.io.FileNotFoundException
+
 import kantan.codecs.Result
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.strings.{StringEncoder, StringDecoder}
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.{Arbitrary, Gen}
 
@@ -42,4 +45,28 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   implicit def genIllegalOption[E, D](f: E ⇒ Boolean)(implicit dl: Arbitrary[IllegalValue[E, D]]): Gen[IllegalValue[E, Option[D]]] =
     arb[IllegalValue[E, D]].suchThat(v ⇒ !f(v.encoded)).map(d ⇒ IllegalValue(d.encoded))
+
+
+
+  // - Exceptions ------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit val arbException: Arbitrary[Exception] = Arbitrary(Gen.oneOf(
+    new NullPointerException,
+    new FileNotFoundException("file not found"),
+    new IllegalArgumentException,
+    new IllegalStateException("illegal state")
+  ))
+
+  implicit def arbTry[A](implicit aa: Arbitrary[A]): Arbitrary[Try[A]] =
+    Arbitrary(Gen.oneOf(Arbitrary.arbitrary[Exception].map(scala.util.Failure.apply), aa.arbitrary.map(scala.util.Success.apply)))
+
+
+
+  // - String codecs ---------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def arbStringEncoder[A: Arbitrary]: Arbitrary[StringEncoder[A]] =
+    Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(f ⇒ StringEncoder(f)))
+
+  implicit def arbStringDecoder[A: Arbitrary]: Arbitrary[StringDecoder[A]] =
+    Arbitrary(Arbitrary.arbitrary[String ⇒ Result[Throwable, A]].map(f ⇒ StringDecoder(f)))
 }

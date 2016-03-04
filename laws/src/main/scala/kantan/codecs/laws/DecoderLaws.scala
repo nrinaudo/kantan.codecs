@@ -28,9 +28,8 @@ trait DecoderLaws[E, D, F, T] {
   def mapIdentity(v: CodecValue[E, D]): Boolean =
     decoder.decode(v.encoded) == decoder.map(identity).decode(v.encoded)
 
-  def mapComposition[A, B](v: CodecValue[E, D], f: D ⇒ A, g: A ⇒ B): Boolean = {
+  def mapComposition[A, B](v: CodecValue[E, D], f: D ⇒ A, g: A ⇒ B): Boolean =
     decoder.map(f andThen g).decode(v.encoded) == decoder.map(f).map(g).decode(v.encoded)
-  }
 
 
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------

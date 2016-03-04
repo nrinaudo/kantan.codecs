@@ -213,5 +213,14 @@ object Result {
     override def toOption = None
     override def toEither = Left(value)
     override def toList = Nil
+
+    // Specific implementation for Throwable. Not the cleanest hack ever, but we really want two failures of the same
+    // exception type to be the same.
+    override def equals(obj: Any): Boolean = obj match {
+      case Failure(f) ⇒
+        if(f.isInstanceOf[Throwable]) f.getClass == value.getClass
+        else                          f == value
+      case _ ⇒ false
+    }
   }
 }

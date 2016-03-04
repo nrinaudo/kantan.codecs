@@ -37,7 +37,8 @@ lazy val baseSettings = Seq(
     compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full),
     compilerPlugin("org.spire-math" % "kind-projector" % "0.7.1" cross CrossVersion.binary)
   ),
-  incOptions     := incOptions.value.withNameHashing(true)
+  coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
+  incOptions  := incOptions.value.withNameHashing(true)
 )
 
 lazy val noPublishSettings = Seq(

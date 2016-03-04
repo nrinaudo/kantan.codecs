@@ -1,4 +1,4 @@
-package kantan.codecs.scalaz.laws
+package kantan.codecs.scalaz.laws.discipline
 
 import kantan.codecs.laws.CodecValue.{LegalValue, IllegalValue}
 import org.scalacheck.Arbitrary
