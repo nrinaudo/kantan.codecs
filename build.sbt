@@ -8,6 +8,7 @@ val macroParadiseVersion = "2.1.0"
 val scalatestVersion     = "3.0.0-M9"
 val scalaCheckVersion    = "1.12.5"
 val disciplineVersion    = "0.4"
+val kindProjectorVersion = "0.7.1"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
@@ -35,7 +36,7 @@ lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
   libraryDependencies ++= Seq(
     compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full),
-    compilerPlugin("org.spire-math" % "kind-projector" % "0.7.1" cross CrossVersion.binary)
+    compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary)
   ),
   coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
   incOptions  := incOptions.value.withNameHashing(true)

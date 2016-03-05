@@ -5,7 +5,7 @@ package kantan.codecs
   * @tparam E encoded type - what to decode from.
   * @tparam D decoded type - what to decode to.
   * @tparam F failure type - how to represent errors.
-  * @tparam T tag type
+  * @tparam T tag type - used to specialise decoder instances, and usually where default implementations are declared.
   */
 trait Decoder[E, D, F, T] extends Any with Serializable {
   // - Decoding --------------------------------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
     * This makes it possible to share similar decoders across various libraries. Extracting values from strings, for
     * example, is a common task for which the default implementation can be shared rather than copy / pasted.
     */
-  @inline def tag[TT]: Decoder[E, D, F, TT] = this.asInstanceOf[Decoder[E, D, F, TT]]
+  def tag[TT]: Decoder[E, D, F, TT] = this.asInstanceOf[Decoder[E, D, F, TT]]
 }
 
 object Decoder {
