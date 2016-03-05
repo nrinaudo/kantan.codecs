@@ -7,6 +7,7 @@ import cats.data.NonEmptyList
 import kantan.codecs.Result
 import cats.laws.discipline.{TraverseTests, BifunctorTests, CartesianTests, MonadTests}
 import cats.laws.discipline.arbitrary._
+import cats.syntax.eq._
 import cats.std.all._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -22,4 +23,14 @@ class ResultTests  extends FunSuite with GeneratorDrivenPropertyChecks with Disc
   checkAll("Result[Int, String]", OrderLaws[Result[Int, String]].order)
   checkAll("Result[String, Int]", GroupLaws[Result[String, Int]].monoid)
   checkAll("Result[String, NonEmptyList[Int]]", GroupLaws[Result[String, NonEmptyList[Int]]].semigroup)
+
+  test("Failures and successes should never be equal") {
+    forAll { (i: Int, s: String) ⇒
+      val success: Result[Int, String] = Result.success(s)
+      val failure: Result[Int, String] = Result.failure(i)
+
+      assert(success =!= failure)
+      assert(failure =!= success)
+    }
+  }
 }
