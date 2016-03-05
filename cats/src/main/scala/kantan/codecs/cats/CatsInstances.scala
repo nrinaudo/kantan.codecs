@@ -27,13 +27,10 @@ trait CatsInstances extends LowPriorityCatsInstances {
     }
   }
 
-  implicit def resultShow[F, S](implicit sf: Show[F], ss: Show[S]): Show[Result[F, S]] =
-    new Show[Result[F, S]] {
-      override def show(f: Result[F, S]) = f match {
-        case Failure(f) ⇒ s"Failure(${sf.show(f)})"
-        case Success(s) ⇒ s"Success(${ss.show(s)})"
-      }
-    }
+  implicit def resultShow[F, S](implicit sf: Show[F], ss: Show[S]): Show[Result[F, S]] = Show.show {
+    case Failure(f) ⇒ s"Failure(${sf.show(f)})"
+    case Success(s) ⇒ s"Success(${ss.show(s)})"
+  }
 
   implicit def resultMonoid[F, S](implicit sf: Semigroup[F], ms: Monoid[S]) = new Monoid[Result[F, S]] {
     override def empty = Result.success(ms.empty)
