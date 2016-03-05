@@ -57,7 +57,7 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
     * This makes it possible to share similar decoders across various libraries. Extracting values from strings, for
     * example, is a common task for which the default implementation can be shared rather than copy / pasted.
     */
-  def tag[TT]: Decoder[E, D, F, TT] = this.asInstanceOf[Decoder[E, D, F, TT]]
+  @inline def tag[TT]: Decoder[E, D, F, TT] = this.asInstanceOf[Decoder[E, D, F, TT]]
 }
 
 object Decoder {
