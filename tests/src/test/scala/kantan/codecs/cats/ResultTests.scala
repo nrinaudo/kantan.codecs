@@ -1,19 +1,26 @@
 package kantan.codecs.cats
 
 import algebra.laws.{GroupLaws, OrderLaws}
+import cats.Eq
 import laws.discipline._
 import cats.laws.discipline.eq._
 import cats.data.NonEmptyList
 import kantan.codecs.Result
 import cats.laws.discipline.{TraverseTests, BifunctorTests, CartesianTests, MonadTests}
 import cats.laws.discipline.arbitrary._
-import cats.syntax.eq._
 import cats.std.all._
+import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class ResultTests  extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  case class NoOrder(value: Int)
+  implicit val noOrderEq= new Eq[NoOrder] {
+    override def eqv(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value
+  }
+  implicit val arbNoEqual = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
+
   // TODO: not sure why this isn't resolved automatically. Investigate.
   implicit val test = CartesianTests.Isomorphisms.invariant[Result[String, ?]]
 
@@ -21,16 +28,7 @@ class ResultTests  extends FunSuite with GeneratorDrivenPropertyChecks with Disc
   checkAll("Result[?, ?]", BifunctorTests[Result].bifunctor[Int, Int, Int, Int, Int, Int])
   checkAll("Result[String, ?]", TraverseTests[Result[String, ?]].traverse[Int, Int, Int, Int, Option, Option])
   checkAll("Result[Int, String]", OrderLaws[Result[Int, String]].order)
+  checkAll("Result[Int, String]", OrderLaws[Result[NoOrder, String]].eqv)
   checkAll("Result[String, Int]", GroupLaws[Result[String, Int]].monoid)
   checkAll("Result[String, NonEmptyList[Int]]", GroupLaws[Result[String, NonEmptyList[Int]]].semigroup)
-
-  test("Failures and successes should never be equal") {
-    forAll { (i: Int, s: String) ⇒
-      val success: Result[Int, String] = Result.success(s)
-      val failure: Result[Int, String] = Result.failure(i)
-
-      assert(success =!= failure)
-      assert(failure =!= success)
-    }
-  }
 }
