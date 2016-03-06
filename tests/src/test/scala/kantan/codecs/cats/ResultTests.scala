@@ -1,7 +1,7 @@
 package kantan.codecs.cats
 
 import algebra.laws.{GroupLaws, OrderLaws}
-import cats.Eq
+import cats._
 import laws.discipline._
 import cats.laws.discipline.eq._
 import cats.data.NonEmptyList
@@ -31,4 +31,12 @@ class ResultTests  extends FunSuite with GeneratorDrivenPropertyChecks with Disc
   checkAll("Result[Int, String]", OrderLaws[Result[NoOrder, String]].eqv)
   checkAll("Result[String, Int]", GroupLaws[Result[String, Int]].monoid)
   checkAll("Result[String, NonEmptyList[Int]]", GroupLaws[Result[String, NonEmptyList[Int]]].semigroup)
+
+  test("Show should yield the expected result for successes") {
+    forAll { i: Int ⇒ assert(Show[Result[String, Int]].show(Result.success(i)) == s"Success($i)") }
+  }
+
+  test("Show should yield the expected result for failures") {
+      forAll { i: Int ⇒ assert(Show[Result[Int, String]].show(Result.failure(i)) == s"Failure($i)") }
+    }
 }

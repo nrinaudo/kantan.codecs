@@ -8,7 +8,7 @@ import scalaz.scalacheck.ScalazArbitrary._
 import scalaz.scalacheck.ScalazProperties._
 import scalaz.std.anyVal._
 import scalaz.std.string._
-import scalaz.{Equal, NonEmptyList}
+import scalaz.{Show, Equal, NonEmptyList}
 
 class ResultTests extends ScalazSuite {
   case class NoOrder(value: Int)
@@ -24,4 +24,12 @@ class ResultTests extends ScalazSuite {
   checkAll("Result[String, ?]", monad.laws[Result[String, ?]])
   checkAll("Result[String, ?]", traverse.laws[Result[String, ?]])
   checkAll("Result[?, ?]", bitraverse.laws[Result[?, ?]])
+
+  test("Show should yield the expected result for successes") {
+    forAll { i: Int ⇒ assert(Show[Result[String, Int]].shows(Result.success(i)) == s"Success($i)") }
+  }
+
+  test("Show should yield the expected result for failures") {
+    forAll { i: Int ⇒ assert(Show[Result[Int, String]].shows(Result.failure(i)) == s"Failure($i)") }
+  }
 }
