@@ -1,10 +1,20 @@
 package kantan.codecs.laws
 
 import kantan.codecs._
-import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 
 trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, D, T] {
   implicit lazy val codec = Codec(decoder.decode _)(encoder.encode _)
+
+
+  // - Misc. laws ------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def mapErrorIdentityEncoding[A](d: D): Boolean =
+      codec.encode(d) == codec.mapError(identity).encode(d)
+
+  def mapErrorCompositionEncoding[A, B](d: D, f: F ⇒ A, g: A ⇒ B): Boolean =
+    codec.mapError(f andThen g).encode(d) == codec.mapError(f).mapError(g).encode(d)
+
 
 
   // - Invariant functor laws ------------------------------------------------------------------------------------------
@@ -12,8 +22,8 @@ trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, 
   def imapIdentityEncoding(v: CodecValue[E, D]): Boolean =
     codec.imap(identity[D])(identity[D]).decode(v.encoded) == codec.decode(v.encoded)
 
-  def imapIdentityDecoding(v: LegalValue[E, D]): Boolean =
-      codec.imap(identity[D])(identity[D]).encode(v.decoded) == codec.encode(v.decoded)
+  def imapIdentityDecoding(d: D): Boolean =
+      codec.imap(identity[D])(identity[D]).encode(d) == codec.encode(d)
 
   def imapCompositionEncoding[A, B](b: B, f1: D => A, f2: A => D, g1: A => B, g2: B => A): Boolean =
       codec.imap(f1)(f2).imap(g1)(g2).encode(b) == codec.imap(g1 compose f1)(f2 compose g2).encode(b)
@@ -21,14 +31,14 @@ trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, 
   def imapCompositionDecoding[A, B](v: CodecValue[E, D], f1: D => A, f2: A => D, g1: A => B, g2: B => A): Boolean =
     codec.imap(f1)(f2).imap(g1)(g2).decode(v.encoded) == codec.imap(g1 compose f1)(f2 compose g2).decode(v.encoded)
 
-  def imapEncodedIdentityEncoding(v: LegalValue[E, D]): Boolean =
-    codec.imapEncoded(identity[E])(identity[E]).encode(v.decoded) == codec.encode(v.decoded)
+  def imapEncodedIdentityEncoding(d: D): Boolean =
+    codec.imapEncoded(identity[E])(identity[E]).encode(d) == codec.encode(d)
 
   def imapEncodedIdentityDecoding(v: CodecValue[E, D]): Boolean =
       codec.imapEncoded(identity[E])(identity[E]).decode(v.encoded) == codec.decode(v.encoded)
 
-  def imapEncodedCompositionEncoding[A, B](v: LegalValue[E, D], f1: E => A, f2: A => E, g1: A => B, g2: B => A): Boolean =
-    codec.imapEncoded(f1)(f2).imapEncoded(g1)(g2).encode(v.decoded) == codec.imapEncoded(g1 compose f1)(f2 compose g2).encode(v.decoded)
+  def imapEncodedCompositionEncoding[A, B](d: D, f1: E => A, f2: A => E, g1: A => B, g2: B => A): Boolean =
+    codec.imapEncoded(f1)(f2).imapEncoded(g1)(g2).encode(d) == codec.imapEncoded(g1 compose f1)(f2 compose g2).encode(d)
 
   def imapEncodedCompositionDecoding[A, B](b: B, f1: E => A, f2: A => E, g1: A => B, g2: B => A): Boolean =
       codec.imapEncoded(f1)(f2).imapEncoded(g1)(g2).decode(b) == codec.imapEncoded(g1 compose f1)(f2 compose g2).decode(b)
