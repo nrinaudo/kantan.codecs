@@ -12,8 +12,8 @@ trait Codec[E, D, F, T] extends Any with Decoder[E, D, F, T] with Encoder[E, D, 
   override def tag[TT]: Codec[E, D, F, TT] = this.asInstanceOf[Codec[E, D, F, TT]]
   override def mapError[FF](f: F => FF): Codec[E, D, FF, T] = Codec(super.mapError(f).decode)(encode)
 
-  def imap[DD](f: D ⇒ DD)(g: DD ⇒ D): Codec[E, DD, F, T] = Codec(map(f).decode)(contramap(g).encode)
-  def imapEncoded[EE](f: E ⇒ EE)(g: EE ⇒ E): Codec[EE, D, F, T] = Codec(contramapEncoded(g).decode)(mapEncoded(f).encode)
+  def imap[DD](f: D ⇒ DD)(g: DD ⇒ D): Codec[E, DD, F, T] =  Codec((e: E) ⇒ decode(e).map(f))(g andThen encode)
+  def imapEncoded[EE](f: E ⇒ EE)(g: EE ⇒ E): Codec[EE, D, F, T] = Codec(g andThen decode)(d ⇒ f(encode(d)))
 }
 
 object Codec {
