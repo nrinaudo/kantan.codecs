@@ -14,7 +14,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class ResultTests  extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   case class NoOrder(value: Int)
   implicit val noOrderEq= new Eq[NoOrder] {
     override def eqv(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value

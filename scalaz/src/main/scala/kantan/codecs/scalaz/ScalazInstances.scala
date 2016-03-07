@@ -1,19 +1,50 @@
 package kantan.codecs.scalaz
 
+import kantan.codecs.strings._
 import kantan.codecs.{Encoder, Decoder, Result}
 import kantan.codecs.Result.{Success, Failure}
 
 import scalaz._
 
 trait ScalazInstances extends LowPriorityScalazInstances {
+  // - \/ instances ---------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def disjunctionDecoder[A, B](implicit da: StringDecoder[A], db: StringDecoder[B]): StringDecoder[A \/ B] =
+    StringDecoder { s ⇒ da.decode(s).map(\/.left).orElse(db.decode(s).map(\/.right)) }
+
+  implicit def disjunctionEncoder[A, B](implicit ea: StringEncoder[A], eb: StringEncoder[B]): StringEncoder[A \/ B] =
+    StringEncoder(xab ⇒ xab.fold(ea.encode, eb.encode))
+
+
+
+  // - Maybe instances -------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def maybeDecoder[A](implicit da: StringDecoder[A]): StringDecoder[Maybe[A]] = StringDecoder { s ⇒
+    if(s.isEmpty) Result.success(Maybe.empty)
+    else          da.decode(s).map(Maybe.just)
+  }
+
+  implicit def maybeEncoder[A](implicit ea: StringEncoder[A]): StringEncoder[Maybe[A]] =
+    StringEncoder(_.map(ea.encode).getOrElse(""))
+
+
+  // - Decoder instances -----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   implicit def decoderFunctor[E, F, T]: Functor[Decoder[E, ?, F, T]] = new Functor[Decoder[E, ?, F, T]] {
     override def map[D, DD](fa: Decoder[E, D, F, T])(f: D ⇒ DD) = fa.map(f)
   }
 
+
+  // - Encoder instances -----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   implicit def encoderContravariant[E, T]: Contravariant[Encoder[E, ?, T]] = new Contravariant[Encoder[E, ?, T]] {
     override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD ⇒ D) = fa.contramap(f)
   }
 
+
+
+  // - Result instances ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   implicit def resultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] =
     new Order[Result[F, S]] {
       override def order(x: Result[F, S], y: Result[F, S]): Ordering = x match {

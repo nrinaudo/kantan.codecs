@@ -1,19 +1,41 @@
 package kantan.codecs.cats
 
 import cats._
+import cats.data.Xor
 import cats.functor.{Contravariant, Bifunctor}
+import kantan.codecs.strings.{StringEncoder, StringDecoder}
 import kantan.codecs.{Encoder, Decoder, Result}
 import kantan.codecs.Result.{Failure, Success}
 
 trait CatsInstances extends LowPriorityCatsInstances {
+  // - Xor instances ---------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def xorDecoder[A, B](implicit da: StringDecoder[A], db: StringDecoder[B]): StringDecoder[A Xor B] =
+    StringDecoder { s ⇒ da.decode(s).map(Xor.left).orElse(db.decode(s).map(Xor.right)) }
+
+  implicit def xorEncoder[A, B](implicit ea: StringEncoder[A], eb: StringEncoder[B]): StringEncoder[A Xor B] =
+    StringEncoder(xab ⇒ xab.fold(ea.encode, eb.encode))
+
+
+
+  // - Decoder instances -----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   implicit def decoderFunctor[E, F, T]: Functor[Decoder[E, ?, F, T]] = new Functor[Decoder[E, ?, F, T]] {
     override def map[A, B](fa: Decoder[E, A, F, T])(f: A ⇒ B) = fa.map(f)
   }
 
+
+
+  // - Encoder instances -----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   implicit def encoderContravariant[E, T]: Contravariant[Encoder[E, ?, T]] = new Contravariant[Encoder[E, ?, T]] {
     override def contramap[A, B](fa: Encoder[E, A, T])(f: B ⇒ A) = fa.contramap(f)
   }
 
+
+
+  // - Result instances ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   implicit def resultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] = new Order[Result[F, S]] {
     override def compare(x: Result[F, S], y: Result[F, S]): Int = x match {
       case Failure(f1) ⇒ y match {
