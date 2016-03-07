@@ -4,8 +4,164 @@ title:  "Implementing a new codec library"
 section: tutorial
 ---
 
-Note that this tutorial is mostly meant for myself, while writing kantan.codecs is still fresh in my mind. It's meant
-to jog my memory when I write the next kantan library, and might not make much sense to anyone else.
+```tut:invisible
+import kantan.codecs._
+```
+
+This is meant as guidelines for implementing codec libraries based on kantan.codecs. Since it's essentially meant as
+a quick reminder to myself, it's probably too terse and not terribly understandable to anyone else. I'm fairly certain
+no one but me will ever use kantan.codecs directly, but should I be wrong, feel free to create an issue asking for
+more detailed guidelines.
+
+## Errors
+Errors should be represented as sum types, and usually provide one alternative that serves as a wrapper for
+[`Throwable`]. By convention, the sum type should be called `DecodeError`.
+
+For example:
+
+```tut:silent
+sealed abstract class DecodeError extends Product with Serializable
+case class TypeError(cause: Throwable) extends DecodeError
+case class OutOfBounds(index: Int) extends DecodeError
+
+// Declares creation methods - TypeError(exception) is of type TypeError, DecodeError.typeError(exception) is of
+// type DecodeError.
+object DecodeError {
+  def typeError(cause: Throwable): DecodeError = TypeError(cause)
+  def outOfBounds(index: Int): DecodeError = OutOfBounds(index)
+}
+```
+
+[`Decoder`] instances will be specialised on that error type: they will return instances of `Result[DecodeError, A]`.
+It's good form to "hide" [`Result`] as much as possible though, and a type alias should be declared:
+
+```tut:silent
+type DecodeResult[A] = Result[DecodeError, A]
+```
+
+Additionally, a singleton object for the specialised result type should be created to provide instance creation
+methods:
+
+```tut:silent
+object DecodeResult {
+  def apply[A](a: => A): DecodeResult[A] = Result.nonFatal(a).leftMap(TypeError.apply)
+  def success[A](a: A): DecodeResult[A] = Result.success(a)
+  def outOfBounds(index: Int): DecodeResult[Nothing] = Result.failure(OutOfBounds(index))
+}
+```
+
+## `Encoder`, `Decoder`, `Codec`
+
+### Tag type
+[`Encoder`], [`Decoder`] and [`Codec`] require a tag type - a phantom type use to disambiguate between implementations
+that work with the same encoded type. This is traditionally a singleton object called `codecs`.
+
+```tut:silent
+ // We'll need to redefine that later to add default instances.
+object codecs
+```
+
+### Companion objects
+
+Specialised types should be declared as type aliases:
+
+```tut:silent
+type CellDecoder[A] = Decoder[String, A, DecodeError, codecs.type]
+type CellEncoder[A] = Encoder[String, A, codecs.type]
+type CellCodec[A] = Codec[String, A, DecodeError, codecs.type]
+```
+
+Each specialised type should have a singleton object, used to declare creation and summoning methods:
+
+```tut:silent
+object CellDecoder {
+  def apply[A](implicit da: CellDecoder[A]): CellDecoder[A] = da
+  def apply[A](f: String => DecodeResult[A]): CellDecoder[A] = Decoder(f)
+}
+
+object CellEncoder {
+  def apply[A](implicit ea: CellEncoder[A]): CellEncoder[A] = ea
+  def apply[A](f: A => String): CellEncoder[A] = Encoder(f)
+}
+
+object CellCodec {
+  def apply[A](implicit ca: CellCodec[A]): CellCodec[A] = ca
+  def apply[A](f: String => DecodeResult[A])(g: A => String): CellCodec[A] = Codec(f)(g)
+}
+```
+
+### Default instances
+[`Decoder`] and [`Encoder`] implementations should have accompanying "instances" trait containing all default instances.
+
+```tut:silent
+trait CellDecoderInstances {
+  val stringDecoder: CellDecoder[String] = CellDecoder(s => DecodeResult.success(s))
+  // ...
+}
+
+trait CellEncoderInstances {
+  val stringEncoder: CellEncoder[String] = CellEncoder(s => s)
+  // ...
+}
+```
+
+[`Codec`] implementations should have an accompanying "instances" trait that extends the previously defined ones:
+
+```tut:silent
+trait CellCodecInstances extends CellDecoderInstances with CellEncoderInstances
+```
+
+Finally, in order for all these instances to be available in the implicit scope, `codecs` should be modified to extend
+`CellCodecInstances`.
+
+```scala
+object codecs extends CellCodecInstances
+```
+
+## Notes on default instances
+
+### Adapting existing instances
+Decoding from strings is a fairly common requirement, regardless of the underlying format. Default codecs are provided
+for these, and can be adapted trivially:
+
+```tut:silent
+import kantan.codecs.strings.{StringEncoder, StringDecoder}
+
+trait CellDecoderInstances {
+  def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
+    da.mapError(DecodeError.typeError).tag[codecs.type]
+}
+
+trait CellEncoderInstances {
+  def fromStringEncoder[A](implicit ea: StringEncoder[A]): CellEncoder[A] = ea.tag[codecs.type]  
+}
+```
+
+### Difference between primitive types and first-order types
+There's a critical distinction to be made between default instances for primitive types and for first-order types:
+it's safe to provide a [`Codec`] for the former, but usually not for the later.
+
+In order to write default instances for `Option`, one might be tempted to write:
+
+```tut:silent
+def optionCodec[A](implicit ca: CellCodec[A]): CellCodec[Option[A]] = CellCodec[Option[A]] { (s: String) =>
+  if(s.isEmpty) DecodeResult.success(Option.empty[A])
+  else          ca.decode(s).map(Some.apply)
+} { (oa: Option[A]) => oa.map(ca.encode).getOrElse("") }
+```
+
+This is bad, for two reasons. The first, most obvious one is that we should *never* require a [`Codec`] instance.
+When a function needs to both encode and decode a type, it should require an instance of [`Encoder`] and one of
+[`Decoder`] instead.
+
+The second reason this is a bad idea, even if one where to "split" the codec into its encoder and decoder halves, is
+that any type `A` that has, say, an [`Encoder`] but not a [`Decoder`] should still get a free `Encoder[Option[A]]`, but
+this implementation prevents it.
+
+### Naming default instances
+Since encoder and decoder instances will eventually find themselves part of the same trait (`CellCodecInstances` in our
+examples), it's important to make sure their names don't clash: prefer `stringDecoder` and `stringEncoder` to the
+simpler but unsafe `string`.
 
 
 [`Decoder`]:{{ site.baseurl }}/api/#kantan.codecs.Decoder
