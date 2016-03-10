@@ -145,6 +145,7 @@ lazy val docs = project
   .settings(site.settings: _*)
   .settings(ghpages.settings: _*)
   .settings(unidocSettings: _*)
+  .settings(site.preprocessSite())
   .settings(
     autoAPIMappings := true,
     apiURL := Some(url("http://nrinaudo.github.io/kantan.codecs/api/")),
