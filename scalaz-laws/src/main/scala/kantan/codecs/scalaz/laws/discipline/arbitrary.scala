@@ -5,7 +5,9 @@ import org.scalacheck.Arbitrary
 
 import scalaz.{\/, Maybe}
 
-class ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances {
+object arbitrary extends ArbitraryInstances
+
+class ArbitraryInstances {
   implicit def arbLegalMaybe[E, D](implicit al: Arbitrary[LegalValue[E, Option[D]]]): Arbitrary[LegalValue[E, Maybe[D]]] =
     Arbitrary(al.arbitrary.map(_.mapDecoded(v ⇒ Maybe.fromOption(v))))
 

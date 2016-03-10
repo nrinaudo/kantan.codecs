@@ -1,7 +1,7 @@
 package kantan.codecs.scalaz
 
-import kantan.codecs.scalaz.laws.discipline._
 import kantan.codecs.laws.discipline.{CodecTests => CTests, DecoderTests => DTests, EncoderTests => ETests}
+import kantan.codecs.scalaz.laws.discipline.arbitrary._
 import kantan.codecs.strings.codecs
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

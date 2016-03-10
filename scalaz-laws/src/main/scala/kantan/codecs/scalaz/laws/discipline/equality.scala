@@ -1,12 +1,13 @@
-package kantan.codecs.scalaz.laws
+package kantan.codecs.scalaz.laws.discipline
 
-import kantan.codecs.{Decoder, Encoder, Result}
+import kantan.codecs.{Encoder, Result, Decoder}
 import kantan.codecs.scalaz._
 import org.scalacheck.Arbitrary
-
 import scalaz.Equal
 
-package object discipline extends ArbitraryInstances {
+object equality extends EqualInstances
+
+trait EqualInstances {
   implicit def throwableEqual: Equal[Throwable] = new Equal[Throwable] {
     override def equal(a1: Throwable, a2: Throwable): Boolean = a1.getClass == a2.getClass
   }

@@ -1,7 +1,7 @@
 package kantan.codecs.cats
 
 import cats.data.Xor
-import kantan.codecs.cats.laws.discipline._
+import kantan.codecs.cats.laws.discipline.arbitrary._
 import kantan.codecs.laws.discipline.{CodecTests => CTests, DecoderTests => DTests, EncoderTests => ETests}
 import kantan.codecs.strings._
 import org.scalatest.FunSuite

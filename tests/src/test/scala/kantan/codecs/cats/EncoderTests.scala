@@ -1,8 +1,9 @@
 package kantan.codecs.cats
 
-import laws.discipline._
-import cats.std.all._
 import cats.laws.discipline.ContravariantTests
+import cats.std.all._
+import kantan.codecs.cats.laws.discipline.equality._
+import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.strings.StringEncoder
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

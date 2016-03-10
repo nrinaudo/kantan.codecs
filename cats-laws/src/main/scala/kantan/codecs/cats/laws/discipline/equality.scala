@@ -1,11 +1,13 @@
-package kantan.codecs.cats.laws
+package kantan.codecs.cats.laws.discipline
 
-import cats.Eq
-import kantan.codecs.{Encoder, Decoder, Result}
-import org.scalacheck.Arbitrary
+import cats._
+import kantan.codecs.{Encoder, Result, Decoder}
 import kantan.codecs.cats._
+import org.scalacheck.Arbitrary
 
-package object discipline extends ArbitraryInstances {
+object equality extends EqInstances
+
+trait EqInstances {
   implicit def throwableEq: Eq[Throwable] = new Eq[Throwable] {
     override def eqv(x: Throwable, y: Throwable): Boolean = x.getClass == y.getClass
   }

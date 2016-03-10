@@ -3,12 +3,11 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 
 val catsVersion          = "0.4.1"
-val scalazVersion        = "7.2.1"
-val macroParadiseVersion = "2.1.0"
-val scalatestVersion     = "3.0.0-M9"
-val scalaCheckVersion    = "1.12.5"
 val disciplineVersion    = "0.4"
 val kindProjectorVersion = "0.7.1"
+val scalaCheckVersion    = "1.12.5"
+val scalatestVersion     = "3.0.0-M9"
+val scalazVersion        = "7.2.1"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
@@ -34,7 +33,6 @@ lazy val compilerOptions = Seq("-deprecation",
 
 lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
-  javacOptions ++= Seq("-source", "1.7", "-target", "1.7"),
   libraryDependencies += compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary),
   coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
   incOptions  := incOptions.value.withNameHashing(true)
