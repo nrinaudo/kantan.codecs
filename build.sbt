@@ -34,10 +34,8 @@ lazy val compilerOptions = Seq("-deprecation",
 
 lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
-  libraryDependencies ++= Seq(
-    compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full),
-    compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary)
-  ),
+  javacOptions ++= Seq("-source", "1.7", "-target", "1.7"),
+  libraryDependencies += compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary),
   coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
   incOptions  := incOptions.value.withNameHashing(true)
 )
