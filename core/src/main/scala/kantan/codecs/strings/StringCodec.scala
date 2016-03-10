@@ -8,6 +8,7 @@ object StringCodec {
   def apply[D](f: String ⇒ Result[Throwable, D])(g: D ⇒ String): StringCodec[D] = Codec(f)(g)
 }
 
+/** Defines default instances of [[StringCodec]] for all primitive types. */
 trait StringCodecInstances extends StringEncoderInstances with StringDecoderInstances {
   implicit val bigDecimal: StringCodec[BigDecimal] = StringCodec(s ⇒ Result.nonFatal(BigDecimal(s.trim)))(_.toString)
   implicit val bigInt: StringCodec[BigInt] = StringCodec(s ⇒ Result.nonFatal(BigInt(s.trim)))(_.toString)
