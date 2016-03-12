@@ -2,6 +2,9 @@ package kantan.codecs
 
 import java.util.NoSuchElementException
 
+import _root_.cats.std.list._
+import _root_.cats.syntax.traverse._
+import cats._
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -96,6 +99,12 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
       case None ⇒ assert(Result.fromOption(o, s) == Failure(s))
       case Some(i) ⇒ assert(Result.fromOption(o, s) == Success(i))
     }}
+  }
+
+  test("sequence should behave the same as known implementations") {
+    forAll { (l: List[Result[String, Int]]) =>
+      assert(Result.sequence(l) == l.sequenceU)
+    }
   }
 
 

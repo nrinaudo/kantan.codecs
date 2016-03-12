@@ -1,5 +1,7 @@
 package kantan.codecs
 
+import scala.collection.generic.CanBuildFrom
+import scala.collection.mutable
 import scala.util.Try
 
 /** Represents the result of a decode operation
@@ -128,6 +130,16 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
 }
 
 object Result {
+  // - Helper methods --------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Turns a collection of results into a result of a collection. */
+  def sequence[F, S, M[X] <: TraversableOnce[X]](rs: M[Result[F, S]])(implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]): Result[F, M[S]] =
+    rs.foldLeft(Result.success[F, mutable.Builder[S, M[S]]](cbf(rs))) { (builder, res) ⇒
+      for(b ← builder; r ← res) yield b += r
+    }.map(_.result())
+
+
+
   // - Instance construction -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def nonFatal[S](s: ⇒ S): Result[Throwable, S] =
