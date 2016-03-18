@@ -113,39 +113,40 @@ object CodecValue {
   implicit val arbLegalStrStr: Arbitrary[LegalString[String]] = Arbitrary(genLegal(identity))
 
   implicit val arbLegalStrInt: Arbitrary[LegalString[Int]] = Arbitrary(genLegal(_.toString))
-  implicit def arbIllegalStrInt: Arbitrary[IllegalString[Int]] = Arbitrary(genIllegalFromException(Integer.parseInt))
+  implicit def arbIllegalStrInt: Arbitrary[IllegalString[Int]] = Arbitrary(genIllegalFromException(_.trim.toInt))
 
   implicit val arbLegalStrFloat: Arbitrary[LegalString[Float]] = Arbitrary(genLegal(_.toString))
-  implicit val arbIllegalStrFloat: Arbitrary[IllegalString[Float]] = Arbitrary(genIllegalFromException(_.toFloat))
+  implicit val arbIllegalStrFloat: Arbitrary[IllegalString[Float]] = Arbitrary(genIllegalFromException(_.trim.toFloat))
 
   implicit val arbLegalStrDouble: Arbitrary[LegalString[Double]] = Arbitrary(genLegal(_.toString))
-  implicit val arbIllegalStrDouble: Arbitrary[IllegalString[Double]] = Arbitrary(genIllegalFromException(_.toDouble))
+  implicit val arbIllegalStrDouble: Arbitrary[IllegalString[Double]] = Arbitrary(genIllegalFromException(_.trim.toDouble))
 
   implicit val arbLegalStrLong: Arbitrary[LegalString[Long]] = Arbitrary(genLegal(_.toString))
-  implicit val arbIllegalStrLong: Arbitrary[IllegalString[Long]] = Arbitrary(genIllegalFromException(_.toLong))
+  implicit val arbIllegalStrLong: Arbitrary[IllegalString[Long]] = Arbitrary(genIllegalFromException(_.trim.toLong))
 
   implicit val arbLegalStrShort: Arbitrary[LegalString[Short]] = Arbitrary(genLegal(_.toString))
-  implicit val arbIllegalStrShort: Arbitrary[IllegalString[Short]] = Arbitrary(genIllegalFromException(_.toShort))
+  implicit val arbIllegalStrShort: Arbitrary[IllegalString[Short]] = Arbitrary(genIllegalFromException(_.trim.toShort))
 
   implicit val arbLegalStrByte: Arbitrary[LegalString[Byte]] = Arbitrary(genLegal(_.toString))
-  implicit val arbIllegalStrByte: Arbitrary[IllegalString[Byte]] = Arbitrary(genIllegalFromException(_.toByte))
+  implicit val arbIllegalStrByte: Arbitrary[IllegalString[Byte]] = Arbitrary(genIllegalFromException(_.trim.toByte))
 
   implicit val arbLegalStrBoolean: Arbitrary[LegalString[Boolean]] = Arbitrary(genLegal(_.toString))
-  implicit val arbIllegalStrBoolean: Arbitrary[IllegalString[Boolean]] = Arbitrary(genIllegalFromException(_.toBoolean))
+  implicit val arbIllegalStrBoolean: Arbitrary[IllegalString[Boolean]] = Arbitrary(genIllegalFromException(_.trim.toBoolean))
 
   implicit val arbLegalStrBigInt: Arbitrary[LegalString[BigInt]] = Arbitrary(genLegal(_.toString))
-  implicit val arbIllegalStrBigInt: Arbitrary[IllegalString[BigInt]] = Arbitrary(genIllegalFromException(BigInt.apply))
+  implicit val arbIllegalStrBigInt: Arbitrary[IllegalString[BigInt]] = Arbitrary(genIllegalFromException(s ⇒ BigInt(s.trim)))
 
   implicit val arbLegalStrBigDecimal: Arbitrary[LegalString[BigDecimal]] = Arbitrary(genLegal(_.toString))
-  implicit val arbIllegalStrBigDecimal: Arbitrary[IllegalString[BigDecimal]] = Arbitrary(genIllegalFromException(BigDecimal.apply))
+  implicit val arbIllegalStrBigDecimal: Arbitrary[IllegalString[BigDecimal]] = Arbitrary(genIllegalFromException(s ⇒ BigDecimal(s.trim)))
 
   implicit val arbLegalStrUUID: Arbitrary[LegalString[UUID]] = Arbitrary(genLegal[String, UUID](_.toString)(Arbitrary(Gen.uuid)))
-  implicit val arbIllegalStrUUID: Arbitrary[IllegalString[UUID]] = Arbitrary(genIllegalFromException(UUID.fromString))
+  implicit val arbIllegalStrUUID: Arbitrary[IllegalString[UUID]] = Arbitrary(genIllegalFromException(s ⇒ UUID.fromString(s.trim)))
 
   implicit val arbLegalStrChar: Arbitrary[LegalString[Char]] = Arbitrary(genLegal(_.toString))
   implicit val arbIllegalStrChar: Arbitrary[IllegalString[Char]] = Arbitrary(genIllegalFromException { str =>
-    if(str.length == 1) str.charAt(0)
-    else                sys.error(s"not a valid char: '$str'")
+    val s = str.trim
+    if(s.length == 1) s.charAt(0)
+    else              sys.error(s"not a valid char: '$s'")
   })
 
   implicit def arbLegalStrOption[D](implicit dl: Arbitrary[LegalString[D]]): Arbitrary[LegalString[Option[D]]] =
