@@ -14,7 +14,10 @@ trait StringCodecInstances extends StringEncoderInstances with StringDecoderInst
   implicit val bigInt: StringCodec[BigInt] = StringCodec(s ⇒ Result.nonFatal(BigInt(s.trim)))(_.toString)
   implicit val boolean: StringCodec[Boolean] = StringCodec(s ⇒ Result.nonFatal(s.trim.toBoolean))(_.toString)
   implicit val char: StringCodec[Char] = StringCodec { s ⇒
-    val t = s.trim
+    // This is a bit dodgy, but necessary: if the string has a length greater than 1, it might be a legal character with
+    // padding. The only issue is if the character is *whitespace* with whitespace padding. This is acknowledged and
+    // willfully ignored, at least for the time being.
+    val t = if(s.length > 1) s.trim else s
     if(t.length == 1) Result.success(t.charAt(0))
     else              Result.failure(new IllegalArgumentException(s"Not a character: '$s'"))
   }(_.toString)

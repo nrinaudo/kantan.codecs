@@ -144,7 +144,7 @@ object CodecValue {
 
   implicit val arbLegalStrChar: Arbitrary[LegalString[Char]] = Arbitrary(genLegal(_.toString))
   implicit val arbIllegalStrChar: Arbitrary[IllegalString[Char]] = Arbitrary(genIllegalFromException { str =>
-    val s = str.trim
+    val s = if(str.length > 1) str.trim else str
     if(s.length == 1) s.charAt(0)
     else              sys.error(s"not a valid char: '$s'")
   })
