@@ -1,0 +1,12 @@
+name: kantan.codecs
+markdown: kramdown
+highlighter: rouge
+baseurl: /kantan.codecs
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+collections:
+  tut:
+    output: true

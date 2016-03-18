@@ -1,0 +1,316 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>codecs - kantan.codecs</title>
+          <meta name="description" content="codecs - kantan.codecs" />
+          <meta name="keywords" content="codecs kantan.codecs" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../index.html';
+            var hash = 'kantan.codecs.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../lib/package_big.png" />
+        <p id="owner"><a href="../package.html" class="extype" name="kantan">kantan</a></p>
+        <h1>codecs</h1><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">codecs</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="kantan.codecs.Codec" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Codec[E,D,F,T]extendsAnywithDecoder[E,D,F,T]withEncoder[E,D,T]"></a>
+      <a id="Codec[E,D,F,T]:Codec[E,D,F,T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Codec.html"><span class="name">Codec</span></a><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.Codec.E">E</span>, <span class="extype" name="kantan.codecs.Codec.D">D</span>, <span class="extype" name="kantan.codecs.Codec.F">F</span>, <span class="extype" name="kantan.codecs.Codec.T">T</span>] with <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Codec.E">E</span>, <span class="extype" name="kantan.codecs.Codec.D">D</span>, <span class="extype" name="kantan.codecs.Codec.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@Codec[E,D,F,T]extendsAnywithDecoder[E,D,F,T]withEncoder[E,D,T]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Combines a <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> and an <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Combines a <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> and an <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>.</p><p>Codecs are only meant as a convenience, and should not be considered more powerful or desirable than encoders or
+decoders. Some types can be both encoded to and decoded from, and being able to define both instances in one call
+is convenient. It's however very poor practice to request a type to have a <a href="Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance - a much preferred
+alternative would be to require it to have a <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> and an <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance, which a <a href="Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> would
+fulfill.
+</p></div></div>
+    </li><li name="kantan.codecs.Decoder" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Decoder[E,D,F,T]extendsAnywithSerializable"></a>
+      <a id="Decoder[E,D,F,T]:Decoder[E,D,F,T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Decoder.html"><span class="name">Decoder</span></a><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@Decoder[E,D,F,T]extendsAnywithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Type class for types that can be decoded from other types.</p><div class="fullcomment"><div class="comment cmt"><p>Type class for types that can be decoded from other types.
+</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>encoded type - what to decode from.</p></dd><dt class="tparam">D</dt><dd class="cmt"><p>decoded type - what to decode to.</p></dd><dt class="tparam">F</dt><dd class="cmt"><p>failure type - how to represent errors.</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>tag type - used to specialise decoder instances, and usually where default implementations are declared.</p></dd></dl></div>
+    </li><li name="kantan.codecs.Encoder" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Encoder[E,D,T]extendsAnywithSerializable"></a>
+      <a id="Encoder[E,D,T]:Encoder[E,D,T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Encoder.html"><span class="name">Encoder</span></a><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@Encoder[E,D,T]extendsAnywithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Type class for types that can be encoded into others.</p><div class="fullcomment"><div class="comment cmt"><p>Type class for types that can be encoded into others.
+</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>encoded type - what to encode to.</p></dd><dt class="tparam">D</dt><dd class="cmt"><p>decoded type - what to encode from.</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>tag type.</p></dd></dl></div>
+    </li><li name="kantan.codecs.Result" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Result[+F,+S]extendsProductwithSerializable"></a>
+      <a id="Result[+F,+S]:Result[F,S]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Result.html"><span class="name">Result</span></a><span class="tparams">[<span name="F">+F</span>, <span name="S">+S</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@Result[+F,+S]extendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Represents the result of a decode operation</p><div class="fullcomment"><div class="comment cmt"><p>Represents the result of a decode operation</p><p>This is very similar to <code>Either</code>, with a few more bells and whistles and a more specific type. It's also much
+more convenient to use in for-comprehensions, as it has proper <a href="Result.html#map[SS](f:S=&gt;SS):kantan.codecs.Result[F,SS]" class="extmbr" name="kantan.codecs.Result#map">map</a> and <a href="Result.html#flatMap[FF&gt;:F,SS](f:S=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]" class="extmbr" name="kantan.codecs.Result#flatMap">flatMap</a> methods.</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="kantan.codecs.Codec" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Codec"></a>
+      <a id="Codec:Codec"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Codec$.html"><span class="name">Codec</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@Codec" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.Decoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Decoder"></a>
+      <a id="Decoder:Decoder"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Decoder$.html"><span class="name">Decoder</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@Decoder" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.Encoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Encoder"></a>
+      <a id="Encoder:Encoder"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Encoder$.html"><span class="name">Encoder</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@Encoder" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.Result" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Result"></a>
+      <a id="Result:Result"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Result$.html"><span class="name">Result</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@Result" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.cats" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="cats"></a>
+      <a id="cats:cats"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="cats/package.html"><span class="name">cats</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@cats" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.laws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="laws"></a>
+      <a id="laws:laws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="laws/package.html"><span class="name">laws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@laws" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.scalaz" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="scalaz"></a>
+      <a id="scalaz:scalaz"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="scalaz/package.html"><span class="name">scalaz</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@scalaz" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.strings" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="strings"></a>
+      <a id="strings:strings"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="strings/package.html"><span class="name">strings</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@strings" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
