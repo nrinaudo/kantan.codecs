@@ -7,6 +7,7 @@ import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.strings.{StringEncoder, StringDecoder}
 import org.scalacheck.Arbitrary.{arbitrary => arb}
+import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen}
 
 import scala.util.Try
@@ -26,25 +27,6 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   implicit def arbResult[F: Arbitrary, S: Arbitrary]: Arbitrary[Result[F, S]] =
     Arbitrary(Gen.oneOf(success[S], failure[F]))
-
-
-
-  // - Arbitrary codec values ------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  def genLegal[E, D: Arbitrary](f: D ⇒ E): Gen[LegalValue[E, D]] = arb[D].map(d ⇒ LegalValue(f(d), d))
-  def genIllegal[E: Arbitrary, D](f: E ⇒ Boolean): Gen[IllegalValue[E, D]] =
-    arb[E].suchThat(e ⇒ f(e)).map(IllegalValue.apply)
-
-  def genIllegalFromException[E: Arbitrary, D](f: E ⇒ D): Gen[IllegalValue[E, D]] =
-    genIllegal(e ⇒ Try(f(e)).isFailure)
-
-  def genLegalOption[E, D](f: E ⇒ Boolean)(empty: E)(implicit dl: Arbitrary[LegalValue[E, D]]): Gen[LegalValue[E, Option[D]]] =
-    arb[Option[LegalValue[E, D]]]
-      .suchThat(_.map(v ⇒ !f(v.encoded)).getOrElse(true))
-      .map(_.map(l ⇒ l.copy(decoded = Option(l.decoded))).getOrElse(LegalValue(empty, None)))
-
-  implicit def genIllegalOption[E, D](f: E ⇒ Boolean)(implicit dl: Arbitrary[IllegalValue[E, D]]): Gen[IllegalValue[E, Option[D]]] =
-    arb[IllegalValue[E, D]].suchThat(v ⇒ !f(v.encoded)).map(d ⇒ IllegalValue(d.encoded))
 
 
 
@@ -69,4 +51,28 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   implicit def arbStringDecoder[A: Arbitrary]: Arbitrary[StringDecoder[A]] =
     Arbitrary(Arbitrary.arbitrary[String ⇒ Result[Throwable, A]].map(f ⇒ StringDecoder(f)))
+
+
+
+  // This is necessary to prevent ScalaCheck from generating BigDecimal values that cannot be serialized because their
+  // scale is higher than MAX_INT.
+  // Note that this isn't actually an issue with ScalaCheck but with Scala itself, and is(?) fixed in Scala 2.12:
+  // https://github.com/scala/scala/pull/4320
+  implicit lazy val arbBigDecimal: Arbitrary[BigDecimal] = {
+    import java.math.MathContext._
+    val mcGen = oneOf(DECIMAL32, DECIMAL64, DECIMAL128)
+    val bdGen = for {
+      x ← Arbitrary.arbitrary[BigInt]
+      mc ← mcGen
+      limit ← const(math.max(x.abs.toString.length - mc.getPrecision, 0))
+      scale ← Gen.choose(Int.MinValue + limit , Int.MaxValue)
+    } yield {
+      try {
+        BigDecimal(x, scale, mc)
+      } catch {
+        case ae: java.lang.ArithmeticException ⇒ BigDecimal(x, scale, UNLIMITED) // Handle the case where scale/precision conflict
+      }
+    }
+    Arbitrary(bdGen)
+  }
 }
