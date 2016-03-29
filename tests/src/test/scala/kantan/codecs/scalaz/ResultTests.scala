@@ -3,12 +3,11 @@ package kantan.codecs.scalaz
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.Arbitrary
-
+import scalaz._
 import scalaz.scalacheck.ScalazArbitrary._
 import scalaz.scalacheck.ScalazProperties._
 import scalaz.std.anyVal._
 import scalaz.std.string._
-import scalaz.{Equal, NonEmptyList, Show}
 
 class ResultTests extends ScalazSuite {
   case class NoOrder(value: Int)

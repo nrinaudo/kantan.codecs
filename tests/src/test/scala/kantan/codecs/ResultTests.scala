@@ -1,15 +1,13 @@
 package kantan.codecs
 
-import java.util.NoSuchElementException
-
 import _root_.cats.std.list._
 import _root_.cats.syntax.traverse._
 import cats._
+import java.util.NoSuchElementException
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-
 import scala.util.Try
 
 class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {

@@ -1,12 +1,10 @@
 package kantan.codecs.laws
 
 import java.util.UUID
-
 import kantan.codecs.laws.CodecValue._
 import org.scalacheck.{Arbitrary, Prop}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-
 import scala.util.Try
 
 class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks {
@@ -29,7 +27,9 @@ class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   // Not the most elegant code I wrote, but it does the job.
-  def testArbitrary[E, D](E: String, D: String)(f: E ⇒ D)(implicit arbLegal: Arbitrary[LegalValue[E, D]], arbIllegal: Arbitrary[IllegalValue[E, D]]): Unit = {
+  def testArbitrary[E, D](E: String, D: String)(f: E ⇒ D)
+                         (implicit arbLegal: Arbitrary[LegalValue[E, D]], arbIllegal: Arbitrary[IllegalValue[E, D]])
+  : Unit = {
     test(s"Arbitrary[LegalValue[$E, $D]] should generate legal values") {
       forAll { li: LegalValue[E, D] ⇒ assert(f(li.encoded) == li.decoded )}
     }
@@ -54,6 +54,8 @@ class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks {
   testArbitrary[String, UUID]("String", "UUID")(UUID.fromString)
   testArbitrary[String, Char]("String", "Char")(s ⇒ if(s.length != 1) sys.error("not a valid char") else s.charAt(0))
   testArbitrary[String, Option[Int]]("String", "Option[Int]")(s ⇒ if(s.isEmpty) None else Some(s.toInt))
-  testArbitrary[String, Either[Boolean, Int]]("String", "Either[Boolean, Int]")(s ⇒ Try(Left(s.toBoolean)).getOrElse(Right(s.toInt)))
+  testArbitrary[String, Either[Boolean, Int]]("String", "Either[Boolean, Int]") { s ⇒
+    Try(Left(s.toBoolean)).getOrElse(Right(s.toInt))
+  }
   testArbitrary[Seq[String], Seq[Int]]("String", "Seq[Int]")(_.map(_.toInt))
 }

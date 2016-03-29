@@ -1,15 +1,14 @@
 package kantan.codecs.cats
 
-import kantan.codecs.Result
-import kantan.codecs.laws.discipline.arbitrary._
-
 import algebra.laws.{GroupLaws, OrderLaws}
 import cats._
-import cats.laws.discipline.eq._
 import cats.data.NonEmptyList
-import cats.laws.discipline.{TraverseTests, BifunctorTests, CartesianTests, MonadTests}
+import cats.laws.discipline._
 import cats.laws.discipline.arbitrary._
+import cats.laws.discipline.eq._
 import cats.std.all._
+import kantan.codecs.Result
+import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

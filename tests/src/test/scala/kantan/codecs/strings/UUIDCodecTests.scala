@@ -1,13 +1,12 @@
 package kantan.codecs.strings
 
 import java.util.UUID
-
 import kantan.codecs.laws.CodecValue._
 import kantan.codecs.laws.discipline._
+import kantan.codecs.strings.tagged._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
-import tagged._
 
 class UUIDCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[UUID]", DecoderTests[String, UUID, Throwable, codecs.type].decoder[Int, Int])

@@ -1,6 +1,6 @@
 package kantan.codecs.strings
 
-import kantan.codecs.{Codec, Encoder, Decoder}
+import kantan.codecs.{Codec, Decoder, Encoder}
 
 object tagged {
   implicit def decoder[D](implicit d: StringDecoder[D]): Decoder[String, D, Throwable, tagged.type] = d.tag[tagged.type]
