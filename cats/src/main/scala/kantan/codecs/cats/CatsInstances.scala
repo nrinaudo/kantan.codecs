@@ -1,11 +1,11 @@
 package kantan.codecs.cats
 
-import cats._
+import _root_.cats._
 import cats.data.Xor
-import cats.functor.{Contravariant, Bifunctor}
-import kantan.codecs.strings.{StringEncoder, StringDecoder}
-import kantan.codecs.{Encoder, Decoder, Result}
+import cats.functor.{Bifunctor, Contravariant}
+import kantan.codecs._
 import kantan.codecs.Result.{Failure, Success}
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
 
 trait CatsInstances extends LowPriorityCatsInstances {
   // - Xor instances ---------------------------------------------------------------------------------------------------
@@ -54,35 +54,37 @@ trait CatsInstances extends LowPriorityCatsInstances {
     case Success(s) ⇒ s"Success(${ss.show(s)})"
   }
 
-  implicit def resultMonoid[F, S](implicit sf: Semigroup[F], ms: Monoid[S]) = new Monoid[Result[F, S]] {
-    override def empty = Result.success(ms.empty)
-    override def combine(x: Result[F, S], y: Result[F, S]) = x match {
-      case Failure(f1) ⇒ y match {
-        case Failure(f2) ⇒ Failure(sf.combine(f1, f2))
-        case Success(_)  ⇒ x
-      }
-      case Success(s1) ⇒ y match {
-        case Success(s2) ⇒ Success(ms.combine(s1, s2))
-        case Failure(_)  ⇒ y
+  implicit def resultMonoid[F, S](implicit sf: Semigroup[F], ms: Monoid[S]): Monoid[Result[F, S]] =
+    new Monoid[Result[F, S]] {
+      override def empty = Result.success(ms.empty)
+      override def combine(x: Result[F, S], y: Result[F, S]) = x match {
+        case Failure(f1) ⇒ y match {
+          case Failure(f2) ⇒ Failure(sf.combine(f1, f2))
+          case Success(_)  ⇒ x
+        }
+        case Success(s1) ⇒ y match {
+          case Success(s2) ⇒ Success(ms.combine(s1, s2))
+          case Failure(_)  ⇒ y
+        }
       }
     }
-  }
 
   implicit def resultInstances[F]: Traverse[Result[F, ?]] with Monad[Result[F, ?]] =
     new Traverse[Result[F, ?]] with Monad[Result[F, ?]] {
       def foldLeft[A, B](fa: Result[F, A], b: B)(f: (B, A) => B): B = fa.foldLeft(b)(f)
       def foldRight[A, B](fa: Result[F, A], lb: Eval[B])(f: (A, Eval[B]) => Eval[B]): Eval[B] =
         fa.foldRight(lb)(f)
-      def traverse[G[_], S1, S2](fa: Result[F, S1])(f: S1 => G[S2])(implicit ag: Applicative[G]): G[Result[F, S2]] = fa match {
-        case f@Failure(_) ⇒ ag.pure(f)
-        case Success(s)   ⇒ ag.map(f(s))(Result.success)
-      }
+      def traverse[G[_], S1, S2](fa: Result[F, S1])(f: S1 => G[S2])(implicit ag: Applicative[G]): G[Result[F, S2]] =
+        fa match {
+          case f@Failure(_) ⇒ ag.pure(f)
+          case Success(s)   ⇒ ag.map(f(s))(Result.success)
+        }
 
       override def flatMap[A, B](fa: Result[F, A])(f: A => Result[F, B])= fa.flatMap(f)
       override def pure[A](a: A) = Result.success(a)
     }
 
-  implicit def resultBiFunctor = new Bifunctor[Result] {
+  implicit def resultBiFunctor: Bifunctor[Result] = new Bifunctor[Result] {
     override def bimap[A, B, C, D](fab: Result[A, B])(f: A => C, g: B => D): Result[C, D] =
       fab.bimap(f, g)
   }

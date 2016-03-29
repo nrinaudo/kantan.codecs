@@ -1,7 +1,7 @@
 package kantan.codecs.laws
 
+import kantan.codecs._
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.{Result, Decoder}
 import org.scalacheck.Prop
 
 trait DecoderLaws[E, D, F, T] {
@@ -59,7 +59,8 @@ trait DecoderLaws[E, D, F, T] {
 }
 
 object DecoderLaws {
-  implicit def apply[E, D, F, T](implicit de: Decoder[E, D, F, T]): DecoderLaws[E, D, F, T] = new DecoderLaws[E, D, F, T] {
-    override val decoder = de
-  }
+  implicit def apply[E, D, F, T](implicit de: Decoder[E, D, F, T]): DecoderLaws[E, D, F, T] =
+    new DecoderLaws[E, D, F, T] {
+      override val decoder = de
+    }
 }

@@ -1,9 +1,8 @@
 package kantan.codecs.scalaz
 
 import kantan.codecs.Result
-import kantan.codecs.Result.{Success, Failure}
-
-import scalaz.{Semigroup, Equal}
+import kantan.codecs.Result.{Failure, Success}
+import scalaz.{Equal, Semigroup}
 
 trait LowPriorityScalazInstances {
   implicit def resultEqual[F, S](implicit ef: Equal[F], es: Equal[S]): Equal[Result[F, S]] =

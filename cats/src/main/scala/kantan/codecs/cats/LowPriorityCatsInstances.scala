@@ -2,7 +2,7 @@ package kantan.codecs.cats
 
 import cats._
 import kantan.codecs.Result
-import kantan.codecs.Result.{Success, Failure}
+import kantan.codecs.Result.{Failure, Success}
 
 trait LowPriorityCatsInstances {
   implicit def resultEq[F, S](implicit ef: Eq[F], es: Eq[S]): Eq[Result[F, S]] = new Eq[Result[F, S]] {

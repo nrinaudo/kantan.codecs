@@ -1,7 +1,6 @@
 package kantan.codecs.strings
 
 import java.util.UUID
-
 import kantan.codecs.{Codec, Result}
 
 object StringCodec {

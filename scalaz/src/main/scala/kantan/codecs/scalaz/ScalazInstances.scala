@@ -1,10 +1,9 @@
 package kantan.codecs.scalaz
 
+import _root_.scalaz._
+import kantan.codecs._
+import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.strings._
-import kantan.codecs.{Encoder, Decoder, Result}
-import kantan.codecs.Result.{Success, Failure}
-
-import scalaz._
 
 trait ScalazInstances extends LowPriorityScalazInstances {
   // - \/ instances ---------------------------------------------------------------------------------------------------
@@ -92,8 +91,9 @@ trait ScalazInstances extends LowPriorityScalazInstances {
       override def foldLeft[S, A](r: Result[F, S], z: A)(f: (A, S) ⇒ A) = r.foldLeft(z)(f)
     }
 
-  implicit def resultBitraverse = new Bitraverse[Result] {
-    override def bitraverseImpl[G[_], A, B, C, D](fab: Result[A, B])(f: A => G[C], g: B => G[D])(implicit ag: Applicative[G])=
+  implicit def resultBitraverse: Bitraverse[Result] = new Bitraverse[Result] {
+    override def bitraverseImpl[G[_], A, B, C, D](fab: Result[A, B])(f: A => G[C], g: B => G[D])
+                                                 (implicit ag: Applicative[G])=
       fab match {
         case Failure(a) => Functor[G].map(f(a))(Failure.apply)
         case Success(b) => Functor[G].map(g(b))(Success.apply)

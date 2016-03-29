@@ -15,7 +15,8 @@ trait StringDecoderInstances {
   }
 
   /** Decoder for `Either[A, B]`, for any `A` and `B` that have a [[StringDecoder]] instance. */
-  implicit def eitherDecoder[A, B](implicit ca: StringDecoder[A], cb: StringDecoder[B]): StringDecoder[Either[A, B]] = StringDecoder { s ⇒
-    ca.decode(s).map(a ⇒ Left(a): Either[A, B]).orElse(cb.decode(s).map(b ⇒ Right(b): Either[A, B]))
-  }
+  implicit def eitherDecoder[A, B](implicit ca: StringDecoder[A], cb: StringDecoder[B]): StringDecoder[Either[A, B]] =
+    StringDecoder { s ⇒
+      ca.decode(s).map(a ⇒ Left(a): Either[A, B]).orElse(cb.decode(s).map(b ⇒ Right(b): Either[A, B]))
+    }
 }

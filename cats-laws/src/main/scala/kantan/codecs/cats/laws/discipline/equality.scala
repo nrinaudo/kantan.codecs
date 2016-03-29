@@ -1,7 +1,7 @@
 package kantan.codecs.cats.laws.discipline
 
 import cats._
-import kantan.codecs.{Encoder, Result, Decoder}
+import kantan.codecs._
 import kantan.codecs.cats._
 import org.scalacheck.Arbitrary
 

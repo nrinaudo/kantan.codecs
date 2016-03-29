@@ -133,7 +133,9 @@ object Result {
   // - Helper methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Turns a collection of results into a result of a collection. */
-  def sequence[F, S, M[X] <: TraversableOnce[X]](rs: M[Result[F, S]])(implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]): Result[F, M[S]] =
+  def sequence[F, S, M[X] <: TraversableOnce[X]](rs: M[Result[F, S]])
+                                                (implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]])
+  : Result[F, M[S]] =
     rs.foldLeft(Result.success[F, mutable.Builder[S, M[S]]](cbf(rs))) { (builder, res) ⇒
       for(b ← builder; r ← res) yield b += r
     }.map(_.result())
@@ -234,5 +236,7 @@ object Result {
         else                          f == value
       case _ ⇒ false
     }
+
+    override def hashCode(): Int = value.hashCode()
   }
 }

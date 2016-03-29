@@ -1,10 +1,10 @@
 package kantan.codecs.laws.discipline
 
-import arbitrary._
 import java.util.UUID
 import kantan.codecs.laws._
-import org.scalacheck.{Gen, Arbitrary}
-import util.Try
+import kantan.codecs.laws.discipline.arbitrary._
+import org.scalacheck.{Arbitrary, Gen}
+import scala.util.Try
 
 /** Useful trait for generating arbitrary [[CodecValue codec values]]. */
 trait GenCodecValue[E, D] {
@@ -22,7 +22,8 @@ trait GenCodecValue[E, D] {
 }
 
 object GenCodecValue {
-  def apply[E, D](g: D ⇒ E)(f: E ⇒ Boolean)(implicit ae: Arbitrary[E], ad: Arbitrary[D]): GenCodecValue[E, D] = new GenCodecValue[E, D] {
+  def apply[E, D](g: D ⇒ E)(f: E ⇒ Boolean)
+                 (implicit ae: Arbitrary[E], ad: Arbitrary[D]): GenCodecValue[E, D] = new GenCodecValue[E, D] {
     override val arbE = ae
     override val arbD = ad
 
@@ -34,7 +35,8 @@ object GenCodecValue {
     apply[E, D](g)(e ⇒ Try(f(e)).isFailure)
 
 
-  implicit def either[E: Arbitrary, DL: Arbitrary, DR: Arbitrary](implicit cl: GenCodecValue[E, DL], cr: GenCodecValue[E, DR]): GenCodecValue[E, Either[DL, DR]] =
+  implicit def either[E: Arbitrary, DL: Arbitrary, DR: Arbitrary]
+  (implicit cl: GenCodecValue[E, DL], cr: GenCodecValue[E, DR]): GenCodecValue[E, Either[DL, DR]] =
     GenCodecValue[E, Either[DL, DR]] {
       case Left(dl) ⇒ cl.encode(dl)
       case Right(dr) ⇒ cr.encode(dr)

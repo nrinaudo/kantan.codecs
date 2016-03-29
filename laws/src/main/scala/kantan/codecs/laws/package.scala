@@ -1,6 +1,6 @@
 package kantan.codecs
 
-import kantan.codecs.laws.CodecValue.{LegalValue, IllegalValue}
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 
 package object laws {
   type StringValue[A] = CodecValue[String, A]

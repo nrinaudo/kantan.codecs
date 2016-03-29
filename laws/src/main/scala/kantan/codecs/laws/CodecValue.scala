@@ -1,11 +1,8 @@
 package kantan.codecs.laws
 
-import discipline.GenCodecValue
-
-import kantan.codecs.laws.discipline.arbitrary._
-import org.scalacheck.Gen._
+import kantan.codecs.laws.discipline.GenCodecValue
 import org.scalacheck.{Arbitrary, Gen}
-
+import org.scalacheck.Gen._
 import scala.collection.generic.CanBuildFrom
 
 // TODO: investigate what type variance annotations can be usefully applied to CodecValue.
@@ -29,7 +26,8 @@ object CodecValue {
 
   // - Helpers / bug workarounds ---------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbValue[E, D](implicit arbL: Arbitrary[LegalValue[E, D]], arbI: Arbitrary[IllegalValue[E, D]]): Arbitrary[CodecValue[E, D]] =
+  implicit def arbValue[E, D]
+  (implicit arbL: Arbitrary[LegalValue[E, D]], arbI: Arbitrary[IllegalValue[E, D]]): Arbitrary[CodecValue[E, D]] =
     Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
 
 
@@ -65,7 +63,8 @@ object CodecValue {
     }}
   }
 
-  implicit val arbLegalStrStr: Arbitrary[LegalString[String]] = Arbitrary(Arbitrary.arbitrary[String].map(s ⇒ LegalValue(s, s)))
+  implicit val arbLegalStrStr: Arbitrary[LegalString[String]] =
+    Arbitrary(Arbitrary.arbitrary[String].map(s ⇒ LegalValue(s, s)))
 
   implicit def arbIllegalFromGen[E, D](implicit gen: GenCodecValue[E, D]): Arbitrary[IllegalValue[E, D]] =
     gen.arbIllegal

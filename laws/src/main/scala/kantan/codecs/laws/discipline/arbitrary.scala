@@ -1,15 +1,12 @@
 package kantan.codecs.laws.discipline
 
 import java.io.FileNotFoundException
-
 import kantan.codecs.Result
 import kantan.codecs.Result.{Failure, Success}
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.strings.{StringEncoder, StringDecoder}
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import org.scalacheck._
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
-import org.scalacheck.{Arbitrary, Gen}
-
 import scala.util.Try
 
 object arbitrary extends ArbitraryInstances
@@ -40,7 +37,7 @@ trait ArbitraryInstances extends ArbitraryArities {
   ))
 
   implicit def arbTry[A](implicit aa: Arbitrary[A]): Arbitrary[Try[A]] =
-    Arbitrary(Gen.oneOf(Arbitrary.arbitrary[Exception].map(scala.util.Failure.apply), aa.arbitrary.map(scala.util.Success.apply)))
+    Arbitrary(Gen.oneOf(arb[Exception].map(scala.util.Failure.apply), aa.arbitrary.map(scala.util.Success.apply)))
 
 
 
@@ -70,7 +67,8 @@ trait ArbitraryInstances extends ArbitraryArities {
       try {
         BigDecimal(x, scale, mc)
       } catch {
-        case ae: java.lang.ArithmeticException ⇒ BigDecimal(x, scale, UNLIMITED) // Handle the case where scale/precision conflict
+        // Handle the case where scale/precision conflict
+        case ae: java.lang.ArithmeticException ⇒ BigDecimal(x, scale, UNLIMITED)
       }
     }
     Arbitrary(bdGen)
