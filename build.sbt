@@ -12,7 +12,8 @@ val scalazVersion        = "7.2.1"
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
   scalaVersion       := "2.11.8",
-  crossScalaVersions := Seq("2.10.6", "2.11.8")
+  crossScalaVersions := Seq("2.10.6", "2.11.8"),
+  autoAPIMappings    := true
 )
 
 lazy val compilerOptions = Seq("-deprecation",
@@ -147,7 +148,6 @@ lazy val docs = project
   .settings(unidocSettings: _*)
   .settings(site.preprocessSite())
   .settings(
-    autoAPIMappings := true,
     apiURL := Some(url("http://nrinaudo.github.io/kantan.codecs/api/")),
     scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
       "-doc-source-url", scmInfo.value.get.browseUrl + "/tree/master€{FILE_PATH}.scala",
