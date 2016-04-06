@@ -1,5 +1,6 @@
 package kantan.codecs.strings
 
+import java.net.{URI, URL}
 import java.util.UUID
 import kantan.codecs.{Codec, Result}
 
@@ -28,5 +29,7 @@ trait StringCodecInstances extends StringEncoderInstances with StringDecoderInst
   implicit val short: StringCodec[Short] = StringCodec(s ⇒ Result.nonFatal(s.trim.toShort))(_.toString)
   implicit val string: StringCodec[String] = StringCodec(s ⇒ Result.nonFatal(s))(_.toString)
   implicit val uuid: StringCodec[UUID] = StringCodec(s ⇒ Result.nonFatal(UUID.fromString(s.trim)))(_.toString)
+  implicit val url: StringCodec[URL] = StringCodec(s ⇒ Result.nonFatal(new URL(s.trim)))(_.toString)
+  implicit val uri: StringCodec[URI] = url.imap(_.toURI)(_.toURL)
 }
 

@@ -1,5 +1,6 @@
 package kantan.codecs.laws.discipline
 
+import java.net.{URI, URL}
 import java.util.UUID
 import kantan.codecs.laws._
 import kantan.codecs.laws.discipline.arbitrary._
@@ -63,6 +64,8 @@ object GenCodecValue {
   implicit val strBigInt: GenCodecValue[String, BigInt] = strGen(s ⇒ BigInt(s.trim))
   implicit val strBigDecimal: GenCodecValue[String, BigDecimal] = strGen(s ⇒ BigDecimal(s.trim))
   implicit val strUUID: GenCodecValue[String, UUID] = strGen(s ⇒ UUID.fromString(s.trim))(Arbitrary(Gen.uuid))
+  implicit val strURL: GenCodecValue[String, URL] = strGen(s ⇒ new URL(s.trim))
+  implicit val strURI: GenCodecValue[String, URI] = strGen(s ⇒ new URL(s.trim).toURI)
   implicit val strChar: GenCodecValue[String, Char] = strGen { str =>
     val s = if(str.length > 1) str.trim else str
     if(s.length == 1) s.charAt(0)
