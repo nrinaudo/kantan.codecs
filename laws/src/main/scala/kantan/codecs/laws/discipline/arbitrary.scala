@@ -5,9 +5,9 @@ import java.net.{URI, URL}
 import kantan.codecs.Result
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import org.scalacheck._
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
-import org.scalacheck._
 import scala.util.Try
 
 object arbitrary extends ArbitraryInstances
