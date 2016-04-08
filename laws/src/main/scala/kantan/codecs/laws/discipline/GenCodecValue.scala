@@ -1,7 +1,9 @@
 package kantan.codecs.laws.discipline
 
 import java.net.{URI, URL}
-import java.util.UUID
+import java.text.DateFormat
+import java.util.{Date, UUID}
+import javax.swing.text.DateFormatter
 import kantan.codecs.laws._
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
@@ -71,4 +73,6 @@ object GenCodecValue {
     if(s.length == 1) s.charAt(0)
     else              sys.error(s"not a valid char: '$s'")
   }
+  implicit def strDate(implicit fmt: DateFormat): GenCodecValue[String, Date] =
+    GenCodecValue.nonFatal[String, Date](fmt.synchronized(fmt.format))(fmt.synchronized(fmt.parse))
 }
