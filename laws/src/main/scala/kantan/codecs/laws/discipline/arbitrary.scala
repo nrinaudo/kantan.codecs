@@ -2,6 +2,7 @@ package kantan.codecs.laws.discipline
 
 import java.io.FileNotFoundException
 import java.net.{URI, URL}
+import java.util.Date
 import kantan.codecs.Result
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
@@ -88,5 +89,13 @@ trait ArbitraryInstances extends ArbitraryArities {
       }
     }
     Arbitrary(bdGen)
+  }
+
+  // Saner arbitrary date: the default one causes issues with long overflow / underflow.
+  implicit val arbDate = Arbitrary {
+    for {
+      i ← Arbitrary.arbitrary[Int]
+      d = new Date
+    } yield new Date(d.getTime + i)
   }
 }
