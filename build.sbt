@@ -8,6 +8,8 @@ val kindProjectorVersion = "0.7.1"
 val scalaCheckVersion    = "1.12.5"
 val scalatestVersion     = "3.0.0-M9"
 val scalazVersion        = "7.2.1"
+val jodaVersion          = "2.9.3"
+val jodaConvertVersion   = "1.8.1"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
@@ -71,7 +73,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws, catsLaws, scalazLaws, cats, scalaz, docs, tests)
+  .aggregate(core, laws, catsLaws, scalazLaws, cats, scalaz, jodaTime, docs, tests)
 
 lazy val core = project
   .settings(
@@ -101,6 +103,26 @@ lazy val cats = project
   .settings(libraryDependencies += "org.typelevel" %% "cats" % catsVersion)
   .settings(allSettings: _*)
   .dependsOn(core)
+
+lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
+  .settings(
+    moduleName := "kantan.codecs-joda-time",
+    name       := "joda-time"
+  )
+  .settings(libraryDependencies ++= Seq(
+    "joda-time" % "joda-time"    % jodaVersion,
+    "org.joda"  % "joda-convert" % jodaConvertVersion
+  ))
+  .settings(allSettings: _*)
+  .dependsOn(core)
+
+lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-laws"))
+  .settings(
+    moduleName := "kantan.codecs-joda-time-laws",
+    name       := "joda-time-laws"
+  )
+  .settings(allSettings: _*)
+  .dependsOn(core, laws, jodaTime)
 
 lazy val scalaz = project
   .settings(
@@ -139,7 +161,7 @@ lazy val tests = project
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
-  .dependsOn(core, laws % "test", catsLaws % "test", scalazLaws % "test")
+  .dependsOn(core, laws % "test", catsLaws % "test", scalazLaws % "test", jodaTimeLaws % "test")
 
 lazy val docs = project
   .settings(allSettings: _*)

@@ -23,7 +23,6 @@ trait DecoderLaws[E, D, F, T] {
     Prop.throws(classOf[Exception])(decoder.unsafeDecode(v.encoded))
 
 
-
   // - Functor laws ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def mapIdentity(v: CodecValue[E, D]): Boolean =
