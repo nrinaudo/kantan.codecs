@@ -73,7 +73,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws, catsLaws, scalazLaws, cats, scalaz, jodaTime, docs, tests)
+  .aggregate(core, laws, catsLaws, scalazLaws, cats, scalaz, jodaTime, jodaTimeLaws, docs, tests)
 
 lazy val core = project
   .settings(
