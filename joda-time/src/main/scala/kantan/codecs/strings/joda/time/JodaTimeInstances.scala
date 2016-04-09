@@ -5,7 +5,7 @@ import kantan.codecs.strings.{StringCodec, _}
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 import org.joda.time.format.DateTimeFormatter
 
-trait JodaTimeCodecs {
+trait JodaTimeInstances {
   implicit def dateTimeCodec(implicit format: DateTimeFormatter): StringCodec[DateTime] =
     StringCodec(str ⇒ Result.nonFatal(format.parseDateTime(str)))(format.print)
 
