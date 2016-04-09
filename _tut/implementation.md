@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title:  "Implementing a new codec library"
 section: tutorial
 ---
@@ -132,7 +132,7 @@ trait CellDecoderInstances {
 }
 
 trait CellEncoderInstances {
-  def fromStringEncoder[A](implicit ea: StringEncoder[A]): CellEncoder[A] = ea.tag[codecs.type]  
+  def fromStringEncoder[A](implicit ea: StringEncoder[A]): CellEncoder[A] = ea.tag[codecs.type]
 }
 ```
 
