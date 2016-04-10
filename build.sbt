@@ -8,7 +8,7 @@ val disciplineVersion    = "0.4"
 val kindProjectorVersion = "0.7.1"
 val scalaCheckVersion    = "1.12.5"
 val scalatestVersion     = "3.0.0-M9"
-val scalazVersion        = "7.2.1"
+val scalazVersion        = "7.2.2"
 val jodaVersion          = "2.9.3"
 val jodaConvertVersion   = "1.8.1"
 
