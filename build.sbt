@@ -1,6 +1,7 @@
 import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
+import de.heikoseeberger.sbtheader.license.Apache2_0
 
 val catsVersion          = "0.4.1"
 val disciplineVersion    = "0.4"
@@ -36,6 +37,7 @@ lazy val compilerOptions = Seq("-deprecation",
 
 lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
+  headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
   libraryDependencies += compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary),
   coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
   incOptions  := incOptions.value.withNameHashing(true)
@@ -49,7 +51,7 @@ lazy val noPublishSettings = Seq(
 
 lazy val publishSettings = Seq(
   homepage := Some(url("https://nrinaudo.github.io/kantan.codecs")),
-  licenses := Seq("MIT License" → url("http://www.opensource.org/licenses/mit-license.php")),
+  licenses := Seq("Apache-2.0" → url("https://www.apache.org/licenses/LICENSE-2.0.html")),
   apiURL := Some(url("https://nrinaudo.github.io/kantan.codecs/api/")),
   scmInfo := Some(
     ScmInfo(
@@ -74,6 +76,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(allSettings)
   .settings(noPublishSettings)
   .aggregate(core, laws, catsLaws, scalazLaws, cats, scalaz, jodaTime, jodaTimeLaws, docs, tests)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val core = project
   .settings(
@@ -81,6 +84,7 @@ lazy val core = project
     name       := "core"
   )
   .settings(allSettings: _*)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val laws = project
   .settings(
@@ -94,6 +98,7 @@ lazy val laws = project
   .enablePlugins(spray.boilerplate.BoilerplatePlugin)
   .settings(allSettings: _*)
   .dependsOn(core)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val cats = project
   .settings(
@@ -103,6 +108,7 @@ lazy val cats = project
   .settings(libraryDependencies += "org.typelevel" %% "cats" % catsVersion)
   .settings(allSettings: _*)
   .dependsOn(core)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
   .settings(
@@ -115,6 +121,7 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
   ))
   .settings(allSettings: _*)
   .dependsOn(core)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-laws"))
   .settings(
@@ -123,6 +130,7 @@ lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-la
   )
   .settings(allSettings: _*)
   .dependsOn(core, laws, jodaTime)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val scalaz = project
   .settings(
@@ -132,6 +140,7 @@ lazy val scalaz = project
   .settings(allSettings: _*)
   .settings(libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion)
   .dependsOn(core, laws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
   .settings(
@@ -144,6 +153,7 @@ lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
   ))
   .settings(allSettings: _*)
   .dependsOn(core, laws, cats)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
   .settings(
@@ -156,12 +166,14 @@ lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
   ))
   .settings(allSettings: _*)
   .dependsOn(core, laws, scalaz)
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val tests = project
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
   .dependsOn(core, laws % "test", catsLaws % "test", scalazLaws % "test", jodaTimeLaws % "test")
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val docs = project
   .settings(allSettings: _*)
