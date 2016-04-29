@@ -3,7 +3,7 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
 
-val catsVersion          = "0.4.1"
+val catsVersion          = "0.5.0"
 val disciplineVersion    = "0.4"
 val kindProjectorVersion = "0.7.1"
 val scalaCheckVersion    = "1.12.5"
