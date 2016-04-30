@@ -50,20 +50,35 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
 
   // - Composition -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Creates a new [[Decoder]] instance by transforming raw results with the specified function.
+    *
+    * Most of the time, other combinators such as [[map]] should be preferred. [[andThen]] is mostly useful when
+    * one needs to turn failures into successes, and even then, [[recover]] or [[recoverWith]] are probably more
+    * directly useful.
+    */
+  def andThen[FF, DD](f: Result[F, D] ⇒ Result[FF, DD]): Decoder[E, DD, FF, T] = Decoder(e ⇒ f(decode(e)))
+
+  /** Creates a new [[Decoder]] instance by transforming some failures into successes with the specified function. */
+  def recover[DD >: D](pf: PartialFunction[F, DD]): Decoder[E, DD, F, T] = andThen(_.recover(pf))
+
+  /** Creates a new [[Decoder]] instance by transforming some failures with the specified function. */
+  def recoverWith[DD >: D, FF >: F](pf: PartialFunction[F, Result[FF, DD]]): Decoder[E, DD, FF, T] =
+    andThen(_.recoverWith(pf))
+
   /** Creates a new [[Decoder]] instance by transforming successful results with the specified function.
     *
     * This differs from [[mapResult]] in that the transformation function cannot fail.
     */
-  def map[DD](f: D ⇒ DD): Decoder[E, DD, F, T] = Decoder(e ⇒ decode(e).map(f))
+  def map[DD](f: D ⇒ DD): Decoder[E, DD, F, T] = andThen(_.map(f))
 
   /** Creates a new [[Decoder]] instance by transforming successful results with the specified function.
     *
     * This differs from [[map]] in that it allows the transformation function to fail.
     */
-  def mapResult[DD](f: D ⇒ Result[F, DD]): Decoder[E, DD, F, T] = Decoder(e ⇒ decode(e).flatMap(f))
+  def mapResult[DD](f: D ⇒ Result[F, DD]): Decoder[E, DD, F, T] = andThen(_.flatMap(f))
 
   /** Creates a new [[Decoder]] instance by transforming errors with the specified function. */
-  def mapError[FF](f: F ⇒ FF): Decoder[E, D, FF, T] = Decoder(e ⇒ decode(e).leftMap(f))
+  def mapError[FF](f: F ⇒ FF): Decoder[E, D, FF, T] = andThen(_.leftMap(f))
 
   /** Creates a new [[Decoder]] instance by transforming encoded values with the specified function. */
   def contramapEncoded[EE](f: EE ⇒ E): Decoder[EE, D, F, T] = Decoder(ee ⇒ decode(f(ee)))
