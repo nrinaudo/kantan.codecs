@@ -3,7 +3,7 @@ layout: index
 ---
 
 [![Build Status](https://travis-ci.org/nrinaudo/kantan.codecs.svg?branch=master)](https://travis-ci.org/nrinaudo/kantan.codecs)
-[![codecov.io](http://codecov.io/github/nrinaudo/kantan.codecs/coverage.svg?branch=master)](http://codecov.io/github/nrinaudo/kantan.codecs)
+[![codecov](https://codecov.io/gh/nrinaudo/kantan.codecs/branch/master/graph/badge.svg)](https://codecov.io/gh/nrinaudo/kantan.codecs)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.codecs_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.codecs_2.11)
 [![Join the chat at https://gitter.im/nrinaudo/kantan.codecs](https://img.shields.io/badge/gitter-join%20chat-52c435.svg)](https://gitter.im/nrinaudo/kantan.codecs)
 
