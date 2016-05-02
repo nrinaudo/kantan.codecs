@@ -42,4 +42,14 @@ object Encoder {
   def apply[E, D, T](f: D ⇒ E): Encoder[E, D, T] = new Encoder[E, D, T] {
     override def encode(d: D) = f(d)
   }
+
+  implicit def optionalEncoder[E, A, T](implicit ea: Encoder[E, A, T], oe: Optional[E]): Encoder[E, Option[A], T] =
+    Encoder(_.map(ea.encode).getOrElse(oe.empty))
+
+  implicit def eitherEncoder[E, A, B, T](implicit ea: Encoder[E, A, T], eb: Encoder[E, B, T])
+  : Encoder[E, Either[A, B], T] =
+    Encoder {_ match {
+      case Left(a)  ⇒ ea.encode(a)
+      case Right(b) ⇒ eb.encode(b)
+    }}
 }

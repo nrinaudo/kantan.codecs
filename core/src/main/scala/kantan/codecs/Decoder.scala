@@ -16,6 +16,8 @@
 
 package kantan.codecs
 
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
+
 /** Type class for types that can be decoded from other types.
   *
   * @tparam E encoded type - what to decode from.
@@ -96,4 +98,18 @@ object Decoder {
   def apply[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
     override def decode(e: E) = f(e)
   }
+
+  implicit def optionalDecoder[E, A, F, T]
+  (implicit da: Decoder[E, A, F, T], oe: Optional[E]): Decoder[E, Option[A], F, T] =
+    Decoder { e ⇒
+      if(oe.isEmpty(e)) Result.success(None)
+      else          da.decode(e).map(Some.apply)
+    }
+
+  /** Provides a [[Decoder]] instance for `Either[A, B]`, provided both `A` and `B` have a [[Decoder]] instance. */
+  implicit def eitherDecoder[E, A, B, F, T](implicit da: Decoder[E, A, F, T], db: Decoder[E, B, F, T])
+  : Decoder[E, Either[A, B], F, T] =
+    Decoder { s ⇒
+      da.decode(s).map(a ⇒ Left(a): Either[A, B]).orElse(db.decode(s).map(b ⇒ Right(b): Either[A, B]))
+    }
 }

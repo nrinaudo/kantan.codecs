@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
 
-import kantan.codecs.{Decoder, Result}
-
-object StringDecoder {
-  def apply[D](f: String ⇒ Result[Throwable, D]): StringDecoder[D] = Decoder(f)
+trait Optional[A] {
+  def empty: A
+  def isEmpty(a: A): Boolean = a == empty
 }
 
-trait StringDecoderInstances
+object Optional {
+  def apply[A](a: A): Optional[A] = new Optional[A] {
+    override val empty = a
+  }
+
+  implicit val optString: Optional[String] = Optional("")
+  implicit def optSeq[A]: Optional[Seq[A]] = Optional(Seq.empty[A])
+  implicit def optOption[A]: Optional[Option[A]] = Optional(Option.empty[A])
+}
