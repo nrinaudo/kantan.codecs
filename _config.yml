@@ -1,7 +1,7 @@
-name: kantan.codecs
+name: kantan.regex
 markdown: kramdown
 highlighter: rouge
-baseurl: /kantan.codecs
+baseurl: /kantan.regex
 
 kramdown:
   input: GFM
