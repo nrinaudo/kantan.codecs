@@ -2,44 +2,42 @@
 layout: index
 ---
 
-[![Build Status](https://travis-ci.org/nrinaudo/kantan.codecs.svg?branch=master)](https://travis-ci.org/nrinaudo/kantan.codecs)
-[![codecov](https://codecov.io/gh/nrinaudo/kantan.codecs/branch/master/graph/badge.svg)](https://codecov.io/gh/nrinaudo/kantan.codecs)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.codecs_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.codecs_2.11)
-[![Join the chat at https://gitter.im/nrinaudo/kantan.codecs](https://img.shields.io/badge/gitter-join%20chat-52c435.svg)](https://gitter.im/nrinaudo/kantan.codecs)
+[![Build Status](https://travis-ci.org/nrinaudo/kantan.regex.svg)](https://travis-ci.org/nrinaudo/kantan.regex)
+[![codecov](https://codecov.io/gh/nrinaudo/kantan.regex/branch/master/graph/badge.svg)](https://codecov.io/gh/nrinaudo/kantan.regex)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.regex_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.regex_2.11)
+[![Join the chat at https://gitter.im/nrinaudo/kantan.regex](https://img.shields.io/badge/gitter-join%20chat-52c435.svg)](https://gitter.im/nrinaudo/kantan.regex)
 
-kantan.codecs is a support library for the various kantan projects.
+kantan.regex is a library for extracting useful types from regular expression matches written in the
+[Scala programming language](http://www.scala-lang.org).
 
 ## Getting started
 
-kantan.codecs is currently available both for Scala 2.10 and 2.11.
+kantan.regex is currently available both for Scala 2.10 and 2.11.
 
-The current version is `0.1.4-SNAPSHOT`, which can be added to your project with one or more of the following line(s)
+The current version is `0.1.0`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:
 
 ```scala
 // Core library, included automatically if any other module is imported.
-libraryDependencies += "com.nrinaudo" %% "kantan.codecs" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.regex" % "0.1.0"
 
 // Provides scalaz type class instances.
-libraryDependencies += "com.nrinaudo" %% "kantan.codecs-scalaz" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.regex-scalaz" % "0.1.0"
 
 // Provides cats type class instances.
-libraryDependencies += "com.nrinaudo" %% "kantan.codecs-cats" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.regex-cats" % "0.1.0"
+
+// Provides joda-time decoders.
+libraryDependencies += "com.nrinaudo" %% "kantan.regex-joda-time" % "0.1.0"
 ```
 
 ## Motivation
 
-Existing and planned kantan libraries are heavily encoding and decoding oriented - their main purpose is to turn
-raw data and decode it into useful types, or vice-versa. [kantan.xpath](https://github.com/nrinaudo/kantan.xpath), for
-instance, is all about turning the results of XPath expressions into types that can be more easily manipulated than
-strings or nodes.
+Regular expressions, for all their flaws, are still extremely useful to extract content from raw strings. Scala,
+unfortunately, doesn't do much with that - the regex library is great for checking matches, but not extracting
+well-typed data from them.
 
-Since all these libraries share the same underlying purpose, it's only natural they should also share a lot of data
-structures, or at least *shapes* of data structures. Both [kantan.csv](https://github.com/nrinaudo/kantan.csv) and
-[kantan.xpath](https://github.com/nrinaudo/kantan.xpath), for example, define a `DecodeResult` type which is essentially
-the same.
-
-kantan.codecs tries to unify these types and provide generic laws and tests for them, which both reduces code
-duplication and provides a common vocabulary for all kantan libraries.
-
-It really isn't meant to be used directly and is more of a support library for more directly useful ones.
+Kantan.regex is meant to fill that void - and nothing else. By that, I mean that if you need to use regular expressions
+as predicates (does a string match a certain pattern?), kantan.regex is absolutely not the right tool for the job. If,
+on the other hand, you need to extract bits of strings as custom, composite types, in a safe way and checked at compile
+time, then it might just be.
