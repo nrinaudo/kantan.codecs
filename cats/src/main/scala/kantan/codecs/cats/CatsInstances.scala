@@ -21,17 +21,15 @@ import cats.data.Xor
 import cats.functor.{Bifunctor, Contravariant}
 import kantan.codecs._
 import kantan.codecs.Result.{Failure, Success}
-import kantan.codecs.strings.{StringDecoder, StringEncoder}
 
 trait CatsInstances extends LowPriorityCatsInstances {
   // - Xor instances ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def xorDecoder[A, B](implicit da: StringDecoder[A], db: StringDecoder[B]): StringDecoder[A Xor B] =
-    StringDecoder { s ⇒ da.decode(s).map(Xor.left).orElse(db.decode(s).map(Xor.right)) }
+  implicit def xorDecoder[E, DA, DB, F, T](implicit da: Decoder[E, Either[DA, DB], F, T]): Decoder[E, DA Xor DB, F, T] =
+    da.map(Xor.fromEither)
 
-  implicit def xorEncoder[A, B](implicit ea: StringEncoder[A], eb: StringEncoder[B]): StringEncoder[A Xor B] =
-    StringEncoder(xab ⇒ xab.fold(ea.encode, eb.encode))
-
+  implicit def xorEncoder[E, DA, DB, T](implicit ea: Encoder[E, Either[DA, DB], T]): Encoder[E, DA Xor DB, T] =
+    ea.contramap(_.toEither)
 
 
   // - Decoder instances -----------------------------------------------------------------------------------------------

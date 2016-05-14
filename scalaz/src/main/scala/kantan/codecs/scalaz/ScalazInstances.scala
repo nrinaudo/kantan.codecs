@@ -19,28 +19,26 @@ package kantan.codecs.scalaz
 import _root_.scalaz._
 import kantan.codecs._
 import kantan.codecs.Result.{Failure, Success}
-import kantan.codecs.strings._
 
 trait ScalazInstances extends LowPriorityScalazInstances {
   // - \/ instances ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def disjunctionDecoder[A, B](implicit da: StringDecoder[A], db: StringDecoder[B]): StringDecoder[A \/ B] =
-    StringDecoder { s ⇒ da.decode(s).map(\/.left).orElse(db.decode(s).map(\/.right)) }
+  implicit def disjunctionDecoder[E, DA, DB, F, T]
+  (implicit da: Decoder[E, Either[DA, DB], F, T]): Decoder[E, DA \/ DB, F, T] =
+    da.map(\/.fromEither)
 
-  implicit def disjunctionEncoder[A, B](implicit ea: StringEncoder[A], eb: StringEncoder[B]): StringEncoder[A \/ B] =
-    StringEncoder(xab ⇒ xab.fold(ea.encode, eb.encode))
+  implicit def disjunctionEncoder[E, DA, DB, T](implicit ea: Encoder[E, Either[DA, DB], T]): Encoder[E, DA \/ DB, T] =
+    ea.contramap(_.toEither)
 
 
 
   // - Maybe instances -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def maybeDecoder[A](implicit da: StringDecoder[A]): StringDecoder[Maybe[A]] = StringDecoder { s ⇒
-    if(s.isEmpty) Result.success(Maybe.empty)
-    else          da.decode(s).map(Maybe.just)
-  }
+  implicit def maybeDecoder[E, D, F, T](implicit da: Decoder[E, Option[D], F, T]): Decoder[E, Maybe[D], F, T] =
+    da.map(Maybe.fromOption)
 
-  implicit def maybeEncoder[A](implicit ea: StringEncoder[A]): StringEncoder[Maybe[A]] =
-    StringEncoder(_.map(ea.encode).getOrElse(""))
+  implicit def maybeEncoder[E, D, T](implicit ea: Encoder[E, Option[D], T]): Encoder[E, Maybe[D], T] =
+    ea.contramap(_.toOption)
 
 
   // - Decoder instances -----------------------------------------------------------------------------------------------

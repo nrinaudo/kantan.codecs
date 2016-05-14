@@ -16,11 +16,11 @@
 
 package kantan.codecs.laws
 
+import discipline.arbitrary._
 import java.io.File
 import kantan.codecs.laws.discipline.GenCodecValue
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalacheck.Gen._
-import discipline.arbitrary._
 import scala.collection.generic.CanBuildFrom
 
 // TODO: investigate what type variance annotations can be usefully applied to CodecValue.
