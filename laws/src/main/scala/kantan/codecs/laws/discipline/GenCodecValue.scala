@@ -16,10 +16,10 @@
 
 package kantan.codecs.laws.discipline
 
+import java.io.File
 import java.net.{URI, URL}
 import java.text.DateFormat
 import java.util.{Date, UUID}
-import javax.swing.text.DateFormatter
 import kantan.codecs.laws._
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Gen}

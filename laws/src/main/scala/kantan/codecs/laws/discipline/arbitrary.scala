@@ -16,7 +16,7 @@
 
 package kantan.codecs.laws.discipline
 
-import java.io.FileNotFoundException
+import java.io.{File, FileNotFoundException}
 import java.net.{URI, URL}
 import java.util.Date
 import kantan.codecs.Result
@@ -82,6 +82,10 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   implicit val arbURL: Arbitrary[URL] = Arbitrary(genURL)
   implicit val arbURI: Arbitrary[URI] = Arbitrary(genURL.map(_.toURI))
+
+  implicit val arbFile: Arbitrary[File] = Arbitrary(
+    Gen.nonEmptyListOf(Gen.identifier).map(ss ⇒ new File(ss.fold("")(_ + System.getProperty("file.separator") + _)))
+  )
 
 
   // This is necessary to prevent ScalaCheck from generating BigDecimal values that cannot be serialized because their

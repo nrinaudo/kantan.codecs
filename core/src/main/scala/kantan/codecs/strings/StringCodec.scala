@@ -16,6 +16,7 @@
 
 package kantan.codecs.strings
 
+import java.io.File
 import java.net.{URI, URL}
 import java.text.DateFormat
 import java.util.{Date, UUID}
@@ -48,6 +49,7 @@ trait StringCodecInstances extends StringEncoderInstances with StringDecoderInst
   implicit val uuid: StringCodec[UUID] = StringCodec(s ⇒ Result.nonFatal(UUID.fromString(s.trim)))(_.toString)
   implicit val url: StringCodec[URL] = StringCodec(s ⇒ Result.nonFatal(new URL(s.trim)))(_.toString)
   implicit val uri: StringCodec[URI] = url.imap(_.toURI)(_.toURL)
+  implicit val file: StringCodec[File] = StringCodec(s ⇒ Result.nonFatal(new File(s)))(_.toString)
   implicit def date(implicit ft: DateFormat): StringCodec[Date] =
     StringCodec(str ⇒ Result.nonFatal(ft.synchronized(ft.parse(str))))(date ⇒ ft.synchronized(ft.format(date)))
 }
