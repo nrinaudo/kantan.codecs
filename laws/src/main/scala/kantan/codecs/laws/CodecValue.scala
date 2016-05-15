@@ -85,7 +85,7 @@ object CodecValue {
     Arbitrary(Arbitrary.arbitrary[String].map(s ⇒ LegalValue(s, s)))
 
   implicit val arbLegalStrFile: Arbitrary[LegalString[File]] =
-      Arbitrary(Arbitrary.arbitrary[File].map(s ⇒ LegalValue(s.getAbsolutePath, s)))
+    Arbitrary(Arbitrary.arbitrary[File].map(s ⇒ LegalValue(s.getAbsolutePath, s)))
 
   implicit def arbIllegalFromGen[E, D](implicit gen: GenCodecValue[E, D]): Arbitrary[IllegalValue[E, D]] =
     gen.arbIllegal

@@ -55,7 +55,7 @@ object GenCodecValue {
     apply[E, D](g)(e ⇒ Try(f(e)).isFailure)
 
 
-  implicit def either[E: Arbitrary, DL: Arbitrary, DR: Arbitrary]
+  implicit def eitherCodecValue[E: Arbitrary, DL: Arbitrary, DR: Arbitrary]
   (implicit cl: GenCodecValue[E, DL], cr: GenCodecValue[E, DR]): GenCodecValue[E, Either[DL, DR]] =
     GenCodecValue[E, Either[DL, DR]] {
       case Left(dl) ⇒ cl.encode(dl)
@@ -63,7 +63,7 @@ object GenCodecValue {
     }(e ⇒ cl.isIllegal(e) && cr.isIllegal(e))
 
 
-  implicit def option[E: Arbitrary, D: Arbitrary]
+  implicit def optionCodecValue[E: Arbitrary, D: Arbitrary]
   (implicit oe: Optional[E], cd: GenCodecValue[E, D]): GenCodecValue[E, Option[D]] =
       GenCodecValue[E, Option[D]](od ⇒ od.map(cd.encode).getOrElse(oe.empty))(e ⇒ !oe.isEmpty(e) && cd.isIllegal(e))
 
