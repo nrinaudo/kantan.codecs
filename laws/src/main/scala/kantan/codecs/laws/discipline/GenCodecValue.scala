@@ -20,6 +20,7 @@ import java.io.File
 import java.net.{URI, URL}
 import java.text.DateFormat
 import java.util.{Date, UUID}
+import kantan.codecs.Optional
 import kantan.codecs.laws._
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
@@ -61,16 +62,15 @@ object GenCodecValue {
       case Right(dr) ⇒ cr.encode(dr)
     }(e ⇒ cl.isIllegal(e) && cr.isIllegal(e))
 
-  def option[E: Arbitrary, D: Arbitrary](empty: E)(implicit cd: GenCodecValue[E, D]): GenCodecValue[E, Option[D]] =
-    GenCodecValue[E, Option[D]](od ⇒ od.map(cd.encode).getOrElse(empty))(e ⇒ e != empty && cd.isIllegal(e))
+
+  implicit def option[E: Arbitrary, D: Arbitrary]
+  (implicit oe: Optional[E], cd: GenCodecValue[E, D]): GenCodecValue[E, Option[D]] =
+      GenCodecValue[E, Option[D]](od ⇒ od.map(cd.encode).getOrElse(oe.empty))(e ⇒ !oe.isEmpty(e) && cd.isIllegal(e))
 
 
   // - Default string instances ----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   private def strGen[D: Arbitrary](f: String ⇒ D): GenCodecValue[String, D] = nonFatal[String, D](_.toString)(f)
-
-  implicit def strOpt[A: Arbitrary](implicit ca: GenCodecValue[String, A]): GenCodecValue[String, Option[A]] =
-    option[String, A]("")
 
   implicit val strInt: GenCodecValue[String, Int] = strGen(_.trim.toInt)
   implicit val strFloat: GenCodecValue[String, Float] = strGen(_.trim.toFloat)
