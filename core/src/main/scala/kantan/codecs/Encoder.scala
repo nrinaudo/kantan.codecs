@@ -16,6 +16,8 @@
 
 package kantan.codecs
 
+import kantan.codecs.export.Exported
+
 /** Type class for types that can be encoded into others.
   *
   * @tparam E encoded type - what to encode to.
@@ -42,6 +44,9 @@ object Encoder {
   def apply[E, D, T](f: D ⇒ E): Encoder[E, D, T] = new Encoder[E, D, T] {
     override def encode(d: D) = f(d)
   }
+
+  implicit def encoderFromExported[E, A, T](implicit ea: Exported[Encoder[E, A, T]]): Encoder[E, A, T] =
+    ea.value
 
   implicit def optionalEncoder[E, A, T](implicit ea: Encoder[E, A, T], oe: Optional[E]): Encoder[E, Option[A], T] =
     Encoder(_.map(ea.encode).getOrElse(oe.empty))

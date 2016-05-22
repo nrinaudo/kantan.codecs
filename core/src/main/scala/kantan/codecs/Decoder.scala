@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import kantan.codecs.export.Exported
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
 
 /** Type class for types that can be decoded from other types.
@@ -98,6 +99,9 @@ object Decoder {
   def apply[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
     override def decode(e: E) = f(e)
   }
+
+  implicit def decoderFromExported[E, A, F, T](implicit da: Exported[Decoder[E, A, F, T]]): Decoder[E, A, F, T] =
+    da.value
 
   implicit def optionalDecoder[E, A, F, T]
   (implicit da: Decoder[E, A, F, T], oe: Optional[E]): Decoder[E, Option[A], F, T] =
