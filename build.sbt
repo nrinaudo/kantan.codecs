@@ -11,6 +11,7 @@ val scalatestVersion     = "3.0.0-M9"
 val scalazVersion        = "7.2.2"
 val jodaVersion          = "2.9.3"
 val jodaConvertVersion   = "1.8.1"
+val shapelessVersion     = "2.3.0"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
@@ -75,7 +76,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws, catsLaws, scalazLaws, cats, scalaz, jodaTime, jodaTimeLaws, docs, tests)
+  .aggregate(core, laws, catsLaws, scalazLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws, docs, tests)
   .enablePlugins(AutomateHeaderPlugin)
 
 lazy val core = project
@@ -141,6 +142,17 @@ lazy val scalaz = project
   .settings(libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion)
   .dependsOn(core, laws % "test")
   .enablePlugins(AutomateHeaderPlugin)
+
+lazy val shapeless = project
+  .settings(
+    moduleName := "kantan.codecs-shapeless",
+    name       := "shapeless"
+  )
+  .settings(allSettings: _*)
+  .settings(libraryDependencies += "com.chuusai" %% "shapeless" % shapelessVersion)
+  .dependsOn(core)
+  .enablePlugins(AutomateHeaderPlugin)
+
 
 lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
   .settings(
