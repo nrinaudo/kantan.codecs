@@ -27,7 +27,7 @@ import org.scalacheck.{Arbitrary, Gen}
 import scala.util.Try
 
 /** Useful trait for generating arbitrary [[CodecValue codec values]]. */
-trait GenCodecValue[E, D] {
+trait GenCodecValue[E, D] { self ⇒
   def arbE: Arbitrary[E]
   def arbD: Arbitrary[D]
 
@@ -39,6 +39,13 @@ trait GenCodecValue[E, D] {
 
   val arbIllegal: Arbitrary[CodecValue.IllegalValue[E, D]] =
     Arbitrary(arbE.arbitrary.suchThat(isIllegal).map(CodecValue.IllegalValue.apply))
+
+  def contramap[DD](f: DD ⇒ D)(implicit arbDD: Arbitrary[DD]): GenCodecValue[E, DD] = new GenCodecValue[E, DD] {
+    override val arbE = self.arbE
+    override val arbD = arbDD
+    override def encode(d: DD): E = self.encode(f(d))
+    override def isIllegal(e: E) = self.isIllegal(e)
+  }
 }
 
 object GenCodecValue {

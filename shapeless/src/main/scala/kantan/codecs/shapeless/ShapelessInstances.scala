@@ -16,14 +16,22 @@
 
 package kantan.codecs.shapeless
 
-import kantan.codecs.Decoder
+import kantan.codecs.{Decoder, Encoder}
 import kantan.codecs.export.Exported
 import shapeless.{Coproduct, Generic, HList}
 
 trait ShapelessInstances {
+  implicit def caseClassEncoder[E, T, A, R <: HList]
+  (implicit gen: Generic.Aux[A, R], ev: R <:< HList, er: Encoder[E, R, T]): Exported[Encoder[E, A, T]] =
+    Exported(Encoder(s ⇒ er.encode(gen.to(s))))
+
   implicit def caseClassDecoder[E, F, T, A, R <: HList]
   (implicit gen: Generic.Aux[A, R], ev: R <:< HList, dr: Decoder[E, R, F, T]): Exported[Decoder[E, A, F, T]] =
     Exported(Decoder(s ⇒ dr.decode(s).map(gen.from)))
+
+  implicit def sumTypeEncoder[E, T, A, R <: Coproduct]
+  (implicit gen: Generic.Aux[A, R], er: Encoder[E, R, T]): Exported[Encoder[E, A, T]] =
+      Exported(Encoder(m ⇒ er.encode(gen.to(m))))
 
   implicit def sumTypeDecoder[E, F, T, A, R <: Coproduct]
   (implicit gen: Generic.Aux[A, R], dr: Decoder[E, R, F, T]): Exported[Decoder[E, A, F, T]] =
