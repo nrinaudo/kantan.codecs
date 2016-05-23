@@ -18,22 +18,22 @@ package kantan.codecs.shapeless
 
 import kantan.codecs.{Decoder, Encoder}
 import kantan.codecs.export.Exported
-import shapeless.{Coproduct, Generic, HList}
+import shapeless.{Coproduct, Generic, HList, Lazy}
 
 trait ShapelessInstances {
-  implicit def caseClassEncoder[E, T, A, R <: HList]
-  (implicit gen: Generic.Aux[A, R], ev: R <:< HList, er: Encoder[E, R, T]): Exported[Encoder[E, A, T]] =
-    Exported(Encoder(s ⇒ er.encode(gen.to(s))))
+  implicit def caseClassEncoder[E, D, T, H <: HList]
+  (implicit gen: Generic.Aux[D, H], ev: H <:< HList, er: Lazy[Encoder[E, H, T]]): Exported[Encoder[E, D, T]] =
+    Exported(Encoder(s ⇒ er.value.encode(gen.to(s))))
 
-  implicit def caseClassDecoder[E, F, T, A, R <: HList]
-  (implicit gen: Generic.Aux[A, R], ev: R <:< HList, dr: Decoder[E, R, F, T]): Exported[Decoder[E, A, F, T]] =
-    Exported(Decoder(s ⇒ dr.decode(s).map(gen.from)))
+  implicit def caseClassDecoder[E, D, F, T, H <: HList]
+  (implicit gen: Generic.Aux[D, H], ev: H <:< HList, dr: Lazy[Decoder[E, H, F, T]]): Exported[Decoder[E, D, F, T]] =
+    Exported(Decoder(s ⇒ dr.value.decode(s).map(gen.from)))
 
-  implicit def sumTypeEncoder[E, T, A, R <: Coproduct]
-  (implicit gen: Generic.Aux[A, R], er: Encoder[E, R, T]): Exported[Encoder[E, A, T]] =
-      Exported(Encoder(m ⇒ er.encode(gen.to(m))))
+  implicit def sumTypeEncoder[E, D, T, C <: Coproduct]
+  (implicit gen: Generic.Aux[D, C], er: Lazy[Encoder[E, C, T]]): Exported[Encoder[E, D, T]] =
+    Exported(Encoder(m ⇒ er.value.encode(gen.to(m))))
 
-  implicit def sumTypeDecoder[E, F, T, A, R <: Coproduct]
-  (implicit gen: Generic.Aux[A, R], dr: Decoder[E, R, F, T]): Exported[Decoder[E, A, F, T]] =
-    Exported(Decoder(m ⇒ dr.decode(m).map(gen.from)))
+  implicit def sumTypeDecoder[E, D, F, T, C <: Coproduct]
+  (implicit gen: Generic.Aux[D, C], dr: Lazy[Decoder[E, C, F, T]]): Exported[Decoder[E, D, F, T]] =
+    Exported(Decoder(m ⇒ dr.value.decode(m).map(gen.from)))
 }
