@@ -40,7 +40,7 @@ lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
   headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
   libraryDependencies += compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary),
-  coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
+  ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
   incOptions  := incOptions.value.withNameHashing(true)
 )
 
