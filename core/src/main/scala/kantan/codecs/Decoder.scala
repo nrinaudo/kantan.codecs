@@ -17,7 +17,6 @@
 package kantan.codecs
 
 import kantan.codecs.export.Exported
-import kantan.codecs.strings.{StringDecoder, StringEncoder}
 
 /** Type class for types that can be decoded from other types.
   *

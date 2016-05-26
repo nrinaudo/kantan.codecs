@@ -1,9 +1,7 @@
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.{Arbitrary, Gen}
-import scala.collection.generic.CanBuildFrom
 
 trait ArbitraryArities {
   [#def genLegalWith1[[#E1#], [#D1#], EE, DD](decoded: ([#D1#]) ⇒ DD)(encoded: ([#E1#]) ⇒ EE)(implicit [#arb1: Arbitrary[LegalValue[E1, D1]]#]): Gen[LegalValue[EE, DD]] =

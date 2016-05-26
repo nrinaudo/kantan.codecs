@@ -21,7 +21,6 @@ import cats._
 import cats.data.NonEmptyList
 import cats.laws.discipline._
 import cats.laws.discipline.arbitrary._
-import cats.laws.discipline.eq._
 import cats.std.all._
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
