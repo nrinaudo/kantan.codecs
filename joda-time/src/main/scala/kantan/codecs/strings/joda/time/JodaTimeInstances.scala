@@ -18,8 +18,8 @@ package kantan.codecs.strings.joda.time
 
 import kantan.codecs.Result
 import kantan.codecs.strings.StringCodec
+import org.joda.time._
 import org.joda.time.format.DateTimeFormatter
-import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 
 trait JodaTimeInstances {
   implicit def dateTimeCodec(implicit format: DateTimeFormatter): StringCodec[DateTime] =
