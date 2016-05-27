@@ -22,11 +22,11 @@ import shapeless.{Coproduct, Generic, HList, Lazy}
 
 trait ShapelessInstances {
   implicit def caseClassEncoder[E, D, T, H <: HList]
-  (implicit gen: Generic.Aux[D, H], ev: H <:< HList, er: Lazy[Encoder[E, H, T]]): Exported[Encoder[E, D, T]] =
+  (implicit gen: Generic.Aux[D, H], er: Lazy[Encoder[E, H, T]]): Exported[Encoder[E, D, T]] =
     Exported(Encoder(s ⇒ er.value.encode(gen.to(s))))
 
   implicit def caseClassDecoder[E, D, F, T, H <: HList]
-  (implicit gen: Generic.Aux[D, H], ev: H <:< HList, dr: Lazy[Decoder[E, H, F, T]]): Exported[Decoder[E, D, F, T]] =
+  (implicit gen: Generic.Aux[D, H], dr: Lazy[Decoder[E, H, F, T]]): Exported[Decoder[E, D, F, T]] =
     Exported(Decoder(s ⇒ dr.value.decode(s).map(gen.from)))
 
   implicit def sumTypeEncoder[E, D, T, C <: Coproduct]
