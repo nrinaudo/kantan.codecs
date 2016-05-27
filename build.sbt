@@ -31,14 +31,21 @@ lazy val compilerOptions = Seq("-deprecation",
   "-Xfatal-warnings",
   "-Xlint",
   "-Yno-adapted-args",
-  "-Ywarn-unused-import",
   "-Ywarn-dead-code",
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard",
   "-Xfuture")
 
 lazy val baseSettings = Seq(
-  scalacOptions ++= compilerOptions,
+  scalacOptions ++= compilerOptions ++ (
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, 11)) => Seq("-Ywarn-unused-import")
+      case _ => Nil
+    }
+  ),
+  scalacOptions in (Compile, console) ~= {
+    _.filterNot(Set("-Ywarn-unused-import"))
+  },
   headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
   libraryDependencies += compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary),
   ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
@@ -78,6 +85,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(allSettings)
   .settings(noPublishSettings)
   .aggregate(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws, docs, tests)
+  .dependsOn(core)
   .enablePlugins(AutomateHeaderPlugin)
 
 lazy val core = project
@@ -211,6 +219,7 @@ lazy val docs = project
     )
   )
   .settings(tutSettings: _*)
+  .settings(tutScalacOptions ~= (_.filterNot(Set("-Ywarn-unused-import"))))
   .settings(
     site.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), "api"),
     site.addMappingsToSiteDir(tut, "_tut"),
