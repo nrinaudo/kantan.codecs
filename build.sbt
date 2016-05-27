@@ -3,14 +3,15 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
 
-val catsVersion          = "0.5.0"
+val catsVersion          = "0.6.0"
 val disciplineVersion    = "0.4"
+val jodaConvertVersion   = "1.8.1"
+val jodaVersion          = "2.9.4"
 val kindProjectorVersion = "0.7.1"
+val macroParadiseVersion = "2.1.0"
 val scalaCheckVersion    = "1.12.5"
 val scalatestVersion     = "3.0.0-M9"
-val scalazVersion        = "7.2.2"
-val jodaVersion          = "2.9.3"
-val jodaConvertVersion   = "1.8.1"
+val scalazVersion        = "7.2.3"
 val shapelessVersion     = "2.3.1"
 
 lazy val buildSettings = Seq(
@@ -161,6 +162,7 @@ lazy val shapeless = project
   )
   .settings(allSettings: _*)
   .settings(libraryDependencies += "com.chuusai" %% "shapeless" % shapelessVersion)
+  .settings(libraryDependencies ++= macroDependencies(scalaVersion.value))
   .dependsOn(core)
   .enablePlugins(AutomateHeaderPlugin)
 
@@ -232,5 +234,11 @@ lazy val docs = project
   )
   .settings(noPublishSettings:_*)
   .dependsOn(core)
+
+def macroDependencies(v: String): List[ModuleID] =
+  ("org.scala-lang" % "scala-reflect" % v % "provided") :: {
+    if(v.startsWith("2.10")) List(compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full))
+    else Nil
+  }
 
 addCommandAlias("validate", "; clean; scalastyle; test:scalastyle; coverage; test; coverageReport; coverageAggregate; docs/makeSite")
