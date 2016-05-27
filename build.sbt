@@ -27,6 +27,7 @@ lazy val compilerOptions = Seq("-deprecation",
   "-language:existentials",
   "-language:higherKinds",
   "-language:implicitConversions",
+  "-language:experimental.macros",
   "-unchecked",
   "-Xfatal-warnings",
   "-Xlint",
@@ -40,6 +41,7 @@ lazy val baseSettings = Seq(
   scalacOptions ++= compilerOptions ++ (
     CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 11)) => Seq("-Ywarn-unused-import")
+      case Some((2, 10)) => Seq("-Xdivergence211")
       case _ => Nil
     }
   ),
