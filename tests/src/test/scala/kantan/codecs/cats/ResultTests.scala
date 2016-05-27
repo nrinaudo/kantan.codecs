@@ -16,9 +16,9 @@
 
 package kantan.codecs.cats
 
-import algebra.laws.{GroupLaws, OrderLaws}
 import cats._
 import cats.data.NonEmptyList
+import cats.kernel.laws.{GroupLaws, OrderLaws}
 import cats.laws.discipline._
 import cats.laws.discipline.arbitrary._
 import cats.std.all._
