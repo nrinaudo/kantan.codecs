@@ -187,7 +187,8 @@ lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
   )
   .settings(libraryDependencies ++= Seq(
     "org.scalaz"    %% "scalaz-core"               % scalazVersion,
-    "org.scalaz"    %% "scalaz-scalacheck-binding" % scalazVersion
+    "org.scalaz"    %% "scalaz-scalacheck-binding" % scalazVersion,
+    "org.scalatest" %% "scalatest"                 % scalatestVersion % "optional"
   ))
   .settings(allSettings: _*)
   .dependsOn(core, laws, scalaz)
@@ -206,7 +207,7 @@ lazy val tests = project
   .settings(allSettings: _*)
   .settings(noPublishSettings: _*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
-  .dependsOn(core, laws % "test", catsLaws % "test", scalazLaws % "test", jodaTimeLaws % "test")
+  .dependsOn(core, laws % "test", catsLaws % "test", scalazLaws % "test", jodaTimeLaws % "test", shapelessLaws % "test")
   .enablePlugins(AutomateHeaderPlugin)
 
 lazy val docs = project

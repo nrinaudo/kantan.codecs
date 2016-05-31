@@ -18,6 +18,7 @@ package kantan.codecs.scalaz
 
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.scalaz.laws.discipline.scalatest.ScalazSuite
 import org.scalacheck.Arbitrary
 import scalaz._
 import scalaz.scalacheck.ScalazArbitrary._

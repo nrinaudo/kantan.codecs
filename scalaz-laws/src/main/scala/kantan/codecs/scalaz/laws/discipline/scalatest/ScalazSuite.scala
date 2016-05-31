@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs.scalaz
+package kantan.codecs.scalaz.laws.discipline.scalatest
 
 import org.scalacheck.Properties
 import org.scalatest.FunSuite
@@ -28,7 +28,7 @@ class ScalazSuite extends FunSuite with GeneratorDrivenPropertyChecks with Disci
     var i = 0
     for((id, prop) ← props.properties) {
       i = i + 1
-      test(name + "." + id + "." + i) {
+      test(s"$name[$i].$id") {
         check(prop)
       }
     }
