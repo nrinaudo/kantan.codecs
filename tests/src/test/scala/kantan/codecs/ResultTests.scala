@@ -82,17 +82,17 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }}
   }
 
-  // TODO: this requires Arbitrary[PartialFunction[String, Int]]. Write when time allows.
-  /*
   test("recover should only modify failures for which the specified function is defined") {
-    forAll { (d: Result[String, Int], f: PartialFunction[String, Int]) ⇒ d match {
-      case Success(i) ⇒ assert(d.recover(f) == Result.success(i))
-      case Failure(s) ⇒
-        if(f.isDefinedAt(s)) assert(d.recover(f) == Result.success(f(s)))
-        else                 assert(d.recover(f) == d)
+    forAll { (d: Result[String, Int], f: String ⇒ Option[Int]) ⇒ {
+      val partial = Function.unlift(f)
+      d match {
+        case Success(i) ⇒ assert(d.recover(partial) == Result.success(i))
+        case Failure(s) ⇒
+          if(partial.isDefinedAt(s)) assert(d.recover(partial) == Result.success(partial(s)))
+          else                       assert(d.recover(partial) == d)
+      }
     }}
   }
-  */
 
   test("fromTry should return a Failure from a Failure and a Success from a Success") {
     forAll { (t: Try[Int]) ⇒ t match {
