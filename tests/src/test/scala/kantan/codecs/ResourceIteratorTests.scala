@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
@@ -169,8 +170,39 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
   test("withClose should register the close function properly") {
     forAll { (is: List[Int]) ⇒
       var closed = false
-      val res = ResourceIterator(is:_*).withClose(() ⇒ {closed = true})
+      val res = ResourceIterator(is:_*).withClose(() ⇒ closed = true)
       while(res.hasNext) res.next()
+      assert(closed)
+    }
+  }
+
+  test("a safe iterator should wrap 'next on empty' errors") {
+    forAll { (is: List[Int]) ⇒
+      var closed = false
+      val error: Throwable = new NoSuchElementException
+      val res = ResourceIterator(is:_*).withClose(() ⇒ closed = true).safe(error)(identity)
+      while(res.hasNext) assert(res.next().isSuccess)
+      assert(res.next() == Result.Failure(error))
+      assert(closed)
+    }
+  }
+
+  implicit def failingIterator[A](implicit arbA: Arbitrary[A]): Gen[Iterator[A]] = for {
+    as    ← Gen.nonEmptyListOf(arbA.arbitrary)
+    index ← Gen.choose(0, as.length - 1)
+  } yield as.iterator.zipWithIndex.map { case (a, i) ⇒ if(i == index) sys.error("failed!") else a }
+
+
+  test("a safe iterator should wrap errors in next") {
+    forAll(failingIterator[Int]) { is ⇒
+      var closed  = false
+
+      val res = ResourceIterator.fromIterator(is).withClose(() ⇒ closed = true)
+        .safe(sys.error("eos"))(identity)
+
+      while(res.hasNext) {
+        if(res.next().isFailure) assert(!res.hasNext)
+      }
       assert(closed)
     }
   }

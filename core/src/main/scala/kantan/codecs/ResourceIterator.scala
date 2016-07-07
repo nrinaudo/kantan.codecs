@@ -22,28 +22,38 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
   // Makes sure the underlying resource is closed if empty.
   // This is necessary for edges cases where hasNext returns true from the get-go: next is never called and we never
   // check whether the underlying resource should be freed.
-  closeIfNeeded()
+  closeIfNeeded(false)
 
 
 
   // - Internal state handling -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   protected def readNext(): A
+  protected def checkNext: Boolean
   protected def shouldClose: Boolean = !hasNext
 
   private var isClosed = false
 
-  private def closeIfNeeded(): Unit = if(!isClosed && shouldClose) {
+  private def closeIfNeeded(force: Boolean): Unit = if(force || (!isClosed && shouldClose)) {
     isClosed = true
     close()
   }
 
   def close(): Unit
-  def hasNext: Boolean
+  final def hasNext: Boolean = {
+    !isClosed && checkNext
+  }
 
-  final def next(): A =
+  final def next(): A = {
+    var error = false
+
     try { readNext() }
-    finally { closeIfNeeded() }
+    catch { case e: Throwable ⇒ error = true; throw e}
+    finally {
+      closeIfNeeded(error)
+    }
+  }
+
 
 
 
@@ -71,7 +81,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
       else new ResourceIterator[A] {
         var done = false
 
-        override def hasNext = !done || self.hasNext
+        override def checkNext = !done || self.hasNext
         override def close() = self.close()
 
         override def readNext(): A =
@@ -85,7 +95,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
 
   def take(n: Int): ResourceIterator[A] = new ResourceIterator[A] {
     var count = n
-    override def hasNext = count > 0 && self.hasNext
+    override def checkNext = count > 0 && self.hasNext
     override def readNext() = {
       if(count > 0) {
         val a = self.readNext()
@@ -103,7 +113,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
     var n = self.find(f.isDefinedAt)
 
     new ResourceIterator[B] {
-      override def hasNext = n.isDefined
+      override def checkNext = n.isDefined
 
       override def readNext() = {
         val r = n.getOrElse(ResourceIterator.empty.next())
@@ -120,7 +130,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
   // - Monadic operations ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def map[B](f: A ⇒ B): ResourceIterator[B] = new ResourceIterator[B] {
-    override def hasNext  = self.hasNext
+    override def checkNext  = self.hasNext
     override def readNext() = f(self.readNext())
     override def close()  = self.close()
   }
@@ -128,7 +138,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
   def flatMap[B](f: A ⇒ ResourceIterator[B]): ResourceIterator[B] = {
     var cur: ResourceIterator[B] = ResourceIterator.empty
     new ResourceIterator[B] {
-      override def hasNext = cur.hasNext || self.hasNext && {cur = f(self.next()); hasNext}
+      override def checkNext = cur.hasNext || self.hasNext && {cur = f(self.next()); checkNext}
       override def readNext() = cur.readNext()
       override def close() = self.close()
     }
@@ -184,15 +194,25 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
   override def isTraversableAgain: Boolean = false
 
   def withClose(f: () ⇒ Unit): ResourceIterator[A] = new ResourceIterator[A] {
-    override def hasNext = self.hasNext
+    override def checkNext = self.hasNext
     override def readNext() = self.readNext()
     override def close() = f()
+  }
+
+  def safe[F](empty: ⇒ F)(f: Throwable ⇒ F): ResourceIterator[Result[F, A]] = new ResourceIterator[Result[F, A]] {
+    override def readNext() =
+      if(self.hasNext)
+        try { Result.success(self.next()) }
+        catch { case scala.util.control.NonFatal(t) ⇒ Result.failure(f(t)) }
+      else Result.failure(empty)
+    override def checkNext = self.hasNext
+    override def close() = self.close()
   }
 }
 
 object ResourceIterator {
   val empty: ResourceIterator[Nothing] = new ResourceIterator[Nothing] {
-    override def hasNext = false
+    override def checkNext = false
     override def readNext() = throw new NoSuchElementException("next on empty resource iterator")
     override def close() = ()
   }
@@ -200,7 +220,7 @@ object ResourceIterator {
   def apply[A](as: A*): ResourceIterator[A] = ResourceIterator.fromIterator(as.iterator)
 
   def fromIterator[A](as: Iterator[A]): ResourceIterator[A] = new ResourceIterator[A] {
-    override def hasNext = as.hasNext
+    override def checkNext = as.hasNext
     override def readNext() = as.next()
     override def close() = ()
   }
