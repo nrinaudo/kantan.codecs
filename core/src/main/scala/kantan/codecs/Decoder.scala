@@ -99,20 +99,20 @@ object Decoder {
     override def decode(e: E) = f(e)
   }
 
-  implicit def decoderFromExported[E, A, F, T](implicit da: Exported[Decoder[E, A, F, T]]): Decoder[E, A, F, T] =
+  implicit def decoderFromExported[E, D, F, T](implicit da: Exported[Decoder[E, D, F, T]]): Decoder[E, D, F, T] =
     da.value
 
-  implicit def optionalDecoder[E, A, F, T]
-  (implicit da: Decoder[E, A, F, T], oe: Optional[E]): Decoder[E, Option[A], F, T] =
+  implicit def optionalDecoder[E, D, F, T]
+  (implicit da: Decoder[E, D, F, T], oe: Optional[E]): Decoder[E, Option[D], F, T] =
     Decoder { e ⇒
       if(oe.isEmpty(e)) Result.success(None)
-      else          da.decode(e).map(Some.apply)
+      else              da.decode(e).map(Some.apply)
     }
 
   /** Provides a [[Decoder]] instance for `Either[A, B]`, provided both `A` and `B` have a [[Decoder]] instance. */
-  implicit def eitherDecoder[E, A, B, F, T](implicit da: Decoder[E, A, F, T], db: Decoder[E, B, F, T])
-  : Decoder[E, Either[A, B], F, T] =
+  implicit def eitherDecoder[E, D, B, F, T](implicit da: Decoder[E, D, F, T], db: Decoder[E, B, F, T])
+  : Decoder[E, Either[D, B], F, T] =
     Decoder { s ⇒
-      da.decode(s).map(a ⇒ Left(a): Either[A, B]).orElse(db.decode(s).map(b ⇒ Right(b): Either[A, B]))
+      da.decode(s).map(a ⇒ Left(a): Either[D, B]).orElse(db.decode(s).map(b ⇒ Right(b): Either[D, B]))
     }
 }
