@@ -206,4 +206,12 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
       assert(closed)
     }
   }
+
+  test("A closed iterator should not have next elements") {
+    forAll { is: List[Int] ⇒
+      val res = ResourceIterator(is:_*)
+      res.close()
+      assert(!res.hasNext)
+    }
+  }
 }
