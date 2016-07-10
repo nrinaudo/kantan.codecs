@@ -19,11 +19,43 @@ package kantan.codecs
 import java.io.Closeable
 import scala.util.Try
 
+/** Offers iterator-like access to IO resources.
+  *
+  * For the most part, values of type [[ResourceIterator]] can be considered as iterators, with a few improvements.
+  *
+  * First, they have a [[ResourceIterator.close()*]] method, which allows you to release the underlying resource when
+  * needed. This is fairly important and part of the reason why working with `Source.getLines` can be so aggravating.
+  *
+  * Second, [[ResourceIterator.close()*]] is mostly not needed: whenever an IO error occurs or the underlying resource
+  * is empty, it will be closed automatically. Provided you intend to read the whole resource, you never need to
+  * explicitly close it. This covers non-obvious cases such as [[ResourceIterator.filter filtering]] or
+  * [[ResourceIterator.drop dropping]] elements.
+  *
+  * You should be able to express most common causes for not reading the entire stream through standard combinators. For
+  * example, "take the first `n` elements" is `take(n)`, or "take all odd elements" is `filter(_ % 2 == 0)`. This
+  * allows you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a
+  * situation when you just want to stop, however, [[ResourceIterator.close()*]] is available.
+  */
 trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
   // - Abstract methods ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Reads the next element in the underlying resource
+    *
+    * This method is by definition side-effecting and allowed to throw exceptions.
+    */
   protected def readNext(): A
+
+  /** Checks whether there are still elements to read in the underlying resource.
+    *
+    * This method must be pure: it's expected not to have side effects and never to throw exceptions.
+    */
   protected def checkNext: Boolean
+
+  /** Releases the underlying resource.
+    *
+    * While this method is side-effecting and allowed to throw exceptions, the current implementation will simply
+    * swallow them.
+    */
   protected def release(): Unit
 
 
@@ -36,9 +68,10 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
   private def doClose(): Unit = {
     isClosed = true
 
-    // In the current version, closing can't fail, since it can occur in hasNext.
+    // In the current version, closing can't be allowed to fail, since it can occur in hasNext.
     // This is not ideal, and I intend to fix that if I ever come up with a workable solution.
     Try(release())
+    ()
   }
 
 
@@ -123,7 +156,31 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
     override def release() = self.close()
   }
 
-  // TODO: takeWhile
+  def takeWhile(p: A ⇒ Boolean): ResourceIterator[A] = {
+    if(isEmpty) this
+    else {
+      var n = next()
+      var hasN = p(n)
+
+      new ResourceIterator[A] {
+        override def checkNext = hasN
+
+        override def readNext() =
+          if(hasN) {
+            val n2 = n
+            if(self.hasNext) {
+              n = self.next()
+              hasN = p(n)
+            }
+            else hasN = false
+
+            n2
+          } else ResourceIterator.empty.next()
+
+        override def release() = self.close()
+      }
+    }
+  }
 
   def collect[B](f: PartialFunction[A, B]): ResourceIterator[B] = {
     var n = self.find(f.isDefinedAt)
@@ -209,14 +266,29 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
   }
   override def isTraversableAgain: Boolean = false
 
+  /** Calls the specified function when the underlying resource is empty. */
   def withClose(f: () ⇒ Unit): ResourceIterator[A] = {
     new ResourceIterator[A] {
       override def checkNext = self.hasNext
       override def readNext() = self.next()
-      override def release() = f()
+      override def release() = {
+        self.close()
+        f()
+      }
     }
   }
 
+  /** Makes the current [[kantan.codecs.ResourceIterator]] safe.
+    *
+    * This is achieved by catching all non-fatal exceptions and passing them to the specified `f` to turn into a failure
+    * type.
+    *
+    * This is meant to be used by the various kantan.* libraries that offer stream-like APIs: it allows them to wrap
+    * IO in a safe iterator and focus on dealing with decoding.
+    *
+    * @param empty error value for when `next` is called on an empty iterator.
+    * @param f     used to turn non-fatal exceptions into error types.
+    */
   def safe[F](empty: ⇒ F)(f: Throwable ⇒ F): ResourceIterator[Result[F, A]] = new ResourceIterator[Result[F, A]] {
     override def readNext() =
       if(self.hasNext)
