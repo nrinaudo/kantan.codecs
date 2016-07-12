@@ -24,17 +24,31 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   case class FailingIterator[A](iterator: Iterator[A], index: Int) {
-    def resourceIterator: ResourceIterator[A] =
-      ResourceIterator.fromIterator(iterator.zipWithIndex.map { case (a, i) ⇒
-        if(i == index) sys.error("failed!")
-        else           a
-      })
+    def resourceIterator: ResourceIterator[A] = new ResourceIterator[A] {
+      var i = 0
+
+      def checkFail(): Unit = {
+        if(i == index) sys.error("failed")
+        i += 1
+      }
+
+      override def readNext() = {
+        checkFail()
+        iterator.next()
+      }
+
+      override def checkNext = {
+        checkFail()
+        iterator.hasNext
+      }
+      override def release() = ()
+    }
   }
 
   implicit def arbFailingIterator[A](implicit arbA: Arbitrary[A]): Arbitrary[FailingIterator[A]] = Arbitrary {
     for {
       as    ← Gen.nonEmptyListOf(arbA.arbitrary)
-      index ← Gen.choose(0, as.length - 1)
+      index ← Gen.choose(0, 2 * (as.length - 1))
     }  yield FailingIterator(as.iterator, index)
   }
 
