@@ -123,10 +123,16 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
 
   // - Useful methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Drops the next `n` elements from the resource.
+    *
+    * If the resource contains `m` elements such that `m < n`, then only `m` elements will be dropped.
+    *
+    * No element will be consumed until the next [[next]] call.
+    */
   def drop(n: Int): ResourceIterator[A] =
     if(n <= 0 || isEmpty) this
     else new ResourceIterator[A] {
-      var rem = n
+      var rem = n // remaining number of items to drop.
 
       @tailrec
       def hasMore(): Boolean =
@@ -145,6 +151,10 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
       override def release() = self.close()
     }
 
+  /** Drops elements from the resource until one is found that doesn't verify `p` or the resource is empty.
+    *
+    * No element will be consumed until the next [[next]] call.
+    */
   def dropWhile(p: A ⇒ Boolean): ResourceIterator[A] =
     if(isEmpty) this
     else new ResourceIterator[A] {
@@ -185,6 +195,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
       override def release() = self.close()
     }
 
+  /** Restrict this resource to the next `n` elements, dropping whatever is left. */
   def take(n: Int): ResourceIterator[A] = new ResourceIterator[A] {
     var count = n
     override def checkNext = count > 0 && self.hasNext
@@ -198,6 +209,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
     override def release() = self.close()
   }
 
+  /** Considers this resource to be empty as soon as an element is found that doesn't verify `p`. */
   def takeWhile(p: A ⇒ Boolean): ResourceIterator[A] =
     if(isEmpty) this
     else new ResourceIterator[A] {
