@@ -21,6 +21,24 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks {
+  // - Tools -----------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  case class FailingIterator[A](iterator: Iterator[A], index: Int) {
+    def resourceIterator: ResourceIterator[A] =
+      ResourceIterator.fromIterator(iterator.zipWithIndex.map { case (a, i) ⇒
+        if(i == index) sys.error("failed!")
+        else           a
+      })
+  }
+
+  implicit def arbFailingIterator[A](implicit arbA: Arbitrary[A]): Arbitrary[FailingIterator[A]] = Arbitrary {
+    for {
+      as    ← Gen.nonEmptyListOf(arbA.arbitrary)
+      index ← Gen.choose(0, as.length - 1)
+    }  yield FailingIterator(as.iterator, index)
+  }
+
+
   def closedWhenEmpty[A](r: ResourceIterator[A]): Boolean = {
     var closed = false
     val r2 = r.withClose(() ⇒ closed = true)
@@ -28,6 +46,10 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
     closed
   }
 
+
+
+  // - Tests -----------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   test("the empty resource iterator should have its close method called") {
     assert(closedWhenEmpty(ResourceIterator.empty))
   }
@@ -35,6 +57,24 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
   test("drop should drop the expected number of elements") {
     forAll { (is: List[Int], n: Int) ⇒
       assert(ResourceIterator(is:_*).drop(n).toList == is.drop(n))
+    }
+  }
+
+  test("safe 'dropped' iterators should close properly and not leak exceptions") {
+    forAll { (is: FailingIterator[Int], n: Int) ⇒
+      assert(closedWhenEmpty(is.resourceIterator.drop(n).safe(new Throwable("eos"))(identity)))
+    }
+  }
+
+  test("'dropWhiled' iterators should have their close method called when empty") {
+    forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
+      assert(closedWhenEmpty(ResourceIterator(is:_*).dropWhile(f)))
+    }
+  }
+
+  test("safe 'dropWhiled' iterators should close properly and not leak exceptions") {
+    forAll { (is: FailingIterator[Int], f: Int ⇒ Boolean) ⇒
+      assert(closedWhenEmpty(is.resourceIterator.dropWhile(f).safe(new Throwable("eos"))(identity)))
     }
   }
 
@@ -51,14 +91,20 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
   }
 
   test("takeWhile should take the expected elements") {
-      forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-        assert(ResourceIterator(is:_*).takeWhile(f).toList == is.takeWhile(f))
-      }
-    }
-
-  test("'dropWhiled'  iterators should have their close method called when empty") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(closedWhenEmpty(ResourceIterator(is:_*).dropWhile(f)))
+      assert(ResourceIterator(is:_*).takeWhile(f).toList == is.takeWhile(f))
+    }
+  }
+
+  test("'takeWhiled' iterators should have their close method called when empty") {
+    forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
+      assert(closedWhenEmpty(ResourceIterator(is:_*).takeWhile(f)))
+    }
+  }
+
+  test("safe 'takeWhiled' iterators should close properly and not leak exceptions") {
+    forAll { (is: FailingIterator[Int], f: Int ⇒ Boolean) ⇒
+      assert(closedWhenEmpty(is.resourceIterator.takeWhile(f).safe(new Throwable("eos"))(identity)))
     }
   }
 
@@ -71,6 +117,12 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
   test("'taken' iterators should have their close method called when empty") {
     forAll { (is: List[Int], n: Int) ⇒
       assert(closedWhenEmpty(ResourceIterator(is:_*).take(n)))
+    }
+  }
+
+  test("safe 'taken' iterators should close properly and not leak exceptions") {
+    forAll { (is: FailingIterator[Int], n: Int) ⇒
+      assert(closedWhenEmpty(is.resourceIterator.take(n).safe(new Throwable("eos"))(identity)))
     }
   }
 
@@ -224,18 +276,12 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
     }
   }
 
-  implicit def failingIterator[A](implicit arbA: Arbitrary[A]): Gen[Iterator[A]] = for {
-    as    ← Gen.nonEmptyListOf(arbA.arbitrary)
-    index ← Gen.choose(0, as.length - 1)
-  } yield as.iterator.zipWithIndex.map { case (a, i) ⇒ if(i == index) sys.error("failed!") else a }
-
-
   test("a safe iterator should wrap errors in next") {
-    forAll(failingIterator[Int]) { is ⇒
+    forAll { is: FailingIterator[Int] ⇒
       var closed  = false
 
-      val res = ResourceIterator.fromIterator(is).withClose(() ⇒ closed = true)
-        .safe(sys.error("eos"))(identity)
+      val res = is.resourceIterator.withClose(() ⇒ closed = true)
+        .safe(new Throwable("eos"))(identity)
 
       while(res.hasNext) {
         if(res.next().isFailure) assert(!res.hasNext)

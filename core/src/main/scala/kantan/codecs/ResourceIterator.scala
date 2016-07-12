@@ -17,6 +17,7 @@
 package kantan.codecs
 
 import java.io.Closeable
+import scala.annotation.tailrec
 import scala.util.Try
 
 /** Offers iterator-like access to IO resources.
@@ -63,6 +64,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
   // - Internal state handling -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   private var isClosed = false
+  private var lastError: Option[Throwable] = None
 
   @inline
   private def doClose(): Unit = {
@@ -85,61 +87,102 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
   // from the beginning. Under these circumstances, `next` will never be called, and we need to call `close()` on
   // `hasNext`. This is not ideal, but the only other alternative would be to check for emptiness at creation time and
   // close then, which would end up ignoring calls to `withClose`.
-    if(isClosed)       false
-    else if(checkNext) true
+    if(isClosed) false
     else {
-      doClose()
-      false
+      if(try {checkNext}
+      catch {
+        case scala.util.control.NonFatal(e) ⇒
+          lastError = Some(e)
+          close()
+          true
+      }) true
+      else {
+        doClose()
+        false
+      }
     }
 
-  final def next(): A =
-    try {
-      val n = readNext()
-      hasNext
-      n
-    }
-    catch {
-      case e: Throwable ⇒
-        close()
-        throw e
-    }
+  final def next(): A = lastError match {
+    case Some(e) ⇒
+      lastError = None
+      throw e
+    case _ ⇒
+      try {
+        val n = readNext()
+        hasNext
+        n
+      }
+      catch {
+        case e: Throwable ⇒
+          close()
+          throw e
+      }
+  }
 
 
 
   // - Useful methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def drop(n: Int): ResourceIterator[A] =
-    if(n > 0 && hasNext) {
-      next()
-      drop(n - 1)
+    if(n <= 0 || isEmpty) this
+    else new ResourceIterator[A] {
+      var rem = n
+
+      @tailrec
+      def hasMore(): Boolean =
+        if(rem <= 0) self.hasNext
+        else if(self.hasNext) {
+          rem = rem - 1
+          self.next()
+          hasMore()
+        }
+        else false
+
+      override def checkNext: Boolean = hasMore()
+      override def readNext() =
+        if(hasMore()) self.next()
+        else ResourceIterator.empty.next()
+      override def release() = self.close()
     }
-    else this
 
   def dropWhile(p: A ⇒ Boolean): ResourceIterator[A] =
-  // Empty rows: nothing to drop
     if(isEmpty) this
-    else {
-      // Looks for the first element that does not match p.
-      var n = self.next()
-      while(self.hasNext && p(n)) n = self.next()
+    else new ResourceIterator[A] {
+      var state = 0 // Current state. 0: not initialised. 1: `n` contains an interesting value. 2: back to normal.
+      var n: A = _  // Where to store the first A that verifies p.
 
-      // No such element, return the empty stream.
-      if(isEmpty && p(n)) this
+      def init(): Unit = {
+        // Skips all elements until one is found that doesn't match `p` or the end of the resource is reached.
+        n = self.next()
+        while(self.hasNext && p(n)) n = self.next()
 
-      // We've found one such element, return a new iterator that starts with it.
-      else new ResourceIterator[A] {
-        var done = false
+        // If we've not found anything interesting, move to the final state.
+        if(p(n)) state = 2
 
-        override def checkNext = !done || self.hasNext
-        override def release() = self.close()
-
-        override def readNext(): A =
-          if(done) self.next()
-          else {
-            done = true
-            n
-          }
+        // Otherwise, move to the 'return `n`' state.
+        else state = 1
       }
+
+      // We have no choice here but to perform all IO-bound operations in `checkNext` - we can't know if there are more
+      // elements to be had unless we read all of them until one that doesn't match `p` is found.
+      override def checkNext = {
+        if(state == 0) init()
+
+        if(state == 1) true
+        else           self.hasNext
+      }
+
+      override def readNext(): A = {
+        if(state == 0) init()
+
+        if(state == 1) {
+          state = 2
+          n
+        }
+        else self.next()
+      }
+
+      override def release() = self.close()
     }
 
   def take(n: Int): ResourceIterator[A] = new ResourceIterator[A] {
@@ -147,48 +190,69 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
     override def checkNext = count > 0 && self.hasNext
     override def readNext() = {
       if(count > 0) {
-        val a = self.next()
         count -= 1
-        a
+        self.next()
       }
       else ResourceIterator.empty.next()
     }
     override def release() = self.close()
   }
 
-  def takeWhile(p: A ⇒ Boolean): ResourceIterator[A] = {
+  def takeWhile(p: A ⇒ Boolean): ResourceIterator[A] =
     if(isEmpty) this
-    else {
-      var n = next()
-      var hasN = p(n)
+    else new ResourceIterator[A] {
+      var first = true      // Whether we've started reading from the resource.
+      var n: A = _          // Latest value read from the resource.
+      var hasN: Boolean = _ // Whether or not n verifies p.
 
-      new ResourceIterator[A] {
-        override def checkNext = hasN
-
-        override def readNext() =
-          if(hasN) {
-            val n2 = n
-            if(self.hasNext) {
-              n = self.next()
-              hasN = p(n)
-            }
-            else hasN = false
-
-            n2
-          } else ResourceIterator.empty.next()
-
-        override def release() = self.close()
+      def takeNext(): Unit = {
+        n = self.next()
+        hasN = p(n)
       }
-    }
-  }
 
-  def collect[B](f: PartialFunction[A, B]): ResourceIterator[B] = {
-    var n = self.find(f.isDefinedAt)
+      def init(): Unit = {
+        takeNext()
+        first = false
+      }
 
-    new ResourceIterator[B] {
-      override def checkNext = n.isDefined
+      override def checkNext = {
+        if(first) init()
+        hasN
+      }
 
       override def readNext() = {
+        if(first) init()
+        if(hasN) {
+          val n2 = n
+          if(self.hasNext) takeNext()
+          else hasN = false
+          n2
+        }
+        else ResourceIterator.empty.next()
+      }
+
+      override def release() = self.close()
+    }
+
+  def collect[B](f: PartialFunction[A, B]): ResourceIterator[B] =
+    if(isEmpty) ResourceIterator.empty
+    else new ResourceIterator[B] {
+      var n: Option[A] = _
+      var first = true
+
+      def init(): Unit = {
+        n = self.find(f.isDefinedAt)
+        first = false
+      }
+
+      override def checkNext = {
+        if(first) init()
+        n.isDefined
+      }
+
+      override def readNext() = {
+        if(first) init()
+
         val r = n.getOrElse(ResourceIterator.empty.next())
         n = self.find(f.isDefinedAt)
         f(r)
@@ -196,8 +260,6 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
 
       override def release() = self.close()
     }
-  }
-
 
 
   // - Monadic operations ----------------------------------------------------------------------------------------------
@@ -291,10 +353,8 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
     */
   def safe[F](empty: ⇒ F)(f: Throwable ⇒ F): ResourceIterator[Result[F, A]] = new ResourceIterator[Result[F, A]] {
     override def readNext() =
-      if(self.hasNext)
-        try { Result.success(self.next()) }
-        catch { case scala.util.control.NonFatal(t) ⇒ Result.failure(f(t)) }
-      else Result.failure(empty)
+      if(self.hasNext) Result.nonFatal(self.next()).leftMap(f)
+      else             Result.failure(empty)
     override def checkNext = self.hasNext
     override def release() = self.close()
   }
