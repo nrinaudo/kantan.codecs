@@ -20,9 +20,9 @@ import kantan.codecs.{Decoder, Encoder}
 import kantan.codecs.export.{DerivedDecoder, DerivedEncoder}
 import shapeless.{Coproduct, Generic, HList, Lazy}
 
-/** Provides [[kantan.codecs.Codec]] instances for case classes and sum types.
+/** Provides `Codec` instances for case classes and sum types.
   *
-  * The purpose of this package is to let concrete [[kantan.codecs.Codec]] implementations (such as kantan.csv or
+  * The purpose of this package is to let concrete `Codec` implementations (such as kantan.csv or
   * kantan.regex) focus on providing instances for `HList` and `Coproduct`. Once such instances exist, this package
   * will take care of the transformation from and to case classes and sum types.
   *
@@ -30,9 +30,9 @@ import shapeless.{Coproduct, Generic, HList, Lazy}
   * mechanism. This means, for example, that they will not override bespoke `Option` or `Either` instances.
   */
 trait ShapelessInstances {
-  /** Provides an [[Encoder]] instance for case classes.
+  /** Provides an `Encoder` instance for case classes.
     *
-    * Given a case class `D`, this expects an [[Encoder]] instance for the `HList` type corresponding to `D`. It will
+    * Given a case class `D`, this expects an `Encoder` instance for the `HList` type corresponding to `D`. It will
     * then simply turn values of type `D` into values of the corresponding `HList`, then let the encoder take it from
     * there.
     */
@@ -40,18 +40,18 @@ trait ShapelessInstances {
   (implicit gen: Generic.Aux[D, H], er: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
   DerivedEncoder(s ⇒ er.value.encode(gen.to(s)))
 
-  /** Provides a [[Decoder]] instance for case classes.
+  /** Provides a `Decoder` instance for case classes.
     *
-    * Given a case class `D`, this expects n [[Decoder]] instance for the `HList` type corresponding to `D`. It will
+    * Given a case class `D`, this expects n `Decoder` instance for the `HList` type corresponding to `D`. It will
     * then rely on that to turn encoded values into an `HList`, then turn the resulting value into a `D`.
     */
   implicit def caseClassDecoder[E, D, F, T, H <: HList]
   (implicit gen: Generic.Aux[D, H], dr: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
   DerivedDecoder(s ⇒ dr.value.decode(s).map(gen.from))
 
-  /** Provides an [[Encoder]] instance for sum types.
+  /** Provides an `Encoder` instance for sum types.
     *
-    * Given a sum type `D`, this expects an [[Encoder]] instance for the `Coproduct` type corresponding to `D`. It
+    * Given a sum type `D`, this expects an `Encoder` instance for the `Coproduct` type corresponding to `D`. It
     * will then simply turn values of type `D` into values of the corresponding `Coproduct`, then let the encoder take
     * it from there.
     */
@@ -59,9 +59,9 @@ trait ShapelessInstances {
   (implicit gen: Generic.Aux[D, C], er: Lazy[Encoder[E, C, T]]): DerivedEncoder[E, D, T] =
   DerivedEncoder(m ⇒ er.value.encode(gen.to(m)))
 
-  /** Provides a [[Decoder]] instance for sum types.
+  /** Provides a `Decoder` instance for sum types.
     *
-    * Given a case class `D`, this expects n [[Decoder]] instance for the `Coproduct` type corresponding to `D`.
+    * Given a case class `D`, this expects n `Decoder` instance for the `Coproduct` type corresponding to `D`.
     * It will then rely on that to turn encoded values into a `Coproduct`, then turn the resulting value into a `D`.
     */
   implicit def sumTypeDecoder[E, D, F, T, C <: Coproduct]
