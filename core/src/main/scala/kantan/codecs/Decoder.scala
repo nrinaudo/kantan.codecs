@@ -16,7 +16,7 @@
 
 package kantan.codecs
 
-import kantan.codecs.export.Exported
+import kantan.codecs.export.{DerivedDecoder, Exported}
 
 /** Type class for types that can be decoded from other types.
   *
@@ -99,7 +99,7 @@ object Decoder {
     override def decode(e: E) = f(e)
   }
 
-  implicit def decoderFromExported[E, D, F, T](implicit da: Exported[Decoder[E, D, F, T]]): Decoder[E, D, F, T] =
+  implicit def decoderFromExported[E, D, F, T](implicit da: DerivedDecoder[E, D, F, T]): Decoder[E, D, F, T] =
     da.value
 
   implicit def optionalDecoder[E, D, F, T]

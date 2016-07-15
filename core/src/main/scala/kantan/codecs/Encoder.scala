@@ -16,7 +16,7 @@
 
 package kantan.codecs
 
-import kantan.codecs.export.Exported
+import kantan.codecs.export.{DerivedEncoder, Exported}
 
 /** Type class for types that can be encoded into others.
   *
@@ -45,7 +45,7 @@ object Encoder {
     override def encode(d: D) = f(d)
   }
 
-  implicit def encoderFromExported[E, A, T](implicit ea: Exported[Encoder[E, A, T]]): Encoder[E, A, T] = ea.value
+  implicit def encoderFromExported[E, A, T](implicit ea: DerivedEncoder[E, A, T]): Encoder[E, A, T] = ea.value
 
   implicit def optionalEncoder[E, A, T](implicit ea: Encoder[E, A, T], oe: Optional[E]): Encoder[E, Option[A], T] =
     Encoder(_.map(ea.encode).getOrElse(oe.empty))
