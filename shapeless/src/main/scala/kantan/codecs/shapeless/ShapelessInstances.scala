@@ -27,7 +27,7 @@ import shapeless.{Coproduct, Generic, HList, Lazy}
   * will take care of the transformation from and to case classes and sum types.
   *
   * Additionally, instances derived that way will be inserted with a sane precedence in the implicit resolution
-  * mechanism. This means, for example, that they will not override bespoke [[Option]] or [[Either]] instances.
+  * mechanism. This means, for example, that they will not override bespoke `Option` or `Either` instances.
   */
 trait ShapelessInstances {
   /** Provides an [[Encoder]] instance for case classes.
