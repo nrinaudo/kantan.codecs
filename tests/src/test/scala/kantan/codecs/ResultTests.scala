@@ -147,6 +147,13 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }}
   }
 
+  test("biFlatMap should behave as expected") {
+    forAll { (d: Result[Int, String], f: Int ⇒ Result[Int, String], g: String ⇒ Result[Int, String]) ⇒ d match {
+      case Failure(e) ⇒ assert(d.biFlatMap(f, g) == f(e))
+      case Success(s) ⇒ assert(d.biFlatMap(f, g) == g(s))
+    }}
+  }
+
 
   // - Success specific tests ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

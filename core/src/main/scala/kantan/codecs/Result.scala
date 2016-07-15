@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import kantan.codecs.Result.{Failure, Success}
 import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable
 import scala.util.Try
@@ -130,8 +131,10 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
   // - BiMonad operations ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def bimap[FF, SS](f: F ⇒ FF, s: S ⇒ SS): Result[FF, SS] = leftMap(f).map(s)
-  def biFlatMap[FF >: F, SS >: S](f: FF ⇒ Result[FF, SS], s: SS ⇒ Result[FF, SS]): Result[FF, SS] =
-    leftFlatMap(f).flatMap(s)
+  def biFlatMap[FF >: F, SS >: S](f: FF ⇒ Result[FF, SS], g: SS ⇒ Result[FF, SS]): Result[FF, SS] = this match {
+    case Success(s) ⇒ g(s)
+    case Failure(e) ⇒ f(e)
+  }
 
 
 
