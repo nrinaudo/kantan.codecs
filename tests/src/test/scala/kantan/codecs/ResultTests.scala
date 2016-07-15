@@ -94,6 +94,18 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }}
   }
 
+  test("recoverWith should only modify failures for which the specified function is defined") {
+    forAll { (d: Result[String, Int], f: String ⇒ Option[Result[String, Int]]) ⇒
+      val partial = Function.unlift(f)
+      d match {
+        case Success(i) ⇒ assert(d.recoverWith(partial) == Result.success(i))
+        case Failure(s) ⇒
+          if(partial.isDefinedAt(s)) assert(d.recoverWith(partial) == partial(s))
+          else                       assert(d.recoverWith(partial) == d)
+      }
+    }
+  }
+
   test("fromTry should return a Failure from a Failure and a Success from a Success") {
     forAll { (t: Try[Int]) ⇒ t match {
       case scala.util.Failure(e) ⇒ assert(Result.fromTry(t) == Failure(e))
