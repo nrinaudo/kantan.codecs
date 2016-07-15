@@ -133,6 +133,20 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
     }
   }
 
+  test("flatMap should apply to successes and leave failures untouched") {
+    forAll { (d: Result[Int, String], f: String ⇒ Result[Int, Float]) ⇒ d match {
+      case Success(s)   ⇒ assert(d.flatMap(f) == f(s))
+      case e@Failure(_) ⇒ assert(d.flatMap(f) == e)
+    }}
+  }
+
+  test("leftFlatMap should apply to failures and leave successes untouched") {
+    forAll { (d: Result[Int, String], f: Int ⇒ Result[Float, String]) ⇒ d match {
+      case s@Success(_) ⇒ assert(d.leftFlatMap(f) == s)
+      case Failure(e)   ⇒ assert(d.leftFlatMap(f) == f(e))
+    }}
+  }
+
 
   // - Success specific tests ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

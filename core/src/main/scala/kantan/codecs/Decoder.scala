@@ -16,7 +16,7 @@
 
 package kantan.codecs
 
-import kantan.codecs.export.{DerivedDecoder, Exported}
+import kantan.codecs.export.DerivedDecoder
 
 /** Type class for types that can be decoded from other types.
   *
