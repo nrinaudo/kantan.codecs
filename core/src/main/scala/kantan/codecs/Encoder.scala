@@ -45,13 +45,13 @@ object Encoder {
     override def encode(d: D) = f(d)
   }
 
-  implicit def encoderFromExported[E, A, T](implicit ea: DerivedEncoder[E, A, T]): Encoder[E, A, T] = ea.value
+  implicit def encoderFromExported[E, D, T](implicit ea: DerivedEncoder[E, D, T]): Encoder[E, D, T] = ea.value
 
-  implicit def optionalEncoder[E, A, T](implicit ea: Encoder[E, A, T], oe: Optional[E]): Encoder[E, Option[A], T] =
+  implicit def optionalEncoder[E, D, T](implicit ea: Encoder[E, D, T], oe: Optional[E]): Encoder[E, Option[D], T] =
     Encoder(_.map(ea.encode).getOrElse(oe.empty))
 
-  implicit def eitherEncoder[E, A, B, T](implicit ea: Encoder[E, A, T], eb: Encoder[E, B, T])
-  : Encoder[E, Either[A, B], T] =
+  implicit def eitherEncoder[E, D1, D2, T](implicit ea: Encoder[E, D1, T], eb: Encoder[E, D2, T])
+  : Encoder[E, Either[D1, D2], T] =
     Encoder {_ match {
       case Left(a)  ⇒ ea.encode(a)
       case Right(b) ⇒ eb.encode(b)
