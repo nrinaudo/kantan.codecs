@@ -16,9 +16,9 @@
 
 package kantan.codecs.shapeless
 
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.{Decoder, Encoder, Result}
 import kantan.codecs.export.{DerivedDecoder, DerivedEncoder}
-import shapeless.{Coproduct, Generic, HList, Lazy}
+import shapeless.{:+:, CNil, Coproduct, Generic, HList, Inl, Inr, Lazy}
 
 /** Provides `Codec` instances for case classes and sum types.
   *
@@ -30,6 +30,8 @@ import shapeless.{Coproduct, Generic, HList, Lazy}
   * mechanism. This means, for example, that they will not override bespoke `Option` or `Either` instances.
   */
 trait ShapelessInstances {
+  // - Case classes ----------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   /** Provides an `Encoder` instance for case classes.
     *
     * Given a case class `D`, this expects an `Encoder` instance for the `HList` type corresponding to `D`. It will
@@ -49,6 +51,10 @@ trait ShapelessInstances {
   (implicit gen: Generic.Aux[D, H], dr: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
   DerivedDecoder(s ⇒ dr.value.decode(s).map(gen.from))
 
+
+
+  // - Sum types -------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   /** Provides an `Encoder` instance for sum types.
     *
     * Given a sum type `D`, this expects an `Encoder` instance for the `Coproduct` type corresponding to `D`. It
@@ -67,4 +73,24 @@ trait ShapelessInstances {
   implicit def sumTypeDecoder[E, D, F, T, C <: Coproduct]
   (implicit gen: Generic.Aux[D, C], dr: Lazy[Decoder[E, C, F, T]]): DerivedDecoder[E, D, F, T] =
   DerivedDecoder(m ⇒ dr.value.decode(m).map(gen.from))
+
+
+
+  // - Coproducts ------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def cnilDecoder[E, F, T](f: E ⇒ F): Decoder[E, CNil, F, T] =
+    Decoder(e ⇒ Result.failure(f(e)))
+
+  implicit def coproductDecoder[E, H, D <: Coproduct, F, T]
+  (implicit dh: Decoder[E, H, F, T], dt: Decoder[E, D, F, T]): Decoder[E, H :+: D, F, T] =
+    Decoder(e ⇒ dh.decode(e).map(Inl.apply).orElse(dt.decode(e).map(Inr.apply)))
+
+  implicit def cnilEncoder[E, D, T]: Encoder[E, CNil, T] =
+    Encoder(_ ⇒  sys.error("trying to encode CNil, this should not happen"))
+
+  implicit def coproductEncoder[E, H, D <: Coproduct, T]
+  (implicit eh: Encoder[E, H, T], ed: Encoder[E, D, T]): Encoder[E, H :+: D, T] = Encoder {
+    case Inl(h) ⇒ eh.encode(h)
+    case Inr(d) ⇒ ed.encode(d)
+  }
 }
