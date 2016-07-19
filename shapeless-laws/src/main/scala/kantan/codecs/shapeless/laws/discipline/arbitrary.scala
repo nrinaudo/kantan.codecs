@@ -16,24 +16,10 @@
 
 package kantan.codecs.shapeless.laws.discipline
 
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.laws.discipline.GenCodecValue
 import org.scalacheck.{Arbitrary, Gen}
 import shapeless._
 
 object arbitrary {
-  // - Arbitrary values ------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  def arbLegalValue[E, A](encode: A ⇒ E)(implicit arbA: Arbitrary[A]): Arbitrary[LegalValue[E, A]] = Arbitrary {
-    arbA.arbitrary.map(a ⇒ LegalValue(encode(a), a))
-  }
-
-  def arbIllegalValue[E, A](illegal: E ⇒ Boolean)(implicit arbE: Arbitrary[E]): Arbitrary[IllegalValue[E, A]] =
-    Arbitrary {
-      arbE.arbitrary.suchThat(illegal).map(e ⇒ IllegalValue(e))
-    }
-
-
   // - Arbitrary coproducts --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def arbSumType[H, T <: Coproduct](implicit gen: Generic.Aux[H, T], eh: Lazy[Arbitrary[T]]): Arbitrary[H] =
@@ -64,6 +50,7 @@ object arbitrary {
 
   // - Coproduct gen codec ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /*
   implicit def genSumType[E, H: Arbitrary, T <: Coproduct]
   (implicit gen: Generic.Aux[H, T], eh: Lazy[GenCodecValue[E, T]]): GenCodecValue[E, H] =
     eh.value.contramap(gen.to)
@@ -74,4 +61,5 @@ object arbitrary {
 
   implicit def genCnil[E: Arbitrary]: GenCodecValue[E, CNil] =
     GenCodecValue[E, CNil](_ ⇒ sys.error("Trying to encode CNil"))(_ ⇒ true)
+    */
 }

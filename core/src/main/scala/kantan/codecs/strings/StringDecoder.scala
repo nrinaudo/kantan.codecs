@@ -20,6 +20,7 @@ import kantan.codecs.{Decoder, Result}
 
 object StringDecoder {
   def apply[D](f: String ⇒ Result[Throwable, D]): StringDecoder[D] = Decoder(f)
+  def apply[D](implicit dd: StringDecoder[D]): StringDecoder[D] = dd
 }
 
 trait StringDecoderInstances

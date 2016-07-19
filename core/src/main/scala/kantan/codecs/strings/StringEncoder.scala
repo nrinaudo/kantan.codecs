@@ -20,6 +20,7 @@ import kantan.codecs.Encoder
 
 object StringEncoder {
   def apply[D](f: D ⇒ String): StringEncoder[D] = Encoder(f)
+  def apply[D](implicit ed: StringEncoder[D]): StringEncoder[D] = ed
 }
 
 /** Defines default instances of [[StringEncoder]]. */
