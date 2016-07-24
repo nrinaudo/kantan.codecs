@@ -25,7 +25,7 @@ trait EncoderLaws[E, D, T] {
 
   // - Simple laws -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def encode(v: LegalValue[E, D]): Boolean = encoder.encode(v.decoded) == v.encoded
+  def encode(v: LegalValue[E, D, T]): Boolean = encoder.encode(v.decoded) == v.encoded
 
 
   // - Covariant functor laws ------------------------------------------------------------------------------------------

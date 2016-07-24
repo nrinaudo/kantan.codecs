@@ -16,80 +16,54 @@
 
 package kantan.codecs.laws
 
-import discipline.arbitrary._
-import java.io.File
-import kantan.codecs.laws.discipline.GenCodecValue
+import kantan.codecs.{Decoder, Encoder}
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalacheck.Gen._
-import scala.collection.generic.CanBuildFrom
 
 // TODO: investigate what type variance annotations can be usefully applied to CodecValue.
-sealed abstract class CodecValue[E, D] extends Product with Serializable {
+sealed abstract class CodecValue[E, D, T] extends Product with Serializable {
   def encoded: E
-  def mapEncoded[EE](f: E ⇒ EE): CodecValue[EE, D]
-  def mapDecoded[DD](f: D ⇒ DD): CodecValue[E, DD]
+  def mapEncoded[EE](f: E ⇒ EE): CodecValue[EE, D, T]
+  def mapDecoded[DD](f: D ⇒ DD): CodecValue[E, DD, T]
+  def tag[TT]: CodecValue[E, D, TT]
 }
 
 object CodecValue {
-  final case class LegalValue[E, D](encoded: E, decoded: D) extends CodecValue[E, D] {
+  final case class LegalValue[E, D, T](encoded: E, decoded: D) extends CodecValue[E, D, T] {
     override def mapDecoded[DD](f: D => DD) = copy(decoded = f(decoded))
     override def mapEncoded[EE](f: E ⇒ EE) = copy(encoded = f(encoded))
+    override def tag[TT] = this.asInstanceOf[LegalValue[E, D, TT]]
   }
-  final case class IllegalValue[E, D](encoded: E) extends CodecValue[E, D] {
+  final case class IllegalValue[E, D, T](encoded: E) extends CodecValue[E, D, T] {
     override def mapDecoded[DD](f: D => DD) = IllegalValue(encoded)
     override def mapEncoded[EE](f: E => EE) = copy(encoded = f(encoded))
+    override def tag[TT] = this.asInstanceOf[IllegalValue[E, D, TT]]
   }
 
 
 
   // - Helpers / bug workarounds ---------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbValue[E, D]
-  (implicit arbL: Arbitrary[LegalValue[E, D]], arbI: Arbitrary[IllegalValue[E, D]]): Arbitrary[CodecValue[E, D]] =
-    Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
+  implicit def arbValue[E, D, T](implicit arbL: Arbitrary[LegalValue[E, D, T]], arbI: Arbitrary[IllegalValue[E, D, T]])
+  : Arbitrary[CodecValue[E, D, T]] =
+  Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
 
 
   // - Derived instances -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbLegalSeq[E, D, C1[_], C2[_]](implicit arb: Arbitrary[LegalValue[E, D]],
-                                               cbfE: CanBuildFrom[Nothing, E, C1[E]],
-                                               cbfD: CanBuildFrom[Nothing, D, C2[D]]
-                                              ): Arbitrary[LegalValue[C1[E], C2[D]]] = Arbitrary {
-    Gen.sized { size ⇒
-      val be = cbfE()
-      val bd = cbfD()
+  implicit def arbLegalValueFromEnc[E, A: Arbitrary, T](implicit ea: Encoder[E, A, T]): Arbitrary[LegalValue[E, A, T]] =
+    arbLegalValue(ea.encode)
 
-      for(values ← Gen.listOfN(size, arb.arbitrary)) yield {
-        values.foreach { case LegalValue(e, d) ⇒
-          be += e
-          bd += d
-        }
-        LegalValue(be.result(), bd.result())
-      }
+  implicit def arbIllegalValueFromDec[E: Arbitrary, A, F, T](implicit da: Decoder[E, A, F, T])
+  : Arbitrary[IllegalValue[E, A, T]] =
+    arbIllegalValue(e ⇒ da.decode(e).isFailure)
+
+
+  def arbLegalValue[E, A, T](encode: A ⇒ E)(implicit arbA: Arbitrary[A]): Arbitrary[LegalValue[E, A, T]] = Arbitrary {
+    arbA.arbitrary.map(a ⇒ LegalValue(encode(a), a))
+  }
+
+  def arbIllegalValue[E, A, T](illegal: E ⇒ Boolean)(implicit arbE: Arbitrary[E]): Arbitrary[IllegalValue[E, A, T]] =
+    Arbitrary {
+      arbE.arbitrary.suchThat(illegal).map(e ⇒ IllegalValue(e))
     }
-  }
-
-  implicit def arbIllegalSeq[E, D, C1[_], C2[_]](implicit arb: Arbitrary[CodecValue.IllegalValue[E, D]],
-                                                 cbfE: CanBuildFrom[Nothing, E, C1[E]]
-                                                ): Arbitrary[CodecValue.IllegalValue[C1[E], C2[D]]] = Arbitrary {
-    Gen.sized { size ⇒ choose(1, size).flatMap { size =>
-      val be = cbfE()
-      for(values ← Gen.listOfN(size, arb.arbitrary)) yield {
-        values.foreach { case CodecValue.IllegalValue(e) ⇒ be += e }
-        CodecValue.IllegalValue(be.result())
-      }
-    }}
-  }
-
-  implicit val arbLegalStrStr: Arbitrary[LegalString[String]] =
-    Arbitrary(Arbitrary.arbitrary[String].map(s ⇒ LegalValue(s, s)))
-
-  implicit val arbLegalStrFile: Arbitrary[LegalString[File]] =
-    Arbitrary(Arbitrary.arbitrary[File].map(s ⇒ LegalValue(s.getAbsolutePath, s)))
-
-  implicit def arbIllegalFromGen[E, D](implicit gen: GenCodecValue[E, D]): Arbitrary[IllegalValue[E, D]] =
-    gen.arbIllegal
-
-  implicit def arbLegalFromGen[E, D](implicit gen: GenCodecValue[E, D]): Arbitrary[LegalValue[E, D]] =
-    gen.arbLegal
 }

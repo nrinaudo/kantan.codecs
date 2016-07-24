@@ -26,7 +26,7 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
 
   override implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
 
-  private def coreRules[A: Arbitrary, B: Arbitrary](implicit av: Arbitrary[CodecValue[E, D]]): RuleSet =
+  private def coreRules[A: Arbitrary, B: Arbitrary](implicit av: Arbitrary[CodecValue[E, D, T]]): RuleSet =
     new DefaultRuleSet(
       "round trip",
       Some(encoder[A, B]),
@@ -45,7 +45,7 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
     )
 
   def bijectiveCodec[A: Arbitrary, B: Arbitrary]: RuleSet = new RuleSet {
-    implicit val arbValues: Arbitrary[CodecValue[E, D]] = Arbitrary(arbLegal.arbitrary)
+    implicit val arbValues: Arbitrary[CodecValue[E, D, T]] = Arbitrary(arbLegal.arbitrary)
 
     val name = "bijective codec"
     val bases = Nil
@@ -53,7 +53,7 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
     val props = Seq.empty
   }
 
-  def codec[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D]]): RuleSet =
+  def codec[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
     new RuleSet {
       val name = "codec"
       val bases = Nil
@@ -64,7 +64,7 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
 
 object CodecTests {
   def apply[E, D, F, T]
-  (implicit l: CodecLaws[E, D, F, T], af: Arbitrary[F], al: Arbitrary[LegalValue[E, D]]): CodecTests[E, D, F, T] =
+  (implicit l: CodecLaws[E, D, F, T], af: Arbitrary[F], al: Arbitrary[LegalValue[E, D, T]]): CodecTests[E, D, F, T] =
     new CodecTests[E, D, F, T] {
       override def laws = l
       override implicit def arbLegal = al

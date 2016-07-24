@@ -23,11 +23,11 @@ import org.scalacheck.Arbitrary
 object arbitrary extends ArbitraryInstances
 
 trait ArbitraryInstances {
-  implicit def arbLegalXor[E, DL, DR]
-  (implicit a: Arbitrary[LegalValue[E, Either[DL, DR]]]): Arbitrary[LegalValue[E, DL Xor DR]] =
+  implicit def arbLegalXor[E, DL, DR, T]
+  (implicit a: Arbitrary[LegalValue[E, Either[DL, DR], T]]): Arbitrary[LegalValue[E, DL Xor DR, T]] =
     Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ Xor.fromEither(v))))
 
-  implicit def arbIllegalXor[E, DL, DR]
-  (implicit a: Arbitrary[IllegalValue[E, Either[DL, DR]]]): Arbitrary[IllegalValue[E, DL Xor DR]] =
+  implicit def arbIllegalXor[E, DL, DR, T]
+  (implicit a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]): Arbitrary[IllegalValue[E, DL Xor DR, T]] =
     Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ Xor.fromEither(v))))
 }

@@ -18,7 +18,7 @@ package kantan.codecs.laws.discipline
 
 import java.io.{File, FileNotFoundException}
 import java.net.{URI, URL}
-import java.util.Date
+import java.util.{Date, UUID}
 import kantan.codecs.Result
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
@@ -112,10 +112,8 @@ trait ArbitraryInstances extends ArbitraryArities {
   }
 
   // Saner arbitrary date: the default one causes issues with long overflow / underflow.
-  implicit val arbDate = Arbitrary {
-    for {
-      i ← Arbitrary.arbitrary[Int]
-      d = new Date
-    } yield new Date(d.getTime + i)
-  }
+  implicit val arbDate: Arbitrary[Date] =
+    Arbitrary(Arbitrary.arbitrary[Int].map(offset ⇒ new Date(System.currentTimeMillis + offset)))
+
+  implicit val arbUuid: Arbitrary[UUID] = Arbitrary(Gen.uuid)
 }

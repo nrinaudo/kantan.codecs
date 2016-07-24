@@ -26,13 +26,13 @@ import org.typelevel.discipline.Laws
 trait DecoderTests[E, D, F, T] extends Laws {
   def laws: DecoderLaws[E, D, F, T]
 
-  implicit def arbLegal: Arbitrary[LegalValue[E, D]]
+  implicit def arbLegal: Arbitrary[LegalValue[E, D, T]]
 
   implicit def arbF: Arbitrary[F]
   implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
   implicit val arbE: Arbitrary[E] = Arbitrary(arbLegal.arbitrary.map(_.encoded))
 
-  private def coreRules[A: Arbitrary, B: Arbitrary](implicit arbED: Arbitrary[CodecValue[E, D]]) =
+  private def coreRules[A: Arbitrary, B: Arbitrary](implicit arbED: Arbitrary[CodecValue[E, D, T]]) =
     new SimpleRuleSet("core",
       "decode"                       → forAll(laws.decode _),
       "map identity"                 → forAll(laws.mapIdentity _),
@@ -46,14 +46,14 @@ trait DecoderTests[E, D, F, T] extends Laws {
     )
 
   def bijectiveDecoder[A: Arbitrary, B: Arbitrary]: RuleSet = {
-    implicit val arbValues: Arbitrary[CodecValue[E, D]] = Arbitrary(arbLegal.arbitrary)
+    implicit val arbValues: Arbitrary[CodecValue[E, D, T]] = Arbitrary(arbLegal.arbitrary)
     new DefaultRuleSet(
       "bijective decoder",
       Some(coreRules[A, B])
     )
   }
 
-  def decoder[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D]]): RuleSet =
+  def decoder[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
     new DefaultRuleSet(
       "decoder",
       Some(coreRules[A, B]),
@@ -63,7 +63,7 @@ trait DecoderTests[E, D, F, T] extends Laws {
 
 object DecoderTests {
   def apply[E, D, F: Arbitrary, T]
-  (implicit l: DecoderLaws[E, D, F, T],al: Arbitrary[LegalValue[E, D]]): DecoderTests[E, D, F, T] =
+  (implicit l: DecoderLaws[E, D, F, T],al: Arbitrary[LegalValue[E, D, T]]): DecoderTests[E, D, F, T] =
     new DecoderTests[E, D, F, T] {
       override val laws = l
       override val arbLegal = al

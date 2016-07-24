@@ -23,19 +23,19 @@ import scalaz.{\/, Maybe}
 object arbitrary extends ArbitraryInstances
 
 class ArbitraryInstances {
-  implicit def arbLegalMaybe[E, D]
-  (implicit al: Arbitrary[LegalValue[E, Option[D]]]): Arbitrary[LegalValue[E, Maybe[D]]] =
+  implicit def arbLegalMaybe[E, D, T]
+  (implicit al: Arbitrary[LegalValue[E, Option[D], T]]): Arbitrary[LegalValue[E, Maybe[D], T]] =
     Arbitrary(al.arbitrary.map(_.mapDecoded(v ⇒ Maybe.fromOption(v))))
 
-  implicit def arbIllegalMaybe[E, D]
-  (implicit al: Arbitrary[IllegalValue[E, Option[D]]]): Arbitrary[IllegalValue[E, Maybe[D]]] =
+  implicit def arbIllegalMaybe[E, D, T]
+  (implicit al: Arbitrary[IllegalValue[E, Option[D], T]]): Arbitrary[IllegalValue[E, Maybe[D], T]] =
       Arbitrary(al.arbitrary.map(_.mapDecoded(v ⇒ Maybe.fromOption(v))))
 
-  implicit def arbLegalDisjunction[E, DL, DR]
-  (implicit a: Arbitrary[LegalValue[E, Either[DL, DR]]]): Arbitrary[LegalValue[E, DL \/ DR]] =
+  implicit def arbLegalDisjunction[E, DL, DR, T]
+  (implicit a: Arbitrary[LegalValue[E, Either[DL, DR], T]]): Arbitrary[LegalValue[E, DL \/ DR, T]] =
     Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
 
-  implicit def arbIllegalDisjunction[E, DL, DR]
-  (implicit a: Arbitrary[IllegalValue[E, Either[DL, DR]]]): Arbitrary[IllegalValue[E, DL \/ DR]] =
+  implicit def arbIllegalDisjunction[E, DL, DR, T]
+  (implicit a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]): Arbitrary[IllegalValue[E, DL \/ DR, T]] =
       Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
 }
