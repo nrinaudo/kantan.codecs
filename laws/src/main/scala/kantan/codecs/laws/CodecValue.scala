@@ -20,7 +20,7 @@ import kantan.codecs.{Decoder, Encoder}
 import org.scalacheck.{Arbitrary, Gen}
 
 // TODO: investigate what type variance annotations can be usefully applied to CodecValue.
-sealed abstract class CodecValue[E, D, T] extends Product with Serializable {
+sealed abstract class CodecValue[E, D, T] {
   def encoded: E
   def mapEncoded[EE](f: E ⇒ EE): CodecValue[EE, D, T]
   def mapDecoded[DD](f: D ⇒ DD): CodecValue[E, DD, T]
@@ -28,16 +28,41 @@ sealed abstract class CodecValue[E, D, T] extends Product with Serializable {
 }
 
 object CodecValue {
-  final case class LegalValue[E, D, T](encoded: E, decoded: D) extends CodecValue[E, D, T] {
-    override def mapDecoded[DD](f: D => DD) = copy(decoded = f(decoded))
-    override def mapEncoded[EE](f: E ⇒ EE) = copy(encoded = f(encoded))
+  final class LegalValue[E, D, T](val encoded: E, val decoded: D) extends CodecValue[E, D, T] {
+    override def mapDecoded[DD](f: D => DD) = LegalValue(encoded, f(decoded))
+    override def mapEncoded[EE](f: E ⇒ EE) = LegalValue(f(encoded), decoded)
     override def tag[TT] = this.asInstanceOf[LegalValue[E, D, TT]]
+
+    override def equals(obj: Any) = obj match {
+      case LegalValue(e, d) ⇒ e == encoded && d == decoded
+      case _                ⇒ false
+    }
+
+    override def toString: String = s"LegalValue($encoded,$decoded)"
   }
-  final case class IllegalValue[E, D, T](encoded: E) extends CodecValue[E, D, T] {
+
+  object LegalValue {
+    def apply[E, D, T](e: E, d: D): LegalValue[E, D, T] = new LegalValue(e, d)
+    def unapply[E, D, T](v: LegalValue[E, D, T]): Option[(E, D)] = Some((v.encoded, v.decoded))
+  }
+
+  final class IllegalValue[E, D, T](val encoded: E) extends CodecValue[E, D, T] {
     override def mapDecoded[DD](f: D => DD) = IllegalValue(encoded)
-    override def mapEncoded[EE](f: E => EE) = copy(encoded = f(encoded))
+    override def mapEncoded[EE](f: E => EE) = IllegalValue(f(encoded))
     override def tag[TT] = this.asInstanceOf[IllegalValue[E, D, TT]]
+
+    override def equals(obj: Any) = obj match {
+      case IllegalValue(e) ⇒ e == encoded
+      case _               ⇒ false
+    }
+
+    override def toString: String = s"IllegalValue($encoded)"
   }
+
+  object IllegalValue {
+      def apply[E, D, T](e: E): IllegalValue[E, D, T] = new IllegalValue(e)
+      def unapply[E, D, T](v: IllegalValue[E, D, T]): Option[E] = Some(v.encoded)
+    }
 
 
 
