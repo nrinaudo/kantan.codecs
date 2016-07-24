@@ -16,16 +16,32 @@
 
 package kantan.codecs.shapeless
 
+import kantan.codecs.laws.{CodecValue, IllegalString}
 import kantan.codecs.laws.discipline._
 import kantan.codecs.shapeless.laws._
 import kantan.codecs.strings._
+import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
-import shapeless.CNil
+import shapeless._
 
 class CoproductInstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val cnil: StringDecoder[CNil] = cnilDecoder(_ ⇒ new Exception())
+  implicit val cnilDec: StringDecoder[CNil] = cnilDecoder(_ ⇒ new Exception())
+
+  implicit def hlistEncoder[A](implicit ea: StringEncoder[A]): StringEncoder[A :: HNil] =
+    StringEncoder((a: A :: HNil) ⇒ a match {
+      case h :: _ ⇒ ea.encode(h)
+    })
+
+  implicit def hlistDecoder[A](implicit da: StringDecoder[A]): StringDecoder[A :: HNil] =
+    da.map(h ⇒ h :: HNil)
+
+
+  // TODO: get rid of this somehow.
+  implicit val test: Arbitrary[IllegalString[Int Or Boolean]] =
+    CodecValue.arbIllegalValueFromDec[String, Int Or Boolean, Throwable, codecs.type]
+
 
   checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, Throwable, codecs.type]
     .decoder[Int, Int])

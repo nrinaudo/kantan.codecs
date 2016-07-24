@@ -60,9 +60,9 @@ object CodecValue {
   }
 
   object IllegalValue {
-      def apply[E, D, T](e: E): IllegalValue[E, D, T] = new IllegalValue(e)
-      def unapply[E, D, T](v: IllegalValue[E, D, T]): Option[E] = Some(v.encoded)
-    }
+    def apply[E, D, T](e: E): IllegalValue[E, D, T] = new IllegalValue(e)
+    def unapply[E, D, T](v: IllegalValue[E, D, T]): Option[E] = Some(v.encoded)
+  }
 
 
 
@@ -76,7 +76,7 @@ object CodecValue {
   // - Derived instances -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def arbLegalValueFromEnc[E, A: Arbitrary, T](implicit ea: Encoder[E, A, T]): Arbitrary[LegalValue[E, A, T]] =
-    arbLegalValue(ea.encode)
+  arbLegalValue(ea.encode)
 
   implicit def arbIllegalValueFromDec[E: Arbitrary, A, F, T](implicit da: Decoder[E, A, F, T])
   : Arbitrary[IllegalValue[E, A, T]] =
