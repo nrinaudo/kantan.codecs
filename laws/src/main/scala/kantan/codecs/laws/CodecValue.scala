@@ -18,6 +18,7 @@ package kantan.codecs.laws
 
 import kantan.codecs.{Decoder, Encoder}
 import org.scalacheck.{Arbitrary, Gen}
+import scala.runtime.ScalaRunTime
 
 // TODO: investigate what type variance annotations can be usefully applied to CodecValue.
 sealed abstract class CodecValue[E, D, T] {
@@ -39,6 +40,8 @@ object CodecValue {
     }
 
     override def toString: String = s"LegalValue($encoded,$decoded)"
+
+    override def hashCode(): Int = ScalaRunTime._hashCode((encoded, decoded))
   }
 
   object LegalValue {
@@ -57,6 +60,8 @@ object CodecValue {
     }
 
     override def toString: String = s"IllegalValue($encoded)"
+
+    override def hashCode(): Int = ScalaRunTime.hash(encoded)
   }
 
   object IllegalValue {
@@ -68,17 +73,19 @@ object CodecValue {
 
   // - Helpers / bug workarounds ---------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+
   implicit def arbValue[E, D, T](implicit arbL: Arbitrary[LegalValue[E, D, T]], arbI: Arbitrary[IllegalValue[E, D, T]])
   : Arbitrary[CodecValue[E, D, T]] =
-  Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
+    Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
 
 
   // - Derived instances -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbLegalValueFromEnc[E, A: Arbitrary, T](implicit ea: Encoder[E, A, T]): Arbitrary[LegalValue[E, A, T]] =
-  arbLegalValue(ea.encode)
 
-  implicit def arbIllegalValueFromDec[E: Arbitrary, A, F, T](implicit da: Decoder[E, A, F, T])
+  implicit def arbLegalValueFromEnc[E, A: Arbitrary, T](implicit ea: Encoder[E, A, T]): Arbitrary[LegalValue[E, A, T]] =
+    arbLegalValue(ea.encode)
+
+  implicit def arbIllegalValueFromDec[E: Arbitrary, A, T](implicit da: Decoder[E, A, _, T])
   : Arbitrary[IllegalValue[E, A, T]] =
     arbIllegalValue(e ⇒ da.decode(e).isFailure)
 

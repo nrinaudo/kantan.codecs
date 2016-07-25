@@ -16,17 +16,19 @@
 
 package kantan.codecs.shapeless
 
-import kantan.codecs.laws.{CodecValue, IllegalString}
+import kantan.codecs.export.DerivedDecoder
 import kantan.codecs.laws.discipline._
 import kantan.codecs.shapeless.laws._
 import kantan.codecs.strings._
-import org.scalacheck.Arbitrary
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 import shapeless._
 
+
 class CoproductInstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  // - HList / Coproduct instances -------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   implicit val cnilDec: StringDecoder[CNil] = cnilDecoder(_ ⇒ new Exception())
 
   implicit def hlistEncoder[A](implicit ea: StringEncoder[A]): StringEncoder[A :: HNil] =
@@ -38,11 +40,16 @@ class CoproductInstancesTests extends FunSuite with GeneratorDrivenPropertyCheck
     da.map(h ⇒ h :: HNil)
 
 
-  // TODO: get rid of this somehow.
-  implicit val test: Arbitrary[IllegalString[Int Or Boolean]] =
-    CodecValue.arbIllegalValueFromDec[String, Int Or Boolean, Throwable, codecs.type]
 
 
+  // - Rubbish that needs to be deleted --------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit val decoder: DerivedDecoder[String, Int Or Boolean, Throwable, codecs.type] = sumTypeDecoder
+
+
+
+  // - Tests -----------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, Throwable, codecs.type]
     .decoder[Int, Int])
   checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])
