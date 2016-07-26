@@ -16,9 +16,9 @@
 
 package kantan.codecs.shapeless
 
-import kantan.codecs.export.DerivedDecoder
 import kantan.codecs.laws.discipline._
 import kantan.codecs.shapeless.laws._
+import kantan.codecs.shapeless.laws.discipline.arbitrary._
 import kantan.codecs.strings._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -41,13 +41,6 @@ class CoproductInstancesTests extends FunSuite with GeneratorDrivenPropertyCheck
 
 
 
-
-  // - Rubbish that needs to be deleted --------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit val decoder: DerivedDecoder[String, Int Or Boolean, Throwable, codecs.type] = sumTypeDecoder
-
-
-
   // - Tests -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, Throwable, codecs.type]
@@ -58,4 +51,5 @@ class CoproductInstancesTests extends FunSuite with GeneratorDrivenPropertyCheck
   checkAll("TaggedDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, Throwable, tagged.type]
     .decoder[Int, Int])
   checkAll("TaggedEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, tagged.type].encoder[Int, Int])
+
 }

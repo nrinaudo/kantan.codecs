@@ -17,6 +17,7 @@
 package kantan.codecs.strings
 
 import kantan.codecs.laws.discipline._
+import kantan.codecs.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline

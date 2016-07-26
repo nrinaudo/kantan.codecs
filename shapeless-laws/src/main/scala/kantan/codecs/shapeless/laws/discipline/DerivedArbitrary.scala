@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs.shapeless.laws
+package kantan.codecs.shapeless.laws.discipline
 
-sealed trait Or[+A, +B] extends Product with Serializable
-case class Left[A](a: A) extends Or[A, Nothing]
-case class Right[B](b: B) extends Or[Nothing, B]
+import kantan.codecs.export.Exported
+import org.scalacheck.{Arbitrary, Gen}
+
+object DerivedArbitrary {
+  def apply[A](aa: Arbitrary[A]): DerivedArbitrary[A] = Exported(aa)
+  def apply[A](ga: Gen[A]): DerivedArbitrary[A] = Exported(Arbitrary(ga))
+}
