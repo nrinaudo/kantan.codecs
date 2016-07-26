@@ -16,10 +16,17 @@
 
 package kantan.codecs.shapeless.laws.discipline
 
+import kantan.codecs.shapeless.laws._
 import org.scalacheck.{Arbitrary, Gen}
 import shapeless._
 
-object arbitrary extends kantan.codecs.laws.discipline.ArbitraryInstances with ArbitraryInstances
+object arbitrary extends kantan.codecs.laws.discipline.ArbitraryInstances with ArbitraryInstances {
+  // Arbitrary instances for Or. This appears to be required for Scala 2.10, and makes compilation faster.
+  implicit def arbLeft[A](implicit aa: Arbitrary[A]): Arbitrary[Left[A]] = Arbitrary(aa.arbitrary.map(Left.apply))
+  implicit def arbRight[A](implicit aa: Arbitrary[A]): Arbitrary[Right[A]] = Arbitrary(aa.arbitrary.map(Right.apply))
+  implicit def arbOr[A: Arbitrary, B: Arbitrary]: Arbitrary[A Or B] =
+    Arbitrary(Gen.oneOf(arbLeft[A].arbitrary, arbRight[B].arbitrary))
+}
 
 trait ArbitraryInstances extends LowPriorityArbitraryInstances {
   // - Arbitrary coproducts --------------------------------------------------------------------------------------------
