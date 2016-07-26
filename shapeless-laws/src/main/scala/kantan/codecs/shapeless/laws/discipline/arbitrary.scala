@@ -16,24 +16,17 @@
 
 package kantan.codecs.shapeless.laws.discipline
 
-import kantan.codecs.shapeless.laws._
 import org.scalacheck.{Arbitrary, Gen}
 import shapeless._
 
-object arbitrary extends kantan.codecs.laws.discipline.ArbitraryInstances with ArbitraryInstances {
-  // Arbitrary instances for Or. This appears to be required for Scala 2.10, and makes compilation faster.
-  implicit def arbLeft[A](implicit aa: Arbitrary[A]): Arbitrary[Left[A]] = Arbitrary(aa.arbitrary.map(Left.apply))
-  implicit def arbRight[A](implicit aa: Arbitrary[A]): Arbitrary[Right[A]] = Arbitrary(aa.arbitrary.map(Right.apply))
-  implicit def arbOr[A: Arbitrary, B: Arbitrary]: Arbitrary[A Or B] =
-    Arbitrary(Gen.oneOf(arbLeft[A].arbitrary, arbRight[B].arbitrary))
-}
+object arbitrary extends kantan.codecs.laws.discipline.ArbitraryInstances with ArbitraryInstances
 
-trait ArbitraryInstances extends LowPriorityArbitraryInstances {
+trait ArbitraryInstances {
   // - Arbitrary coproducts --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def arbSumType[H, T <: Coproduct](implicit gen: Generic.Aux[H, T], eh: Lazy[Arbitrary[T]])
-  : DerivedArbitrary[H] =
-  DerivedArbitrary(eh.value.arbitrary.map(gen.from))
+  : Arbitrary[H] =
+  Arbitrary(eh.value.arbitrary.map(gen.from))
 
   implicit def arbCoproduct[H, T <: Coproduct](implicit ah: Arbitrary[H], at: Arbitrary[T]): Arbitrary[H :+: T] =
     Arbitrary(Gen.oneOf(ah.arbitrary.map(Inl.apply), at.arbitrary.map(Inr.apply)))
@@ -45,8 +38,8 @@ trait ArbitraryInstances extends LowPriorityArbitraryInstances {
   // - Arbitrary hlists ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def arbCaseClass[H, T <: HList](implicit gen: Generic.Aux[H, T], at: Lazy[Arbitrary[T]])
-  : DerivedArbitrary[H] =
-  DerivedArbitrary(at.value.arbitrary.map(gen.from))
+  : Arbitrary[H] =
+  Arbitrary(at.value.arbitrary.map(gen.from))
 
   implicit def arbHList[H, T <: HList](implicit ah: Arbitrary[H], at: Arbitrary[T]): Arbitrary[H :: T] = Arbitrary {
     for {
@@ -58,6 +51,3 @@ trait ArbitraryInstances extends LowPriorityArbitraryInstances {
   implicit val arbHNil: Arbitrary[HNil] = Arbitrary(Gen.const(HNil))
 }
 
-trait LowPriorityArbitraryInstances {
-  implicit def fromExported[A](implicit aa: DerivedArbitrary[A]): Arbitrary[A] = aa.value
-}
