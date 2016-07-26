@@ -51,6 +51,7 @@ lazy val baseSettings = Seq(
   },
   headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
   libraryDependencies += compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary),
+  libraryDependencies ++= macroDependencies(scalaVersion.value),
   ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
   incOptions  := incOptions.value.withNameHashing(true)
 )
@@ -162,7 +163,6 @@ lazy val shapeless = project
   )
   .settings(allSettings: _*)
   .settings(libraryDependencies += "com.chuusai" %% "shapeless" % shapelessVersion)
-  .settings(libraryDependencies ++= macroDependencies(scalaVersion.value))
   .dependsOn(core)
   .enablePlugins(AutomateHeaderPlugin)
 
