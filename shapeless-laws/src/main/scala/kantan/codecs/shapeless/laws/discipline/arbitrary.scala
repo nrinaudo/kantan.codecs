@@ -19,11 +19,14 @@ package kantan.codecs.shapeless.laws.discipline
 import org.scalacheck.{Arbitrary, Gen}
 import shapeless._
 
-object arbitrary {
+object arbitrary extends ArbitraryInstances
+
+trait LowPiorityArbitraryInstances {
   // - Arbitrary coproducts --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbSumType[H, T <: Coproduct](implicit gen: Generic.Aux[H, T], eh: Lazy[Arbitrary[T]]): Arbitrary[H] =
-    Arbitrary(eh.value.arbitrary.map(gen.from))
+  implicit def arbSumType[H, T <: Coproduct](implicit gen: Generic.Aux[H, T], eh: Lazy[Arbitrary[T]])
+  : Arbitrary[H] =
+  Arbitrary(eh.value.arbitrary.map(gen.from))
 
   implicit def arbCoproduct[H, T <: Coproduct](implicit ah: Arbitrary[H], at: Arbitrary[T]): Arbitrary[H :+: T] =
     Arbitrary(Gen.oneOf(ah.arbitrary.map(Inl.apply), at.arbitrary.map(Inr.apply)))
@@ -34,8 +37,9 @@ object arbitrary {
 
   // - Arbitrary hlists ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbCaseClass[H, T <: HList](implicit gen: Generic.Aux[H, T], at: Lazy[Arbitrary[T]]): Arbitrary[H] =
-    Arbitrary(at.value.arbitrary.map(gen.from))
+  implicit def arbCaseClass[H, T <: HList](implicit gen: Generic.Aux[H, T], at: Lazy[Arbitrary[T]])
+  : Arbitrary[H] =
+  Arbitrary(at.value.arbitrary.map(gen.from))
 
   implicit def arbHList[H, T <: HList](implicit ah: Arbitrary[H], at: Arbitrary[T]): Arbitrary[H :: T] = Arbitrary {
     for {
@@ -45,21 +49,7 @@ object arbitrary {
   }
 
   implicit val arbHNil: Arbitrary[HNil] = Arbitrary(Gen.const(HNil))
-
-
-
-  // - Coproduct gen codec ---------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  /*
-  implicit def genSumType[E, H: Arbitrary, T <: Coproduct]
-  (implicit gen: Generic.Aux[H, T], eh: Lazy[GenCodecValue[E, T]]): GenCodecValue[E, H] =
-    eh.value.contramap(gen.to)
-
-  implicit def genCoproduct[E: Arbitrary, H: Arbitrary, T <: Coproduct: Arbitrary]
-  (implicit gh: GenCodecValue[E, H], gt: GenCodecValue[E, T]): GenCodecValue[E, H :+: T] =
-    GenCodecValue[E, H :+: T](_.eliminate(gh.encode, gt.encode))(e ⇒ gh.isIllegal(e) && gt.isIllegal(e))
-
-  implicit def genCnil[E: Arbitrary]: GenCodecValue[E, CNil] =
-    GenCodecValue[E, CNil](_ ⇒ sys.error("Trying to encode CNil"))(_ ⇒ true)
-    */
 }
+
+trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances with LowPiorityArbitraryInstances
+

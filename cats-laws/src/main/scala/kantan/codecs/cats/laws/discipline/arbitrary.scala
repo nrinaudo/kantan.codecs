@@ -20,7 +20,7 @@ import cats.data.Xor
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.Arbitrary
 
-object arbitrary extends ArbitraryInstances
+object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
 
 trait ArbitraryInstances {
   implicit def arbLegalXor[E, DL, DR, T]

@@ -17,7 +17,6 @@
 package kantan.codecs.strings
 
 import java.net.URL
-import kantan.codecs.laws.CodecValue._
 import kantan.codecs.laws.discipline._
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.strings.tagged._

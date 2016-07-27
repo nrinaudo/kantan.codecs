@@ -19,8 +19,10 @@ package kantan.codecs.laws.discipline
 import java.io.{File, FileNotFoundException}
 import java.net.{URI, URL}
 import java.util.{Date, UUID}
-import kantan.codecs.Result
+import kantan.codecs.{Decoder, Encoder, Result}
 import kantan.codecs.Result.{Failure, Success}
+import kantan.codecs.laws.CodecValue
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
 import org.scalacheck._
 import org.scalacheck.Arbitrary.{arbitrary => arb}
@@ -33,7 +35,7 @@ trait ArbitraryInstances extends ArbitraryArities {
   // - Arbitrary results -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def success[S: Arbitrary]: Gen[Success[S]] =
-    Arbitrary.arbitrary[S].map(Success.apply)
+  Arbitrary.arbitrary[S].map(Success.apply)
   def failure[F: Arbitrary]: Gen[Failure[F]] =
     Arbitrary.arbitrary[F].map(Failure.apply)
 
@@ -59,10 +61,33 @@ trait ArbitraryInstances extends ArbitraryArities {
 
 
 
+  // - CodecValue ------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def arbValue[E, D, T](implicit arbL: Arbitrary[LegalValue[E, D, T]], arbI: Arbitrary[IllegalValue[E, D, T]])
+  : Arbitrary[CodecValue[E, D, T]] =
+  Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
+
+  implicit def arbLegalValueFromEnc[E, A: Arbitrary, T](implicit ea: Encoder[E, A, T]): Arbitrary[LegalValue[E, A, T]] =
+    arbLegalValue(ea.encode)
+
+  implicit def arbIllegalValueFromDec[E: Arbitrary, A, T](implicit da: Decoder[E, A, _, T])
+  : Arbitrary[IllegalValue[E, A, T]] = arbIllegalValue(e ⇒ da.decode(e).isFailure)
+
+  def arbLegalValue[E, A, T](encode: A ⇒ E)(implicit arbA: Arbitrary[A]): Arbitrary[LegalValue[E, A, T]] = Arbitrary {
+    arbA.arbitrary.map(a ⇒ LegalValue(encode(a), a))
+  }
+
+  def arbIllegalValue[E, A, T](illegal: E ⇒ Boolean)(implicit arbE: Arbitrary[E]): Arbitrary[IllegalValue[E, A, T]] =
+    Arbitrary {
+      arbE.arbitrary.suchThat(illegal).map(e ⇒ IllegalValue(e))
+    }
+
+
+
   // - String codecs ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def arbStringEncoder[A: Arbitrary]: Arbitrary[StringEncoder[A]] =
-    Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(f ⇒ StringEncoder(f)))
+  Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(f ⇒ StringEncoder(f)))
 
   implicit def arbStringDecoder[A: Arbitrary]: Arbitrary[StringDecoder[A]] =
     Arbitrary(Arbitrary.arbitrary[String ⇒ Result[Throwable, A]].map(f ⇒ StringDecoder(f)))
@@ -113,7 +138,7 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   // Saner arbitrary date: the default one causes issues with long overflow / underflow.
   implicit val arbDate: Arbitrary[Date] =
-    Arbitrary(Arbitrary.arbitrary[Int].map(offset ⇒ new Date(System.currentTimeMillis + offset)))
+  Arbitrary(Arbitrary.arbitrary[Int].map(offset ⇒ new Date(System.currentTimeMillis + offset)))
 
   implicit val arbUuid: Arbitrary[UUID] = Arbitrary(Gen.uuid)
 }

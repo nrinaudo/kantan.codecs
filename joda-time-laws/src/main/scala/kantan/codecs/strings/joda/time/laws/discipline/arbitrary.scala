@@ -19,7 +19,9 @@ package kantan.codecs.strings.joda.time.laws.discipline
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 import org.scalacheck.Arbitrary
 
-object arbitrary {
+object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
+
+trait ArbitraryInstances {
   implicit val arbDateTime: Arbitrary[DateTime] =
     Arbitrary(Arbitrary.arbitrary[Long].map(offset ⇒ new DateTime(System.currentTimeMillis + offset)))
 

@@ -16,6 +16,7 @@
 
 package kantan.codecs.laws.discipline
 
+import arbitrary._
 import kantan.codecs.laws._
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.Arbitrary

@@ -20,7 +20,7 @@ import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.Arbitrary
 import scalaz.{\/, Maybe}
 
-object arbitrary extends ArbitraryInstances
+object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
 
 class ArbitraryInstances {
   implicit def arbLegalMaybe[E, D, T]
