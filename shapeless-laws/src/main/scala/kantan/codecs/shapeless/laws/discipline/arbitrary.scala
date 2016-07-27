@@ -19,9 +19,9 @@ package kantan.codecs.shapeless.laws.discipline
 import org.scalacheck.{Arbitrary, Gen}
 import shapeless._
 
-object arbitrary extends kantan.codecs.laws.discipline.ArbitraryInstances with ArbitraryInstances
+object arbitrary extends ArbitraryInstances
 
-trait ArbitraryInstances {
+trait LowPiorityArbitraryInstances {
   // - Arbitrary coproducts --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def arbSumType[H, T <: Coproduct](implicit gen: Generic.Aux[H, T], eh: Lazy[Arbitrary[T]])
@@ -50,4 +50,6 @@ trait ArbitraryInstances {
 
   implicit val arbHNil: Arbitrary[HNil] = Arbitrary(Gen.const(HNil))
 }
+
+trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances with LowPiorityArbitraryInstances
 

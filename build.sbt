@@ -50,8 +50,8 @@ lazy val baseSettings = Seq(
     _.filterNot(Set("-Ywarn-unused-import"))
   },
   headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
-  libraryDependencies += compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary),
-  libraryDependencies ++= macroDependencies(scalaVersion.value),
+  libraryDependencies ++= compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary) :: macroDependencies(scalaVersion.value),
+
   ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
   incOptions  := incOptions.value.withNameHashing(true)
 )
