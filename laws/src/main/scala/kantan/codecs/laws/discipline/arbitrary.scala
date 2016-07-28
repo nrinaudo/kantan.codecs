@@ -16,7 +16,7 @@
 
 package kantan.codecs.laws.discipline
 
-import java.io.{File, FileNotFoundException}
+import java.io._
 import java.net.{URI, URL}
 import java.util.{Date, UUID}
 import kantan.codecs.{Decoder, Encoder, Result}
@@ -132,19 +132,28 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   // - Exceptions ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-
   val genFileNotFound: Gen[FileNotFoundException] =
     arbFile.arbitrary.map(f ⇒ new FileNotFoundException(s"File not found: $f"))
+
+  val genUnsupportedEncoding: Gen[UnsupportedEncodingException] =
+      Gen.identifier.map(i ⇒ new UnsupportedEncodingException(s"Unsupported encoding: $i"))
+
+  val genIoException: Gen[IOException] =
+    Gen.oneOf(genFileNotFound, genUnsupportedEncoding, Gen.const(new EOFException))
 
   val genIllegalArgument: Gen[IllegalArgumentException] =
     Gen.identifier.map(a ⇒ new IllegalArgumentException(s"Illegal argument: $a"))
 
-  implicit val arbException: Arbitrary[Exception] = Arbitrary(Gen.oneOf(
-    genFileNotFound,
+  implicit val arbIoException: Arbitrary[IOException] = Arbitrary(genIoException)
+
+  implicit val genException: Gen[Exception] = Gen.oneOf(
+    genIoException,
     genIllegalArgument,
     Gen.const(new NullPointerException),
     Gen.const(new IllegalArgumentException)
-  ))
+  )
+
+  implicit val arbException: Arbitrary[Exception] = Arbitrary(genException)
 
   implicit def arbTry[A](implicit aa: Arbitrary[A]): Arbitrary[Try[A]] =
     Arbitrary(Gen.oneOf(arb[Exception].map(scala.util.Failure.apply), aa.arbitrary.map(scala.util.Success.apply)))
