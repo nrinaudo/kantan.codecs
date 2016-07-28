@@ -47,20 +47,6 @@ trait ArbitraryInstances extends ArbitraryArities {
 
 
 
-  // - Exceptions ------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit val arbException: Arbitrary[Exception] = Arbitrary(Gen.oneOf(
-    new NullPointerException,
-    new FileNotFoundException("file not found"),
-    new IllegalArgumentException,
-    new IllegalStateException("illegal state")
-  ))
-
-  implicit def arbTry[A](implicit aa: Arbitrary[A]): Arbitrary[Try[A]] =
-    Arbitrary(Gen.oneOf(arb[Exception].map(scala.util.Failure.apply), aa.arbitrary.map(scala.util.Success.apply)))
-
-
-
   // - CodecValue ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def arbValue[E, D, T](implicit arbL: Arbitrary[LegalValue[E, D, T]], arbI: Arbitrary[IllegalValue[E, D, T]])
@@ -141,4 +127,25 @@ trait ArbitraryInstances extends ArbitraryArities {
   Arbitrary(Arbitrary.arbitrary[Int].map(offset ⇒ new Date(System.currentTimeMillis + offset)))
 
   implicit val arbUuid: Arbitrary[UUID] = Arbitrary(Gen.uuid)
+
+
+
+  // - Exceptions ------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+
+  val genFileNotFound: Gen[FileNotFoundException] =
+    arbFile.arbitrary.map(f ⇒ new FileNotFoundException(s"File not found: $f"))
+
+  val genIllegalArgument: Gen[IllegalArgumentException] =
+    Gen.identifier.map(a ⇒ new IllegalArgumentException(s"Illegal argument: $a"))
+
+  implicit val arbException: Arbitrary[Exception] = Arbitrary(Gen.oneOf(
+    genFileNotFound,
+    genIllegalArgument,
+    Gen.const(new NullPointerException),
+    Gen.const(new IllegalArgumentException)
+  ))
+
+  implicit def arbTry[A](implicit aa: Arbitrary[A]): Arbitrary[Try[A]] =
+    Arbitrary(Gen.oneOf(arb[Exception].map(scala.util.Failure.apply), aa.arbitrary.map(scala.util.Success.apply)))
 }
