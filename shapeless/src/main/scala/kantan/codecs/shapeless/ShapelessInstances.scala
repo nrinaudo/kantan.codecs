@@ -86,7 +86,7 @@ trait ShapelessInstances {
     Decoder(e ⇒ dh.decode(e).map(Inl.apply).orElse(dt.decode(e).map(Inr.apply)))
 
   implicit def cnilEncoder[E, D, T]: Encoder[E, CNil, T] =
-    Encoder(_ ⇒  sys.error("trying to encode CNil, this should not happen"))
+    Encoder(_ ⇒  throw new IllegalStateException("trying to encode CNil, this should not happen"))
 
   implicit def coproductEncoder[E, H, D <: Coproduct, T]
   (implicit eh: Encoder[E, H, T], ed: Encoder[E, D, T]): Encoder[E, H :+: D, T] = Encoder {

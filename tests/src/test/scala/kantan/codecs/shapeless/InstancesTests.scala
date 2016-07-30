@@ -25,8 +25,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 import shapeless._
 
-
-class CoproductInstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   // - HList / Coproduct instances -------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val cnilDec: StringDecoder[CNil] = cnilDecoder(_ ⇒ new Exception())
@@ -52,4 +51,8 @@ class CoproductInstancesTests extends FunSuite with GeneratorDrivenPropertyCheck
     .decoder[Int, Int])
   checkAll("TaggedEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, tagged.type].encoder[Int, Int])
 
+  test("Encoder[?, CNil, ?] should fail") {
+    intercept[IllegalStateException] { StringEncoder[CNil].encode(null) }
+    ()
+  }
 }
