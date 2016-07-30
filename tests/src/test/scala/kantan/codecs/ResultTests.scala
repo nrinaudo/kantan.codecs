@@ -155,6 +155,34 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
 
+
+  // - Instance creation tests -----------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  test("nonFatal should return the expected value when no error occurs") {
+    forAll { (i: Int) ⇒
+      assert(Result.nonFatal(i) == Success(i))
+    }
+  }
+
+  test("nonFatal should return the expected failure when an error occurs") {
+    forAll { (e: Exception) ⇒
+      assert(Result.nonFatal(throw e) == Failure(e))
+    }
+  }
+
+  test("nonFatalOr should return the expected value when no error occurs") {
+    forAll { (s: String, i: Int) ⇒
+      assert(Result.nonFatalOr(s)(i) == Success(i))
+    }
+  }
+
+  test("nonFatalOr should return the expected failure when an error occurs") {
+    forAll { (s: String, e: Exception) ⇒
+      assert(Result.nonFatalOr(s)(throw e) == Failure(s))
+    }
+  }
+
+
   // - Success specific tests ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   test("Success should be a success") {
