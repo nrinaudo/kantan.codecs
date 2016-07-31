@@ -28,10 +28,10 @@ import org.typelevel.discipline.scalatest.Discipline
 class LocalTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   implicit val formatter = DateTimeFormat.mediumTime()
 
-  checkAll("StringDecoder[LocalTime]", DecoderTests[String, LocalTime, Throwable, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[LocalTime]", DecoderTests[String, LocalTime, DecodeError, codecs.type].decoder[Int, Int])
   checkAll("StringEncoder[LocalTime]", EncoderTests[String, LocalTime, codecs.type].encoder[Int, Int])
-  checkAll("StringCodec[LocalTime]", CodecTests[String, LocalTime, Throwable, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[LocalTime]", CodecTests[String, LocalTime, DecodeError, codecs.type].codec[Int, Int])
 
-  checkAll("TaggedDecoder[LocalTime]", DecoderTests[String, LocalTime, Throwable, tagged.type].decoder[Int, Int])
+  checkAll("TaggedDecoder[LocalTime]", DecoderTests[String, LocalTime, DecodeError, tagged.type].decoder[Int, Int])
   checkAll("TaggedEncoder[LocalTime]", EncoderTests[String, LocalTime, tagged.type].encoder[Int, Int])
 }

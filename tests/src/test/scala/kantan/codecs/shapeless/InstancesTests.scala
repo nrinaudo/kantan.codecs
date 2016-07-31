@@ -28,7 +28,7 @@ import shapeless._
 class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   // - HList / Coproduct instances -------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val cnilDec: StringDecoder[CNil] = cnilDecoder(_ ⇒ new Exception())
+  implicit val cnilDec: StringDecoder[CNil] = cnilDecoder(_ ⇒ DecodeError("Attempting to decode CNil"))
 
   implicit def hlistEncoder[A](implicit ea: StringEncoder[A]): StringEncoder[A :: HNil] =
     StringEncoder((a: A :: HNil) ⇒ a match {
@@ -42,12 +42,12 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
 
   // - Tests -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, Throwable, codecs.type]
+  checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
     .decoder[Int, Int])
   checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])
-  checkAll("StringCodec[Int Or Boolean]", CodecTests[String, Int Or Boolean, Throwable, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[Int Or Boolean]", CodecTests[String, Int Or Boolean, DecodeError, codecs.type].codec[Int, Int])
 
-  checkAll("TaggedDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, Throwable, tagged.type]
+  checkAll("TaggedDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, tagged.type]
     .decoder[Int, Int])
   checkAll("TaggedEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, tagged.type].encoder[Int, Int])
 

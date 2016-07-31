@@ -14,10 +14,16 @@
  * limitations under the License.
  */
 
-package kantan.codecs
+package kantan.codecs.strings
 
-package object strings {
-  type StringEncoder[A] = Encoder[String, A, codecs.type]
-  type StringDecoder[A] = Decoder[String, A, DecodeError, codecs.type]
-  type StringCodec[A] = Codec[String, A, DecodeError, codecs.type]
+case class DecodeError private (message: String) extends Exception {
+  override def getMessage = message
+  override def equals(obj: scala.Any) = obj match {
+    case DecodeError(msg) ⇒ message == msg
+    case _                ⇒ false
+  }
+}
+
+object DecodeError {
+  def apply(cause: Throwable): DecodeError = new DecodeError(cause.getMessage)
 }

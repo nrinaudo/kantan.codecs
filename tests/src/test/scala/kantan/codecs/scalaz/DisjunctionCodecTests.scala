@@ -18,14 +18,14 @@ package kantan.codecs.scalaz
 
 import kantan.codecs.laws.discipline.{CodecTests => CTests, DecoderTests => DTests, EncoderTests => ETests}
 import kantan.codecs.scalaz.laws.discipline.arbitrary._
-import kantan.codecs.strings.codecs
+import kantan.codecs.strings._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 import scalaz.\/
 
 class DisjunctionCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[Int \\/ Boolean]", DTests[String, Int \/ Boolean, Throwable, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[Int \\/ Boolean]", DTests[String, Int \/ Boolean, DecodeError, codecs.type].decoder[Int, Int])
   checkAll("StringEncoder[Int \\/ Boolean]", ETests[String, Int \/ Boolean, codecs.type].encoder[Int, Int])
-  checkAll("StringCodec[Int \\/ Boolean]", CTests[String, Int \/ Boolean, Throwable, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[Int \\/ Boolean]", CTests[String, Int \/ Boolean, DecodeError, codecs.type].codec[Int, Int])
 }

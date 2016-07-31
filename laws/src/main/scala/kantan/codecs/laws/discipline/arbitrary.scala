@@ -23,7 +23,7 @@ import kantan.codecs.{Decoder, Encoder, Result}
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
 import org.scalacheck._
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
@@ -72,11 +72,18 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   // - String codecs ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  implicit val arbDecodeError: Arbitrary[DecodeError] = Arbitrary {
+    for {
+      id    ← Gen.identifier
+      value ← implicitly[Arbitrary[String]].arbitrary
+    } yield DecodeError(s"Not a valid $id: '$value'")
+  }
+
   implicit def arbStringEncoder[A: Arbitrary]: Arbitrary[StringEncoder[A]] =
   Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(f ⇒ StringEncoder(f)))
 
   implicit def arbStringDecoder[A: Arbitrary]: Arbitrary[StringDecoder[A]] =
-    Arbitrary(Arbitrary.arbitrary[String ⇒ Result[Throwable, A]].map(f ⇒ StringDecoder(f)))
+    Arbitrary(Arbitrary.arbitrary[String ⇒ Result[DecodeError, A]].map(f ⇒ StringDecoder(f)))
 
   val genPathElement: Gen[String] = for {
     length ← choose(1, 10)

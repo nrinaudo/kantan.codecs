@@ -29,11 +29,11 @@ class LocalDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyCheck
   implicit val formatter = DateTimeFormat.mediumDateTime()
 
   checkAll("StringDecoder[LocalDateTime]",
-    DecoderTests[String, LocalDateTime, Throwable, codecs.type].decoder[Int, Int])
+    DecoderTests[String, LocalDateTime, DecodeError, codecs.type].decoder[Int, Int])
   checkAll("StringEncoder[LocalDateTime]", EncoderTests[String, LocalDateTime, codecs.type].encoder[Int, Int])
-  checkAll("StringCodec[LocalDateTime]", CodecTests[String, LocalDateTime, Throwable, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[LocalDateTime]", CodecTests[String, LocalDateTime, DecodeError, codecs.type].codec[Int, Int])
 
   checkAll("TaggedDecoder[LocalDateTime]",
-    DecoderTests[String, LocalDateTime, Throwable, tagged.type].decoder[Int, Int])
+    DecoderTests[String, LocalDateTime, DecodeError, tagged.type].decoder[Int, Int])
   checkAll("TaggedEncoder[LocalDateTime]", EncoderTests[String, LocalDateTime, tagged.type].encoder[Int, Int])
 }

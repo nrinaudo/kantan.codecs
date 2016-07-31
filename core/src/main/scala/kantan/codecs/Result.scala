@@ -155,17 +155,17 @@ object Result {
   def sequence[F, S, M[X] <: TraversableOnce[X]](rs: M[Result[F, S]])
                                                 (implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]])
   : Result[F, M[S]] =
-    rs.foldLeft(Result.success[F, mutable.Builder[S, M[S]]](cbf(rs))) { (builder, res) ⇒
-      for(b ← builder; r ← res) yield b += r
-    }.map(_.result())
+  rs.foldLeft(Result.success[F, mutable.Builder[S, M[S]]](cbf(rs))) { (builder, res) ⇒
+    for(b ← builder; r ← res) yield b += r
+  }.map(_.result())
 
 
 
   // - Instance construction -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def nonFatal[S](s: ⇒ S): Result[Throwable, S] =
-    try {success(s)}
-    catch { case scala.util.control.NonFatal(t) ⇒ failure(t) }
+  try { success(s) }
+  catch { case scala.util.control.NonFatal(t) ⇒ failure(t) }
 
   def nonFatalOr[F, S](f: ⇒ F)(s: ⇒ S): Result[F, S] = nonFatal(s).leftMap(_ ⇒ f)
 
@@ -243,19 +243,8 @@ object Result {
     override def leftMap[FF](f: F => FF) = copy(value = f(value))
     override def leftFlatMap[FF, SS >: Nothing](f: F => Result[FF, SS]) = f(value)
 
-    override def toOption = None
+    override val toOption = None
     override def toEither = Left(value)
-    override def toList = Nil
-
-    // Specific implementation for Throwable. Not the cleanest hack ever, but we really want two failures of the same
-    // exception type to be the same.
-    override def equals(obj: Any): Boolean = obj match {
-      case Failure(f) ⇒
-        if(f.isInstanceOf[Throwable]) f.getClass == value.getClass
-        else                          f == value
-      case _ ⇒ false
-    }
-
-    override def hashCode(): Int = value.hashCode()
+    override val toList = Nil
   }
 }

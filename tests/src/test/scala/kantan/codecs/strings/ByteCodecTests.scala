@@ -24,10 +24,10 @@ import org.typelevel.discipline.scalatest.Discipline
 import tagged._
 
 class ByteCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[Byte]", DecoderTests[String, Byte, Throwable, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[Byte]", DecoderTests[String, Byte, DecodeError, codecs.type].decoder[Int, Int])
   checkAll("StringEncoder[Byte]", EncoderTests[String, Byte, codecs.type].encoder[Int, Int])
-  checkAll("StringCodec[Byte]", CodecTests[String, Byte, Throwable, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[Byte]", CodecTests[String, Byte, DecodeError, codecs.type].codec[Int, Int])
 
-  checkAll("TaggedDecoder[Byte]", DecoderTests[String, Byte, Throwable, tagged.type].decoder[Int, Int])
+  checkAll("TaggedDecoder[Byte]", DecoderTests[String, Byte, DecodeError, tagged.type].decoder[Int, Int])
   checkAll("TaggedEncoder[Byte]", EncoderTests[String, Byte, tagged.type].encoder[Int, Int])
 }

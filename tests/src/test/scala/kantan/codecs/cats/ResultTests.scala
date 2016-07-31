@@ -34,7 +34,7 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Disci
   implicit val noOrderEq= new Eq[NoOrder] {
     override def eqv(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value
   }
-  implicit val arbNoEqual = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
+  implicit val arbNoEq = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
 
   // TODO: not sure why this isn't resolved automatically. Investigate.
   implicit val test = CartesianTests.Isomorphisms.invariant[Result[String, ?]]

@@ -18,7 +18,7 @@ package kantan.codecs.exported
 
 import kantan.codecs._
 import kantan.codecs.export.{DerivedDecoder, DerivedEncoder}
-import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
@@ -27,9 +27,9 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
   case class Just[A](value: A) extends Maybe[A]
   case object None extends Maybe[Nothing]
 
-  val decode: String ⇒ Result[Throwable, Maybe[Int]] = s ⇒
+  val decode: String ⇒ Result[DecodeError, Maybe[Int]] = s ⇒
     if(s.trim.isEmpty) Result.success(None)
-    else               Result.nonFatal(Just(s.toInt))
+    else               Result.nonFatalOr(DecodeError(s"Not a valid Int: '$s'"))(Just(s.toInt))
 
   val encode: Maybe[Int] ⇒ String = _ match {
     case Just(i) ⇒ i.toString
@@ -38,9 +38,9 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   test("Derived decoders should have a lower priority than bespoke ones") {
     implicit val bespoke = StringDecoder(decode)
-    implicit val derived = DerivedDecoder[String, Maybe[Int], Throwable, strings.codecs.type](decode)
+    implicit val derived = DerivedDecoder[String, Maybe[Int], DecodeError, strings.codecs.type](decode)
 
-    assert(implicitly[Decoder[String, Maybe[Int], Throwable, strings.codecs.type]] == bespoke)
+    assert(implicitly[Decoder[String, Maybe[Int], DecodeError, strings.codecs.type]] == bespoke)
   }
 
   test("Derived encoders should have a lower priority than bespoke ones") {
