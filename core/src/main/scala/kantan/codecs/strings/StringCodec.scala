@@ -82,5 +82,7 @@ trait StringCodecInstances extends StringEncoderInstances with StringDecoderInst
     StringCodec(s ⇒ Result.nonFatalOr(failure(s, "File"))(new File(s)))(_.toString)
 
   implicit def date(implicit ft: DateFormat): StringCodec[Date] =
-    StringCodec(s ⇒ Result.nonFatalOr(failure(s, "Date"))(ft.synchronized(ft.parse(s))))(date ⇒ ft.synchronized(ft.format(date)))
+    StringCodec { s ⇒
+      Result.nonFatalOr(failure(s, "Date"))(ft.synchronized(ft.parse(s)))
+    }(d ⇒ ft.synchronized(ft.format(d)))
 }
