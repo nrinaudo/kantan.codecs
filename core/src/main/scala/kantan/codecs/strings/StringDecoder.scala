@@ -21,6 +21,9 @@ import kantan.codecs.{Decoder, Result}
 object StringDecoder {
   def apply[D](f: String ⇒ Result[DecodeError, D]): StringDecoder[D] = Decoder(f)
   def apply[D](implicit dd: StringDecoder[D]): StringDecoder[D] = dd
+
+  def decoder[A](typeName: String)(f: String ⇒ A): String ⇒ Result[DecodeError, A] =
+    s ⇒ Result.nonFatal(f(s)).leftMap(t ⇒ DecodeError(s"Not a valid $typeName: '$s", t))
 }
 
 trait StringDecoderInstances

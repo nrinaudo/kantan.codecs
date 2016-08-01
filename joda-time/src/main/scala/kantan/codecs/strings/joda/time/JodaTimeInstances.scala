@@ -16,24 +16,20 @@
 
 package kantan.codecs.strings.joda.time
 
-import kantan.codecs.Result
-import kantan.codecs.strings.{DecodeError, StringCodec}
+import kantan.codecs.strings.{StringCodec, StringDecoder}
 import org.joda.time._
 import org.joda.time.format.DateTimeFormatter
 
 trait JodaTimeInstances {
-  private def failure(input: String, tpe: String): DecodeError =
-    DecodeError(s"Not a valid $tpe: '$input'")
-
   implicit def dateTimeCodec(implicit format: DateTimeFormatter): StringCodec[DateTime] =
-    StringCodec(s ⇒ Result.nonFatalOr(failure(s, "DateTime"))(format.parseDateTime(s)))(format.print)
+    StringCodec(StringDecoder.decoder("DateTime")(s ⇒ format.parseDateTime(s)))(format.print)
 
   implicit def localDateCodec(implicit format: DateTimeFormatter): StringCodec[LocalDate] =
-    StringCodec(s ⇒ Result.nonFatalOr(failure(s, "LocalDate"))(format.parseLocalDate(s)))(format.print)
+    StringCodec(StringDecoder.decoder("LocaleDate")(s ⇒ format.parseLocalDate(s)))(format.print)
 
   implicit def localDateTimeCodec(implicit format: DateTimeFormatter): StringCodec[LocalDateTime] =
-    StringCodec(s ⇒ Result.nonFatalOr(failure(s, "LocalDateTime"))(format.parseLocalDateTime(s)))(format.print)
+    StringCodec(StringDecoder.decoder("LocalDateTime")(s ⇒ format.parseLocalDateTime(s)))(format.print)
 
   implicit def localTimeCodec(implicit format: DateTimeFormatter): StringCodec[LocalTime] =
-    StringCodec(s ⇒ Result.nonFatalOr(failure(s, "LocalTime"))(format.parseLocalTime(s)))(format.print)
+    StringCodec(StringDecoder.decoder("LocalTime")(s ⇒ format.parseLocalTime(s)))(format.print)
 }
