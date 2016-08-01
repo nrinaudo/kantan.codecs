@@ -24,12 +24,10 @@ import scalaz.{Equal, Semigroup}
 trait LowPriorityScalazInstances {
   implicit val decodeErrorEqual: Equal[DecodeError] = Equal.equalA[DecodeError]
 
-  implicit def resultEqual[F, S](implicit ef: Equal[F], es: Equal[S]): Equal[Result[F, S]] = Equal.equal { (r1, r2) ⇒
-    (r1, r2) match {
-      case (Failure(f1), Failure(f2)) ⇒ ef.equal(f1, f2)
-      case (Success(s1), Success(s2)) ⇒ es.equal(s1, s2)
-      case _ ⇒ false
-    }
+  implicit def resultEqual[F, S](implicit ef: Equal[F], es: Equal[S]): Equal[Result[F, S]] = Equal.equal {
+    case (Failure(f1), Failure(f2)) ⇒ ef.equal(f1, f2)
+    case (Success(s1), Success(s2)) ⇒ es.equal(s1, s2)
+    case _ ⇒ false
   }
 
   implicit def resultSemigroup[F, S](implicit sf: Semigroup[F], ss: Semigroup[S]): Semigroup[Result[F, S]] =
