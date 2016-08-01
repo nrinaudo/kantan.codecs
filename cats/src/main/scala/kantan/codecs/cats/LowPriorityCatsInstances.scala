@@ -22,7 +22,7 @@ import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.strings.DecodeError
 
 trait LowPriorityCatsInstances {
-  implicit val decodeErrorEq: Eq[DecodeError] = Eq.fromUniversalEquals[DecodeError]
+  implicit val stringDecodeErrorEq: Eq[DecodeError] = Eq.fromUniversalEquals[DecodeError]
 
   implicit def resultEq[F, S](implicit ef: Eq[F], es: Eq[S]): Eq[Result[F, S]] = Eq.instance {
     case (Failure(f1), Failure(f2)) ⇒ ef.eqv(f1, f2)

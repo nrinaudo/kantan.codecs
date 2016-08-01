@@ -22,7 +22,7 @@ import kantan.codecs.strings.DecodeError
 import scalaz.{Equal, Semigroup}
 
 trait LowPriorityScalazInstances {
-  implicit val decodeErrorEqual: Equal[DecodeError] = Equal.equalA[DecodeError]
+  implicit val stringDecodeErrorEqual: Equal[DecodeError] = Equal.equalA[DecodeError]
 
   implicit def resultEqual[F, S](implicit ef: Equal[F], es: Equal[S]): Equal[Result[F, S]] = Equal.equal {
     case (Failure(f1), Failure(f2)) ⇒ ef.equal(f1, f2)

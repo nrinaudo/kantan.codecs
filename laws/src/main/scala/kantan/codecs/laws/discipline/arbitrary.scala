@@ -72,7 +72,7 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   // - String codecs ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val arbDecodeError: Arbitrary[DecodeError] = Arbitrary {
+  implicit val arbStringDecodeError: Arbitrary[DecodeError] = Arbitrary {
     for {
       id    ← Gen.identifier
       value ← implicitly[Arbitrary[String]].arbitrary

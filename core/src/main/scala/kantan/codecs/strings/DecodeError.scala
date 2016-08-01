@@ -16,14 +16,14 @@
 
 package kantan.codecs.strings
 
-case class DecodeError private (message: String) extends Exception {
-  override def getMessage = message
-  override def equals(obj: scala.Any) = obj match {
-    case DecodeError(msg) ⇒ message == msg
-    case _                ⇒ false
-  }
+sealed case class DecodeError(message: String) extends Exception {
+  override final def getMessage = message
 }
 
 object DecodeError {
-  def apply(cause: Throwable): DecodeError = new DecodeError(cause.getMessage)
+  def apply(msg: String, t: Throwable): DecodeError = new DecodeError(msg) {
+    override val getCause = t
+  }
+
+  def apply(t: Throwable): DecodeError = DecodeError(Option(t.getMessage).getOrElse("Decode error"), t)
 }
