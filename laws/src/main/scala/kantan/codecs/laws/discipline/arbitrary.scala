@@ -72,12 +72,13 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   // - String codecs ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val arbStringDecodeError: Arbitrary[DecodeError] = Arbitrary {
+  implicit val arbStringDecodeError: Arbitrary[DecodeError] = Arbitrary(Gen.oneOf(
     for {
       id    ← Gen.identifier
       value ← implicitly[Arbitrary[String]].arbitrary
-    } yield DecodeError(s"Not a valid $id: '$value'")
-  }
+    } yield DecodeError(s"Not a valid $id: '$value'"),
+    arbException.arbitrary.map(DecodeError.apply)
+  ))
 
   implicit def arbStringEncoder[A: Arbitrary]: Arbitrary[StringEncoder[A]] =
   Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(f ⇒ StringEncoder(f)))
