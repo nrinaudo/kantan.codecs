@@ -17,7 +17,7 @@
 package kantan.codecs.strings
 
 sealed case class DecodeError(message: String) extends Exception {
-  override final def getMessage = message
+  override final val getMessage = message
 }
 
 object DecodeError {
