@@ -106,18 +106,18 @@
     </span>
       
     </li><li name="kantan.codecs.laws.CodecValue" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="CodecValue[E,D]extendsProductwithSerializable"></a>
-      <a id="CodecValue[E,D]:CodecValue[E,D]"></a>
+      <a id="CodecValue[E,D,T]extendsProductwithSerializable"></a>
+      <a id="CodecValue[E,D,T]:CodecValue[E,D,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">sealed abstract </span>
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a href="CodecValue.html"><span class="name">CodecValue</span></a><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <a href="CodecValue.html"><span class="name">CodecValue</span></a><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.package@CodecValue[E,D]extendsProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.laws.package@CodecValue[E,D,T]extendsProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -157,7 +157,7 @@
     </span>
       
     </li><li name="kantan.codecs.laws.IllegalString" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="IllegalString[A]=kantan.codecs.laws.CodecValue.IllegalValue[String,A]"></a>
+      <a id="IllegalString[A]=kantan.codecs.laws.CodecValue.IllegalValue[String,A,kantan.codecs.strings.codecs.type]"></a>
       <a id="IllegalString[A]:IllegalString[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -165,16 +165,16 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">IllegalString</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="CodecValue$$IllegalValue.html" class="extype" name="kantan.codecs.laws.CodecValue.IllegalValue">IllegalValue</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.laws.IllegalString.A">A</span>]</span>
+        <span class="name">IllegalString</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="CodecValue$$IllegalValue.html" class="extype" name="kantan.codecs.laws.CodecValue.IllegalValue">IllegalValue</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.laws.IllegalString.A">A</span>, <a href="../strings/codecs$.html" class="extype" name="kantan.codecs.strings.codecs">strings.codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.package@IllegalString[A]=kantan.codecs.laws.CodecValue.IllegalValue[String,A]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.laws.package@IllegalString[A]=kantan.codecs.laws.CodecValue.IllegalValue[String,A,kantan.codecs.strings.codecs.type]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="kantan.codecs.laws.LegalString" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="LegalString[A]=kantan.codecs.laws.CodecValue.LegalValue[String,A]"></a>
+      <a id="LegalString[A]=kantan.codecs.laws.CodecValue.LegalValue[String,A,kantan.codecs.strings.codecs.type]"></a>
       <a id="LegalString[A]:LegalString[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -182,16 +182,33 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">LegalString</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="CodecValue$$LegalValue.html" class="extype" name="kantan.codecs.laws.CodecValue.LegalValue">LegalValue</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.laws.LegalString.A">A</span>]</span>
+        <span class="name">LegalString</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="CodecValue$$LegalValue.html" class="extype" name="kantan.codecs.laws.CodecValue.LegalValue">LegalValue</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.laws.LegalString.A">A</span>, <a href="../strings/codecs$.html" class="extype" name="kantan.codecs.strings.codecs">strings.codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.package@LegalString[A]=kantan.codecs.laws.CodecValue.LegalValue[String,A]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.laws.package@LegalString[A]=kantan.codecs.laws.CodecValue.LegalValue[String,A,kantan.codecs.strings.codecs.type]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.laws.OptionalLaws" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="OptionalLaws[A]extendsAnyRef"></a>
+      <a id="OptionalLaws[A]:OptionalLaws[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="OptionalLaws.html"><span class="name">OptionalLaws</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.laws.package@OptionalLaws[A]extendsAnyRef" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="kantan.codecs.laws.StringValue" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="StringValue[A]=kantan.codecs.laws.CodecValue[String,A]"></a>
+      <a id="StringValue[A]=kantan.codecs.laws.CodecValue[String,A,kantan.codecs.strings.codecs.type]"></a>
       <a id="StringValue[A]:StringValue[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -199,10 +216,10 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">StringValue</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="CodecValue.html" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.laws.StringValue.A">A</span>]</span>
+        <span class="name">StringValue</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="CodecValue.html" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.laws.StringValue.A">A</span>, <a href="../strings/codecs$.html" class="extype" name="kantan.codecs.strings.codecs">strings.codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.package@StringValue[A]=kantan.codecs.laws.CodecValue[String,A]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.laws.package@StringValue[A]=kantan.codecs.laws.CodecValue[String,A,kantan.codecs.strings.codecs.type]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -278,6 +295,23 @@
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#kantan.codecs.laws.package@EncoderLaws" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.laws.OptionalLaws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="OptionalLaws"></a>
+      <a id="OptionalLaws:OptionalLaws"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="OptionalLaws$.html"><span class="name">OptionalLaws</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.laws.package@OptionalLaws" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

@@ -205,35 +205,35 @@
               
         </dd></dl></div>
     </li><li name="kantan.codecs.Encoder#eitherEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="eitherEncoder[E,A,B,T](implicitea:kantan.codecs.Encoder[E,A,T],impliciteb:kantan.codecs.Encoder[E,B,T]):kantan.codecs.Encoder[E,Either[A,B],T]"></a>
-      <a id="eitherEncoder[E,A,B,T](Encoder[E,A,T],Encoder[E,B,T]):Encoder[E,Either[A,B],T]"></a>
+      <a id="eitherEncoder[E,D1,D2,T](implicitea:kantan.codecs.Encoder[E,D1,T],impliciteb:kantan.codecs.Encoder[E,D2,T]):kantan.codecs.Encoder[E,Either[D1,D2],T]"></a>
+      <a id="eitherEncoder[E,D1,D2,T](Encoder[E,D1,T],Encoder[E,D2,T]):Encoder[E,Either[D1,D2],T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eitherEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="A">A</span>, <span name="B">B</span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.eitherEncoder.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.A">A</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.T">T</span>]</span>, <span name="eb">eb: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.eitherEncoder.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.B">B</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.T">T</span>]</span>)</span><span class="result">: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.eitherEncoder.E">E</span>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.Encoder.eitherEncoder.A">A</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.B">B</span>], <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.T">T</span>]</span>
+        <span class="name">eitherEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="D1">D1</span>, <span name="D2">D2</span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.eitherEncoder.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.D1">D1</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.T">T</span>]</span>, <span name="eb">eb: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.eitherEncoder.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.D2">D2</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.T">T</span>]</span>)</span><span class="result">: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.eitherEncoder.E">E</span>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.Encoder.eitherEncoder.D1">D1</span>, <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.D2">D2</span>], <span class="extype" name="kantan.codecs.Encoder.eitherEncoder.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.codecs.Encoder$@eitherEncoder[E,A,B,T](implicitea:kantan.codecs.Encoder[E,A,T],impliciteb:kantan.codecs.Encoder[E,B,T]):kantan.codecs.Encoder[E,Either[A,B],T]" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.codecs.Encoder$@eitherEncoder[E,D1,D2,T](implicitea:kantan.codecs.Encoder[E,D1,T],impliciteb:kantan.codecs.Encoder[E,D2,T]):kantan.codecs.Encoder[E,Either[D1,D2],T]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="kantan.codecs.Encoder#encoderFromExported" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="encoderFromExported[E,A,T](implicitea:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,A,T]]):kantan.codecs.Encoder[E,A,T]"></a>
-      <a id="encoderFromExported[E,A,T](Exported[Encoder[E,A,T]]):Encoder[E,A,T]"></a>
+      <a id="encoderFromExported[E,D,T](implicitea:kantan.codecs.export.DerivedEncoder[E,D,T]):kantan.codecs.Encoder[E,D,T]"></a>
+      <a id="encoderFromExported[E,D,T](DerivedEncoder[E,D,T]):Encoder[E,D,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">encoderFromExported</span><span class="tparams">[<span name="E">E</span>, <span name="A">A</span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="export/Exported.html" class="extype" name="kantan.codecs.export.Exported">Exported</a>[<a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.encoderFromExported.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.encoderFromExported.A">A</span>, <span class="extype" name="kantan.codecs.Encoder.encoderFromExported.T">T</span>]]</span>)</span><span class="result">: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.encoderFromExported.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.encoderFromExported.A">A</span>, <span class="extype" name="kantan.codecs.Encoder.encoderFromExported.T">T</span>]</span>
+        <span class="name">encoderFromExported</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="export/package.html#DerivedEncoder[E,D,T]=kantan.codecs.export.Exported[kantan.codecs.Encoder[E,D,T]]" class="extmbr" name="kantan.codecs.export.DerivedEncoder">DerivedEncoder</a>[<span class="extype" name="kantan.codecs.Encoder.encoderFromExported.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.encoderFromExported.D">D</span>, <span class="extype" name="kantan.codecs.Encoder.encoderFromExported.T">T</span>]</span>)</span><span class="result">: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.encoderFromExported.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.encoderFromExported.D">D</span>, <span class="extype" name="kantan.codecs.Encoder.encoderFromExported.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.codecs.Encoder$@encoderFromExported[E,A,T](implicitea:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,A,T]]):kantan.codecs.Encoder[E,A,T]" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.codecs.Encoder$@encoderFromExported[E,D,T](implicitea:kantan.codecs.export.DerivedEncoder[E,D,T]):kantan.codecs.Encoder[E,D,T]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -398,18 +398,18 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="kantan.codecs.Encoder#optionalEncoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="optionalEncoder[E,A,T](implicitea:kantan.codecs.Encoder[E,A,T],implicitoe:kantan.codecs.Optional[E]):kantan.codecs.Encoder[E,Option[A],T]"></a>
-      <a id="optionalEncoder[E,A,T](Encoder[E,A,T],Optional[E]):Encoder[E,Option[A],T]"></a>
+      <a id="optionalEncoder[E,D,T](implicitea:kantan.codecs.Encoder[E,D,T],implicitoe:kantan.codecs.Optional[E]):kantan.codecs.Encoder[E,Option[D],T]"></a>
+      <a id="optionalEncoder[E,D,T](Encoder[E,D,T],Optional[E]):Encoder[E,Option[D],T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">optionalEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="A">A</span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.optionalEncoder.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.optionalEncoder.A">A</span>, <span class="extype" name="kantan.codecs.Encoder.optionalEncoder.T">T</span>]</span>, <span name="oe">oe: <a href="Optional.html" class="extype" name="kantan.codecs.Optional">Optional</a>[<span class="extype" name="kantan.codecs.Encoder.optionalEncoder.E">E</span>]</span>)</span><span class="result">: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.optionalEncoder.E">E</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="kantan.codecs.Encoder.optionalEncoder.A">A</span>], <span class="extype" name="kantan.codecs.Encoder.optionalEncoder.T">T</span>]</span>
+        <span class="name">optionalEncoder</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ea">ea: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.optionalEncoder.E">E</span>, <span class="extype" name="kantan.codecs.Encoder.optionalEncoder.D">D</span>, <span class="extype" name="kantan.codecs.Encoder.optionalEncoder.T">T</span>]</span>, <span name="oe">oe: <a href="Optional.html" class="extype" name="kantan.codecs.Optional">Optional</a>[<span class="extype" name="kantan.codecs.Encoder.optionalEncoder.E">E</span>]</span>)</span><span class="result">: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.Encoder.optionalEncoder.E">E</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<span class="extype" name="kantan.codecs.Encoder.optionalEncoder.D">D</span>], <span class="extype" name="kantan.codecs.Encoder.optionalEncoder.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#kantan.codecs.Encoder$@optionalEncoder[E,A,T](implicitea:kantan.codecs.Encoder[E,A,T],implicitoe:kantan.codecs.Optional[E]):kantan.codecs.Encoder[E,Option[A],T]" title="Permalink" target="_top">
+      <a href="../../index.html#kantan.codecs.Encoder$@optionalEncoder[E,D,T](implicitea:kantan.codecs.Encoder[E,D,T],implicitoe:kantan.codecs.Optional[E]):kantan.codecs.Encoder[E,Option[D],T]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

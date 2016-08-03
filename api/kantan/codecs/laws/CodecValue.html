@@ -47,7 +47,7 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">CodecValue</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">CodecValue</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4>
       
@@ -132,35 +132,35 @@
     </span>
       
     </li><li name="kantan.codecs.laws.CodecValue#mapDecoded" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="mapDecoded[DD](f:D=&gt;DD):kantan.codecs.laws.CodecValue[E,DD]"></a>
-      <a id="mapDecoded[DD]((D)⇒DD):CodecValue[E,DD]"></a>
+      <a id="mapDecoded[DD](f:D=&gt;DD):kantan.codecs.laws.CodecValue[E,DD,T]"></a>
+      <a id="mapDecoded[DD]((D)⇒DD):CodecValue[E,DD,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">abstract </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">mapDecoded</span><span class="tparams">[<span name="DD">DD</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.laws.CodecValue.D">D</span>) ⇒ <span class="extype" name="kantan.codecs.laws.CodecValue.mapDecoded.DD">DD</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="kantan.codecs.laws.CodecValue.E">E</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.mapDecoded.DD">DD</span>]</span>
+        <span class="name">mapDecoded</span><span class="tparams">[<span name="DD">DD</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.laws.CodecValue.D">D</span>) ⇒ <span class="extype" name="kantan.codecs.laws.CodecValue.mapDecoded.DD">DD</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="kantan.codecs.laws.CodecValue.E">E</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.mapDecoded.DD">DD</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@mapDecoded[DD](f:D=&gt;DD):kantan.codecs.laws.CodecValue[E,DD]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.laws.CodecValue@mapDecoded[DD](f:D=&gt;DD):kantan.codecs.laws.CodecValue[E,DD,T]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="kantan.codecs.laws.CodecValue#mapEncoded" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="mapEncoded[EE](f:E=&gt;EE):kantan.codecs.laws.CodecValue[EE,D]"></a>
-      <a id="mapEncoded[EE]((E)⇒EE):CodecValue[EE,D]"></a>
+      <a id="mapEncoded[EE](f:E=&gt;EE):kantan.codecs.laws.CodecValue[EE,D,T]"></a>
+      <a id="mapEncoded[EE]((E)⇒EE):CodecValue[EE,D,T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">abstract </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">mapEncoded</span><span class="tparams">[<span name="EE">EE</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.laws.CodecValue.E">E</span>) ⇒ <span class="extype" name="kantan.codecs.laws.CodecValue.mapEncoded.EE">EE</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="kantan.codecs.laws.CodecValue.mapEncoded.EE">EE</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.D">D</span>]</span>
+        <span class="name">mapEncoded</span><span class="tparams">[<span name="EE">EE</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.laws.CodecValue.E">E</span>) ⇒ <span class="extype" name="kantan.codecs.laws.CodecValue.mapEncoded.EE">EE</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="kantan.codecs.laws.CodecValue.mapEncoded.EE">EE</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.D">D</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@mapEncoded[EE](f:E=&gt;EE):kantan.codecs.laws.CodecValue[EE,D]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.laws.CodecValue@mapEncoded[EE](f:E=&gt;EE):kantan.codecs.laws.CodecValue[EE,D,T]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -199,6 +199,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd></dl></div>
+    </li><li name="kantan.codecs.laws.CodecValue#tag" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="tag[TT]:kantan.codecs.laws.CodecValue[E,D,TT]"></a>
+      <a id="tag[TT]:CodecValue[E,D,TT]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">tag</span><span class="tparams">[<span name="TT">TT</span>]</span><span class="result">: <a href="" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="kantan.codecs.laws.CodecValue.E">E</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.D">D</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.tag.TT">TT</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.laws.CodecValue@tag[TT]:kantan.codecs.laws.CodecValue[E,D,TT]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li></ol>
             </div>
 

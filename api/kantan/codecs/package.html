@@ -124,7 +124,7 @@ fulfill.
     </span>
       <p class="shortcomment cmt">Type class for types that can be encoded into others.</p><div class="fullcomment"><div class="comment cmt"><p>Type class for types that can be encoded into others.
 </p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>encoded type - what to encode to.</p></dd><dt class="tparam">D</dt><dd class="cmt"><p>decoded type - what to encode from.</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>tag type.</p></dd></dl></div>
-    </li><li name="kantan.codecs.Optional" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.Optional" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Optional[A]extendsAnyRef"></a>
       <a id="Optional[A]:Optional[A]"></a>
       <h4 class="signature">
@@ -140,7 +140,34 @@ fulfill.
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Type class that represents data types that have an &quot;empty&quot; value.</p><div class="fullcomment"><div class="comment cmt"><p>Type class that represents data types that have an &quot;empty&quot; value.</p><p>The purpose of this type class is to allow automatic derivation of <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> for decoded types that might not
+have a value - <code>Option</code>, <code>List</code>...</p><p>In theory, there should rarely be a need to interact directly with this type class, and one is usually better
+served by obtaining the <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance for <code>Option</code> and mapping on it.</p></div></div>
+    </li><li name="kantan.codecs.ResourceIterator" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="ResourceIterator[+A]extendsTraversableOnce[A]withCloseable"></a>
+      <a id="ResourceIterator[+A]:ResourceIterator[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ResourceIterator.html"><span class="name">ResourceIterator</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.codecs.ResourceIterator.A">A</span>] with <span class="extype" name="java.io.Closeable">Closeable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@ResourceIterator[+A]extendsTraversableOnce[A]withCloseable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Offers iterator-like access to IO resources.</p><div class="fullcomment"><div class="comment cmt"><p>Offers iterator-like access to IO resources.</p><p>For the most part, values of type <a href="ResourceIterator.html" class="extype" name="kantan.codecs.ResourceIterator">ResourceIterator</a> can be considered as iterators, with a few improvements.</p><p>First, they have a <a href="ResourceIterator.html#close():Unit" class="extmbr" name="kantan.codecs.ResourceIterator#close">ResourceIterator.close()*</a> method, which allows you to release the underlying resource when
+needed. This is fairly important and part of the reason why working with <code>Source.getLines</code> can be so aggravating.</p><p>Second, <a href="ResourceIterator.html#close():Unit" class="extmbr" name="kantan.codecs.ResourceIterator#close">ResourceIterator.close()*</a> is mostly not needed: whenever an IO error occurs or the underlying resource
+is empty, it will be closed automatically. Provided you intend to read the whole resource, you never need to
+explicitly close it. This covers non-obvious cases such as <a href="ResourceIterator.html#filter(p:A=&gt;Boolean):kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.codecs.ResourceIterator#filter">filtering</a> or
+<a href="ResourceIterator.html#drop(n:Int):kantan.codecs.ResourceIterator[A]" class="extmbr" name="kantan.codecs.ResourceIterator#drop">dropping</a> elements.</p><p>You should be able to express most common causes for not reading the entire stream through standard combinators. For
+example, &quot;take the first <code>n</code> elements&quot; is <code>take(n)</code>, or &quot;take all odd elements&quot; is <code>filter(_ % 2 == 0)</code>. This
+allows you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a
+situation when you just want to stop, however, <a href="ResourceIterator.html#close():Unit" class="extmbr" name="kantan.codecs.ResourceIterator#close">ResourceIterator.close()*</a> is available.
+</p></div></div>
     </li><li name="kantan.codecs.Result" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Result[+F,+S]extendsProductwithSerializable"></a>
       <a id="Result[+F,+S]:Result[F,S]"></a>
@@ -234,6 +261,23 @@ more convenient to use in for-comprehensions, as it has proper <a href="Result.h
       </a>
     </span>
       
+    </li><li name="kantan.codecs.ResourceIterator" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ResourceIterator"></a>
+      <a id="ResourceIterator:ResourceIterator"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ResourceIterator$.html"><span class="name">ResourceIterator</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#kantan.codecs.package@ResourceIterator" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="kantan.codecs.Result" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Result"></a>
       <a id="Result:Result"></a>
@@ -268,7 +312,7 @@ more convenient to use in for-comprehensions, as it has proper <a href="Result.h
       </a>
     </span>
       
-    </li><li name="kantan.codecs.export" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.export" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="export"></a>
       <a id="export:export"></a>
       <h4 class="signature">
@@ -284,7 +328,12 @@ more convenient to use in for-comprehensions, as it has proper <a href="Result.h
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Provides a simple mechanism to insert derived type class instances in the implicit resolution mechanism.</p><div class="fullcomment"><div class="comment cmt"><p>Provides a simple mechanism to insert derived type class instances in the implicit resolution mechanism.</p><p>By default, when imported, such instances have the highest possible priority, which is typically problematic
+with shapeless instance derivation: bespoke instances for <code>Option</code> or <code>Either</code>, for example, find themselves
+shadowed by the generically derived ones.</p><p>If such instances are of type <a href="export/package.html#DerivedDecoder[E,D,F,T]=kantan.codecs.export.Exported[kantan.codecs.Decoder[E,D,F,T]]" class="extmbr" name="kantan.codecs.export.DerivedDecoder">kantan.codecs.export.DerivedDecoder</a> / <a href="export/package.html#DerivedEncoder[E,D,T]=kantan.codecs.export.Exported[kantan.codecs.Encoder[E,D,T]]" class="extmbr" name="kantan.codecs.export.DerivedEncoder">kantan.codecs.export.DerivedEncoder</a>
+rather than <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> / <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>, however, they'll find themselves with a lower precedence and only be used
+if no other, more specific instance is found.
+</p></div></div>
     </li><li name="kantan.codecs.laws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="laws"></a>
       <a id="laws:laws"></a>

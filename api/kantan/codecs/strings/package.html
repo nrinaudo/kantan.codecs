@@ -88,8 +88,25 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="kantan.codecs.strings.StringCodec" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="StringCodec[A]=kantan.codecs.Codec[String,A,Throwable,kantan.codecs.strings.codecs.type]"></a>
+              <ol><li name="kantan.codecs.strings.DecodeError" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DecodeErrorextendsExceptionwithProductwithSerializable"></a>
+      <a id="DecodeError:DecodeError"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="DecodeError.html"><span class="name">DecodeError</span></a><span class="params">(<span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Exception">Exception</span> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.strings.package@DecodeErrorextendsExceptionwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.strings.StringCodec" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]"></a>
       <a id="StringCodec[A]:StringCodec[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -97,10 +114,10 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">StringCodec</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.strings.StringCodec.A">A</span>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
+        <span class="name">StringCodec</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.strings.StringCodec.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.strings.package@StringCodec[A]=kantan.codecs.Codec[String,A,Throwable,kantan.codecs.strings.codecs.type]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.strings.package@StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -121,9 +138,9 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Defines default instances of <a href="#StringCodec[A]=kantan.codecs.Codec[String,A,Throwable,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> for all primitive types.</p>
+      <p class="shortcomment cmt">Defines default instances of <a href="#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> for all primitive types.</p>
     </li><li name="kantan.codecs.strings.StringDecoder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="StringDecoder[A]=kantan.codecs.Decoder[String,A,Throwable,kantan.codecs.strings.codecs.type]"></a>
+      <a id="StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]"></a>
       <a id="StringDecoder[A]:StringDecoder[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -131,10 +148,10 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">StringDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.strings.StringDecoder.A">A</span>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
+        <span class="name">StringDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> = <a href="../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.strings.StringDecoder.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.strings.package@StringDecoder[A]=kantan.codecs.Decoder[String,A,Throwable,kantan.codecs.strings.codecs.type]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.strings.package@StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -197,7 +214,24 @@
 
         <div id="values" class="values members">
               <h3>Value Members</h3>
-              <ol><li name="kantan.codecs.strings.StringCodec" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="kantan.codecs.strings.DecodeError" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DecodeError"></a>
+      <a id="DecodeError:DecodeError"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="DecodeError$.html"><span class="name">DecodeError</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.strings.package@DecodeError" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.strings.StringCodec" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StringCodec"></a>
       <a id="StringCodec:StringCodec"></a>
       <h4 class="signature">
