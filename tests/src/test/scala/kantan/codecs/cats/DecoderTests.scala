@@ -16,8 +16,8 @@
 
 package kantan.codecs.cats
 
+import cats.instances.all._
 import cats.laws.discipline.FunctorTests
-import cats.std.all._
 import kantan.codecs.cats.laws.discipline.equality._
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.strings.StringDecoder

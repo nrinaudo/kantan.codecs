@@ -16,7 +16,7 @@
 
 package kantan.codecs
 
-import _root_.cats.std.list._
+import _root_.cats.instances.list._
 import _root_.cats.syntax.traverse._
 import cats._
 import java.util.NoSuchElementException

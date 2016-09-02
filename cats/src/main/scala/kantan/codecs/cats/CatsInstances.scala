@@ -94,7 +94,9 @@ trait CatsInstances extends LowPriorityCatsInstances {
           case Success(s)   ⇒ ag.map(f(s))(Result.success)
         }
 
-      override def flatMap[A, B](fa: Result[F, A])(f: A => Result[F, B])= fa.flatMap(f)
+      override def flatMap[A, B](fa: Result[F, A])(f: A => Result[F, B]) = fa.flatMap(f)
+      override def tailRecM[A, B](a: A)(f: A ⇒ Result[F, Either[A, B]]) = defaultTailRecM(a)(f)
+
       override def pure[A](a: A) = Result.success(a)
     }
 

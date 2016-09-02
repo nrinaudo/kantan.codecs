@@ -18,10 +18,10 @@ package kantan.codecs.cats
 
 import cats._
 import cats.data.NonEmptyList
+import cats.instances.all._
 import cats.kernel.laws.{GroupLaws, OrderLaws}
 import cats.laws.discipline._
 import cats.laws.discipline.arbitrary._
-import cats.std.all._
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.Arbitrary

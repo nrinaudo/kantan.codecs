@@ -3,16 +3,16 @@ import com.typesafe.sbt.SbtSite.SiteKeys._
 import UnidocKeys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
 
-val catsVersion          = "0.6.0"
+val catsVersion          = "0.7.2"
 val disciplineVersion    = "0.4"
 val jodaConvertVersion   = "1.8.1"
 val jodaVersion          = "2.9.4"
-val kindProjectorVersion = "0.8.0"
+val kindProjectorVersion = "0.8.1"
 val macroParadiseVersion = "2.1.0"
 val scalaCheckVersion    = "1.12.5"
 val scalatestVersion     = "3.0.0-M9"
-val scalazVersion        = "7.2.4"
-val shapelessVersion     = "2.3.1"
+val scalazVersion        = "7.2.5"
+val shapelessVersion     = "2.3.2"
 
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
