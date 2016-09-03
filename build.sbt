@@ -4,6 +4,10 @@ import UnidocKeys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
 import scala.xml.transform.{RewriteRule, RuleTransformer}
 
+
+
+// - Dependency versions -----------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 val catsVersion          = "0.7.2"
 val disciplineVersion    = "0.4"
 val jodaConvertVersion   = "1.8.1"
@@ -15,6 +19,11 @@ val scalatestVersion     = "3.0.0-M9"
 val scalazVersion        = "7.2.5"
 val shapelessVersion     = "2.3.2"
 
+
+
+// - Common settings ---------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// Basic build settings.
 lazy val buildSettings = Seq(
   organization       := "com.nrinaudo",
   scalaVersion       := "2.11.8",
@@ -22,7 +31,9 @@ lazy val buildSettings = Seq(
   autoAPIMappings    := true
 )
 
-lazy val compilerOptions = Seq("-deprecation",
+// Minimum set of compiler flags for sane development.
+lazy val compilerOptions = Seq(
+  "-deprecation",
   "-target:jvm-1.7",
   "-encoding", "UTF-8",
   "-feature",
@@ -37,45 +48,64 @@ lazy val compilerOptions = Seq("-deprecation",
   "-Ywarn-dead-code",
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard",
-  "-Xfuture")
+  "-Xfuture"
+)
 
+// Settings that should be enabled in all modules.
 lazy val baseSettings = Seq(
+  // Version-specific compiler options.
   scalacOptions ++= compilerOptions ++ (
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 11)) => Seq("-Ywarn-unused-import")
-      case Some((2, 10)) => Seq("-Xdivergence211")
-      case _ => Nil
+      case Some((2, 11)) ⇒ Seq("-Ywarn-unused-import")
+      case Some((2, 10)) ⇒ Seq("-Xdivergence211")
+      case _             ⇒ Nil
     }
   ),
-  scalacOptions in (Compile, console) ~= {
-    _.filterNot(Set("-Ywarn-unused-import"))
-  },
-  headers := Map("scala" -> Apache2_0("2016", "Nicolas Rinaudo")),
-  libraryDependencies ++= compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary) :: macroDependencies(scalaVersion.value),
-  // don't include scoverage as a dependency in the pom
-  // this code was copied from https://github.com/mongodb/mongo-spark
-  pomPostProcess := { (node: xml.Node) =>
+
+  // Disable -Ywarn-unused-imports in the console.
+  scalacOptions in (Compile, console) ~= { _.filterNot(Set("-Ywarn-unused-import")) },
+
+  // Standard resolvers.
+  resolvers ++= Seq(
+    Resolver.sonatypeRepo("releases"),
+    Resolver.sonatypeRepo("snapshots")
+  ),
+
+  // Copyright header.
+  headers := Map("scala" → Apache2_0("2016", "Nicolas Rinaudo")),
+
+  // Common dependencies.
+  libraryDependencies ++= macroDependencies(scalaVersion.value),
+  libraryDependencies += compilerPlugin("org.spire-math" % "kind-projector" % kindProjectorVersion cross CrossVersion.binary),
+
+  // Don't include scoverage as a dependency in the pom
+  // This code was copied from https://github.com/mongodb/mongo-spark
+  pomPostProcess := { (node: xml.Node) ⇒
     new RuleTransformer(
       new RewriteRule {
         override def transform(node: xml.Node): Seq[xml.Node] = node match {
           case e: xml.Elem
-              if e.label == "dependency" && e.child.exists(child => child.label == "groupId" && child.text == "org.scoverage") => Nil
-          case _ => Seq(node)
-
+              if e.label == "dependency" && e.child.exists(child ⇒ child.label == "groupId" && child.text == "org.scoverage") ⇒ Nil
+          case _ ⇒ Seq(node)
         }
-
       }).transform(node).head
   },
+
+  // Exclude laws from code coverage.
   ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "kantan\\.codecs.*\\.laws\\..*",
-  incOptions  := incOptions.value.withNameHashing(true)
+
+  // Speeds compilation up.
+  incOptions := incOptions.value.withNameHashing(true)
 )
 
+// Settings for all modules that won't be published.
 lazy val noPublishSettings = Seq(
   publish         := (),
   publishLocal    := (),
   publishArtifact := false
 )
 
+// Settings for all modules that will be published.
 lazy val publishSettings = Seq(
   homepage := Some(url("https://nrinaudo.github.io/kantan.codecs")),
   licenses := Seq("Apache-2.0" → url("https://www.apache.org/licenses/LICENSE-2.0.html")),
@@ -95,140 +125,42 @@ lazy val publishSettings = Seq(
   </developers>
 )
 
-
+// Base settings for all modules.
+// Modules that shouldn't be published must also use noPublishSettings.
 lazy val allSettings = buildSettings ++ baseSettings ++ publishSettings
 
+// Platform specific list of dependencies for macros.
+def macroDependencies(v: String): List[ModuleID] =
+  ("org.scala-lang" % "scala-reflect" % v % "provided") :: {
+    if(v.startsWith("2.10")) List(compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full))
+    else Nil
+  }
+
+
+
+// - root projects -----------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .settings(allSettings)
   .settings(noPublishSettings)
-  .aggregate(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws, docs, tests)
+  .enablePlugins(AutomateHeaderPlugin)
+  .aggregate(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws, docs,
+    tests)
   .dependsOn(core)
-  .enablePlugins(AutomateHeaderPlugin)
-
-lazy val core = project
-  .settings(
-    moduleName := "kantan.codecs",
-    name       := "core"
-  )
-  .settings(allSettings: _*)
-  .enablePlugins(AutomateHeaderPlugin)
-
-lazy val laws = project
-  .settings(
-    moduleName := "kantan.codecs-laws",
-    name       := "laws"
-  )
-  .settings(libraryDependencies ++= Seq(
-    "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
-    "org.typelevel"  %% "discipline" % disciplineVersion
-  ))
-  .enablePlugins(spray.boilerplate.BoilerplatePlugin)
-  .settings(allSettings: _*)
-  .dependsOn(core)
-  .enablePlugins(AutomateHeaderPlugin)
-
-lazy val cats = project
-  .settings(
-    moduleName := "kantan.codecs-cats",
-    name       := "cats"
-  )
-  .settings(libraryDependencies += "org.typelevel" %% "cats" % catsVersion)
-  .settings(allSettings: _*)
-  .dependsOn(core)
-  .enablePlugins(AutomateHeaderPlugin)
-
-lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
-  .settings(
-    moduleName := "kantan.codecs-joda-time",
-    name       := "joda-time"
-  )
-  .settings(libraryDependencies ++= Seq(
-    "joda-time" % "joda-time"    % jodaVersion,
-    "org.joda"  % "joda-convert" % jodaConvertVersion
-  ))
-  .settings(allSettings: _*)
-  .dependsOn(core)
-  .enablePlugins(AutomateHeaderPlugin)
-
-lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-laws"))
-  .settings(
-    moduleName := "kantan.codecs-joda-time-laws",
-    name       := "joda-time-laws"
-  )
-  .settings(allSettings: _*)
-  .dependsOn(core, laws, jodaTime)
-  .enablePlugins(AutomateHeaderPlugin)
-
-lazy val scalaz = project
-  .settings(
-    moduleName := "kantan.codecs-scalaz",
-    name       := "scalaz"
-  )
-  .settings(allSettings: _*)
-  .settings(libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion)
-  .dependsOn(core, laws % "test")
-  .enablePlugins(AutomateHeaderPlugin)
-
-lazy val shapeless = project
-  .settings(
-    moduleName := "kantan.codecs-shapeless",
-    name       := "shapeless"
-  )
-  .settings(allSettings: _*)
-  .settings(libraryDependencies += "com.chuusai" %% "shapeless" % shapelessVersion)
-  .dependsOn(core)
-  .enablePlugins(AutomateHeaderPlugin)
-
-
-lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
-  .settings(
-    moduleName := "kantan.codecs-cats-laws",
-    name       := "cats-laws"
-  )
-  .settings(libraryDependencies ++= Seq(
-    "org.typelevel" %% "cats"      % catsVersion,
-    "org.typelevel" %% "cats-laws" % catsVersion
-  ))
-  .settings(allSettings: _*)
-  .dependsOn(core, laws, cats)
-  .enablePlugins(AutomateHeaderPlugin)
-
-lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
-  .settings(
-    moduleName := "kantan.codecs-scalaz-laws",
-    name       := "scalaz-laws"
-  )
-  .settings(libraryDependencies ++= Seq(
-    "org.scalaz"    %% "scalaz-core"               % scalazVersion,
-    "org.scalaz"    %% "scalaz-scalacheck-binding" % scalazVersion,
-    "org.scalatest" %% "scalatest"                 % scalatestVersion % "optional"
-  ))
-  .settings(allSettings: _*)
-  .dependsOn(core, laws, scalaz)
-  .enablePlugins(AutomateHeaderPlugin)
-
-lazy val shapelessLaws = Project(id = "shapeless-laws", base = file("shapeless-laws"))
-  .settings(
-    moduleName := "kantan.codecs-shapeless-laws",
-    name       := "shapeless-laws"
-  )
-  .settings(allSettings: _*)
-  .dependsOn(core, laws, shapeless)
-  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val tests = project
-  .settings(allSettings: _*)
-  .settings(noPublishSettings: _*)
-  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
-  .dependsOn(core, laws % "test", catsLaws % "test", scalazLaws % "test", jodaTimeLaws % "test", shapelessLaws % "test")
+  .settings(allSettings)
+  .settings(noPublishSettings)
   .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core, laws % "test", catsLaws % "test", scalazLaws % "test", jodaTimeLaws % "test", shapelessLaws % "test")
+  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
 
 lazy val docs = project
-  .settings(allSettings: _*)
-  .settings(site.settings: _*)
-  .settings(ghpages.settings: _*)
-  .settings(unidocSettings: _*)
+  .settings(allSettings)
+  .settings(site.settings)
+  .settings(ghpages.settings)
+  .settings(unidocSettings)
   .settings(site.preprocessSite())
   .settings(
     apiURL := Some(url("http://nrinaudo.github.io/kantan.codecs/api/")),
@@ -237,7 +169,7 @@ lazy val docs = project
       "-sourcepath", baseDirectory.in(LocalRootProject).value.getAbsolutePath
     )
   )
-  .settings(tutSettings: _*)
+  .settings(tutSettings)
   .settings(tutScalacOptions ~= (_.filterNot(Set("-Ywarn-unused-import"))))
   .settings(
     site.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), "api"),
@@ -250,10 +182,137 @@ lazy val docs = project
   .settings(noPublishSettings:_*)
   .dependsOn(core)
 
-def macroDependencies(v: String): List[ModuleID] =
-  ("org.scala-lang" % "scala-reflect" % v % "provided") :: {
-    if(v.startsWith("2.10")) List(compilerPlugin("org.scalamacros" % "paradise" % macroParadiseVersion cross CrossVersion.full))
-    else Nil
-  }
 
-addCommandAlias("validate", "; clean; scalastyle; test:scalastyle; coverage; test; coverageReport; coverageAggregate; docs/makeSite")
+
+// - core projects -----------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val core = project
+  .settings(
+    moduleName := "kantan.codecs",
+    name       := "core"
+  )
+  .settings(allSettings)
+  .enablePlugins(AutomateHeaderPlugin)
+
+lazy val laws = project
+  .settings(
+    moduleName := "kantan.codecs-laws",
+    name       := "laws"
+  )
+  .settings(allSettings)
+  .enablePlugins(spray.boilerplate.BoilerplatePlugin)
+  .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core)
+  .settings(libraryDependencies ++= Seq(
+    "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
+    "org.typelevel"  %% "discipline" % disciplineVersion
+  ))
+
+
+// - cats projects -----------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val cats = project
+  .settings(
+    moduleName := "kantan.codecs-cats",
+    name       := "cats"
+  )
+  .settings(allSettings)
+  .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core)
+  .settings(libraryDependencies += "org.typelevel" %% "cats" % catsVersion)
+
+lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
+  .settings(
+    moduleName := "kantan.codecs-cats-laws",
+    name       := "cats-laws"
+  )
+  .settings(allSettings)
+  .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core, laws, cats)
+  .settings(libraryDependencies ++= Seq(
+    "org.typelevel" %% "cats"      % catsVersion,
+    "org.typelevel" %% "cats-laws" % catsVersion
+  ))
+
+
+
+// - joda-time projects ------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
+  .settings(
+    moduleName := "kantan.codecs-joda-time",
+    name       := "joda-time"
+  )
+  .settings(allSettings)
+  .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core)
+  .settings(libraryDependencies ++= Seq(
+    "joda-time" % "joda-time"    % jodaVersion,
+    "org.joda"  % "joda-convert" % jodaConvertVersion
+  ))
+
+lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-laws"))
+  .settings(
+    moduleName := "kantan.codecs-joda-time-laws",
+    name       := "joda-time-laws"
+  )
+  .settings(allSettings)
+  .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core, laws, jodaTime)
+
+
+
+// - scalaz projects ---------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val scalaz = project
+  .settings(
+    moduleName := "kantan.codecs-scalaz",
+    name       := "scalaz"
+  )
+  .settings(allSettings)
+  .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core)
+  .settings(libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion)
+
+lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
+  .settings(
+    moduleName := "kantan.codecs-scalaz-laws",
+    name       := "scalaz-laws"
+  )
+  .settings(allSettings)
+  .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core, laws, scalaz)
+  .settings(libraryDependencies ++= Seq(
+    "org.scalaz"    %% "scalaz-core"               % scalazVersion,
+    "org.scalaz"    %% "scalaz-scalacheck-binding" % scalazVersion,
+    "org.scalatest" %% "scalatest"                 % scalatestVersion % "optional"
+  ))
+
+
+
+// - shapeless projects ------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val shapeless = project
+  .settings(
+    moduleName := "kantan.codecs-shapeless",
+    name       := "shapeless"
+  )
+  .settings(allSettings)
+  .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core)
+  .settings(libraryDependencies += "com.chuusai" %% "shapeless" % shapelessVersion)
+
+lazy val shapelessLaws = Project(id = "shapeless-laws", base = file("shapeless-laws"))
+  .settings(
+    moduleName := "kantan.codecs-shapeless-laws",
+    name       := "shapeless-laws"
+  )
+  .settings(allSettings)
+  .enablePlugins(AutomateHeaderPlugin)
+  .dependsOn(core, laws, shapeless)
+
+
+
+// - Command alisases --------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+addCommandAlias("validate", ";clean;scalastyle;test:scalastyle;coverage;test;coverageReport;coverageAggregate;docs/makeSite")
