@@ -16,7 +16,7 @@
 
 package kantan.codecs.shapeless
 
-import kantan.codecs.laws.discipline._
+import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
 import kantan.codecs.shapeless.laws._
 import kantan.codecs.shapeless.laws.discipline.arbitrary._
 import kantan.codecs.strings._
@@ -42,6 +42,9 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
 
   // - Tests -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  implicit val decoder = StringDecoder[Int Or Boolean]
+
+
   checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
     .decoder[Int, Int])
   checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])
@@ -52,7 +55,7 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   checkAll("TaggedEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, tagged.type].encoder[Int, Int])
 
   test("Encoder[?, CNil, ?] should fail") {
-    intercept[IllegalStateException] { StringEncoder[CNil].encode(null) }
+    intercept[IllegalStateException] {StringEncoder[CNil].encode(null)}
     ()
   }
 }
