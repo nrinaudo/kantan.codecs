@@ -28,32 +28,35 @@ trait Encoder[E, D, T] extends Any with Serializable {
   /** Encodes the specified value. */
   def encode(d: D): E
 
-  def mapEncoded[EE](f: E ⇒ EE): Encoder[EE, D, T] = Encoder(d ⇒ f(encode(d)))
+  def mapEncoded[EE](f: E ⇒ EE): Encoder[EE, D, T] = Encoder.from(d ⇒ f(encode(d)))
 
   /** Creates a new [[Encoder]] instances that applies the specified function before encoding.
     *
     * This is a convenient way of creating [[Encoder]] instances: if you already have an `Encoder[E, D, R]`, need to
     * write an `Encoder[E, DD, R]` and know how to turn a `DD` into a `D`, you need but call [[contramap]].
     */
-  def contramap[DD](f: DD ⇒ D): Encoder[E, DD, T] = Encoder(f andThen encode)
+  def contramap[DD](f: DD ⇒ D): Encoder[E, DD, T] = Encoder.from(f andThen encode)
 
   def tag[TT]: Encoder[E, D, TT] = this.asInstanceOf[Encoder[E, D, TT]]
 }
 
 object Encoder {
-  def apply[E, D, T](f: D ⇒ E): Encoder[E, D, T] = new Encoder[E, D, T] {
+  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
+  def apply[E, D, T](f: D ⇒ E): Encoder[E, D, T] = from(f)
+
+  def from[E, D, T](f: D ⇒ E): Encoder[E, D, T] = new Encoder[E, D, T] {
     override def encode(d: D) = f(d)
   }
 
   implicit def encoderFromExported[E, D, T](implicit ea: DerivedEncoder[E, D, T]): Encoder[E, D, T] = ea.value
 
   implicit def optionalEncoder[E, D, T](implicit ea: Encoder[E, D, T], oe: Optional[E]): Encoder[E, Option[D], T] =
-    Encoder(_.map(ea.encode).getOrElse(oe.empty))
+    Encoder.from(_.map(ea.encode).getOrElse(oe.empty))
 
   implicit def eitherEncoder[E, D1, D2, T](implicit ea: Encoder[E, D1, T], eb: Encoder[E, D2, T])
   : Encoder[E, Either[D1, D2], T] =
-    Encoder {_ match {
+    Encoder.from {
       case Left(a)  ⇒ ea.encode(a)
       case Right(b) ⇒ eb.encode(b)
-    }}
+    }
 }

@@ -19,7 +19,7 @@ package kantan.codecs.laws
 import kantan.codecs._
 
 trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, D, T] {
-  implicit lazy val codec = Codec(decoder.decode _)(encoder.encode _)
+  implicit lazy val codec = Codec.from(decoder.decode _)(encoder.encode _)
 
 
   // - Misc. laws ------------------------------------------------------------------------------------------------------

@@ -76,17 +76,17 @@ Each specialised type should have a singleton object, used to declare creation a
 ```tut:silent
 object CellDecoder {
   def apply[A](implicit da: CellDecoder[A]): CellDecoder[A] = da
-  def apply[A](f: String => DecodeResult[A]): CellDecoder[A] = Decoder(f)
+  def from[A](f: String => DecodeResult[A]): CellDecoder[A] = Decoder.from(f)
 }
 
 object CellEncoder {
   def apply[A](implicit ea: CellEncoder[A]): CellEncoder[A] = ea
-  def apply[A](f: A => String): CellEncoder[A] = Encoder(f)
+  def from[A](f: A => String): CellEncoder[A] = Encoder.from(f)
 }
 
 object CellCodec {
   def apply[A](implicit ca: CellCodec[A]): CellCodec[A] = ca
-  def apply[A](f: String => DecodeResult[A])(g: A => String): CellCodec[A] = Codec(f)(g)
+  def from[A](f: String => DecodeResult[A])(g: A => String): CellCodec[A] = Codec.from(f)(g)
 }
 ```
 
@@ -95,12 +95,12 @@ object CellCodec {
 
 ```tut:silent
 trait CellDecoderInstances {
-  val stringDecoder: CellDecoder[String] = CellDecoder(s => DecodeResult.success(s))
+  val stringDecoder: CellDecoder[String] = CellDecoder.from(DecodeResult.success)
   // ...
 }
 
 trait CellEncoderInstances {
-  val stringEncoder: CellEncoder[String] = CellEncoder(s => s)
+  val stringEncoder: CellEncoder[String] = CellEncoder.from(identity)
   // ...
 }
 ```
@@ -144,10 +144,10 @@ it's safe to provide a [`Codec`] for the former, but usually not for the later.
 In order to write default instances for `Option`, one might be tempted to write:
 
 ```tut:silent
-def optionCodec[A](implicit ca: CellCodec[A]): CellCodec[Option[A]] = CellCodec[Option[A]] { (s: String) =>
+def optionCodec[A](implicit ca: CellCodec[A]): CellCodec[Option[A]] = CellCodec.from { s =>
   if(s.isEmpty) DecodeResult.success(Option.empty[A])
   else          ca.decode(s).map(Some.apply)
-} { (oa: Option[A]) => oa.map(ca.encode).getOrElse("") }
+} { _.map(ca.encode).getOrElse("") }
 ```
 
 This is bad, for two reasons. The first, most obvious one is that we should *never* require a [`Codec`] instance.

@@ -31,9 +31,9 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   implicit val cnilDec: StringDecoder[CNil] = cnilDecoder(_ ⇒ DecodeError("Attempting to decode CNil"))
 
   implicit def hlistEncoder[A](implicit ea: StringEncoder[A]): StringEncoder[A :: HNil] =
-    StringEncoder((a: A :: HNil) ⇒ a match {
+    StringEncoder.from {
       case h :: _ ⇒ ea.encode(h)
-    })
+    }
 
   implicit def hlistDecoder[A](implicit da: StringDecoder[A]): StringDecoder[A :: HNil] =
     da.map(h ⇒ h :: HNil)

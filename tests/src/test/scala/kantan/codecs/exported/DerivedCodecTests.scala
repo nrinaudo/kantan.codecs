@@ -37,14 +37,14 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("Derived decoders should have a lower priority than bespoke ones") {
-    implicit val bespoke = StringDecoder(decode)
+    implicit val bespoke = StringDecoder.from(decode)
     implicit val derived = DerivedDecoder[String, Maybe[Int], DecodeError, strings.codecs.type](decode)
 
     assert(implicitly[Decoder[String, Maybe[Int], DecodeError, strings.codecs.type]] == bespoke)
   }
 
   test("Derived encoders should have a lower priority than bespoke ones") {
-    implicit val bespoke = StringEncoder(encode)
+    implicit val bespoke = StringEncoder.from(encode)
     implicit val derived = DerivedEncoder[String, Maybe[Int], strings.codecs.type](encode)
 
     assert(implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] == bespoke)

@@ -58,7 +58,7 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
     * one needs to turn failures into successes, and even then, [[recover]] or [[recoverWith]] are probably more
     * directly useful.
     */
-  def andThen[FF, DD](f: Result[F, D] ⇒ Result[FF, DD]): Decoder[E, DD, FF, T] = Decoder(e ⇒ f(decode(e)))
+  def andThen[FF, DD](f: Result[F, D] ⇒ Result[FF, DD]): Decoder[E, DD, FF, T] = Decoder.from(e ⇒ f(decode(e)))
 
   /** Creates a new [[Decoder]] instance by transforming some failures into successes with the specified function. */
   def recover[DD >: D](pf: PartialFunction[F, DD]): Decoder[E, DD, F, T] = andThen(_.recover(pf))
@@ -83,7 +83,7 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
   def mapError[FF](f: F ⇒ FF): Decoder[E, D, FF, T] = andThen(_.leftMap(f))
 
   /** Creates a new [[Decoder]] instance by transforming encoded values with the specified function. */
-  def contramapEncoded[EE](f: EE ⇒ E): Decoder[EE, D, F, T] = Decoder(ee ⇒ decode(f(ee)))
+  def contramapEncoded[EE](f: EE ⇒ E): Decoder[EE, D, F, T] = Decoder.from(f andThen decode)
 
   /** Changes the type with which the decoder is tagged.
     *
@@ -94,8 +94,11 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
 }
 
 object Decoder {
+  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
+  def apply[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = Decoder.from(f)
+
   /** Creates a new [[Decoder]] instance that applies the specified function when decoding. */
-  def apply[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
+  def from[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
     override def decode(e: E) = f(e)
   }
 
@@ -104,7 +107,7 @@ object Decoder {
 
   implicit def optionalDecoder[E, D, F, T]
   (implicit da: Decoder[E, D, F, T], oe: Optional[E]): Decoder[E, Option[D], F, T] =
-    Decoder { e ⇒
+    Decoder.from { e ⇒
       if(oe.isEmpty(e)) Result.success(None)
       else              da.decode(e).map(Some.apply)
     }
@@ -112,7 +115,7 @@ object Decoder {
   /** Provides a [[Decoder]] instance for `Either[A, B]`, provided both `A` and `B` have a [[Decoder]] instance. */
   implicit def eitherDecoder[E, D, B, F, T](implicit da: Decoder[E, D, F, T], db: Decoder[E, B, F, T])
   : Decoder[E, Either[D, B], F, T] =
-    Decoder { s ⇒
+    Decoder.from { s ⇒
       da.decode(s).map(a ⇒ Left(a): Either[D, B]).orElse(db.decode(s).map(b ⇒ Right(b): Either[D, B]))
     }
 }

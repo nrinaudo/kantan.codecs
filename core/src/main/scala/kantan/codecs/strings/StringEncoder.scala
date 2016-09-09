@@ -19,7 +19,9 @@ package kantan.codecs.strings
 import kantan.codecs.Encoder
 
 object StringEncoder {
-  def apply[D](f: D ⇒ String): StringEncoder[D] = Encoder(f)
+  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
+  def apply[D](f: D ⇒ String): StringEncoder[D] = from(f)
+  def from[D](f: D ⇒ String): StringEncoder[D] = Encoder.from(f)
   def apply[D](implicit ed: StringEncoder[D]): StringEncoder[D] = ed
 }
 

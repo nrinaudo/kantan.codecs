@@ -21,5 +21,5 @@ import kantan.codecs.{Decoder, Result}
 /** Provides construction methods for [[kantan.codecs.export.DerivedDecoder]]. */
 object DerivedDecoder {
   def apply[E, D, F, T](f: E ⇒ Result[F, D]): DerivedDecoder[E, D, F, T] =
-    Exported(Decoder(f))
+    Exported(Decoder.from(f))
 }

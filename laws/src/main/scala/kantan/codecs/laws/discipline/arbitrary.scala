@@ -81,10 +81,10 @@ trait ArbitraryInstances extends ArbitraryArities {
   ))
 
   implicit def arbStringEncoder[A: Arbitrary]: Arbitrary[StringEncoder[A]] =
-  Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(f ⇒ StringEncoder(f)))
+  Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(StringEncoder.from))
 
   implicit def arbStringDecoder[A: Arbitrary]: Arbitrary[StringDecoder[A]] =
-    Arbitrary(Arbitrary.arbitrary[String ⇒ Result[DecodeError, A]].map(f ⇒ StringDecoder(f)))
+    Arbitrary(Arbitrary.arbitrary[String ⇒ Result[DecodeError, A]].map(StringDecoder.from))
 
   val genPathElement: Gen[String] = for {
     length ← choose(1, 10)

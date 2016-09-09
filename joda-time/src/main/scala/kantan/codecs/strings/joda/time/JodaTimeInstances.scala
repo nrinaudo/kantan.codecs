@@ -22,14 +22,14 @@ import org.joda.time.format.DateTimeFormatter
 
 trait JodaTimeInstances {
   implicit def dateTimeCodec(implicit format: DateTimeFormatter): StringCodec[DateTime] =
-    StringCodec(StringDecoder.decoder("DateTime")(s ⇒ format.parseDateTime(s)))(format.print)
+    StringCodec.from(StringDecoder.decoder("DateTime")(s ⇒ format.parseDateTime(s)))(format.print)
 
   implicit def localDateCodec(implicit format: DateTimeFormatter): StringCodec[LocalDate] =
-    StringCodec(StringDecoder.decoder("LocaleDate")(s ⇒ format.parseLocalDate(s)))(format.print)
+    StringCodec.from(StringDecoder.decoder("LocaleDate")(s ⇒ format.parseLocalDate(s)))(format.print)
 
   implicit def localDateTimeCodec(implicit format: DateTimeFormatter): StringCodec[LocalDateTime] =
-    StringCodec(StringDecoder.decoder("LocalDateTime")(s ⇒ format.parseLocalDateTime(s)))(format.print)
+    StringCodec.from(StringDecoder.decoder("LocalDateTime")(s ⇒ format.parseLocalDateTime(s)))(format.print)
 
   implicit def localTimeCodec(implicit format: DateTimeFormatter): StringCodec[LocalTime] =
-    StringCodec(StringDecoder.decoder("LocalTime")(s ⇒ format.parseLocalTime(s)))(format.print)
+    StringCodec.from(StringDecoder.decoder("LocalTime")(s ⇒ format.parseLocalTime(s)))(format.print)
 }
