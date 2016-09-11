@@ -145,23 +145,6 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.codecs.strings.StringCodec#apply" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply[D](f:String=&gt;kantan.codecs.Result[kantan.codecs.strings.DecodeError,D])(g:D=&gt;String):kantan.codecs.strings.StringCodec[D]"></a>
-      <a id="apply[D]((String)⇒Result[DecodeError,D])((D)⇒String):StringCodec[D]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Predef.String">String</span>) ⇒ <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.strings.StringCodec.apply.D">D</span>]</span>)</span><span class="params">(<span name="g">g: (<span class="extype" name="kantan.codecs.strings.StringCodec.apply.D">D</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="package.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="kantan.codecs.strings.StringCodec.apply.D">D</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.strings.StringCodec$@apply[D](f:String=&gt;kantan.codecs.Result[kantan.codecs.strings.DecodeError,D])(g:D=&gt;String):kantan.codecs.strings.StringCodec[D]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -259,6 +242,23 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="kantan.codecs.strings.StringCodec#from" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="from[D](f:String=&gt;kantan.codecs.Result[kantan.codecs.strings.DecodeError,D])(g:D=&gt;String):kantan.codecs.strings.StringCodec[D]"></a>
+      <a id="from[D]((String)⇒Result[DecodeError,D])((D)⇒String):StringCodec[D]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Predef.String">String</span>) ⇒ <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.strings.StringCodec.from.D">D</span>]</span>)</span><span class="params">(<span name="g">g: (<span class="extype" name="kantan.codecs.strings.StringCodec.from.D">D</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="package.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="kantan.codecs.strings.StringCodec.from.D">D</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.strings.StringCodec$@from[D](f:String=&gt;kantan.codecs.Result[kantan.codecs.strings.DecodeError,D])(g:D=&gt;String):kantan.codecs.strings.StringCodec[D]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -469,7 +469,30 @@
 
         
 
-        
+        <div id="values" class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="kantan.codecs.strings.StringCodec#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply[D](f:String=&gt;kantan.codecs.Result[kantan.codecs.strings.DecodeError,D])(g:D=&gt;String):kantan.codecs.strings.StringCodec[D]"></a>
+      <a id="apply[D]((String)⇒Result[DecodeError,D])((D)⇒String):StringCodec[D]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.1.8) use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)">apply</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Predef.String">String</span>) ⇒ <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.strings.StringCodec.apply.D">D</span>]</span>)</span><span class="params">(<span name="g">g: (<span class="extype" name="kantan.codecs.strings.StringCodec.apply.D">D</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="package.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="kantan.codecs.strings.StringCodec.apply.D">D</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.strings.StringCodec$@apply[D](f:String=&gt;kantan.codecs.Result[kantan.codecs.strings.DecodeError,D])(g:D=&gt;String):kantan.codecs.strings.StringCodec[D]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.1.8)</i> use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">
