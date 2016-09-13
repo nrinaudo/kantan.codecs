@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import kantan.codecs.resource.ResourceIterator
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

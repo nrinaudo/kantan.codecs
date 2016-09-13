@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs
+package kantan.codecs.resource
 
 import java.io.Closeable
+import kantan.codecs.Result
 import scala.annotation.tailrec
 import scala.util.Try
 
@@ -352,7 +353,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
     }
   }
 
-  /** Makes the current [[kantan.codecs.ResourceIterator]] safe.
+  /** Makes the current [[resource.ResourceIterator]] safe.
     *
     * This is achieved by catching all non-fatal exceptions and passing them to the specified `f` to turn into a failure
     * type.
