@@ -50,8 +50,8 @@ object Encoder {
 
   implicit def encoderFromExported[E, D, T](implicit ea: DerivedEncoder[E, D, T]): Encoder[E, D, T] = ea.value
 
-  implicit def optionalEncoder[E, D, T](implicit ea: Encoder[E, D, T], oe: Optional[E]): Encoder[E, Option[D], T] =
-    Encoder.from(_.map(ea.encode).getOrElse(oe.empty))
+  implicit def optionalEncoder[E: Optional, D, T](implicit ea: Encoder[E, D, T]): Encoder[E, Option[D], T] =
+    Encoder.from(_.map(ea.encode).getOrElse(Optional[E].empty))
 
   implicit def eitherEncoder[E, D1, D2, T](implicit ea: Encoder[E, D1, T], eb: Encoder[E, D2, T])
   : Encoder[E, Either[D1, D2], T] =

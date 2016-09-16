@@ -2,6 +2,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 val catsVersion          = "0.7.2"
 val disciplineVersion    = "0.4"
+val impVersion           = "0.2.0"
 val jodaConvertVersion   = "1.8.1"
 val jodaVersion          = "2.9.4"
 val scalaCheckVersion    = "1.12.5"
@@ -40,6 +41,7 @@ lazy val core = project
     moduleName := "kantan.codecs",
     name       := "core"
   )
+  .settings(libraryDependencies += "org.spire-math" %% "imp" % impVersion)
   .enablePlugins(PublishedPlugin)
 
 lazy val laws = project

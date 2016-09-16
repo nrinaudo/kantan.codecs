@@ -14,17 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs.resource
 
-import imp.imp
-import kantan.codecs.{Codec, Decoder, Encoder}
-
-object tagged {
-  implicit def decoder[D: StringDecoder]: Decoder[String, D, DecodeError, tagged.type] =
-    StringDecoder[D].tag[tagged.type]
-  implicit def encoder[D: StringEncoder]: Encoder[String, D, tagged.type] =
-    StringEncoder[D].tag[tagged.type]
-
-  def codec[D: StringCodec]: Codec[String, D, DecodeError, tagged.type] =
-    imp[StringCodec[D]].tag[tagged.type]
+object WriterResource {
+  def apply[A](implicit ev: WriterResource[A]): WriterResource[A] = macro imp.summon[WriterResource[A]]
 }

@@ -53,7 +53,7 @@ trait DecoderTests[E, D, F, T] extends Laws {
     )
   }
 
-  def decoder[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
+  def decoder[A: Arbitrary, B: Arbitrary](implicit ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
     new DefaultRuleSet(
       "decoder",
       Some(coreRules[A, B]),

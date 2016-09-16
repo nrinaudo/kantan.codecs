@@ -353,7 +353,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
     }
   }
 
-  /** Makes the current [[resource.ResourceIterator]] safe.
+  /** Makes the current [[kantan.codecs.resource.ResourceIterator]] safe.
     *
     * This is achieved by catching all non-fatal exceptions and passing them to the specified `f` to turn into a failure
     * type.

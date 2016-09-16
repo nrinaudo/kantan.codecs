@@ -17,6 +17,7 @@
 package kantan.codecs.cats
 
 import cats._
+import imp.imp
 import kantan.codecs.Result
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.strings.DecodeError
@@ -24,22 +25,22 @@ import kantan.codecs.strings.DecodeError
 trait LowPriorityCatsInstances {
   implicit val stringDecodeErrorEq: Eq[DecodeError] = Eq.fromUniversalEquals[DecodeError]
 
-  implicit def resultEq[F, S](implicit ef: Eq[F], es: Eq[S]): Eq[Result[F, S]] = Eq.instance {
-    case (Failure(f1), Failure(f2)) ⇒ ef.eqv(f1, f2)
-    case (Success(s1), Success(s2)) ⇒ es.eqv(s1, s2)
+  implicit def resultEq[F: Eq, S: Eq]: Eq[Result[F, S]] = Eq.instance {
+    case (Failure(f1), Failure(f2)) ⇒ imp[Eq[F]].eqv(f1, f2)
+    case (Success(s1), Success(s2)) ⇒ imp[Eq[S]].eqv(s1, s2)
     case _ ⇒ false
   }
 
-  implicit def resultSemigroup[F, S](implicit sf: Semigroup[F], ss: Semigroup[S]): Semigroup[Result[F, S]] =
+  implicit def resultSemigroup[F: Semigroup, S: Semigroup]: Semigroup[Result[F, S]] =
     new Semigroup[Result[F, S]] {
       override def combine(x: Result[F, S], y: Result[F, S]) = x match {
         case Failure(f1) ⇒ y match {
-          case Failure(f2) ⇒ Result.Failure(sf.combine(f1, f2))
+          case Failure(f2) ⇒ Result.Failure(imp[Semigroup[F]].combine(f1, f2))
           case Success(_)  ⇒ x
         }
         case Success(s1) ⇒ y match {
           case Failure(f)  ⇒ y
-          case Success(s2) ⇒ Result.Success(ss.combine(s1, s2))
+          case Success(s2) ⇒ Result.Success(imp[Semigroup[S]].combine(s1, s2))
         }
       }
     }

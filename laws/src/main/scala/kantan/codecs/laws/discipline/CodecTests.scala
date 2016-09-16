@@ -17,6 +17,7 @@
 package kantan.codecs.laws.discipline
 
 import arbitrary._
+import imp.imp
 import kantan.codecs.laws._
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.Arbitrary
@@ -54,7 +55,7 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
     val props = Seq.empty
   }
 
-  def codec[A, B](implicit arbA: Arbitrary[A], arbB: Arbitrary[B], ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
+  def codec[A: Arbitrary, B: Arbitrary](implicit ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
     new RuleSet {
       val name = "codec"
       val bases = Nil
@@ -64,11 +65,11 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
 }
 
 object CodecTests {
-  def apply[E, D, F, T]
-  (implicit l: CodecLaws[E, D, F, T], af: Arbitrary[F], al: Arbitrary[LegalValue[E, D, T]]): CodecTests[E, D, F, T] =
+  def apply[E, D, F: Arbitrary, T]
+  (implicit l: CodecLaws[E, D, F, T], al: Arbitrary[LegalValue[E, D, T]]): CodecTests[E, D, F, T] =
     new CodecTests[E, D, F, T] {
-      override def laws = l
-      override implicit def arbLegal = al
-      override implicit def arbF = af
+      override val laws = l
+      override val arbLegal = al
+      override val arbF = imp[Arbitrary[F]]
     }
 }

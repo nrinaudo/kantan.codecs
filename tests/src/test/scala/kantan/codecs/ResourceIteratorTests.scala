@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import imp.imp
 import kantan.codecs.resource.ResourceIterator
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
@@ -46,9 +47,9 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
     }
   }
 
-  implicit def arbFailingIterator[A](implicit arbA: Arbitrary[A]): Arbitrary[FailingIterator[A]] = Arbitrary {
+  implicit def arbFailingIterator[A: Arbitrary]: Arbitrary[FailingIterator[A]] = Arbitrary {
     for {
-      as    ← Gen.nonEmptyListOf(arbA.arbitrary)
+      as    ← Gen.nonEmptyListOf(imp[Arbitrary[A]].arbitrary)
       index ← Gen.choose(0, 2 * (as.length - 1))
     }  yield FailingIterator(as.iterator, index)
   }

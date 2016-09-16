@@ -31,6 +31,8 @@ trait Optional[A] {
 }
 
 object Optional {
+  def apply[A](implicit ev: Optional[A]): Optional[A] = macro imp.summon[Optional[A]]
+
   def apply[A](a: A): Optional[A] = new Optional[A] {
     override val empty = a
   }

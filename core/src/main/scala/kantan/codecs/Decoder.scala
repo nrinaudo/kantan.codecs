@@ -105,11 +105,11 @@ object Decoder {
   implicit def decoderFromExported[E, D, F, T](implicit da: DerivedDecoder[E, D, F, T]): Decoder[E, D, F, T] =
     da.value
 
-  implicit def optionalDecoder[E, D, F, T]
-  (implicit da: Decoder[E, D, F, T], oe: Optional[E]): Decoder[E, Option[D], F, T] =
+  implicit def optionalDecoder[E: Optional, D, F, T]
+  (implicit da: Decoder[E, D, F, T]): Decoder[E, Option[D], F, T] =
     Decoder.from { e ⇒
-      if(oe.isEmpty(e)) Result.success(None)
-      else              da.decode(e).map(Some.apply)
+      if(Optional[E].isEmpty(e)) Result.success(None)
+      else                       da.decode(e).map(Some.apply)
     }
 
   /** Provides a [[Decoder]] instance for `Either[A, B]`, provided both `A` and `B` have a [[Decoder]] instance. */

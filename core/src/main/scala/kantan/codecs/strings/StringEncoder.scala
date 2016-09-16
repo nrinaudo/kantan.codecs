@@ -19,10 +19,12 @@ package kantan.codecs.strings
 import kantan.codecs.Encoder
 
 object StringEncoder {
+  /** Summons an implicit instance of `StringEncoder[D]` if one can be found, fails compilation otherwise. */
+  def apply[D](implicit ev: StringEncoder[D]): StringEncoder[D] = macro imp.summon[StringEncoder[D]]
+
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
   def apply[D](f: D ⇒ String): StringEncoder[D] = from(f)
   def from[D](f: D ⇒ String): StringEncoder[D] = Encoder.from(f)
-  def apply[D](implicit ed: StringEncoder[D]): StringEncoder[D] = ed
 }
 
 /** Defines default instances of [[StringEncoder]]. */

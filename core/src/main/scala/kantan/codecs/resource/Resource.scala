@@ -53,11 +53,11 @@ object Resource {
 
   // - Byte to char ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def readerFromStream[A](implicit codec: Codec, res: InputResource[A]): ReaderResource[A]  =
-    res.map(i ⇒ new InputStreamReader(i, codec.charSet))
+  implicit def readerFromStream[A: InputResource](implicit codec: Codec): ReaderResource[A]  =
+    InputResource[A].map(i ⇒ new InputStreamReader(i, codec.charSet))
 
-  implicit def writerFromStream[A](implicit codec: Codec, res: OutputResource[A]): WriterResource[A] =
-    res.map(o ⇒ new OutputStreamWriter(o, codec.charSet))
+  implicit def writerFromStream[A: OutputResource](implicit codec: Codec): WriterResource[A] =
+    OutputResource[A].map(o ⇒ new OutputStreamWriter(o, codec.charSet))
 
 
 

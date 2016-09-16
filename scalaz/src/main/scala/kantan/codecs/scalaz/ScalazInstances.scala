@@ -17,6 +17,7 @@
 package kantan.codecs.scalaz
 
 import _root_.scalaz._
+import imp.imp
 import kantan.codecs._
 import kantan.codecs.Result.{Failure, Success}
 
@@ -58,37 +59,37 @@ trait ScalazInstances extends LowPriorityScalazInstances {
 
   // - Result instances ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def resultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] =
+  implicit def resultOrder[F: Order, S: Order]: Order[Result[F, S]] =
     new Order[Result[F, S]] {
       override def order(x: Result[F, S], y: Result[F, S]): Ordering = x match {
         case Failure(f1) ⇒ y match {
-          case Failure(f2) ⇒ of.order(f1, f2)
+          case Failure(f2) ⇒ imp[Order[F]].order(f1, f2)
           case Success(_)  ⇒ Ordering.LT
         }
         case Success(s1) ⇒ y match {
           case Failure(_) ⇒ Ordering.GT
-          case Success(s2) ⇒ os.order(s1, s2)
+          case Success(s2) ⇒ imp[Order[S]].order(s1, s2)
         }
       }
     }
 
-  implicit def resultShow[F, S](implicit sf: Show[F], ss: Show[S]): Show[Result[F, S]] = Show.shows {
-    case Failure(f) ⇒ s"Failure(${sf.show(f)})"
-    case Success(s) ⇒ s"Success(${ss.show(s)})"
+  implicit def resultShow[F: Show, S: Show]: Show[Result[F, S]] = Show.shows {
+    case Failure(f) ⇒ s"Failure(${imp[Show[F]].show(f)})"
+    case Success(s) ⇒ s"Success(${imp[Show[S]].show(s)})"
   }
 
-  implicit def resultMonoid[F, S](implicit sf: Semigroup[F], ms: Monoid[S]): Monoid[Result[F, S]] =
+  implicit def resultMonoid[F: Semigroup, S: Monoid]: Monoid[Result[F, S]] =
     new Monoid[Result[F, S]] {
-      override def zero = Result.success(ms.zero)
+      override def zero = Result.success(imp[Monoid[S]].zero)
 
       override def append(d1: Result[F, S], d2: ⇒ Result[F, S]) = d1 match {
         case Failure(f1) ⇒ d2 match {
-          case Failure(f2) ⇒ Result.failure(sf.append(f1, f2))
+          case Failure(f2) ⇒ Result.failure(imp[Semigroup[F]].append(f1, f2))
           case Success(_)  ⇒ d1
         }
         case Success(s1) ⇒ d2 match {
           case Failure(_)  ⇒ d2
-          case Success(s2) ⇒ Result.success(ms.append(s1, s2))
+          case Success(s2) ⇒ Result.success(imp[Monoid[S]].append(s1, s2))
         }
       }
     }
