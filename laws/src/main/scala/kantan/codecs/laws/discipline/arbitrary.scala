@@ -16,10 +16,12 @@
 
 package kantan.codecs.laws.discipline
 
+import imp.imp
 import java.io._
 import java.net.{URI, URL}
+import java.nio.file.Path
 import java.util.{Date, UUID}
-import kantan.codecs.{Decoder, Encoder, Result}
+import kantan.codecs._
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
@@ -63,10 +65,23 @@ trait ArbitraryInstances extends ArbitraryArities {
     arbA.arbitrary.map(a ⇒ LegalValue(encode(a), a))
   }
 
-  def arbIllegalValue[E, A, T](illegal: E ⇒ Boolean)(implicit arbE: Arbitrary[E]): Arbitrary[IllegalValue[E, A, T]] =
+  def arbIllegalValue[E: Arbitrary, A, T](illegal: E ⇒ Boolean): Arbitrary[IllegalValue[E, A, T]] =
     Arbitrary {
-      arbE.arbitrary.suchThat(illegal).map(e ⇒ IllegalValue(e))
+      imp[Arbitrary[E]].arbitrary.suchThat(illegal).map(e ⇒ IllegalValue(e))
     }
+
+  implicit def arbIllegalURI[T]: Arbitrary[IllegalValue[String, URI, T]] = Arbitrary {
+    for {
+      str ← Gen.nonEmptyListOf(Gen.alphaNumChar)
+      i   ← Gen.choose(0, str.length)
+    } yield {
+      val (h, t) = str.splitAt(i)
+      IllegalValue(h + " " + t)
+    }
+  }
+
+  implicit def arbIllegalPath[T]: Arbitrary[IllegalValue[String, Path, T]] =
+    Arbitrary(arbIllegalURI[T].arbitrary.map(_.asInstanceOf[IllegalValue[String, Path, T]]))
 
 
 
@@ -105,6 +120,10 @@ trait ArbitraryInstances extends ArbitraryArities {
   implicit val arbFile: Arbitrary[File] = Arbitrary(
     Gen.nonEmptyListOf(Gen.identifier).map(ss ⇒ new File(ss.fold("")(_ + System.getProperty("file.separator") + _)))
   )
+
+  implicit val arbPath: Arbitrary[Path] = Arbitrary(arbFile.arbitrary.map(_.toPath))
+
+
 
 
   // This is necessary to prevent ScalaCheck from generating BigDecimal values that cannot be serialized because their

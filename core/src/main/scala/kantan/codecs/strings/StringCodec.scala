@@ -18,6 +18,7 @@ package kantan.codecs.strings
 
 import java.io.File
 import java.net.{URI, URL}
+import java.nio.file.{Path, Paths}
 import java.text.DateFormat
 import java.util.{Date, UUID}
 import kantan.codecs.{Codec, Result}
@@ -75,10 +76,15 @@ trait StringCodecInstances extends StringEncoderInstances with StringDecoderInst
   implicit val url: StringCodec[URL] =
     StringCodec.from(StringDecoder.decoder("URL")(s ⇒ new URL(s.trim)))(_.toString)
 
-  implicit val uri: StringCodec[URI] = url.imap(_.toURI)(_.toURL)
+  implicit val uri: StringCodec[URI] =
+    StringCodec.from(StringDecoder.decoder("URI")(s ⇒ new URI(s.trim)))(_.toString)
 
   implicit val file: StringCodec[File] =
-    StringCodec.from(StringDecoder.decoder("File")(s ⇒ new File(s)))(_.toString)
+    StringCodec.from(StringDecoder.decoder("File")(s ⇒ new File(s.trim)))(_.toString)
+
+  implicit val path: StringCodec[Path] =
+    uri.imap(Paths.get)(_.toUri)
+
 
   implicit def date(implicit ft: DateFormat): StringCodec[Date] =
     StringCodec.from(StringDecoder.decoder("Date")(s ⇒ ft.synchronized(ft.parse(s))))(d ⇒ ft.synchronized(ft.format(d)))
