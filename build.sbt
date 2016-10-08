@@ -7,7 +7,7 @@ val jodaConvertVersion   = "1.8.1"
 val jodaVersion          = "2.9.4"
 val scalaCheckVersion    = "1.12.5"
 val scalatestVersion     = "3.0.0-M9"
-val scalazVersion        = "7.2.5"
+val scalazVersion        = "7.2.6"
 val shapelessVersion     = "2.3.2"
 
 
