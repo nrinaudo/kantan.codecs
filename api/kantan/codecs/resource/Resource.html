@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>CodecValue - kantan.codecs.laws.CodecValue</title>
-          <meta name="description" content="CodecValue - kantan.codecs.laws.CodecValue" />
-          <meta name="keywords" content="CodecValue kantan.codecs.laws.CodecValue" />
+          <title>Resource - kantan.codecs.resource.Resource</title>
+          <meta name="description" content="Resource - kantan.codecs.resource.Resource" />
+          <meta name="keywords" content="Resource kantan.codecs.resource.Resource" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../../index.html';
-            var hash = 'kantan.codecs.laws.CodecValue';
+            var hash = 'kantan.codecs.resource.Resource';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -28,14 +28,14 @@
         </head>
         <body class="type">
       <div id="definition">
-        <a href="CodecValue$.html" title="See companion object"><img alt="Class/Object" src="../../../lib/class_to_object_big.png" /></a>
-        <p id="owner"><a href="../../package.html" class="extype" name="kantan">kantan</a>.<a href="../package.html" class="extype" name="kantan.codecs">codecs</a>.<a href="package.html" class="extype" name="kantan.codecs.laws">laws</a></p>
-        <h1><a href="CodecValue$.html" title="See companion object">CodecValue</a></h1><h3><span class="morelinks"><div>
+        <a href="Resource$.html" title="See companion object"><img alt="Trait/Object" src="../../../lib/trait_to_object_big.png" /></a>
+        <p id="owner"><a href="../../package.html" class="extype" name="kantan">kantan</a>.<a href="../package.html" class="extype" name="kantan.codecs">codecs</a>.<a href="package.html" class="extype" name="kantan.codecs.resource">resource</a></p>
+        <h1><a href="Resource$.html" title="See companion object">Resource</a></h1><h3><span class="morelinks"><div>
             Related Docs:
-            <a href="CodecValue$.html" title="See companion object">object CodecValue</a>
-            | <a href="package.html" class="extype" name="kantan.codecs.laws">package laws</a>
+            <a href="Resource$.html" title="See companion object">object Resource</a>
+            | <a href="package.html" class="extype" name="kantan.codecs.resource">package resource</a>
           </div></span></h3><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -43,21 +43,18 @@
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier">sealed abstract </span>
-        <span class="kind">class</span>
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">CodecValue</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">Resource</span><span class="tparams">[<span name="I">I</span>, <span name="R">R</span>, <span name="E">E</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/laws/src/main/scala/kantan/codecs/laws/CodecValue.scala" target="_blank">CodecValue.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/resource/Resource.scala" target="_blank">Resource.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Equals" class="extype" target="_top">Equals</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
-        </div><div class="toggleContainer block">
-            <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="CodecValue$$IllegalValue.html" class="extype" name="kantan.codecs.laws.CodecValue.IllegalValue">IllegalValue</a>, <a href="CodecValue$$LegalValue.html" class="extype" name="kantan.codecs.laws.CodecValue.LegalValue">LegalValue</a></div>
-          </div></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+        </div></div>
         
 
       <div id="mbrsel">
@@ -74,7 +71,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="kantan.codecs.laws.CodecValue"><span>CodecValue</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="kantan.codecs.resource.Resource"><span>Resource</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -97,138 +94,19 @@
 
         <div id="values" class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="scala.Equals#canEqual" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="canEqual(that:Any):Boolean"></a>
-      <a id="canEqual(Any):Boolean"></a>
+              <ol><li name="kantan.codecs.resource.Resource#open" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="open(a:I):kantan.codecs.Result[E,R]"></a>
+      <a id="open(I):Result[E,R]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">abstract </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">canEqual</span><span class="params">(<span name="that">that: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">open</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="result">: <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.resource.Resource.E">E</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@canEqual(that:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Equals</dd></dl></div>
-    </li><li name="kantan.codecs.laws.CodecValue#encoded" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="encoded:E"></a>
-      <a id="encoded:E"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">encoded</span><span class="result">: <span class="extype" name="kantan.codecs.laws.CodecValue.E">E</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@encoded:E" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.codecs.laws.CodecValue#isLegal" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="isLegal:Boolean"></a>
-      <a id="isLegal:Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">isLegal</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@isLegal:Boolean" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.codecs.laws.CodecValue#mapDecoded" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="mapDecoded[DD](f:D=&gt;DD):kantan.codecs.laws.CodecValue[E,DD,T]"></a>
-      <a id="mapDecoded[DD]((D)⇒DD):CodecValue[E,DD,T]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">mapDecoded</span><span class="tparams">[<span name="DD">DD</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.laws.CodecValue.D">D</span>) ⇒ <span class="extype" name="kantan.codecs.laws.CodecValue.mapDecoded.DD">DD</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="kantan.codecs.laws.CodecValue.E">E</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.mapDecoded.DD">DD</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.T">T</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@mapDecoded[DD](f:D=&gt;DD):kantan.codecs.laws.CodecValue[E,DD,T]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="kantan.codecs.laws.CodecValue#mapEncoded" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="mapEncoded[EE](f:E=&gt;EE):kantan.codecs.laws.CodecValue[EE,D,T]"></a>
-      <a id="mapEncoded[EE]((E)⇒EE):CodecValue[EE,D,T]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">mapEncoded</span><span class="tparams">[<span name="EE">EE</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.laws.CodecValue.E">E</span>) ⇒ <span class="extype" name="kantan.codecs.laws.CodecValue.mapEncoded.EE">EE</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="kantan.codecs.laws.CodecValue.mapEncoded.EE">EE</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.D">D</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.T">T</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@mapEncoded[EE](f:E=&gt;EE):kantan.codecs.laws.CodecValue[EE,D,T]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="scala.Product#productArity" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="productArity:Int"></a>
-      <a id="productArity:Int"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">productArity</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@productArity:Int" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd></dl></div>
-    </li><li name="scala.Product#productElement" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="productElement(n:Int):Any"></a>
-      <a id="productElement(Int):Any"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">productElement</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@productElement(n:Int):Any" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd></dl></div>
-    </li><li name="kantan.codecs.laws.CodecValue#tag" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="tag[TT]:kantan.codecs.laws.CodecValue[E,D,TT]"></a>
-      <a id="tag[TT]:CodecValue[E,D,TT]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">tag</span><span class="tparams">[<span name="TT">TT</span>]</span><span class="result">: <a href="" class="extype" name="kantan.codecs.laws.CodecValue">CodecValue</a>[<span class="extype" name="kantan.codecs.laws.CodecValue.E">E</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.D">D</span>, <span class="extype" name="kantan.codecs.laws.CodecValue.tag.TT">TT</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@tag[TT]:kantan.codecs.laws.CodecValue[E,D,TT]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@open(a:I):kantan.codecs.Result[E,R]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -250,7 +128,7 @@
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@!=(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -267,7 +145,7 @@
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@##():Int" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@##():Int" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -284,7 +162,7 @@
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@==(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@==(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -301,7 +179,7 @@
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@asInstanceOf[T0]:T0" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -318,7 +196,7 @@
         <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@clone():Object" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@clone():Object" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -329,6 +207,40 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="kantan.codecs.resource.Resource#contramap" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="contramap[AA](f:AA=&gt;I):kantan.codecs.resource.Resource[AA,R,E]"></a>
+      <a id="contramap[AA]((AA)⇒I):Resource[AA,R,E]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">contramap</span><span class="tparams">[<span name="AA">AA</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.contramap.AA">AA</span>) ⇒ <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.contramap.AA">AA</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@contramap[AA](f:AA=&gt;I):kantan.codecs.resource.Resource[AA,R,E]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.resource.Resource#contramapResult" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="contramapResult[AA](f:AA=&gt;kantan.codecs.Result[E,I]):kantan.codecs.resource.Resource[AA,R,E]"></a>
+      <a id="contramapResult[AA]((AA)⇒Result[E,I]):Resource[AA,R,E]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">contramapResult</span><span class="tparams">[<span name="AA">AA</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.AA">AA</span>) ⇒ <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.resource.Resource.E">E</span>, <span class="extype" name="kantan.codecs.resource.Resource.I">I</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.AA">AA</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@contramapResult[AA](f:AA=&gt;kantan.codecs.Result[E,I]):kantan.codecs.resource.Resource[AA,R,E]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -341,7 +253,7 @@
         <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -358,7 +270,7 @@
         <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@equals(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -375,7 +287,7 @@
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@finalize():Unit" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@finalize():Unit" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -398,7 +310,7 @@
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@getClass():Class[_]" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@getClass():Class[_]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -415,28 +327,11 @@
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@hashCode():Int" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@hashCode():Int" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.codecs.laws.CodecValue#isIllegal" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="isIllegal:Boolean"></a>
-      <a id="isIllegal:Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">isIllegal</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@isIllegal:Boolean" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -449,11 +344,45 @@
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="kantan.codecs.resource.Resource#map" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="map[BB](f:R=&gt;BB):kantan.codecs.resource.Resource[I,BB,E]"></a>
+      <a id="map[BB]((R)⇒BB):Resource[I,BB,E]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="BB">BB</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <span class="extype" name="kantan.codecs.resource.Resource.map.BB">BB</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.map.BB">BB</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@map[BB](f:R=&gt;BB):kantan.codecs.resource.Resource[I,BB,E]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="kantan.codecs.resource.Resource#mapResult" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="mapResult[BB](f:R=&gt;kantan.codecs.Result[E,BB]):kantan.codecs.resource.Resource[I,BB,E]"></a>
+      <a id="mapResult[BB]((R)⇒Result[E,BB]):Resource[I,BB,E]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mapResult</span><span class="tparams">[<span name="BB">BB</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.resource.Resource.E">E</span>, <span class="extype" name="kantan.codecs.resource.Resource.mapResult.BB">BB</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.mapResult.BB">BB</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@mapResult[BB](f:R=&gt;kantan.codecs.Result[E,BB]):kantan.codecs.resource.Resource[I,BB,E]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -466,7 +395,7 @@
         <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -483,7 +412,7 @@
         <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@notify():Unit" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@notify():Unit" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -500,45 +429,11 @@
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@notifyAll():Unit" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@notifyAll():Unit" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.Product#productIterator" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="productIterator:Iterator[Any]"></a>
-      <a id="productIterator:Iterator[Any]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">productIterator</span><span class="result">: <span class="extype" name="scala.Iterator">Iterator</span>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@productIterator:Iterator[Any]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd></dl></div>
-    </li><li name="scala.Product#productPrefix" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="productPrefix:String"></a>
-      <a id="productPrefix:String"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">productPrefix</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@productPrefix:String" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -551,7 +446,7 @@
         <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -568,7 +463,7 @@
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@toString():String" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@toString():String" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -585,7 +480,7 @@
         <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@wait():Unit" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@wait():Unit" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -608,7 +503,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -631,7 +526,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#kantan.codecs.laws.CodecValue@wait(x$1:Long):Unit" title="Permalink" target="_top">
+      <a href="../../../index.html#kantan.codecs.resource.Resource@wait(x$1:Long):Unit" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -651,15 +546,7 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></h3>
-            </div><div class="parent" name="java.io.Serializable">
-              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a></h3>
-            </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Equals" class="extype" target="_top">Equals</a></h3>
-            </div><div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></h3>
