@@ -27,7 +27,7 @@ object StringDecoder {
   def from[D](f: String ⇒ Result[DecodeError, D]): StringDecoder[D] = Decoder.from(f)
 
   def decoder[A](typeName: String)(f: String ⇒ A): String ⇒ Result[DecodeError, A] =
-    s ⇒ Result.nonFatal(f(s)).leftMap(t ⇒ DecodeError(s"Not a valid $typeName: '$s", t))
+    s ⇒ Result.nonFatal(f(s)).leftMap(t ⇒ DecodeError(s"Not a valid $typeName: '$s'", t))
 }
 
 trait StringDecoderInstances
