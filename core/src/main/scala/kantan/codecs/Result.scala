@@ -148,6 +148,49 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
   def toList: List[S]
 }
 
+/** Provides trait that result companion object can extend.
+  *
+  * The idea is that libraries that rely on kantan.codecs are likely to provide type-constrained versions of result,
+  * such as `DecodeResult` in kantan.csv. Users are likely to expect goodies such as `fromTry` or `sequence` on
+  * `DecodeResult`'s companion object, which can be achieved by extending [[kantan.codecs.ResultCompanion.WithDefault]].
+  */
+object ResultCompanion {
+  /** Provides companion object methods for result types that do not have a sane default error type.
+    *
+    * If your specialised result type has a sane default (such as `TypeError` for `DecodeResult` in kantan.csv), use
+    * [[WithDefault]] instead.
+    */
+  trait Simple[F] {
+    /** Turns a collection of results into a result of a collection. */
+    @inline def sequence[S, M[X] <: TraversableOnce[X]]
+    (rs: M[Result[F, S]])(implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]): Result[F, M[S]] = Result.sequence(rs)
+
+    /** Turns the specified value into a success. */
+    @inline def success[S](s: S): Result[F, S] = Result.success(s)
+    /** Turns the specified value into a failure. */
+    @inline def failure(f: F): Result[F, Nothing] = Result.failure(f)
+
+    /** Turns the specified `Either` into a result. */
+    @inline def fromEither[S](e: Either[F, S]): Result[F, S] = Result.fromEither(e)
+    /** Turns the specified `Option` into a result. */
+    @inline def fromOption[S](o: Option[S], f: ⇒ F): Result[F, S] = Result.fromOption(o, f)
+  }
+
+  /** Provides companion object methods for result types that have a sane default error type.
+    *
+    * This default error type is materialised by [[fromThrowable]].
+    */
+  trait WithDefault[F] extends Simple[F] {
+    /** Turns an exception into an error. */
+    protected def fromThrowable(t: Throwable): F
+
+    /** Attempts to evaluate the specified expression. */
+    @inline def apply[S](s: ⇒ S): Result[F, S] = Result.nonFatal(s).leftMap(fromThrowable)
+    /** Turns the specified `Try` into a result. */
+    @inline def fromTry[S](t: Try[S]): Result[F, S] = Result.fromTry(t).leftMap(fromThrowable)
+  }
+}
+
 object Result {
   // - Helper methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -177,8 +220,8 @@ object Result {
   def fromEither[F, S](e: Either[F, S]): Result[F, S] = e.fold(failure, success)
   def fromOption[F, S](o: Option[S], f: ⇒ F): Result[F, S] = o.fold(failure[F, S](f))(success)
 
-  def success[F, S](s: S): Result[F, S] = Success(s)
-  def failure[F, S](f: F): Result[F, S] = Failure(f)
+  @inline def success[F, S](s: S): Result[F, S] = Success(s)
+  @inline def failure[F, S](f: F): Result[F, S] = Failure(f)
 
 
 
