@@ -93,6 +93,32 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
   def tag[TT]: Decoder[E, D, F, TT] = this.asInstanceOf[Decoder[E, D, F, TT]]
 }
 
+/** Provides methods commonly declared by companion objects for specialised decoder types.
+  *
+  * Most libraries that use kantan.codecs will declare type aliases for decoders - `CellDecoder` in kantan.csv, for
+  * example. [[DecoderCompanion]] lets such types have a useful companion object without a lot of code duplication.
+  */
+trait DecoderCompanion[E, F, T] {
+  /** Creates a new [[Decoder]] instance from the specified function. */
+  @inline def from[D](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = Decoder.from(f)
+
+  /** Creates a new [[Decoder]] instance from the specified alternatives.
+    *
+    * When decoding, each of the specified decoders will be attempted. The result will be the first success if found,
+    * or the last failure otherwise.
+    */
+  @inline def oneOf[D](h: Decoder[E, D, F, T], t: Decoder[E, D, F, T]*): Decoder[E, D, F, T] = Decoder.oneOf(h, t:_*)
+
+  /** Creates a new [[Decoder]] instance from the specified alternatives.
+    *
+    * When decoding, each of the specified decoders will be attempted. The result will be the first success if found,
+    * or the last failure otherwise.
+    *
+    * Note that an exception will be thrown if the specified list is empty.
+    */
+  @inline def oneOf[D](ds: Seq[Decoder[E, D, F, T]]): Decoder[E, D, F, T] = Decoder.oneOf(ds:_*)
+}
+
 object Decoder {
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
   def apply[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = Decoder.from(f)
@@ -105,17 +131,35 @@ object Decoder {
   implicit def decoderFromExported[E, D, F, T](implicit da: DerivedDecoder[E, D, F, T]): Decoder[E, D, F, T] =
     da.value
 
-  implicit def optionalDecoder[E: Optional, D, F, T]
-  (implicit da: Decoder[E, D, F, T]): Decoder[E, Option[D], F, T] =
+  implicit def optionalDecoder[E: Optional, D, F, T](implicit da: Decoder[E, D, F, T]): Decoder[E, Option[D], F, T] =
     Decoder.from { e ⇒
       if(Optional[E].isEmpty(e)) Result.success(None)
       else                       da.decode(e).map(Some.apply)
     }
 
   /** Provides a [[Decoder]] instance for `Either[A, B]`, provided both `A` and `B` have a [[Decoder]] instance. */
-  implicit def eitherDecoder[E, D, B, F, T](implicit da: Decoder[E, D, F, T], db: Decoder[E, B, F, T])
-  : Decoder[E, Either[D, B], F, T] =
+  implicit def eitherDecoder[E, D1, D2, F, T](implicit d1: Decoder[E, D1, F, T], d2: Decoder[E, D2, F, T])
+  : Decoder[E, Either[D1, D2], F, T] =
     Decoder.from { s ⇒
-      da.decode(s).map(a ⇒ Left(a): Either[D, B]).orElse(db.decode(s).map(b ⇒ Right(b): Either[D, B]))
+      d1.decode(s).map(a ⇒ Left(a): Either[D1, D2]).orElse(d2.decode(s).map(b ⇒ Right(b): Either[D1, D2]))
     }
+
+  def oneOf[E, D, F, T](ds: Decoder[E, D, F, T]*): Decoder[E, D, F, T] =
+    if(ds.isEmpty) sys.error("oneOf on an empty parameter list")
+    else           oneOf(ds.head, ds.tail:_*)
+
+  /** Creates a new decoder using all specified values.
+    *
+    * The generated decoder will try each of the specified decoders in turn, and return either the first success or,
+    * if none is found, the last failure.
+    */
+  def oneOf[E, D, F, T](head: Decoder[E, D, F, T], tail: Decoder[E, D, F, T]*): Decoder[E, D, F, T] = {
+    def decode(input: E, h: Decoder[E, D, F, T], t: Seq[Decoder[E, D, F, T]]): Result[F, D] = {
+      val res = h.decode(input)
+
+      if(res.isSuccess || t.isEmpty) res
+      else                           decode(input, t.head, t.tail)
+    }
+    Decoder.from(input ⇒ decode(input, head, tail))
+  }
 }

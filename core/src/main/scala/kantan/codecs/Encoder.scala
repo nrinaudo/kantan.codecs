@@ -40,6 +40,10 @@ trait Encoder[E, D, T] extends Any with Serializable {
   def tag[TT]: Encoder[E, D, TT] = this.asInstanceOf[Encoder[E, D, TT]]
 }
 
+trait EncoderCompanion[E, T] {
+  @inline def from[D](f: D ⇒ E): Encoder[E, D, T] = Encoder.from(f)
+}
+
 object Encoder {
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
   def apply[E, D, T](f: D ⇒ E): Encoder[E, D, T] = from(f)

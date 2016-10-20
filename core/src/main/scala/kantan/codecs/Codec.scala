@@ -32,6 +32,10 @@ trait Codec[E, D, F, T] extends Any with Decoder[E, D, F, T] with Encoder[E, D, 
   def imapEncoded[EE](f: E ⇒ EE)(g: EE ⇒ E): Codec[EE, D, F, T] = Codec.from(g andThen decode)(d ⇒ f(encode(d)))
 }
 
+trait CodecCompanion[E, F, T] {
+  @inline def from[D](f: E ⇒ Result[F, D])(g: D ⇒ E): Codec[E, D, F, T] = Codec.from(f)(g)
+}
+
 object Codec {
   @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
   def apply[E, D, F, T](f: E ⇒ Result[F, D])(g: D ⇒ E): Codec[E, D, F, T] = from(f)(g)
