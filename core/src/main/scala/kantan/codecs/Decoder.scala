@@ -116,7 +116,7 @@ trait DecoderCompanion[E, F, T] {
     *
     * Note that an exception will be thrown if the specified list is empty.
     */
-  @inline def oneOf[D](ds: Seq[Decoder[E, D, F, T]]): Decoder[E, D, F, T] = Decoder.oneOf(ds:_*)
+  @inline def oneOf[D](ds: Seq[Decoder[E, D, F, T]]): Decoder[E, D, F, T] = Decoder.oneOf(ds)
 }
 
 object Decoder {
@@ -144,7 +144,7 @@ object Decoder {
       d1.decode(s).map(a ⇒ Left(a): Either[D1, D2]).orElse(d2.decode(s).map(b ⇒ Right(b): Either[D1, D2]))
     }
 
-  def oneOf[E, D, F, T](ds: Decoder[E, D, F, T]*): Decoder[E, D, F, T] =
+  def oneOf[E, D, F, T](ds: Seq[Decoder[E, D, F, T]]): Decoder[E, D, F, T] =
     if(ds.isEmpty) sys.error("oneOf on an empty parameter list")
     else           oneOf(ds.head, ds.tail:_*)
 
