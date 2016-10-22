@@ -26,13 +26,13 @@ class CodecCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   test("CodecCompanion.from should be equivalent to Codec.from (for encoding)") {
     forAll { (f: String ⇒ Result[Exception, Int], g: Int ⇒ String, i: Int) ⇒
-      assert(Codec.from(f)(g).encode(i) == Codec.from(f)(g).encode(i))
+      assert(Codec.from(f)(g).encode(i) == Companion.from(f)(g).encode(i))
     }
   }
 
   test("CodecCompanion.from should be equivalent to Codec.from (for decoding)") {
     forAll { (f: String ⇒ Result[Exception, Int], g: Int ⇒ String, str: String) ⇒
-      assert(Codec.from(f)(g).decode(str) == Codec.from(f)(g).decode(str))
+      assert(Codec.from(f)(g).decode(str) == Companion.from(f)(g).decode(str))
     }
   }
 }
