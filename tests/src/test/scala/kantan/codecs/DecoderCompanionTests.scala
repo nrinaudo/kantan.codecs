@@ -26,13 +26,13 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
   type Dec = String ⇒ Result[Exception, Int]
 
-  test("DecodeCompanion.from should be equivalent to Decode.from") {
+  test("DecoderCompanion.from should be equivalent to Decoder.from") {
     forAll { (f: Dec, str: String) ⇒
       assert(Decoder.from(f).decode(str) == Companion.from(f).decode(str))
     }
   }
 
-  test("DecodeCompanion.oneOf should be equivalent to Decode.oneOf for varargs") {
+  test("DecodreCompanion.oneOf should be equivalent to Decoder.oneOf for varargs") {
     forAll { (h: Dec, t: List[Dec], str: String) ⇒
       assert(Companion.oneOf(Companion.from(h), t.map(Companion.from):_*).decode(str) ==
              Decoder.oneOf(Decoder.from[String, Int, Exception, codec.type](h),
@@ -40,14 +40,14 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
     }
   }
 
-  test("DecodeCompanion.oneOf should be equivalent to Decode.oneOf for non-empty lists") {
+  test("DecoderCompanion.oneOf should be equivalent to Decoder.oneOf for non-empty lists") {
     forAll { (h: Dec, t: List[Dec], str: String) ⇒
       assert(Companion.oneOf((h +: t).map(Companion.from)).decode(str) ==
              Decoder.oneOf((h +: t).map(Decoder.from[String, Int, Exception, codec.type])).decode(str))
     }
   }
 
-  test("DecodeCompanion.oneOf should be equivalent to Decode.oneOf for empty lists") {
+  test("DecoderCompanion.oneOf should be equivalent to Decoder.oneOf for empty lists") {
     intercept[Exception] { Decoder.oneOf(List.empty[Decoder[String, Int, Exception, codec.type]]) }
     intercept[Exception] { Companion.oneOf(List.empty) }
     ()
