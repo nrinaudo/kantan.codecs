@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs
+package kantan.codecs.resource
 
 import imp.imp
-import kantan.codecs.resource.ResourceIterator
+import kantan.codecs.Result
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
