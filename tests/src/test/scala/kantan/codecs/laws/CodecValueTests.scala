@@ -19,7 +19,7 @@ package kantan.codecs.laws
 import java.util.UUID
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.laws.CodecValue._
-import kantan.codecs.strings.{codecs => scodecs}
+import kantan.codecs.strings.{codecs ⇒ scodecs}
 import org.scalacheck.{Arbitrary, Prop}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks

@@ -85,23 +85,23 @@ trait CatsInstances extends LowPriorityCatsInstances {
 
   implicit def resultInstances[F]: Traverse[Result[F, ?]] with Monad[Result[F, ?]] =
     new Traverse[Result[F, ?]] with Monad[Result[F, ?]] {
-      def foldLeft[A, B](fa: Result[F, A], b: B)(f: (B, A) => B): B = fa.foldLeft(b)(f)
-      def foldRight[A, B](fa: Result[F, A], lb: Eval[B])(f: (A, Eval[B]) => Eval[B]): Eval[B] =
+      def foldLeft[A, B](fa: Result[F, A], b: B)(f: (B, A) ⇒ B): B = fa.foldLeft(b)(f)
+      def foldRight[A, B](fa: Result[F, A], lb: Eval[B])(f: (A, Eval[B]) ⇒ Eval[B]): Eval[B] =
         fa.foldRight(lb)(f)
-      def traverse[G[_], S1, S2](fa: Result[F, S1])(f: S1 => G[S2])(implicit ag: Applicative[G]): G[Result[F, S2]] =
+      def traverse[G[_], S1, S2](fa: Result[F, S1])(f: S1 ⇒ G[S2])(implicit ag: Applicative[G]): G[Result[F, S2]] =
         fa match {
           case f@Failure(_) ⇒ ag.pure(f)
           case Success(s)   ⇒ ag.map(f(s))(Result.success)
         }
 
-      override def flatMap[A, B](fa: Result[F, A])(f: A => Result[F, B]) = fa.flatMap(f)
+      override def flatMap[A, B](fa: Result[F, A])(f: A ⇒ Result[F, B]) = fa.flatMap(f)
       override def tailRecM[A, B](a: A)(f: A ⇒ Result[F, Either[A, B]]) = defaultTailRecM(a)(f)
 
       override def pure[A](a: A) = Result.success(a)
     }
 
   implicit def resultBiFunctor: Bifunctor[Result] = new Bifunctor[Result] {
-    override def bimap[A, B, C, D](fab: Result[A, B])(f: A => C, g: B => D): Result[C, D] =
+    override def bimap[A, B, C, D](fab: Result[A, B])(f: A ⇒ C, g: B ⇒ D): Result[C, D] =
       fab.bimap(f, g)
   }
 }

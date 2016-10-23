@@ -128,7 +128,7 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("sequence should behave the same as known implementations") {
-    forAll { (l: List[Result[String, Int]]) =>
+    forAll { (l: List[Result[String, Int]]) ⇒
       assert(Result.sequence(l) == l.sequenceU)
     }
   }

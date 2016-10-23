@@ -107,12 +107,12 @@ trait ScalazInstances extends LowPriorityScalazInstances {
     }
 
   implicit def resultBitraverse: Bitraverse[Result] = new Bitraverse[Result] {
-    override def bitraverseImpl[G[_], A, B, C, D](fab: Result[A, B])(f: A => G[C], g: B => G[D])
+    override def bitraverseImpl[G[_], A, B, C, D](fab: Result[A, B])(f: A ⇒ G[C], g: B ⇒ G[D])
                                                  (implicit ag: Applicative[G])=
       fab match {
-        case Failure(a) => Functor[G].map(f(a))(Failure.apply)
-        case Success(b) => Functor[G].map(g(b))(Success.apply)
+        case Failure(a) ⇒ Functor[G].map(f(a))(Failure.apply)
+        case Success(b) ⇒ Functor[G].map(g(b))(Success.apply)
       }
-    override def bimap[A, B, C, D](fab: Result[A, B])(f: A => C, g: B => D) = fab.bimap(f, g)
+    override def bimap[A, B, C, D](fab: Result[A, B])(f: A ⇒ C, g: B ⇒ D) = fab.bimap(f, g)
   }
 }

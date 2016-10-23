@@ -40,7 +40,7 @@ class ResultCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("Simple.sequence should behave like Result.sequence") {
-    forAll { (l: List[Result[String, Int]]) =>
+    forAll { (l: List[Result[String, Int]]) ⇒
       assert(simple.sequence(l) == Result.sequence(l))
     }
   }

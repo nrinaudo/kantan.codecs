@@ -110,8 +110,8 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
 
   // - Foldable operations ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def fold[A](ff: F => A, fs: S => A): A
-  def foldLeft[A](acc: A)(f: (A, S) => A): A = fold(_ => acc, f(acc, _))
+  def fold[A](ff: F ⇒ A, fs: S ⇒ A): A
+  def foldLeft[A](acc: A)(f: (A, S) ⇒ A): A = fold(_ ⇒ acc, f(acc, _))
   def foldRight[A](acc: A)(f: (S, A) ⇒ A): A =
     fold(_ ⇒ acc, s ⇒ f(s, acc))
 
@@ -231,24 +231,24 @@ object Result {
     override def isSuccess= true
 
     override def orElse[FF >: Nothing, SS >: S](default: ⇒ Result[FF, SS]) = this
-    override def getOrElse[SS >: S](default: => SS) = value
+    override def getOrElse[SS >: S](default: ⇒ SS) = value
     override def get = value
 
-    override def fold[C](ff: Nothing => C, fs: S => C): C = fs(value)
+    override def fold[C](ff: Nothing ⇒ C, fs: S ⇒ C): C = fs(value)
 
-    override def foreach(f: S => Unit) = f(value)
+    override def foreach(f: S ⇒ Unit) = f(value)
     override def recover[SS >: S](pf: PartialFunction[Nothing, SS]) = this
     override def recoverWith[SS >: S, FF >: Nothing](pf: PartialFunction[Nothing, Result[FF, SS]]) = this
-    override def valueOr[SS >: S](f: Nothing => SS) = value
-    override def forall(f: S => Boolean) = f(value)
-    override def ensure[FF >: Nothing](fail: => FF)(f: S => Boolean) = if(f(value)) this else failure(fail)
-    override def exists(f: S => Boolean) = f(value)
+    override def valueOr[SS >: S](f: Nothing ⇒ SS) = value
+    override def forall(f: S ⇒ Boolean) = f(value)
+    override def ensure[FF >: Nothing](fail: ⇒ FF)(f: S ⇒ Boolean) = if(f(value)) this else failure(fail)
+    override def exists(f: S ⇒ Boolean) = f(value)
 
-    override def map[SS](f: S => SS) = copy(value = f(value))
-    override def flatMap[FF >: Nothing, SS](f: S => Result[FF, SS]) = f(value)
+    override def map[SS](f: S ⇒ SS) = copy(value = f(value))
+    override def flatMap[FF >: Nothing, SS](f: S ⇒ Result[FF, SS]) = f(value)
 
-    override def leftMap[FF](f: Nothing => FF) = this
-    override def leftFlatMap[FF, SS >: S](f: Nothing => Result[FF, SS]) = this
+    override def leftMap[FF](f: Nothing ⇒ FF) = this
+    override def leftFlatMap[FF, SS >: S](f: Nothing ⇒ Result[FF, SS]) = this
 
     override def toOption = Some(value)
     override def toEither = Right(value)
@@ -263,28 +263,28 @@ object Result {
     override def isSuccess = false
 
     override def orElse[FF >: F, SS >: Nothing](default: ⇒ Result[FF, SS]) = default
-    override def getOrElse[SS >: Nothing](default: => SS) = default
+    override def getOrElse[SS >: Nothing](default: ⇒ SS) = default
     override def get = throw new NoSuchElementException(s"get on a Failure($value)")
 
-    override def fold[C](ff: F => C, fs: Nothing => C): C = ff(value)
+    override def fold[C](ff: F ⇒ C, fs: Nothing ⇒ C): C = ff(value)
 
-    override def foreach(f: Nothing => Unit): Unit = ()
+    override def foreach(f: Nothing ⇒ Unit): Unit = ()
     override def recover[SS >: Nothing](pf: PartialFunction[F, SS]) =
       if(pf.isDefinedAt(value)) success(pf(value))
       else                      this
     override def recoverWith[SS >: Nothing, FF >: F](pf: PartialFunction[F, Result[FF, SS]]) =
       if(pf.isDefinedAt(value)) pf(value)
       else                      this
-    override def valueOr[SS >: Nothing](f: F => SS) = f(value)
-    override def forall(f: Nothing => Boolean) = true
-    override def ensure[FF >: F](fail: => FF)(f: Nothing => Boolean) = this
-    override def exists(f: Nothing => Boolean) = false
+    override def valueOr[SS >: Nothing](f: F ⇒ SS) = f(value)
+    override def forall(f: Nothing ⇒ Boolean) = true
+    override def ensure[FF >: F](fail: ⇒ FF)(f: Nothing ⇒ Boolean) = this
+    override def exists(f: Nothing ⇒ Boolean) = false
 
-    override def map[S](f: Nothing => S) = this
-    override def flatMap[FF >: F, S](f: Nothing => Result[FF, S]) = this
+    override def map[S](f: Nothing ⇒ S) = this
+    override def flatMap[FF >: F, S](f: Nothing ⇒ Result[FF, S]) = this
 
-    override def leftMap[FF](f: F => FF) = copy(value = f(value))
-    override def leftFlatMap[FF, SS >: Nothing](f: F => Result[FF, SS]) = f(value)
+    override def leftMap[FF](f: F ⇒ FF) = copy(value = f(value))
+    override def leftFlatMap[FF, SS >: Nothing](f: F ⇒ Result[FF, SS]) = f(value)
 
     override val toOption = None
     override def toEither = Left(value)

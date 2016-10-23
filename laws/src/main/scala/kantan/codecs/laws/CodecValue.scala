@@ -29,15 +29,15 @@ sealed abstract class CodecValue[E, D, T] extends Product with Serializable {
 
 object CodecValue {
   final case class LegalValue[E, D, T](encoded: E, decoded: D) extends CodecValue[E, D, T] {
-    override def mapDecoded[DD](f: D => DD) = LegalValue(encoded, f(decoded))
+    override def mapDecoded[DD](f: D ⇒ DD) = LegalValue(encoded, f(decoded))
     override def mapEncoded[EE](f: E ⇒ EE) = LegalValue(f(encoded), decoded)
     override def tag[TT] = this.asInstanceOf[LegalValue[E, D, TT]]
     override val isLegal = true
   }
 
   final case class IllegalValue[E, D, T](encoded: E) extends CodecValue[E, D, T] {
-    override def mapDecoded[DD](f: D => DD) = IllegalValue(encoded)
-    override def mapEncoded[EE](f: E => EE) = IllegalValue(f(encoded))
+    override def mapDecoded[DD](f: D ⇒ DD) = IllegalValue(encoded)
+    override def mapEncoded[EE](f: E ⇒ EE) = IllegalValue(f(encoded))
     override def tag[TT] = this.asInstanceOf[IllegalValue[E, D, TT]]
     override val isLegal = false
   }
