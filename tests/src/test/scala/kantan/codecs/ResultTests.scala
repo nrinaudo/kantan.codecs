@@ -193,7 +193,7 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("Success.toOption should be a Some") {
-    forAll { s: Success[Int] ⇒ assert(s.toOption == Some(s.value)) }
+    forAll { s: Success[Int] ⇒ assert(s.toOption.contains(s.value)) }
   }
 
   test("Success.toEither should be a Right") {
