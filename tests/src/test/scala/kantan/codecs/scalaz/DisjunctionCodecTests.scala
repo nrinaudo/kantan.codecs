@@ -23,6 +23,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 import scalaz.\/
+import scalaz.scalacheck.ScalazArbitrary._
 
 class DisjunctionCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[Int \\/ Boolean]", DTests[String, Int \/ Boolean, DecodeError, codecs.type].decoder[Int, Int])

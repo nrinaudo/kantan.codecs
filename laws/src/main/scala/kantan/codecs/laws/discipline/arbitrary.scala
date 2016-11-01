@@ -27,7 +27,7 @@ import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
 import org.scalacheck._
-import org.scalacheck.Arbitrary.{arbitrary ⇒ arb}
+import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
 import scala.util.Try
 
@@ -80,9 +80,6 @@ trait ArbitraryInstances extends ArbitraryArities {
     }
   }
 
-  implicit def arbIllegalPath[T]: Arbitrary[IllegalValue[String, Path, T]] =
-    Arbitrary(arbIllegalURI[T].arbitrary.map(_.asInstanceOf[IllegalValue[String, Path, T]]))
-
 
 
   // - String codecs ---------------------------------------------------------------------------------------------------
@@ -95,8 +92,8 @@ trait ArbitraryInstances extends ArbitraryArities {
     arbException.arbitrary.map(DecodeError.apply)
   ))
 
-  implicit def arbStringEncoder[A: Arbitrary]: Arbitrary[StringEncoder[A]] =
-  Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(StringEncoder.from))
+  implicit def arbStringEncoder[A: Arbitrary: Cogen]: Arbitrary[StringEncoder[A]] =
+    Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(StringEncoder.from))
 
   implicit def arbStringDecoder[A: Arbitrary]: Arbitrary[StringDecoder[A]] =
     Arbitrary(Arbitrary.arbitrary[String ⇒ Result[DecodeError, A]].map(StringDecoder.from))
@@ -150,11 +147,27 @@ trait ArbitraryInstances extends ArbitraryArities {
   }
 
   // Saner arbitrary date: the default one causes issues with long overflow / underflow.
-  implicit val arbDate: Arbitrary[Date] =
-  Arbitrary(Arbitrary.arbitrary[Int].map(offset ⇒ new Date(System.currentTimeMillis + offset)))
+  implicit val arbDate: Arbitrary[Date] = {
+    val now = System.currentTimeMillis()
+    Arbitrary(Arbitrary.arbitrary[Int].map(offset ⇒ new Date(now + offset)))
+  }
 
   implicit val arbUuid: Arbitrary[UUID] = Arbitrary(Gen.uuid)
 
+
+  // - Cogen -----------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def cogenResult[A: Cogen, B: Cogen]: Cogen[Result[A, B]] =
+  implicitly[Cogen[Either[A, B]]].contramap(_.toEither)
+
+  implicit val cogenUrl: Cogen[URL] = implicitly[Cogen[String]].contramap(_.toString)
+  implicit val cogenUri: Cogen[URI] = implicitly[Cogen[String]].contramap(_.toString)
+  implicit val cogenDecodeError: Cogen[DecodeError] = implicitly[Cogen[String]].contramap(_.message)
+  implicit val cogenUUID: Cogen[UUID] =
+    Cogen.tuple2[Long, Long].contramap(uuid ⇒ (uuid.getMostSignificantBits, uuid.getLeastSignificantBits))
+  implicit val cogenPath: Cogen[Path] = implicitly[Cogen[String]].contramap(_.toString)
+  implicit val cogenFile: Cogen[File] = implicitly[Cogen[String]].contramap(_.toString)
+  implicit val cogenDate: Cogen[Date] = Cogen(_.getTime)
 
 
   // - Exceptions ------------------------------------------------------------------------------------------------------

@@ -64,6 +64,7 @@ trait DecoderLaws[E, D, F, T] {
     decoder.contramapEncoded(g andThen f).decode(b) == decoder.contramapEncoded(f).contramapEncoded(g).decode(b)
 
 
+
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def mapResultIdentity(v: CodecValue[E, D, T]): Boolean =

@@ -1,13 +1,13 @@
 // - Dependency versions -----------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-val catsVersion          = "0.7.2"
-val disciplineVersion    = "0.4"
+val catsVersion          = "0.8.0"
+val disciplineVersion    = "0.7.1"
 val impVersion           = "0.2.0"
 val jodaConvertVersion   = "1.8.1"
 val jodaVersion          = "2.9.4"
-val scalaCheckVersion    = "1.12.5"
-val scalatestVersion     = "3.0.0-M9"
-val scalazVersion        = "7.2.6"
+val scalaCheckVersion    = "1.13.3"
+val scalatestVersion     = "3.0.1-SNAP1"
+val scalazVersion        = "7.3.0-M6"
 val shapelessVersion     = "2.3.2"
 
 

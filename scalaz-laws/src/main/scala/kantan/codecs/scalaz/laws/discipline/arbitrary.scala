@@ -37,5 +37,5 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
 
   implicit def arbIllegalDisjunction[E, DL, DR, T]
   (implicit a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]): Arbitrary[IllegalValue[E, DL \/ DR, T]] =
-      Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
+    Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
 }

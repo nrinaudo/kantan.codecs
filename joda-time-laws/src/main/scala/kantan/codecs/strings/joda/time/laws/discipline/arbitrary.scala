@@ -17,23 +17,32 @@
 package kantan.codecs.strings.joda.time.laws.discipline
 
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Cogen}
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
 
 trait ArbitraryInstances {
+  private lazy val now = System.currentTimeMillis()
   implicit val arbDateTime: Arbitrary[DateTime] =
-    Arbitrary(Arbitrary.arbitrary[Long].map(offset ⇒ new DateTime(System.currentTimeMillis + offset)))
+    Arbitrary(Arbitrary.arbitrary[Long].map(offset ⇒ new DateTime(now + offset)))
 
   implicit val arbLocalDateTime: Arbitrary[LocalDateTime] = Arbitrary(Arbitrary.arbitrary[Int].map { offset ⇒
-    new LocalDateTime(System.currentTimeMillis + offset).withMillisOfSecond(0)
+    new LocalDateTime(now + offset).withMillisOfSecond(0)
   })
 
   implicit val arbLocalDate: Arbitrary[LocalDate] = Arbitrary(Arbitrary.arbitrary[Int].map { offset ⇒
-    new LocalDate(System.currentTimeMillis + offset)
+    new LocalDate(now + offset)
   })
 
   implicit val arbLocalTime: Arbitrary[LocalTime] = Arbitrary(Arbitrary.arbitrary[Int].map { offset ⇒
-    new LocalTime(System.currentTimeMillis + offset).withMillisOfSecond(0)
+    new LocalTime(now + offset).withMillisOfSecond(0)
   })
+
+  implicit val cogenDateTime: Cogen[DateTime] = Cogen(_.getMillis)
+  implicit val cogenLocalDateTime: Cogen[LocalDateTime] =
+    Cogen.tuple4[Int, Int, Int, Int].contramap(d ⇒ (d.getYear, d.getMonthOfYear, d.getDayOfMonth, d.getMillisOfDay))
+  implicit val cogenLocalDate: Cogen[LocalDate] =
+    Cogen.tuple3[Int, Int, Int].contramap(d ⇒ (d.getYear, d.getMonthOfYear, d.getDayOfMonth))
+  implicit val cogenLocalTime: Cogen[LocalTime] = Cogen.tuple4[Int, Int, Int, Int].contramap(d ⇒ (d.getHourOfDay,
+    d.getMinuteOfHour, d.getSecondOfMinute, d.getMillisOfSecond))
 }

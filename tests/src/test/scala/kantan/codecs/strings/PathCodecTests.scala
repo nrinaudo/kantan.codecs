@@ -19,16 +19,15 @@ package kantan.codecs.strings
 import java.nio.file.Path
 import kantan.codecs.laws.discipline._
 import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.strings.tagged._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class PathCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[Path]", DecoderTests[String, Path, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[Path]", DecoderTests[String, Path, DecodeError, codecs.type].bijectiveDecoder[Int, Int])
   checkAll("StringEncoder[Path]", EncoderTests[String, Path, codecs.type].encoder[Int, Int])
-  checkAll("StringCodec[Path]", CodecTests[String, Path, DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[Path]", CodecTests[String, Path, DecodeError, codecs.type].bijectiveCodec[Int, Int])
 
-  checkAll("TaggedDecoder[Path]", DecoderTests[String, Path, DecodeError, tagged.type].decoder[Int, Int])
+  checkAll("TaggedDecoder[Path]", DecoderTests[String, Path, DecodeError, tagged.type].bijectiveDecoder[Int, Int])
   checkAll("TaggedEncoder[Path]", EncoderTests[String, Path, tagged.type].encoder[Int, Int])
 }

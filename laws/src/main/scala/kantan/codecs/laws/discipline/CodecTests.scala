@@ -20,15 +20,14 @@ import arbitrary._
 import imp.imp
 import kantan.codecs.laws._
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop._
 
 trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[E, D, T] {
   def laws: CodecLaws[E, D, F, T]
 
-  override implicit val arbD: Arbitrary[D] = Arbitrary(arbLegal.arbitrary.map(_.decoded))
-
-  private def coreRules[A: Arbitrary, B: Arbitrary](implicit av: Arbitrary[CodecValue[E, D, T]]): RuleSet =
+  private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit av: Arbitrary[CodecValue[E, D, T]])
+  : RuleSet =
     new DefaultRuleSet(
       "round trip",
       Some(encoder[A, B]),
@@ -46,7 +45,7 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
       "imapEncoded composition(decoding)"  → forAll(laws.imapEncodedCompositionDecoding[A, B] _)
     )
 
-  def bijectiveCodec[A: Arbitrary, B: Arbitrary]: RuleSet = new RuleSet {
+  def bijectiveCodec[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet = new RuleSet {
     implicit val arbValues: Arbitrary[CodecValue[E, D, T]] = Arbitrary(arbLegal.arbitrary)
 
     val name = "bijective codec"
@@ -55,7 +54,7 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
     val props = Seq.empty
   }
 
-  def codec[A: Arbitrary, B: Arbitrary](implicit ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
+  def codec[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
     new RuleSet {
       val name = "codec"
       val bases = Nil
@@ -65,11 +64,16 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
 }
 
 object CodecTests {
-  def apply[E, D, F: Arbitrary, T]
+  def apply[E: Arbitrary: Cogen, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T]
   (implicit l: CodecLaws[E, D, F, T], al: Arbitrary[LegalValue[E, D, T]]): CodecTests[E, D, F, T] =
     new CodecTests[E, D, F, T] {
-      override val laws = l
+      override val laws     = l
       override val arbLegal = al
-      override val arbF = imp[Arbitrary[F]]
+      override val arbF     = imp[Arbitrary[F]]
+      override val cogenF   = imp[Cogen[F]]
+      override val cogenD   = imp[Cogen[D]]
+      override val cogenE   = imp[Cogen[E]]
+      override val arbD     = imp[Arbitrary[D]]
+      override val arbE     = imp[Arbitrary[E]]
     }
 }

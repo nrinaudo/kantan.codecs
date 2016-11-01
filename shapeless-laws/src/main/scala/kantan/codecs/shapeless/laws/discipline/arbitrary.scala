@@ -16,7 +16,8 @@
 
 package kantan.codecs.shapeless.laws.discipline
 
-import org.scalacheck.{Arbitrary, Gen}
+import kantan.codecs.shapeless.laws.{Left, Or, Right}
+import org.scalacheck.{Arbitrary, Cogen, Gen}
 import shapeless._
 
 object arbitrary extends ArbitraryInstances
@@ -49,6 +50,14 @@ trait LowPiorityArbitraryInstances {
   }
 
   implicit val arbHNil: Arbitrary[HNil] = Arbitrary(Gen.const(HNil))
+
+
+  // - Cogen -----------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def cogenOr[A: Cogen, B: Cogen]: Cogen[A Or B] = implicitly[Cogen[Either[A, B]]].contramap {
+    case Left(a)  ⇒ scala.util.Left(a)
+    case Right(b) ⇒ scala.util.Right(b)
+  }
 }
 
 trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances with LowPiorityArbitraryInstances

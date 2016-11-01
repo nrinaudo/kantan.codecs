@@ -44,7 +44,6 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   // -------------------------------------------------------------------------------------------------------------------
   implicit val decoder = StringDecoder[Int Or Boolean]
 
-
   checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
     .decoder[Int, Int])
   checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])

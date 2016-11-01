@@ -17,21 +17,12 @@
 package kantan.codecs.cats
 
 import _root_.cats._
-import cats.data.Xor
 import cats.functor.{Bifunctor, Contravariant}
 import kantan.codecs._
 import kantan.codecs.Result.{Failure, Success}
+import scala.annotation.tailrec
 
 trait CatsInstances extends LowPriorityCatsInstances {
-  // - Xor instances ---------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def xorDecoder[E, DA, DB, F, T](implicit da: Decoder[E, Either[DA, DB], F, T]): Decoder[E, DA Xor DB, F, T] =
-    da.map(Xor.fromEither)
-
-  implicit def xorEncoder[E, DA, DB, T](implicit ea: Encoder[E, Either[DA, DB], T]): Encoder[E, DA Xor DB, T] =
-    ea.contramap(_.toEither)
-
-
   // - Decoder instances -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def decoderFunctor[E, F, T]: Functor[Decoder[E, ?, F, T]] = new Functor[Decoder[E, ?, F, T]] {
@@ -95,8 +86,13 @@ trait CatsInstances extends LowPriorityCatsInstances {
         }
 
       override def flatMap[A, B](fa: Result[F, A])(f: A ⇒ Result[F, B]) = fa.flatMap(f)
-      override def tailRecM[A, B](a: A)(f: A ⇒ Result[F, Either[A, B]]) = defaultTailRecM(a)(f)
 
+      @tailrec
+      override def tailRecM[A, B](a: A)(f: A ⇒ Result[F, Either[A, B]]) = f(a) match {
+        case Success(Right(r)) ⇒ Result.success(r)
+        case Success(Left(l))  ⇒ tailRecM(l)(f)
+        case fail@Failure(_)   ⇒ fail
+      }
       override def pure[A](a: A) = Result.success(a)
     }
 

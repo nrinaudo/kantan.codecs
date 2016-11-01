@@ -31,7 +31,7 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   // -------------------------------------------------------------------------------------------------------------------
   test("foreach should not be executed for failures and pass the correct value for successes") {
     forAll { (d: Result[String, Int]) ⇒ d match {
-      case Success(i) ⇒ d.foreach(v ⇒ assert(i == v))
+      case Success(i) ⇒ d.foreach { v ⇒ assert(i == v); () }
       case Failure(_) ⇒ d.foreach(_ ⇒ fail())
     }}
   }

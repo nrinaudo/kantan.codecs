@@ -17,6 +17,7 @@
 package kantan.codecs.laws
 
 import kantan.codecs._
+import kantan.codecs.laws.CodecValue.LegalValue
 
 trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, D, T] {
   implicit lazy val codec = Codec.from(decoder.decode _)(encoder.encode _)
@@ -63,7 +64,8 @@ trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, 
   // - Round trip laws -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def roundTripEncoding(d: D): Boolean = decoder.decode(encoder.encode(d)) == Result.success(d)
-  def roundTripDecoding(e: E): Boolean = decoder.decode(e).map(encoder.encode) == Result.success(e)
+  def roundTripDecoding(v: LegalValue[E, D, T]): Boolean =
+    decoder.decode(v.encoded).map(encoder.encode) == Result.success(v.encoded)
 }
 
 object CodecLaws {

@@ -24,14 +24,17 @@ import cats.laws.discipline._
 import cats.laws.discipline.arbitrary._
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Cogen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   case class NoOrder(value: Int)
-  implicit val noOrderEq= new Eq[NoOrder] {
+
+  implicit val noOrderCogen: Cogen[NoOrder] = Cogen(_.value.toLong)
+
+  implicit val noOrderEq = new Eq[NoOrder] {
     override def eqv(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value
   }
   implicit val arbNoEq = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
@@ -52,6 +55,6 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Disci
   }
 
   test("Show should yield the expected result for failures") {
-      forAll { i: Int ⇒ assert(Show[Result[Int, String]].show(Result.failure(i)) == s"Failure($i)") }
-    }
+    forAll { i: Int ⇒ assert(Show[Result[Int, String]].show(Result.failure(i)) == s"Failure($i)") }
+  }
 }

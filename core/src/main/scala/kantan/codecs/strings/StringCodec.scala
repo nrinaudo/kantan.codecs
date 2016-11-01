@@ -83,7 +83,7 @@ trait StringCodecInstances extends StringEncoderInstances with StringDecoderInst
     StringCodec.from(StringDecoder.decoder("File")(s ⇒ new File(s.trim)))(_.toString)
 
   implicit val path: StringCodec[Path] =
-    uri.imap(Paths.get)(_.toUri)
+    StringCodec.from(StringDecoder.decoder("Path")(p ⇒ Paths.get(p.trim)))(_.toString)
 
 
   implicit def date(implicit ft: DateFormat): StringCodec[Date] =

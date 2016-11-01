@@ -16,18 +16,6 @@
 
 package kantan.codecs.cats.laws.discipline
 
-import cats.data.Xor
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import org.scalacheck.Arbitrary
-
 object arbitrary extends ArbitraryInstances
 
-trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances {
-  implicit def arbLegalXor[E, DL, DR, T]
-  (implicit a: Arbitrary[LegalValue[E, Either[DL, DR], T]]): Arbitrary[LegalValue[E, DL Xor DR, T]] =
-    Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ Xor.fromEither(v))))
-
-  implicit def arbIllegalXor[E, DL, DR, T]
-  (implicit a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]): Arbitrary[IllegalValue[E, DL Xor DR, T]] =
-    Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ Xor.fromEither(v))))
-}
+trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances
