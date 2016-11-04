@@ -18,9 +18,10 @@ package kantan.codecs.shapeless.laws.discipline
 
 import org.scalacheck.derive._
 
-object arbitrary extends kantan.codecs.laws.discipline.ArbitraryInstances
-                         with SingletonInstances
-                         with HListInstances
-                         with CoproductInstances
-                         with DerivedInstances
-                         with FieldTypeInstances
+object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
+
+trait ArbitraryInstances extends SingletonInstances
+                                 with HListInstances
+                                 with CoproductInstances
+                                 with DerivedInstances
+                                 with FieldTypeInstances

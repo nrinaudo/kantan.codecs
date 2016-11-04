@@ -162,7 +162,7 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   implicit val cogenUrl: Cogen[URL] = implicitly[Cogen[String]].contramap(_.toString)
   implicit val cogenUri: Cogen[URI] = implicitly[Cogen[String]].contramap(_.toString)
-  implicit val cogenDecodeError: Cogen[DecodeError] = implicitly[Cogen[String]].contramap(_.message)
+  implicit val cogenStringDecodeError: Cogen[DecodeError] = implicitly[Cogen[String]].contramap(_.message)
   implicit val cogenUUID: Cogen[UUID] =
     Cogen.tuple2[Long, Long].contramap(uuid ⇒ (uuid.getMostSignificantBits, uuid.getLeastSignificantBits))
   implicit val cogenPath: Cogen[Path] = implicitly[Cogen[String]].contramap(_.toString)
