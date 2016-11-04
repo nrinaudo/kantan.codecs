@@ -8,7 +8,7 @@ val jodaVersion                = "2.9.5"
 val scalacheckVersion          = "1.13.4"
 val scalacheckShapelessVersion = "1.1.3"
 val scalatestVersion           = "3.0.1-SNAP1"
-val scalazVersion              = "7.3.0-M6"
+val scalazVersion              = "7.2.7"
 val shapelessVersion           = "2.3.2"
 
 
@@ -128,7 +128,7 @@ lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
   .dependsOn(core, laws, scalaz)
   .settings(libraryDependencies ++= Seq(
     "org.scalaz"    %% "scalaz-core"               % scalazVersion,
-    "org.scalaz"    %% "scalaz-scalacheck-binding" % scalazVersion,
+    "org.scalaz"    %% "scalaz-scalacheck-binding" % (scalazVersion + "-scalacheck-1.13"),
     "org.scalatest" %% "scalatest"                 % scalatestVersion % "optional"
   ))
 
