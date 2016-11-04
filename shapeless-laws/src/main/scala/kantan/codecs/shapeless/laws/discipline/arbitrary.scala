@@ -16,49 +16,11 @@
 
 package kantan.codecs.shapeless.laws.discipline
 
-import kantan.codecs.shapeless.laws.{Left, Or, Right}
-import org.scalacheck.{Arbitrary, Cogen, Gen}
-import shapeless._
+import org.scalacheck.derive._
 
-object arbitrary extends ArbitraryInstances
-
-trait LowPiorityArbitraryInstances {
-  // - Arbitrary coproducts --------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbSumType[H, T <: Coproduct](implicit gen: Generic.Aux[H, T], eh: Lazy[Arbitrary[T]])
-  : Arbitrary[H] =
-  Arbitrary(eh.value.arbitrary.map(gen.from))
-
-  implicit def arbCoproduct[H, T <: Coproduct](implicit ah: Arbitrary[H], at: Arbitrary[T]): Arbitrary[H :+: T] =
-    Arbitrary(Gen.oneOf(ah.arbitrary.map(Inl.apply), at.arbitrary.map(Inr.apply)))
-
-  implicit val arbCNil: Arbitrary[CNil] = Arbitrary(Gen.fail[CNil])
-
-
-
-  // - Arbitrary hlists ------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbCaseClass[H, T <: HList](implicit gen: Generic.Aux[H, T], at: Lazy[Arbitrary[T]])
-  : Arbitrary[H] =
-  Arbitrary(at.value.arbitrary.map(gen.from))
-
-  implicit def arbHList[H, T <: HList](implicit ah: Arbitrary[H], at: Arbitrary[T]): Arbitrary[H :: T] = Arbitrary {
-    for {
-      h ← ah.arbitrary
-      t ← at.arbitrary
-    } yield h :: t
-  }
-
-  implicit val arbHNil: Arbitrary[HNil] = Arbitrary(Gen.const(HNil))
-
-
-  // - Cogen -----------------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def cogenOr[A: Cogen, B: Cogen]: Cogen[A Or B] = implicitly[Cogen[Either[A, B]]].contramap {
-    case Left(a)  ⇒ scala.util.Left(a)
-    case Right(b) ⇒ scala.util.Right(b)
-  }
-}
-
-trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances with LowPiorityArbitraryInstances
-
+object arbitrary extends kantan.codecs.laws.discipline.ArbitraryInstances
+                         with SingletonInstances
+                         with HListInstances
+                         with CoproductInstances
+                         with DerivedInstances
+                         with FieldTypeInstances

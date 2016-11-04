@@ -1,14 +1,15 @@
 // - Dependency versions -----------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-val catsVersion          = "0.8.0"
-val disciplineVersion    = "0.7.1"
-val impVersion           = "0.2.0"
-val jodaConvertVersion   = "1.8.1"
-val jodaVersion          = "2.9.4"
-val scalaCheckVersion    = "1.13.3"
-val scalatestVersion     = "3.0.1-SNAP1"
-val scalazVersion        = "7.3.0-M6"
-val shapelessVersion     = "2.3.2"
+val catsVersion                = "0.8.0"
+val disciplineVersion          = "0.7.1"
+val impVersion                 = "0.2.0"
+val jodaConvertVersion         = "1.8.1"
+val jodaVersion                = "2.9.4"
+val scalacheckVersion          = "1.13.3"
+val scalacheckShapelessVersion = "1.1.3"
+val scalatestVersion           = "3.0.1-SNAP1"
+val scalazVersion              = "7.3.0-M6"
+val shapelessVersion           = "2.3.2"
 
 
 kantanProject in ThisBuild := "codecs"
@@ -53,7 +54,7 @@ lazy val laws = project
   .enablePlugins(PublishedPlugin)
   .dependsOn(core)
   .settings(libraryDependencies ++= Seq(
-    "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
+    "org.scalacheck" %% "scalacheck" % scalacheckVersion,
     "org.typelevel"  %% "discipline" % disciplineVersion
   ))
 
@@ -148,6 +149,9 @@ lazy val shapelessLaws = Project(id = "shapeless-laws", base = file("shapeless-l
   .settings(
     moduleName := "kantan.codecs-shapeless-laws",
     name       := "shapeless-laws"
+  )
+  .settings(
+    libraryDependencies += "com.github.alexarchambault" %% "scalacheck-shapeless_1.13" % scalacheckShapelessVersion
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, shapeless)
