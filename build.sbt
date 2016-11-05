@@ -2,7 +2,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 val catsVersion                = "0.8.0"
 val disciplineVersion          = "0.7.2"
-val impVersion                 = "0.2.0"
+val impVersion                 = "0.3.0"
 val jodaConvertVersion         = "1.8.1"
 val jodaVersion                = "2.9.5"
 val scalacheckVersion          = "1.13.4"
