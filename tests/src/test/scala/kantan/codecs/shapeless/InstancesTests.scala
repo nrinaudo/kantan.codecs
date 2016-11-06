@@ -16,13 +16,14 @@
 
 package kantan.codecs.shapeless
 
+import imp.imp
 import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
 import kantan.codecs.shapeless.laws._
 import kantan.codecs.shapeless.laws.discipline.arbitrary._
 import kantan.codecs.strings._
+import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.Laws
 import org.typelevel.discipline.scalatest.Discipline
 import shapeless._
 
@@ -45,17 +46,20 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   // -------------------------------------------------------------------------------------------------------------------
   implicit val decoder = StringDecoder[Int Or Boolean]
 
-  // TODO: re-enable these tests when this is fixed: https://github.com/alexarchambault/scalacheck-shapeless/issues/50
-  def ignore(str: String, rules: Laws#RuleSet): Unit = ()
+  // TODO: let scalacheck-shapeless deal with that when fixed, see
+  // https://github.com/alexarchambault/scalacheck-shapeless/issues/50
+  implicit def arbOr[A: Arbitrary, B: Arbitrary]: Arbitrary[Or[A, B]] = Arbitrary(
+    Gen.oneOf(imp[Arbitrary[Left[A]]].arbitrary, imp[Arbitrary[Right[B]]].arbitrary)
+  )
 
-  ignore("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
+  checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
     .decoder[Int, Int])
-  ignore("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])
-  ignore("StringCodec[Int Or Boolean]", CodecTests[String, Int Or Boolean, DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])
+  checkAll("StringCodec[Int Or Boolean]", CodecTests[String, Int Or Boolean, DecodeError, codecs.type].codec[Int, Int])
 
-  ignore("TaggedDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, tagged.type]
+  checkAll("TaggedDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, tagged.type]
     .decoder[Int, Int])
-  ignore("TaggedEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, tagged.type].encoder[Int, Int])
+  checkAll("TaggedEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, tagged.type].encoder[Int, Int])
 
   test("Encoder[?, CNil, ?] should fail") {
     intercept[IllegalStateException] {StringEncoder[CNil].encode(null)}
