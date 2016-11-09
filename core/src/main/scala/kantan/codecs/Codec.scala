@@ -37,9 +37,6 @@ trait CodecCompanion[E, F, T] {
 }
 
 object Codec {
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
-  def apply[E, D, F, T](f: E ⇒ Result[F, D])(g: D ⇒ E): Codec[E, D, F, T] = from(f)(g)
-
   def from[E, D, F, T](f: E ⇒ Result[F, D])(g: D ⇒ E): Codec[E, D, F, T] = new Codec[E, D, F, T] {
     override def encode(d: D) = g(d)
     override def decode(e: E) = f(e)

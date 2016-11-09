@@ -45,9 +45,6 @@ trait EncoderCompanion[E, T] {
 }
 
 object Encoder {
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
-  def apply[E, D, T](f: D ⇒ E): Encoder[E, D, T] = from(f)
-
   def from[E, D, T](f: D ⇒ E): Encoder[E, D, T] = new Encoder[E, D, T] {
     override def encode(d: D) = f(d)
   }

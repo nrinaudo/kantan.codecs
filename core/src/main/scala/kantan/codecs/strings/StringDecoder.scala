@@ -22,8 +22,6 @@ object StringDecoder {
   /** Summons an implicit instance of `StringDecoder[D]` if one can be found, fails compilation otherwise. */
   def apply[D](implicit ev: StringDecoder[D]): StringDecoder[D] = macro imp.summon[StringDecoder[D]]
 
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
-  def apply[D](f: String ⇒ Result[DecodeError, D]): StringDecoder[D] = from(f)
   def from[D](f: String ⇒ Result[DecodeError, D]): StringDecoder[D] = Decoder.from(f)
 
   def decoder[A](typeName: String)(f: String ⇒ A): String ⇒ Result[DecodeError, A] =

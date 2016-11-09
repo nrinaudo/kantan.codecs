@@ -120,9 +120,6 @@ trait DecoderCompanion[E, F, T] {
 }
 
 object Decoder {
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
-  def apply[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = Decoder.from(f)
-
   /** Creates a new [[Decoder]] instance that applies the specified function when decoding. */
   def from[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
     override def decode(e: E) = f(e)

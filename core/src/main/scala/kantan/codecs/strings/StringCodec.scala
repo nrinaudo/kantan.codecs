@@ -24,8 +24,6 @@ import java.util.{Date, UUID}
 import kantan.codecs.{Codec, Result}
 
 object StringCodec {
-  @deprecated("use from instead (see https://github.com/nrinaudo/kantan.codecs/issues/22)", "0.1.8")
-  def apply[D](f: String ⇒ Result[DecodeError, D])(g: D ⇒ String): StringCodec[D] = from(f)(g)
   def from[D](f: String ⇒ Result[DecodeError, D])(g: D ⇒ String): StringCodec[D] = Codec.from(f)(g)
 }
 
