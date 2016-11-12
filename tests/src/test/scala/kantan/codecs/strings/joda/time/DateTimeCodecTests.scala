@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs.strings.joda.time
 
 import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
-import kantan.codecs.strings.joda.time._
+import kantan.codecs.strings._
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
@@ -26,7 +26,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class DateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val formatter = ISODateTimeFormat.dateTime
+  implicit val codec = dateTimeCodec(ISODateTimeFormat.dateTime)
 
   checkAll("StringDecoder[DateTime]", DecoderTests[String, DateTime, DecodeError, codecs.type].decoder[Int, Int])
   checkAll("StringEncoder[DateTime]", EncoderTests[String, DateTime, codecs.type].encoder[Int, Int])

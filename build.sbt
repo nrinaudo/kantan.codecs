@@ -20,8 +20,11 @@ kantanProject in ThisBuild := "codecs"
 lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .enablePlugins(UnpublishedPlugin)
-  .aggregate(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws, docs,
-    tests)
+  .aggregate((
+    Seq[ProjectReference](core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless,
+      jodaTime, jodaTimeLaws, docs, tests) ++
+      (if(sys.props("java.specification.version") == "1.8") Seq[ProjectReference](java8) else Nil)
+  ):_*)
   .dependsOn(core)
 
 lazy val tests = project
@@ -105,6 +108,18 @@ lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-la
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, jodaTime)
+
+
+
+// - java8 projects ----------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val java8 = project
+  .settings(
+    moduleName    := "kantan.codecs-java8",
+    name          := "java8"
+  )
+  .dependsOn(core)
+  .enablePlugins(PublishedPlugin)
 
 
 

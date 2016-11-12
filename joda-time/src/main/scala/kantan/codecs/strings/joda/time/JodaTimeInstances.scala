@@ -16,20 +16,53 @@
 
 package kantan.codecs.strings.joda.time
 
-import kantan.codecs.strings.{StringCodec, StringDecoder}
+import kantan.codecs.strings.{StringCodec, StringDecoder, StringEncoder}
 import org.joda.time._
 import org.joda.time.format.DateTimeFormatter
 
 trait JodaTimeInstances {
-  implicit def dateTimeCodec(implicit format: DateTimeFormatter): StringCodec[DateTime] =
-    StringCodec.from(StringDecoder.decoder("DateTime")(s ⇒ format.parseDateTime(s)))(format.print)
+  // - DateTime codecs -------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def dateTimeDecoder(format: DateTimeFormatter): StringDecoder[DateTime] =
+    StringDecoder.from(StringDecoder.decoder("DateTime")(format.parseDateTime))
 
-  implicit def localDateCodec(implicit format: DateTimeFormatter): StringCodec[LocalDate] =
-    StringCodec.from(StringDecoder.decoder("LocaleDate")(s ⇒ format.parseLocalDate(s)))(format.print)
+  def dateTimeEncoder(format: DateTimeFormatter): StringEncoder[DateTime] = StringEncoder.from(format.print)
 
-  implicit def localDateTimeCodec(implicit format: DateTimeFormatter): StringCodec[LocalDateTime] =
-    StringCodec.from(StringDecoder.decoder("LocalDateTime")(s ⇒ format.parseLocalDateTime(s)))(format.print)
+  def dateTimeCodec(format: DateTimeFormatter): StringCodec[DateTime] =
+    StringCodec.from(dateTimeDecoder(format), dateTimeEncoder(format))
 
-  implicit def localTimeCodec(implicit format: DateTimeFormatter): StringCodec[LocalTime] =
-    StringCodec.from(StringDecoder.decoder("LocalTime")(s ⇒ format.parseLocalTime(s)))(format.print)
+
+  // - LocalDateTime codecs --------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+   def localDateTimeDecoder(format: DateTimeFormatter): StringDecoder[LocalDateTime] =
+   StringDecoder.from(StringDecoder.decoder("LocaleDateTime")(format.parseLocalDateTime))
+
+   def localDateTimeEncoder(format: DateTimeFormatter): StringEncoder[LocalDateTime] = StringEncoder.from(format.print)
+
+   def localDateTimeCodec(format: DateTimeFormatter): StringCodec[LocalDateTime] =
+     StringCodec.from(localDateTimeDecoder(format), localDateTimeEncoder(format))
+
+
+
+  // - LocalDate codecs ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def localDateDecoder(format: DateTimeFormatter): StringDecoder[LocalDate] =
+    StringDecoder.from(StringDecoder.decoder("LocaleDate")(format.parseLocalDate))
+
+  def localDateEncoder(format: DateTimeFormatter): StringEncoder[LocalDate] = StringEncoder.from(format.print)
+
+  def localDateCodec(format: DateTimeFormatter): StringCodec[LocalDate] =
+    StringCodec.from(localDateDecoder(format), localDateEncoder(format))
+
+
+
+  // - LocalTime codecs ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def localTimeDecoder(format: DateTimeFormatter): StringDecoder[LocalTime] =
+    StringDecoder.from(StringDecoder.decoder("LocaleTime")(format.parseLocalTime))
+
+  def localTimeEncoder(format: DateTimeFormatter): StringEncoder[LocalTime] = StringEncoder.from(format.print)
+
+  def localTimeCodec(format: DateTimeFormatter): StringCodec[LocalTime] =
+    StringCodec.from(localTimeDecoder(format), localTimeEncoder(format))
 }

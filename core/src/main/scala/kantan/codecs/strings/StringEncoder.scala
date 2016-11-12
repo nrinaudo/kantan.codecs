@@ -16,6 +16,8 @@
 
 package kantan.codecs.strings
 
+import java.text.DateFormat
+import java.util.Date
 import kantan.codecs.Encoder
 
 object StringEncoder {
@@ -23,6 +25,9 @@ object StringEncoder {
   def apply[D](implicit ev: StringEncoder[D]): StringEncoder[D] = macro imp.summon[StringEncoder[D]]
 
   def from[D](f: D ⇒ String): StringEncoder[D] = Encoder.from(f)
+
+  def dateEncoder(format: DateFormat): StringEncoder[Date] =
+    StringEncoder.from(d ⇒ format.synchronized(format.format(d)))
 }
 
 /** Defines default instances of [[StringEncoder]]. */

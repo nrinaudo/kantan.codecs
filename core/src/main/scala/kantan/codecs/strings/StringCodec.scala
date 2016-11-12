@@ -25,6 +25,10 @@ import kantan.codecs.{Codec, Result}
 
 object StringCodec {
   def from[D](f: String ⇒ Result[DecodeError, D])(g: D ⇒ String): StringCodec[D] = Codec.from(f)(g)
+  def from[D](d: StringDecoder[D], e: StringEncoder[D]): StringCodec[D] = Codec.from(d, e)
+
+  def dateCodec(format: DateFormat): StringCodec[Date] =
+    StringCodec.from(StringDecoder.dateDecoder(format), StringEncoder.dateEncoder(format))
 }
 
 /** Defines default instances of [[StringCodec]] for all primitive types. */
@@ -82,8 +86,4 @@ trait StringCodecInstances extends StringEncoderInstances with StringDecoderInst
 
   implicit val path: StringCodec[Path] =
     StringCodec.from(StringDecoder.decoder("Path")(p ⇒ Paths.get(p.trim)))(_.toString)
-
-
-  implicit def date(implicit ft: DateFormat): StringCodec[Date] =
-    StringCodec.from(StringDecoder.decoder("Date")(s ⇒ ft.synchronized(ft.parse(s))))(d ⇒ ft.synchronized(ft.format(d)))
 }

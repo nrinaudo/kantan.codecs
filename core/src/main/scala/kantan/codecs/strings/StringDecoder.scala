@@ -16,6 +16,8 @@
 
 package kantan.codecs.strings
 
+import java.text.DateFormat
+import java.util.Date
 import kantan.codecs.{Decoder, Result}
 
 object StringDecoder {
@@ -26,6 +28,9 @@ object StringDecoder {
 
   def decoder[A](typeName: String)(f: String ⇒ A): String ⇒ Result[DecodeError, A] =
     s ⇒ Result.nonFatal(f(s)).leftMap(t ⇒ DecodeError(s"Not a valid $typeName: '$s'", t))
+
+  def dateDecoder(format: DateFormat): StringDecoder[Date] =
+      StringDecoder.from(StringDecoder.decoder("Date")(s ⇒ format.synchronized(format.parse(s))))
 }
 
 trait StringDecoderInstances
