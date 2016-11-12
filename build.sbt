@@ -23,13 +23,16 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .aggregate((
     Seq[ProjectReference](core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless,
       jodaTime, jodaTimeLaws, docs, tests) ++
-      (if(sys.props("java.specification.version") == "1.8") Seq[ProjectReference](java8) else Nil)
+      (if(sys.props("java.specification.version") == "1.8") Seq[ProjectReference](java8, java8Laws) else Nil)
   ):_*)
   .dependsOn(core)
 
 lazy val tests = project
   .enablePlugins(UnpublishedPlugin)
   .dependsOn(core, laws, catsLaws, scalazLaws, jodaTimeLaws, shapelessLaws)
+  .aggregate(
+    (if(sys.props("java.specification.version") == "1.8") Seq[ProjectReference](java8Tests) else Nil)
+  :_*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
 
 lazy val docs = project
@@ -118,8 +121,22 @@ lazy val java8 = project
     moduleName    := "kantan.codecs-java8",
     name          := "java8"
   )
-  .dependsOn(core)
   .enablePlugins(PublishedPlugin)
+  .dependsOn(core)
+
+lazy val java8Laws = Project(id = "java8-laws", base = file("java8-laws"))
+  .settings(
+    moduleName    := "kantan.codecs-java8-laws",
+    name          := "java8-laws"
+  )
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core, laws, java8)
+
+lazy val java8Tests = Project(id = "java8-tests", base = file("java8-tests"))
+  .enablePlugins(UnpublishedPlugin)
+  .dependsOn(java8, java8Laws)
+  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
+
 
 
 

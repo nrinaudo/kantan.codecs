@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.codecs.java8.strings;
+package kantan.codecs.strings
 
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
-
-class Parse {
-    public static Instant instant(CharSequence text, DateTimeFormatter formatter) {
-        java.util.Objects.requireNonNull(formatter, "formatter");
-        return formatter.parse(text, Instant::from);
-    }
-}
+package object java8 extends TimeInstances
