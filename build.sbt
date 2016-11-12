@@ -1,3 +1,7 @@
+import sbtunidoc.Plugin.UnidocKeys._
+
+
+
 // - Dependency versions -----------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 val catsVersion                = "0.8.1"
@@ -23,7 +27,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .aggregate((
     Seq[ProjectReference](core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless,
       jodaTime, jodaTimeLaws, docs, tests) ++
-      (if(sys.props("java.specification.version") == "1.8") Seq[ProjectReference](java8, java8Laws) else Nil)
+      (if(sys.props("java.specification.version") == "1.8") java8CompileProjects else Nil)
   ):_*)
   .dependsOn(core)
 
@@ -31,12 +35,15 @@ lazy val tests = project
   .enablePlugins(UnpublishedPlugin)
   .dependsOn(core, laws, catsLaws, scalazLaws, jodaTimeLaws, shapelessLaws)
   .aggregate(
-    (if(sys.props("java.specification.version") == "1.8") Seq[ProjectReference](java8Tests) else Nil)
+    (if(sys.props("java.specification.version") == "1.8") java8TestProjects else Nil)
   :_*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
+  .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
+    inAnyProject -- inProjects((if(sys.props("java.specification.version") != "1.8") java8Projects else Nil):_*)
+  )
   .dependsOn(core)
 
 
@@ -116,6 +123,10 @@ lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-la
 
 // - java8 projects ----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
+def java8CompileProjects: Seq[ProjectReference] = Seq(java8, java8Laws)
+def java8TestProjects: Seq[ProjectReference] = Seq(java8Tests)
+def java8Projects: Seq[ProjectReference] = java8CompileProjects ++ java8TestProjects
+
 lazy val java8 = project
   .settings(
     moduleName    := "kantan.codecs-java8",
