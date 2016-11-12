@@ -27,22 +27,20 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .aggregate((
     Seq[ProjectReference](core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless,
       jodaTime, jodaTimeLaws, docs, tests) ++
-      (if(sys.props("java.specification.version") == "1.8") java8CompileProjects else Nil)
+      ifJava8(java8CompileProjects)
   ):_*)
   .dependsOn(core)
 
 lazy val tests = project
   .enablePlugins(UnpublishedPlugin)
   .dependsOn(core, laws, catsLaws, scalazLaws, jodaTimeLaws, shapelessLaws)
-  .aggregate(
-    (if(sys.props("java.specification.version") == "1.8") java8TestProjects else Nil)
-  :_*)
+  .aggregate(ifJava8(java8TestProjects):_*)
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
   .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inAnyProject -- inProjects((if(sys.props("java.specification.version") != "1.8") java8Projects else Nil):_*)
+    inAnyProject -- inProjects(ifNotJava8(java8Projects):_*)
   )
   .dependsOn(core)
 
