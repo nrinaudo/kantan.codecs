@@ -34,6 +34,7 @@ trait Codec[E, D, F, T] extends Any with Decoder[E, D, F, T] with Encoder[E, D, 
 
 trait CodecCompanion[E, F, T] {
   @inline def from[D](f: E ⇒ Result[F, D])(g: D ⇒ E): Codec[E, D, F, T] = Codec.from(f)(g)
+  @inline def from[D](d: Decoder[E, D, F, T], e: Encoder[E, D, T]): Codec[E, D, F, T] = Codec.from(d, e)
 }
 
 object Codec {

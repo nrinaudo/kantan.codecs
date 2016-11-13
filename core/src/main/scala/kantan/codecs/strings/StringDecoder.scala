@@ -30,7 +30,7 @@ object StringDecoder {
     s ⇒ Result.nonFatal(f(s)).leftMap(t ⇒ DecodeError(s"Not a valid $typeName: '$s'", t))
 
   def dateDecoder(format: DateFormat): StringDecoder[Date] =
-      StringDecoder.from(StringDecoder.decoder("Date")(s ⇒ format.synchronized(format.parse(s))))
+    StringDecoder.from(StringDecoder.decoder("Date")(s ⇒ format.synchronized(format.parse(s))))
 }
 
 trait StringDecoderInstances
