@@ -33,16 +33,16 @@ object StringCodec {
 
 /** Defines default instances of [[StringCodec]] for all primitive types. */
 trait StringCodecInstances extends StringEncoderInstances with StringDecoderInstances {
-  implicit val bigDecimal: StringCodec[BigDecimal] =
+  implicit val bigDecimalCodec: StringCodec[BigDecimal] =
     StringCodec.from(StringDecoder.decoder("BigDecimal")(s ⇒ BigDecimal(s.trim)))(_.toString)
 
-  implicit val bigInt: StringCodec[BigInt] =
+  implicit val bigIntCodec: StringCodec[BigInt] =
     StringCodec.from(StringDecoder.decoder("BigInt")(s ⇒ BigInt(s.trim)))(_.toString)
 
-  implicit val boolean: StringCodec[Boolean] =
+  implicit val booleanCodec: StringCodec[Boolean] =
     StringCodec.from(StringDecoder.decoder("Boolean")(s ⇒ s.trim.toBoolean))(_.toString)
 
-  implicit val char: StringCodec[Char] = StringCodec.from { s ⇒
+  implicit val charCodec: StringCodec[Char] = StringCodec.from { s ⇒
     // This is a bit dodgy, but necessary: if the string has a length greater than 1, it might be a legal character with
     // padding. The only issue is if the character is *whitespace* with whitespace padding. This is acknowledged and
     // willfully ignored, at least for the time being.
@@ -51,39 +51,39 @@ trait StringCodecInstances extends StringEncoderInstances with StringDecoderInst
     else              Result.failure(DecodeError(s"Not a valid Char: '$s'"))
   }(_.toString)
 
-  implicit val double: StringCodec[Double] =
+  implicit val doubleCodec: StringCodec[Double] =
     StringCodec.from(StringDecoder.decoder("Double")(s ⇒ s.trim.toDouble))(_.toString)
 
-  implicit val byte: StringCodec[Byte] =
+  implicit val byteCodec: StringCodec[Byte] =
     StringCodec.from(StringDecoder.decoder("Byte")(s ⇒ s.trim.toByte))(_.toString)
 
-  implicit val float: StringCodec[Float] =
+  implicit val floatCodec: StringCodec[Float] =
     StringCodec.from(StringDecoder.decoder("Float")(s ⇒ s.trim.toFloat))(_.toString)
 
-  implicit val int: StringCodec[Int] =
+  implicit val intCodec: StringCodec[Int] =
     StringCodec.from(StringDecoder.decoder("Int")(s ⇒ s.trim.toInt))(_.toString)
 
-  implicit val long: StringCodec[Long] =
+  implicit val longCodec: StringCodec[Long] =
     StringCodec.from(StringDecoder.decoder("Long")(s ⇒ s.trim.toLong))(_.toString)
 
-  implicit val short: StringCodec[Short] =
+  implicit val shortCodec: StringCodec[Short] =
     StringCodec.from(StringDecoder.decoder("Short")(s ⇒ s.trim.toShort))(_.toString)
 
-  implicit val string: StringCodec[String] =
+  implicit val stringCodec: StringCodec[String] =
     StringCodec.from(s ⇒ Result.success(s))(_.toString)
 
-  implicit val uuid: StringCodec[UUID] =
+  implicit val uuidCodec: StringCodec[UUID] =
     StringCodec.from(StringDecoder.decoder("UUID")(s ⇒ UUID.fromString(s.trim)))(_.toString)
 
-  implicit val url: StringCodec[URL] =
+  implicit val urlCodec: StringCodec[URL] =
     StringCodec.from(StringDecoder.decoder("URL")(s ⇒ new URL(s.trim)))(_.toString)
 
-  implicit val uri: StringCodec[URI] =
+  implicit val uriCodec: StringCodec[URI] =
     StringCodec.from(StringDecoder.decoder("URI")(s ⇒ new URI(s.trim)))(_.toString)
 
-  implicit val file: StringCodec[File] =
+  implicit val fileCodec: StringCodec[File] =
     StringCodec.from(StringDecoder.decoder("File")(s ⇒ new File(s.trim)))(_.toString)
 
-  implicit val path: StringCodec[Path] =
+  implicit val pathCodec: StringCodec[Path] =
     StringCodec.from(StringDecoder.decoder("Path")(p ⇒ Paths.get(p.trim)))(_.toString)
 }

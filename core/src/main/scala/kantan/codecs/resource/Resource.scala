@@ -43,11 +43,11 @@ object Resource {
 
   // - Raw streams -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def inputStream[I <: InputStream]: InputResource[I] = Resource.from(Result.success)
-  implicit def reader[R <: Reader]: ReaderResource[R] = Resource.from(Result.success)
+  implicit def streamInputResource[I <: InputStream]: InputResource[I] = Resource.from(Result.success)
+  implicit def readerReaderResource[R <: Reader]: ReaderResource[R] = Resource.from(Result.success)
 
-  implicit def outputStream[O <: OutputStream]: OutputResource[O] = Resource.from(Result.success)
-  implicit def writer[W <: Writer]: WriterResource[W] = Resource.from(Result.success)
+  implicit def streamOutputResource[O <: OutputStream]: OutputResource[O] = Resource.from(Result.success)
+  implicit def writerWriterResource[W <: Writer]: WriterResource[W] = Resource.from(Result.success)
 
 
 
@@ -63,22 +63,25 @@ object Resource {
 
   // - Standard types --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val fileInput: InputResource[File] = inputStream.contramapResult(f ⇒ open(new FileInputStream(f)))
-  implicit val fileOutput: OutputResource[File] = outputStream.contramapResult(f ⇒ open(new FileOutputStream(f)))
-  implicit val pathInput: InputResource[Path] = Resource.from(p ⇒ open(Files.newInputStream(p)))
-  implicit val pathOutput: OutputResource[Path] = Resource.from(p ⇒ open(Files.newOutputStream(p)))
+  implicit val fileInputResource: InputResource[File] =
+    streamInputResource.contramapResult(f ⇒ open(new FileInputStream(f)))
+  implicit val fileOutputResource: OutputResource[File] =
+    streamOutputResource.contramapResult(f ⇒ open(new FileOutputStream(f)))
+  implicit val pathInputResource: InputResource[Path] = Resource.from(p ⇒ open(Files.newInputStream(p)))
+  implicit val pathOutputResource: OutputResource[Path] = Resource.from(p ⇒ open(Files.newOutputStream(p)))
 
-  implicit def pathReader(implicit codec: Codec): ReaderResource[Path] =
+  implicit def pathReaderResource(implicit codec: Codec): ReaderResource[Path] =
     Resource.from(p ⇒ open(Files.newBufferedReader(p, codec.charSet)))
-  implicit def pathWriter(implicit codec: Codec): WriterResource[Path] =
+  implicit def pathWriterResource(implicit codec: Codec): WriterResource[Path] =
       Resource.from(p ⇒ open(Files.newBufferedWriter(p, codec.charSet)))
 
-  implicit val bytes: InputResource[Array[Byte]] =
-    inputStream.contramap(bs ⇒ new ByteArrayInputStream(bs))
-  implicit val chars: ReaderResource[Array[Char]] = reader.contramap(cs ⇒ new CharArrayReader(cs))
-  implicit val string: ReaderResource[String] = reader.contramap(s ⇒ new StringReader(s))
+  implicit val bytesInputResource: InputResource[Array[Byte]] =
+    streamInputResource.contramap(bs ⇒ new ByteArrayInputStream(bs))
+  implicit val charsReaderResource: ReaderResource[Array[Char]] =
+    readerReaderResource.contramap(cs ⇒ new CharArrayReader(cs))
+  implicit val stringReaderResource: ReaderResource[String] = readerReaderResource.contramap(s ⇒ new StringReader(s))
 
-  implicit val url: InputResource[URL] =
-    inputStream.contramapResult(u ⇒ open(u.openStream()))
-  implicit val uri: InputResource[URI] = url.contramap(_.toURL)
+  implicit val urlInputResource: InputResource[URL] =
+    streamInputResource.contramapResult(u ⇒ open(u.openStream()))
+  implicit val uriInputResource: InputResource[URI] = urlInputResource.contramap(_.toURL)
 }
