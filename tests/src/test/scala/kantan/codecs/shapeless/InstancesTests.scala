@@ -16,12 +16,10 @@
 
 package kantan.codecs.shapeless
 
-import imp.imp
 import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
 import kantan.codecs.shapeless.laws._
 import kantan.codecs.shapeless.laws.discipline.arbitrary._
 import kantan.codecs.strings._
-import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
@@ -45,12 +43,6 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   // - Tests -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val decoder = StringDecoder[Int Or Boolean]
-
-  // TODO: let scalacheck-shapeless deal with that when fixed, see
-  // https://github.com/alexarchambault/scalacheck-shapeless/issues/50
-  implicit def arbOr[A: Arbitrary, B: Arbitrary]: Arbitrary[Or[A, B]] = Arbitrary(
-    Gen.oneOf(imp[Arbitrary[Left[A]]].arbitrary, imp[Arbitrary[Right[B]]].arbitrary)
-  )
 
   checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
     .decoder[Int, Int])
