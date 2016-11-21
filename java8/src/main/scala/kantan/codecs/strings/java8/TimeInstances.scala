@@ -114,7 +114,6 @@ trait TimeInstances {
     localTimeStringCodec(DateTimeFormatter.ISO_LOCAL_TIME)
 }
 
-
 trait TimeDecoderCompanion[E, F, T] {
   def decoderFrom[D](d: StringDecoder[D]): Decoder[E, D, F, T]
 
