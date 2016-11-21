@@ -18,7 +18,7 @@ package kantan.codecs.strings.java8
 
 import java.time._
 import java.time.format.DateTimeFormatter
-import kantan.codecs.{Decoder => RawDecoder, Encoder => RawEncoder}
+import kantan.codecs.{Decoder, Encoder}
 import kantan.codecs.export.Exported
 import kantan.codecs.strings.{StringCodec, StringDecoder, StringEncoder}
 
@@ -116,69 +116,70 @@ trait TimeInstances {
 
 
 trait TimeDecoderCompanion[E, F, T] {
-  type Decoder[D] <: RawDecoder[E, D, F, T]
+  def decoderFrom[D](d: StringDecoder[D]): Decoder[E, D, F, T]
 
-  def decoderFrom[D](d: StringDecoder[D]): Decoder[D]
-
-  implicit val defaultLocalTimeDecoder: Exported[Decoder[LocalTime]] =
+  implicit val defaultLocalTimeDecoder: Exported[Decoder[E, LocalTime, F, T]] =
     Exported(decoderFrom(defaultLocalTimeStringCodec))
-  def localTimeDecoder(format: DateTimeFormatter): Decoder[LocalTime] = decoderFrom(localTimeStringDecoder(format))
+  def localTimeDecoder(format: DateTimeFormatter): Decoder[E, LocalTime, F, T] =
+    decoderFrom(localTimeStringDecoder(format))
 
-  implicit val defaultLocalDateDecoder: Exported[Decoder[LocalDate]] =
+  implicit val defaultLocalDateDecoder: Exported[Decoder[E, LocalDate, F, T]] =
     Exported(decoderFrom(defaultLocalDateStringCodec))
-  def localDateDecoder(format: DateTimeFormatter): Decoder[LocalDate] = decoderFrom(localDateStringCodec(format))
+  def localDateDecoder(format: DateTimeFormatter): Decoder[E, LocalDate, F, T] =
+    decoderFrom(localDateStringCodec(format))
 
-  implicit val defaultLocalDateTimeDecoder: Exported[Decoder[LocalDateTime]] =
+  implicit val defaultLocalDateTimeDecoder: Exported[Decoder[E, LocalDateTime, F, T]] =
     Exported(decoderFrom(defaultLocalDateTimeStringCodec))
-  def localDateTimeDecoder(format: DateTimeFormatter): Decoder[LocalDateTime] =
+  def localDateTimeDecoder(format: DateTimeFormatter): Decoder[E, LocalDateTime, F, T] =
     decoderFrom(localDateTimeStringCodec(format))
 
-  implicit val defaultOffsetDateTimeDecoder: Exported[Decoder[OffsetDateTime]] =
+  implicit val defaultOffsetDateTimeDecoder: Exported[Decoder[E, OffsetDateTime, F, T]] =
     Exported(decoderFrom(defaultOffsetDateTimeStringCodec))
-  def offsetDateTimeDecoder(format: DateTimeFormatter): Decoder[OffsetDateTime] =
+  def offsetDateTimeDecoder(format: DateTimeFormatter): Decoder[E, OffsetDateTime, F, T] =
     decoderFrom(offsetDateTimeStringCodec(format))
 
-  implicit val defaultZonedDateTimeDecoder: Exported[Decoder[ZonedDateTime]] =
+  implicit val defaultZonedDateTimeDecoder: Exported[Decoder[E, ZonedDateTime, F, T]] =
     Exported(decoderFrom(defaultZonedDateTimeStringCodec))
-  def zonedDateTimeDecoder(format: DateTimeFormatter): Decoder[ZonedDateTime] =
+  def zonedDateTimeDecoder(format: DateTimeFormatter): Decoder[E, ZonedDateTime, F, T] =
     decoderFrom(zonedDateTimeStringCodec(format))
 
-  implicit val defaultInstantDecoder: Exported[Decoder[Instant]] =
+  implicit val defaultInstantDecoder: Exported[Decoder[E, Instant, F, T]] =
     Exported(decoderFrom(defaultInstantStringCodec))
-  def instantDecoder(format: DateTimeFormatter): Decoder[Instant] = decoderFrom(instantStringCodec(format))
+  def instantDecoder(format: DateTimeFormatter): Decoder[E, Instant, F, T] =
+    decoderFrom(instantStringCodec(format))
 }
 
 trait TimeEncoderCompanion[E, T] {
-  type Encoder[D] <: RawEncoder[E, D, T]
+  def encoderFrom[D](d: StringEncoder[D]): Encoder[E, D, T]
 
-  def encoderFrom[D](d: StringEncoder[D]): Encoder[D]
+  implicit val defaultLocalTimeEncoder: Exported[Encoder[E, LocalTime, T]] =
+    Exported(encoderFrom(defaultLocalTimeStringCodec))
+  def localTimeEncoder(format: DateTimeFormatter): Encoder[E, LocalTime, T] =
+    encoderFrom(localTimeStringEncoder(format))
 
-  implicit val defaultLocalTimeEncoder: Exported[Encoder[LocalTime]] =
-  Exported(encoderFrom(defaultLocalTimeStringCodec))
-  def localTimeEncoder(format: DateTimeFormatter): Encoder[LocalTime] = encoderFrom(localTimeStringEncoder(format))
-
-  implicit val defaultLocalDateEncoder: Exported[Encoder[LocalDate]] =
+  implicit val defaultLocalDateEncoder: Exported[Encoder[E, LocalDate, T]] =
     Exported(encoderFrom(defaultLocalDateStringCodec))
-  def localDateEncoder(format: DateTimeFormatter): Encoder[LocalDate] = encoderFrom(localDateStringEncoder(format))
+  def localDateEncoder(format: DateTimeFormatter): Encoder[E, LocalDate, T] =
+    encoderFrom(localDateStringEncoder(format))
 
-  implicit val defaultLocalDateTimeEncoder: Exported[Encoder[LocalDateTime]] =
+  implicit val defaultLocalDateTimeEncoder: Exported[Encoder[E, LocalDateTime, T]] =
     Exported(encoderFrom(defaultLocalDateTimeStringCodec))
-  def localDateTimeEncoder(format: DateTimeFormatter): Encoder[LocalDateTime] =
+  def localDateTimeEncoder(format: DateTimeFormatter): Encoder[E, LocalDateTime, T] =
     encoderFrom(localDateTimeStringCodec(format))
 
-  implicit val defaultOffsetDateTimeEncoder: Exported[Encoder[OffsetDateTime]] =
+  implicit val defaultOffsetDateTimeEncoder: Exported[Encoder[E, OffsetDateTime, T]] =
     Exported(encoderFrom(defaultOffsetDateTimeStringCodec))
-  def offsetDateTimeEncoder(format: DateTimeFormatter): Encoder[OffsetDateTime] =
+  def offsetDateTimeEncoder(format: DateTimeFormatter): Encoder[E, OffsetDateTime, T] =
     encoderFrom(offsetDateTimeStringCodec(format))
 
-  implicit val defaultZonedDateTimeEncoder: Exported[Encoder[ZonedDateTime]] =
+  implicit val defaultZonedDateTimeEncoder: Exported[Encoder[E, ZonedDateTime, T]] =
     Exported(encoderFrom(defaultZonedDateTimeStringCodec))
-  def zonedDateTimeEncoder(format: DateTimeFormatter): Encoder[ZonedDateTime] =
+  def zonedDateTimeEncoder(format: DateTimeFormatter): Encoder[E, ZonedDateTime, T] =
     encoderFrom(zonedDateTimeStringCodec(format))
 
-  implicit val defaultInstantEncoder: Exported[Encoder[Instant]] =
+  implicit val defaultInstantEncoder: Exported[Encoder[E, Instant, T]] =
     Exported(encoderFrom(defaultInstantStringCodec))
-  def instantEncoder(format: DateTimeFormatter): Encoder[Instant] = encoderFrom(instantStringCodec(format))
+  def instantEncoder(format: DateTimeFormatter): Encoder[E, Instant, T] = encoderFrom(instantStringCodec(format))
 }
 
 trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with TimeEncoderCompanion[E, T]

@@ -20,14 +20,11 @@ import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
 import kantan.codecs.strings._
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
 import org.joda.time.LocalDateTime
-import org.joda.time.format.DateTimeFormat
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class LocalDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  implicit val codec = localDateTimeCodec(DateTimeFormat.mediumDateTime())
-
   checkAll("StringDecoder[LocalDateTime]",
     DecoderTests[String, LocalDateTime, DecodeError, codecs.type].decoder[Int, Int])
   checkAll("StringEncoder[LocalDateTime]", EncoderTests[String, LocalDateTime, codecs.type].encoder[Int, Int])
