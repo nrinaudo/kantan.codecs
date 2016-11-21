@@ -16,7 +16,7 @@
 
 package kantan.codecs.strings.joda.time
 
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.{Codec, Decoder, Encoder}
 import kantan.codecs.export.Exported
 import kantan.codecs.strings.{StringCodec, StringDecoder, StringEncoder}
 import org.joda.time._
@@ -137,4 +137,16 @@ trait JodaTimeEncoderCompanion[E, T] {
 }
 
 trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T]
-                                              with JodaTimeEncoderCompanion[E, T]
+                                              with JodaTimeEncoderCompanion[E, T] {
+  def dateTimeCodec[D](format: DateTimeFormatter): Codec[E, DateTime, F, T] =
+    Codec.from(dateTimeDecoder(format), dateTimeEncoder(format))
+
+  def localDateTimeCodec[D](format: DateTimeFormatter): Codec[E, LocalDateTime, F, T] =
+    Codec.from(localDateTimeDecoder(format), localDateTimeEncoder(format))
+
+  def localDateCodec[D](format: DateTimeFormatter): Codec[E, LocalDate, F, T] =
+    Codec.from(localDateDecoder(format), localDateEncoder(format))
+
+  def localTimeCodec[D](format: DateTimeFormatter): Codec[E, LocalTime, F, T] =
+    Codec.from(localTimeDecoder(format), localTimeEncoder(format))
+}

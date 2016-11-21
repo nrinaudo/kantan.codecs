@@ -18,7 +18,7 @@ package kantan.codecs.strings.java8
 
 import java.time._
 import java.time.format.DateTimeFormatter
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.{Codec, Decoder, Encoder}
 import kantan.codecs.export.Exported
 import kantan.codecs.strings.{StringCodec, StringDecoder, StringEncoder}
 
@@ -182,4 +182,22 @@ trait TimeEncoderCompanion[E, T] {
   def instantEncoder(format: DateTimeFormatter): Encoder[E, Instant, T] = encoderFrom(instantStringCodec(format))
 }
 
-trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with TimeEncoderCompanion[E, T]
+trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with TimeEncoderCompanion[E, T] {
+  def localTimeCodec(format: DateTimeFormatter): Codec[E, LocalTime, F, T] =
+    Codec.from(localTimeDecoder(format), localTimeEncoder(format))
+
+  def localDateTimeCodec(format: DateTimeFormatter): Codec[E, LocalDateTime, F, T] =
+    Codec.from(localDateTimeDecoder(format), localDateTimeEncoder(format))
+
+  def localDateCodec(format: DateTimeFormatter): Codec[E, LocalDate, F, T] =
+    Codec.from(localDateDecoder(format), localDateEncoder(format))
+
+  def instantCodec(format: DateTimeFormatter): Codec[E, Instant, F, T] =
+    Codec.from(instantDecoder(format), instantEncoder(format))
+
+  def zonedDateTimeCodec(format: DateTimeFormatter): Codec[E, ZonedDateTime, F, T] =
+    Codec.from(zonedDateTimeDecoder(format), zonedDateTimeEncoder(format))
+
+  def offsetDateTimeCodec(format: DateTimeFormatter): Codec[E, OffsetDateTime, F, T] =
+    Codec.from(offsetDateTimeDecoder(format), offsetDateTimeEncoder(format))
+}
