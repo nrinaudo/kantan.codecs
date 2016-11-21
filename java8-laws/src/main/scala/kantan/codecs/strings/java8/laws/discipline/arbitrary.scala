@@ -17,23 +17,33 @@
 package kantan.codecs.strings.java8.laws.discipline
 
 import java.time._
+import java.time.format.DateTimeFormatter
+import kantan.codecs.laws.{IllegalString, LegalString}
 import org.scalacheck.{Arbitrary, Cogen, Gen}
 import scala.collection.JavaConverters._
+import scala.util.Try
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
 
 // This is mostly ripped straight from circe's implementation.
 trait ArbitraryInstances {
+  import kantan.codecs.laws.discipline.arbitrary._
+
   // - Instant instances -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   private[this] val minInstant: Instant = Instant.EPOCH
   private[this] val maxInstant: Instant = Instant.parse("3000-01-01T00:00:00.00Z")
 
-
   implicit val arbInstant: Arbitrary[Instant] =
     Arbitrary(Gen.choose(minInstant.getEpochSecond, maxInstant.getEpochSecond).map(Instant.ofEpochSecond))
 
   implicit val cogenInstant: Cogen[Instant] = Cogen(_.toEpochMilli)
+
+  implicit val arbLegalInstantString: Arbitrary[LegalString[Instant]] =
+    arbLegalValue(DateTimeFormatter.ISO_INSTANT.format)
+  implicit val arbIllegalInstantString: Arbitrary[IllegalString[Instant]] =
+    arbIllegalValue(s ⇒ Try(Instant.parse(s)).isFailure)
+
 
 
   // - LocalDate instances ---------------------------------------------------------------------------------------------
@@ -43,6 +53,10 @@ trait ArbitraryInstances {
   implicit val cogenLocalDate: Cogen[LocalDate] =
     Cogen.tuple3[Int, Int, Int].contramap(date ⇒ (date.getYear, date.getMonthValue, date.getDayOfMonth))
 
+  implicit val arbLegalLocalDateString: Arbitrary[LegalString[LocalDate]] =
+    arbLegalValue(DateTimeFormatter.ISO_LOCAL_DATE.format)
+  implicit val arbIllegalLocalDateString: Arbitrary[IllegalString[LocalDate]] =
+    arbIllegalValue(s ⇒ Try(LocalDate.parse(s)).isFailure)
 
 
   // - LocalTime instances ---------------------------------------------------------------------------------------------
@@ -52,6 +66,10 @@ trait ArbitraryInstances {
   implicit val cogenLocalTime: Cogen[LocalTime] =
     Cogen.tuple4[Int, Int, Int, Int].contramap(time ⇒ (time.getHour, time.getMinute, time.getSecond, time.getNano))
 
+  implicit val arbLegalLocalTimeString: Arbitrary[LegalString[LocalTime]] =
+    arbLegalValue(DateTimeFormatter.ISO_LOCAL_TIME.format)
+  implicit val arbIllegalLocalTimeString: Arbitrary[IllegalString[LocalTime]] =
+    arbIllegalValue(s ⇒ Try(LocalTime.parse(s)).isFailure)
 
 
   // - LocalDateTime instances -----------------------------------------------------------------------------------------
@@ -71,6 +89,10 @@ trait ArbitraryInstances {
     (dt.toLocalDate, dt.toLocalTime)
   }
 
+  implicit val arbLegalLocalDateTimeString: Arbitrary[LegalString[LocalDateTime]] =
+    arbLegalValue(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format)
+  implicit val arbIllegalLocalDateTimeString: Arbitrary[IllegalString[LocalDateTime]] =
+    arbIllegalValue(s ⇒ Try(LocalDateTime.parse(s)).isFailure)
 
 
   // - ZonedDateTime instances -----------------------------------------------------------------------------------------
@@ -85,6 +107,10 @@ trait ArbitraryInstances {
   implicit val cogenZonedDateTime: Cogen[ZonedDateTime] =
     Cogen.tuple2[LocalDate, LocalTime].contramap(dt ⇒ (dt.toLocalDate, dt.toLocalTime))
 
+  implicit val arbLegalZonedDateTimeString: Arbitrary[LegalString[ZonedDateTime]] =
+    arbLegalValue(DateTimeFormatter.ISO_ZONED_DATE_TIME.format)
+  implicit val arbIllegalZonedDateTimeString: Arbitrary[IllegalString[ZonedDateTime]] =
+    arbIllegalValue(s ⇒ Try(ZonedDateTime.parse(s)).isFailure)
 
 
   // - OffsetDateTime instances ----------------------------------------------------------------------------------------
@@ -98,4 +124,9 @@ trait ArbitraryInstances {
 
   implicit val cogenOffsetDateTime: Cogen[OffsetDateTime] =
     Cogen.tuple2[LocalDate, LocalTime].contramap(dt ⇒ (dt.toLocalDate, dt.toLocalTime))
+
+  implicit val arbLegalOffsetDateTimeString: Arbitrary[LegalString[OffsetDateTime]] =
+    arbLegalValue(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format)
+  implicit val arbIllegalOffsetDateTimeString: Arbitrary[IllegalString[OffsetDateTime]] =
+    arbIllegalValue(s ⇒ Try(OffsetDateTime.parse(s)).isFailure)
 }
