@@ -24,11 +24,7 @@ import org.scalacheck.Arbitrary
 object equality extends EqInstances
 
 trait EqInstances {
-  implicit def throwableEq: Eq[Throwable] = new Eq[Throwable] {
-    override def eqv(x: Throwable, y: Throwable): Boolean = x.getClass == y.getClass
-  }
-
-  implicit def decoderEq[E: Arbitrary, D: Eq, F: Eq, T]: Eq[Decoder[E, D, F, T]]= new Eq[Decoder[E, D, F, T]] {
+  implicit def decoderEq[E: Arbitrary, D: Eq, F: Eq, T]: Eq[Decoder[E, D, F, T]] = new Eq[Decoder[E, D, F, T]] {
     override def eqv(a1: Decoder[E, D, F, T], a2: Decoder[E, D, F, T]) =
       kantan.codecs.laws.discipline.equality.eq(a1.decode, a2.decode) { (d1, d2) ⇒
         implicitly[Eq[Result[F, D]]].eqv(d1, d2)

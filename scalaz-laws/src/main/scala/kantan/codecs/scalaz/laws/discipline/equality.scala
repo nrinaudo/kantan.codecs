@@ -24,10 +24,6 @@ import org.scalacheck.Arbitrary
 object equality extends EqualInstances
 
 trait EqualInstances {
-  implicit def throwableEqual: Equal[Throwable] = new Equal[Throwable] {
-    override def equal(a1: Throwable, a2: Throwable): Boolean = a1.getClass == a2.getClass
-  }
-
   implicit def decoderEqual[E: Arbitrary, D: Equal, F: Equal, T]: Equal[Decoder[E, D, F, T]] =
     new Equal[Decoder[E, D, F, T]] {
       override def equal(a1: Decoder[E, D, F, T], a2: Decoder[E, D, F, T]) =
