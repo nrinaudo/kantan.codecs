@@ -25,14 +25,15 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class JodaTimeCodecCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  object codec
-
   object CodecCompanion extends JodaTimeCodecCompanion[String, DecodeError, codec.type] {
     override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
   }
 
-  import CodecCompanion._
+  implicit val dateTimeCodec = CodecCompanion.dateTimeCodec(defaultDateTimeFormat)
+  implicit val localDateTimeCodec = CodecCompanion.localDateTimeCodec(defaultLocalDateTimeFormat)
+  implicit val localDateCodec = CodecCompanion.localDateCodec(defaultLocalDateFormat)
+  implicit val localTimeCodec = CodecCompanion.localTimeCodec(defaultLocalTimeFormat)
 
   checkAll("JodaTimeCodecCompanion[DateTime]", CodecTests[String, DateTime, DecodeError, codec.type].codec[Int, Int])
   checkAll("JodaTimeCodecCompanion[LocalDateTime]",
