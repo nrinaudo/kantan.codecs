@@ -100,9 +100,11 @@ trait ArbitraryInstances {
   implicit val arbZonedDateTime: Arbitrary[ZonedDateTime] = Arbitrary(
     for {
       instant ← Arbitrary.arbitrary[Instant]
-      zoneId  ← Arbitrary.arbitrary[ZoneId].suchThat(_ != ZoneId.of("GMT0")) // avoid JDK-8138664
-    } yield ZonedDateTime.ofInstant(instant, zoneId)
-  )
+      zoneId  ← Arbitrary.arbitrary[ZoneId]
+    } yield ZonedDateTime.ofInstant(
+      instant,
+      if(zoneId == ZoneId.of("GMT0")) ZoneId.of("UTC") else zoneId // avoid JDK-8138664
+    ))
 
   implicit val cogenZonedDateTime: Cogen[ZonedDateTime] =
     Cogen.tuple2[LocalDate, LocalTime].contramap(dt ⇒ (dt.toLocalDate, dt.toLocalTime))
