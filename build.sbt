@@ -6,14 +6,14 @@ import sbtunidoc.Plugin.UnidocKeys._
 // ---------------------------------------------------------------------------------------------------------------------
 val catsVersion                = "0.8.1"
 val commonsIoVersion           = "2.5"
-val disciplineVersion          = "0.7.2"
+val disciplineVersion          = "0.7.3"
 val impVersion                 = "0.3.0"
 val jodaConvertVersion         = "1.8.1"
-val jodaVersion                = "2.9.6"
+val jodaVersion                = "2.9.7"
 val scalacheckVersion          = "1.13.4"
 val scalacheckShapelessVersion = "1.1.4"
 val scalatestVersion           = "3.0.1"
-val scalazVersion              = "7.2.7"
+val scalazVersion              = "7.2.8"
 val shapelessVersion           = "2.3.2"
 
 kantanProject in ThisBuild := "codecs"
