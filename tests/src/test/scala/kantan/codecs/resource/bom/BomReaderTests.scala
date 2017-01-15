@@ -18,6 +18,7 @@ package kantan.codecs.resource.bom
 
 import java.io.{ByteArrayInputStream, Reader}
 import java.nio.charset.Charset
+import org.scalacheck.Gen
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.io.Codec
@@ -60,6 +61,13 @@ class BomReaderTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("UTF-32BE BOMs should be read properly") {
     forAll { str: String ⇒
       assert(read(str, Codec(Charset.forName("UTF-32BE"))) == str)
+    }
+  }
+
+  // Uses Gen.identifier to make sure we only get strings that are actually encodable in ISO-8859-1.
+  test("Non-BOM encodings should be read properly") {
+    forAll(Gen.identifier) { str: String ⇒
+      assert(read(str, Codec.ISO8859) == str)
     }
   }
 }
