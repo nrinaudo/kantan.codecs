@@ -54,7 +54,6 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
     }  yield FailingIterator(as.iterator, index)
   }
 
-
   def closedWhenEmpty[A](r: ResourceIterator[A]): Boolean = {
     var closed = false
     val r2 = r.withClose(() ⇒ closed = true)

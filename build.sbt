@@ -5,6 +5,7 @@ import sbtunidoc.Plugin.UnidocKeys._
 // - Dependency versions -----------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 val catsVersion                = "0.8.1"
+val commonsIoVersion           = "2.5"
 val disciplineVersion          = "0.7.2"
 val impVersion                 = "0.3.0"
 val jodaConvertVersion         = "1.8.1"
@@ -15,8 +16,8 @@ val scalatestVersion           = "3.0.1"
 val scalazVersion              = "7.2.7"
 val shapelessVersion           = "2.3.2"
 
-
 kantanProject in ThisBuild := "codecs"
+
 
 
 // - root projects -----------------------------------------------------------------------------------------------------
@@ -33,7 +34,10 @@ lazy val tests = project
   .enablePlugins(UnpublishedPlugin)
   .dependsOn(core, laws, catsLaws, scalazLaws, jodaTimeLaws, shapelessLaws)
   .aggregate(ifJava8[ProjectReference](java8Tests):_*)
-  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
+  .settings(libraryDependencies ++= Seq(
+    "org.scalatest" %% "scalatest"  % scalatestVersion % "test",
+    "commons-io"     % "commons-io" % commonsIoVersion % "test"
+  ))
 
 lazy val docs = project
   .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
