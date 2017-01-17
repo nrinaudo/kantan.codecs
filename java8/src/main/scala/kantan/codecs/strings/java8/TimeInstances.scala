@@ -25,6 +25,11 @@ import kantan.codecs.strings.{StringCodec, StringDecoder, StringEncoder}
 trait TimeInstances {
   // - Instant codecs --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Default format for `java.time.Instant`.
+    *
+    * When no instance is declared manually, the default instances of [[StringDecoder]] and [[StringEncoder]] will
+    * assume this format.
+    */
   val defaultInstantFormat: DateTimeFormatter = DateTimeFormatter.ISO_INSTANT
 
   def instantStringDecoder(format: DateTimeFormatter): StringDecoder[Instant] =
