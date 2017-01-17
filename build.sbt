@@ -56,7 +56,11 @@ lazy val core = project
     moduleName := "kantan.codecs",
     name       := "core"
   )
-  .settings(libraryDependencies += "org.spire-math" %% "imp" % impVersion)
+  .settings(libraryDependencies ++= Seq(
+    "org.spire-math" %% "imp"        % impVersion,
+    "org.scalatest"  %% "scalatest"  % scalatestVersion % "test",
+    "org.scalacheck" %% "scalacheck" % scalacheckVersion)
+  )
   .enablePlugins(PublishedPlugin)
 
 lazy val laws = project
