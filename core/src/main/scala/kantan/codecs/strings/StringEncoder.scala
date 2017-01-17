@@ -29,6 +29,3 @@ object StringEncoder {
   def dateEncoder(format: DateFormat): StringEncoder[Date] =
     StringEncoder.from(d ⇒ format.synchronized(format.format(d)))
 }
-
-/** Defines default instances of [[StringEncoder]]. */
-trait StringEncoderInstances

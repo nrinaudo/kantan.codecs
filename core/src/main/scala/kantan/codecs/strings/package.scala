@@ -16,8 +16,27 @@
 
 package kantan.codecs
 
+/** Defines codecs for encoding to and decoding from strings.
+  *
+  * These codecs are not necessary meant to use directly, but more as part of larger ones.
+  * [[https://github.com/nrinaudo/kantan.csv kantan.csv]], for example, works with CSV files but delegates the act
+  * of encoding to or decoding from a CSV cell to string codecs.
+  *
+  * Default instances can be found in [[kantan.codecs.strings.codecs]].
+  */
 package object strings {
+  /** [[Encoder]] for strings.
+    *
+    * Default instances can be found in [[codecs]].
+    */
   type StringEncoder[A] = Encoder[String, A, codecs.type]
+
+  /** [[Decoder]] for strings.
+    *
+    * Default instances can be found in [[codecs]].
+    */
   type StringDecoder[A] = Decoder[String, A, DecodeError, codecs.type]
+
+  /** [[Codec]] for strings. */
   type StringCodec[A] = Codec[String, A, DecodeError, codecs.type]
 }

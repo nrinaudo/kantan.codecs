@@ -23,6 +23,7 @@ sealed case class DecodeError(message: String) extends Exception {
 object DecodeError {
   def apply(msg: String, t: Throwable): DecodeError = new DecodeError(msg) {
     override val getCause = t
+    override def toString: String = s"DecodeError($msg)"
   }
 
   def apply(t: Throwable): DecodeError = DecodeError(Option(t.getMessage).getOrElse("Decode error"), t)
