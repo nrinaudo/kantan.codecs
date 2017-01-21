@@ -40,13 +40,13 @@ object StringDecoder {
     */
   def from[D](f: String ⇒ Result[DecodeError, D]): StringDecoder[D] = Decoder.from(f)
 
-  /** Creates an instance of [[StringDecoder]] from the specified, potentially unsafe, decoding function.
+  /** Creates a safe decoding function from the specified unsafe one.
     *
     * This method expects the specified decoding function to be able to fail by throwing exceptions. These will be
     * caught and wrapped in [[DecodeError]].
     *
     * {{{
-    * scala> val decoder = StringDecoder.decoder("Int")(_.toInt)
+    * scala> val decoder = StringDecoder.makeSafe("Int")(_.toInt)
     *
     * scala> decoder("1")
     * res1: kantan.codecs.Result[DecodeError, Int] = Success(1)
@@ -55,11 +55,14 @@ object StringDecoder {
     * res2: kantan.codecs.Result[DecodeError, Int] = Failure(DecodeError(Not a valid Int: 'foobar'))
     * }}}
     *
+    * This is typically used in conjunction with [StringDecoder.from], when creating instances for types that are not
+    * isomorphic to `String`.
+    *
     * @param typeName name of the decoded type (used in error messages).
     * @param f decoding function.
     * @tparam D decoded type.
     */
-  def decoder[D](typeName: String)(f: String ⇒ D): String ⇒ Result[DecodeError, D] =
+  def makeSafe[D](typeName: String)(f: String ⇒ D): String ⇒ Result[DecodeError, D] =
     s ⇒ Result.nonFatal(f(s)).leftMap(t ⇒ DecodeError(s"Not a valid $typeName: '$s'", t))
 
   /** Creates a [[StringDecoder]] instance for `java.util.Date`.
@@ -77,5 +80,5 @@ object StringDecoder {
     * @param format format used when parsing date values.
     */
   def dateDecoder(format: DateFormat): StringDecoder[Date] =
-    StringDecoder.from(StringDecoder.decoder("Date")(s ⇒ format.synchronized(format.parse(s))))
+    StringDecoder.from(StringDecoder.makeSafe("Date")(s ⇒ format.synchronized(format.parse(s))))
 }

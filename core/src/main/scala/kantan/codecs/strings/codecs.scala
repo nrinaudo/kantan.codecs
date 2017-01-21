@@ -37,7 +37,7 @@ object codecs {
     * }}}
     */
   implicit val bigDecimalStringCodec: StringCodec[BigDecimal] =
-    StringCodec.from(StringDecoder.decoder("BigDecimal")(s ⇒ BigDecimal(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("BigDecimal")(s ⇒ BigDecimal(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `BigInt`.
     *
@@ -52,7 +52,7 @@ object codecs {
     * }}}
     */
   implicit val bigIntStringCodec: StringCodec[BigInt] =
-    StringCodec.from(StringDecoder.decoder("BigInt")(s ⇒ BigInt(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("BigInt")(s ⇒ BigInt(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Boolean`.
     *
@@ -67,7 +67,7 @@ object codecs {
     * }}}
     */
   implicit val booleanStringCodec: StringCodec[Boolean] =
-    StringCodec.from(StringDecoder.decoder("Boolean")(s ⇒ s.trim.toBoolean))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Boolean")(s ⇒ s.trim.toBoolean))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Char`.
     *
@@ -103,7 +103,7 @@ object codecs {
     * }}}
     */
   implicit val doubleStringCodec: StringCodec[Double] =
-    StringCodec.from(StringDecoder.decoder("Double")(s ⇒ s.trim.toDouble))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Double")(s ⇒ s.trim.toDouble))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Byte`.
     *
@@ -118,7 +118,7 @@ object codecs {
     * }}}
     */
   implicit val byteStringCodec: StringCodec[Byte] =
-    StringCodec.from(StringDecoder.decoder("Byte")(s ⇒ s.trim.toByte))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Byte")(s ⇒ s.trim.toByte))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Float`.
     *
@@ -133,7 +133,7 @@ object codecs {
     * }}}
     */
   implicit val floatStringCodec: StringCodec[Float] =
-    StringCodec.from(StringDecoder.decoder("Float")(s ⇒ s.trim.toFloat))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Float")(s ⇒ s.trim.toFloat))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Int`.
     *
@@ -148,7 +148,7 @@ object codecs {
     * }}}
     */
   implicit val intStringCodec: StringCodec[Int] =
-    StringCodec.from(StringDecoder.decoder("Int")(s ⇒ s.trim.toInt))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Int")(s ⇒ s.trim.toInt))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Long`.
     *
@@ -163,7 +163,7 @@ object codecs {
     * }}}
     */
   implicit val longStringCodec: StringCodec[Long] =
-    StringCodec.from(StringDecoder.decoder("Long")(s ⇒ s.trim.toLong))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Long")(s ⇒ s.trim.toLong))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Short`.
     *
@@ -178,7 +178,7 @@ object codecs {
     * }}}
     */
   implicit val shortStringCodec: StringCodec[Short] =
-    StringCodec.from(StringDecoder.decoder("Short")(s ⇒ s.trim.toShort))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Short")(s ⇒ s.trim.toShort))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `String`.
     *
@@ -210,7 +210,7 @@ object codecs {
     * }}}
     */
   implicit val uuidStringCodec: StringCodec[UUID] =
-    StringCodec.from(StringDecoder.decoder("UUID")(s ⇒ UUID.fromString(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("UUID")(s ⇒ UUID.fromString(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `java.net.URL`.
     *
@@ -227,7 +227,7 @@ object codecs {
     * }}}
     */
   implicit val urlStringCodec: StringCodec[URL] =
-    StringCodec.from(StringDecoder.decoder("URL")(s ⇒ new URL(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("URL")(s ⇒ new URL(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `java.net.URI`.
     *
@@ -244,7 +244,7 @@ object codecs {
     * }}}
     */
   implicit val uriStringCodec: StringCodec[URI] =
-    StringCodec.from(StringDecoder.decoder("URI")(s ⇒ new URI(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("URI")(s ⇒ new URI(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `java.io.File`.
     *
@@ -261,7 +261,7 @@ object codecs {
     * }}}
     */
   implicit val fileStringCodec: StringCodec[File] =
-    StringCodec.from(StringDecoder.decoder("File")(s ⇒ new File(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("File")(s ⇒ new File(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `java.nio.file.Path`.
     *
@@ -278,5 +278,5 @@ object codecs {
     * }}}
     */
   implicit val pathStringCodec: StringCodec[Path] =
-    StringCodec.from(StringDecoder.decoder("Path")(p ⇒ Paths.get(p.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Path")(p ⇒ Paths.get(p.trim)))(_.toString)
 }

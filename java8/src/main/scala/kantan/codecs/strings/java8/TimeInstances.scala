@@ -33,7 +33,7 @@ trait TimeInstances {
   val defaultInstantFormat: DateTimeFormatter = DateTimeFormatter.ISO_INSTANT
 
   def instantStringDecoder(format: DateTimeFormatter): StringDecoder[Instant] =
-    StringDecoder.from(StringDecoder.decoder("Instant")(s ⇒ Parse.instant(s, format)))
+    StringDecoder.from(StringDecoder.makeSafe("Instant")(s ⇒ Parse.instant(s, format)))
 
   def instantStringEncoder(format: DateTimeFormatter): StringEncoder[Instant] =
     StringEncoder.from(format.format)
@@ -50,7 +50,7 @@ trait TimeInstances {
   val defaultLocalDateTimeFormat: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
   def localDateTimeStringDecoder(format: DateTimeFormatter): StringDecoder[LocalDateTime] =
-  StringDecoder.from(StringDecoder.decoder("LocalDateTime")(s ⇒ LocalDateTime.parse(s, format)))
+  StringDecoder.from(StringDecoder.makeSafe("LocalDateTime")(s ⇒ LocalDateTime.parse(s, format)))
 
   def localDateTimeStringEncoder(format: DateTimeFormatter): StringEncoder[LocalDateTime] =
     StringEncoder.from(format.format)
@@ -68,7 +68,7 @@ trait TimeInstances {
   val defaultZonedDateTimeFormat: DateTimeFormatter = DateTimeFormatter.ISO_ZONED_DATE_TIME
 
   def zonedDateTimeStringDecoder(format: DateTimeFormatter): StringDecoder[ZonedDateTime] =
-  StringDecoder.from(StringDecoder.decoder("ZonedDateTime")(s ⇒ ZonedDateTime.parse(s, format)))
+  StringDecoder.from(StringDecoder.makeSafe("ZonedDateTime")(s ⇒ ZonedDateTime.parse(s, format)))
 
   def zonedDateTimeStringEncoder(format: DateTimeFormatter): StringEncoder[ZonedDateTime] =
     StringEncoder.from(format.format)
@@ -85,7 +85,7 @@ trait TimeInstances {
   val defaultOffsetDateTimeFormat: DateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
 
   def offsetDateTimeStringDecoder(format: DateTimeFormatter): StringDecoder[OffsetDateTime] =
-    StringDecoder.from(StringDecoder.decoder("OffsetDateTime")(s ⇒ OffsetDateTime.parse(s, format)))
+    StringDecoder.from(StringDecoder.makeSafe("OffsetDateTime")(s ⇒ OffsetDateTime.parse(s, format)))
 
   def offsetDateTimeStringEncoder(format: DateTimeFormatter): StringEncoder[OffsetDateTime] =
     StringEncoder.from(format.format)
@@ -102,7 +102,7 @@ trait TimeInstances {
   val defaultLocalDateFormat: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE
 
   def localDateStringDecoder(format: DateTimeFormatter): StringDecoder[LocalDate] =
-    StringDecoder.from(StringDecoder.decoder("LocalDate")(s ⇒ LocalDate.parse(s, format)))
+    StringDecoder.from(StringDecoder.makeSafe("LocalDate")(s ⇒ LocalDate.parse(s, format)))
 
   def localDateStringEncoder(format: DateTimeFormatter): StringEncoder[LocalDate] =
     StringEncoder.from(format.format)
@@ -119,7 +119,7 @@ trait TimeInstances {
   val defaultLocalTimeFormat: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME
 
   def localTimeStringDecoder(format: DateTimeFormatter): StringDecoder[LocalTime] =
-    StringDecoder.from(StringDecoder.decoder("LocalTime")(s ⇒ LocalTime.parse(s, format)))
+    StringDecoder.from(StringDecoder.makeSafe("LocalTime")(s ⇒ LocalTime.parse(s, format)))
 
   def localTimeStringEncoder(format: DateTimeFormatter): StringEncoder[LocalTime] =
     StringEncoder.from(format.format)

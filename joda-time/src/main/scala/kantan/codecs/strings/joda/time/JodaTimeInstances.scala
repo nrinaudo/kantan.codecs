@@ -28,7 +28,7 @@ trait JodaTimeInstances {
   val defaultDateTimeFormat: DateTimeFormatter = ISODateTimeFormat.dateTime()
 
   def dateTimeStringDecoder(format: DateTimeFormatter): StringDecoder[DateTime] =
-    StringDecoder.from(StringDecoder.decoder("DateTime")(format.parseDateTime))
+    StringDecoder.from(StringDecoder.makeSafe("DateTime")(format.parseDateTime))
 
   def dateTimeStringEncoder(format: DateTimeFormatter): StringEncoder[DateTime] = StringEncoder.from(format.print)
 
@@ -45,7 +45,7 @@ trait JodaTimeInstances {
     ISODateTimeFormat.localDateOptionalTimeParser().getParser)
 
    def localDateTimeStringDecoder(format: DateTimeFormatter): StringDecoder[LocalDateTime] =
-   StringDecoder.from(StringDecoder.decoder("LocaleDateTime")(format.parseLocalDateTime))
+   StringDecoder.from(StringDecoder.makeSafe("LocaleDateTime")(format.parseLocalDateTime))
 
    def localDateTimeStringEncoder(format: DateTimeFormatter): StringEncoder[LocalDateTime] =
      StringEncoder.from(format.print)
@@ -65,7 +65,7 @@ trait JodaTimeInstances {
     ISODateTimeFormat.localDateParser().getParser)
 
   def localDateStringDecoder(format: DateTimeFormatter): StringDecoder[LocalDate] =
-    StringDecoder.from(StringDecoder.decoder("LocaleDate")(format.parseLocalDate))
+    StringDecoder.from(StringDecoder.makeSafe("LocaleDate")(format.parseLocalDate))
 
   def localDateStringEncoder(format: DateTimeFormatter): StringEncoder[LocalDate] = StringEncoder.from(format.print)
 
@@ -83,7 +83,7 @@ trait JodaTimeInstances {
     ISODateTimeFormat.localTimeParser().getParser)
 
   def localTimeStringDecoder(format: DateTimeFormatter): StringDecoder[LocalTime] =
-    StringDecoder.from(StringDecoder.decoder("LocaleTime")(format.parseLocalTime))
+    StringDecoder.from(StringDecoder.makeSafe("LocaleTime")(format.parseLocalTime))
 
   def localTimeStringEncoder(format: DateTimeFormatter): StringEncoder[LocalTime] = StringEncoder.from(format.print)
 

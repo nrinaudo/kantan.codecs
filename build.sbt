@@ -4,7 +4,7 @@ import sbtunidoc.Plugin.UnidocKeys._
 
 // - Dependency versions -----------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-val catsVersion                = "0.8.1"
+val catsVersion                = "0.9.0"
 val commonsIoVersion           = "2.5"
 val disciplineVersion          = "0.7.3"
 val impVersion                 = "0.3.0"
@@ -58,8 +58,7 @@ lazy val core = project
   )
   .settings(libraryDependencies ++= Seq(
     "org.spire-math" %% "imp"        % impVersion,
-    "org.scalatest"  %% "scalatest"  % scalatestVersion % "test",
-    "org.scalacheck" %% "scalacheck" % scalacheckVersion)
+    "org.scalatest"  %% "scalatest"  % scalatestVersion % "test")
   )
   .enablePlugins(PublishedPlugin)
 
