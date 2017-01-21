@@ -69,12 +69,13 @@ object StringDecoder {
     *
     * {{{
     * scala> import java.text.SimpleDateFormat
-    * scala> import java.util.Date
     *
-    * scala> implicit val decoder = StringDecoder.dateDecoder(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz"))
+    * scala> val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
     *
-    * scala> decoder.decode("2016-01-17T22:03:12.012UTC")
-    * res1: kantan.codecs.Result[DecodeError, Date] = Success(Sun Jan 17 23:03:12 CET 2016)
+    * scala> implicit val decoder = StringDecoder.dateDecoder(format)
+    *
+    * scala> decoder.decode("2016-01-17T22:03:12.012UTC").map(format.format)
+    * res1: kantan.codecs.Result[DecodeError, String] = Success(2016-01-17T22:03:12.012UTC)
     * }}}
     *
     * @param format format used when parsing date values.

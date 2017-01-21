@@ -50,10 +50,12 @@ object StringCodec {
     * scala> import java.text.SimpleDateFormat
     * scala> import java.util.Date
     *
-    * scala> val codec = StringCodec.dateCodec(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz"))
+    * scala> val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
     *
-    * scala> codec.decode("2016-01-17T22:03:12.012UTC")
-    * res1: kantan.codecs.Result[DecodeError, Date] = Success(Sun Jan 17 23:03:12 CET 2016)
+    * scala> val codec = StringCodec.dateCodec(format)
+    *
+    * scala> codec.decode("2016-01-17T22:03:12.012UTC").map(format.format)
+    * res1: kantan.codecs.Result[DecodeError, String] = Success(2016-01-17T22:03:12.012UTC)
     *
     * // Encoding example
     * scala> codec.encode(new Date(0))
