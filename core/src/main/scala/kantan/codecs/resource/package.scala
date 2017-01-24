@@ -19,8 +19,15 @@ package kantan.codecs
 import java.io.{InputStream, OutputStream, Reader, Writer}
 
 package object resource {
+  /** [[Resource]] specialised for [[java.io.InputStream]]. */
   type InputResource[A] = Resource[A, InputStream, ResourceError]
+
+  /** [[Resource]] specialised for [[java.io.Reader]]. */
   type ReaderResource[A] = Resource[A, Reader, ResourceError]
+
+  /** [[Resource]] specialised for [[java.io.OutputStream]]. */
   type OutputResource[A] = Resource[A, OutputStream, ResourceError]
+
+  /** [[Resource]] specialised for [[java.io.Writer]]. */
   type WriterResource[A] = Resource[A, Writer, ResourceError]
 }
