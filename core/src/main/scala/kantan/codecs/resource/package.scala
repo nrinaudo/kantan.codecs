@@ -19,15 +19,30 @@ package kantan.codecs
 import java.io.{InputStream, OutputStream, Reader, Writer}
 
 package object resource {
-  /** [[Resource]] specialised for [[java.io.InputStream]]. */
-  type InputResource[A] = Resource[A, InputStream, ResourceError]
+  type OpenResult[A] = Result[ResourceError.OpenError, A]
+  type CloseResult = Result[ResourceError.CloseError, Unit]
+  type ProcessResult[A] = Result[ResourceError.ProcessError, A]
+  type ResourceResult[A] = Result[ResourceError, A]
 
-  /** [[Resource]] specialised for [[java.io.Reader]]. */
-  type ReaderResource[A] = Resource[A, Reader, ResourceError]
+  /** [[Resource]] specialised for `java.io.InputStream`. */
+  type InputResource[A] = Resource[A, InputStream]
 
-  /** [[Resource]] specialised for [[java.io.OutputStream]]. */
-  type OutputResource[A] = Resource[A, OutputStream, ResourceError]
+  /** [[Resource]] specialised for `java.io.Reader`.
+    *
+    * Note that it's good practice not to declare explicit instances of [[ReaderResource]] for types that have an
+    * instance of [[InputResource]]. It's better to let the implicit resolution mechanism work out how to best turn
+    * an `InputStream` into a `Reader` - the [[kantan.codecs.resource.bom]] package, in particular, relies on this.
+    */
+  type ReaderResource[A] = Resource[A, Reader]
 
-  /** [[Resource]] specialised for [[java.io.Writer]]. */
-  type WriterResource[A] = Resource[A, Writer, ResourceError]
+  /** [[Resource]] specialised for `java.io.OutputStream`. */
+  type OutputResource[A] = Resource[A, OutputStream]
+
+  /** [[Resource]] specialised for `java.io.Writer`.
+    *
+    * Note that it's good practice not to declare explicit instances of [[WriterResource]] for types that have an
+    * instance of [[OutputResource]]. It's better to let the implicit resolution mechanism work out how to best turn
+    * an `OutputStream` into a `Writer` - the [[kantan.codecs.resource.bom]] package, in particular, relies on this.
+    */
+  type WriterResource[A] = Resource[A, Writer]
 }

@@ -22,24 +22,46 @@ import java.nio.file.{Files, Path}
 import kantan.codecs.Result
 import scala.io.Codec
 
-trait Resource[I, R, E] { self ⇒
-  def open(a: I): Result[E, R]
+/** Represents a resource that can be opened and worked on.
+  *
+  * The purpose of this trait is to abstract over the notion of "things that can be opened", such as files, URLs...
+  * Default instances are provided for `java.io` types - `java.io.File`, for example, has instances for both
+  * opening it for reading and for writing.
+  *
+  * @tparam I type of the resource itself (eg `java.io.File`).
+  * @tparam R type of the opened resource (eg `java.io.InputStream`)
+  */
+trait Resource[I, R] { self ⇒
+  /** Opens the specified resource. */
+  def open(input: I): OpenResult[R]
 
-  def contramap[AA](f: AA ⇒ I): Resource[AA, R, E] = Resource.from(f andThen self.open)
-  def contramapResult[AA](f: AA ⇒ Result[E, I]): Resource[AA, R, E] =
+  /** Opens the specified resource and applies the specified function to its content.
+    *
+    * The resource will be closed regardless of whether `f` fails. Note that `f` is expected to be safe - it cannot
+    * throw but should instead wrap all errors in a [[ProcessResult]].
+    */
+  def withResource[O](input: I)(f: R ⇒ ProcessResult[O])(implicit c: Closeable[R]): ResourceResult[O] =
+    open(input).flatMap { r ⇒
+      val res = f(r)
+
+      Closeable[R].close(r).flatMap(_ ⇒ res)
+    }
+
+  def contramap[II](f: II ⇒ I): Resource[II, R] = Resource.from(f andThen self.open)
+  def contramapResult[II](f: II ⇒ OpenResult[I]): Resource[II, R] =
     Resource.from(aa ⇒ f(aa).flatMap(self.open))
 
-  def map[BB](f: R ⇒ BB): Resource[I, BB, E] = Resource.from(a ⇒ open(a).map(f))
-  def mapResult[BB](f: R ⇒ Result[E, BB]): Resource[I, BB, E] =
+  def map[RR](f: R ⇒ RR): Resource[I, RR] = Resource.from(a ⇒ open(a).map(f))
+  def mapResult[RR](f: R ⇒ OpenResult[RR]): Resource[I, RR] =
     Resource.from(a ⇒ open(a).flatMap(f))
 }
 
 object Resource {
-  def from[A, B, E](f: A ⇒ Result[E, B]): Resource[A, B, E] = new Resource[A, B, E] {
-    override def open(a: A) = f(a)
+  def from[I, R](f: I ⇒ OpenResult[R]): Resource[I, R] = new Resource[I, R] {
+    override def open(a: I) = f(a)
   }
 
-  private def open[A](a: ⇒ A): Result[ResourceError, A] = Result.nonFatal(a).leftMap(ResourceError.apply)
+  private def open[A](a: ⇒ A): OpenResult[A] = Result.nonFatal(a).leftMap(ResourceError.OpenError.apply)
 
   // - Raw streams -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -53,9 +75,11 @@ object Resource {
 
   // - Byte to char ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Turns any [[InputResource]] into a [[ReaderResource]] using whatever implicit `Codec` is found in scope. */
   implicit def readerFromStream[A: InputResource](implicit codec: Codec): ReaderResource[A] =
-  InputResource[A].map(i ⇒ new InputStreamReader(i, codec.charSet))
+    InputResource[A].map(i ⇒ new InputStreamReader(i, codec.charSet))
 
+  /** Turns any [[OutputResource]] into a [[WriterResource]] using whatever implicit `Codec` is found in scope. */
   implicit def writerFromStream[A: OutputResource](implicit codec: Codec): WriterResource[A] =
     OutputResource[A].map(o ⇒ new OutputStreamWriter(o, codec.charSet))
 
@@ -64,7 +88,7 @@ object Resource {
   // - Standard types --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val pathInputResource: InputResource[Path] =
-  InputResource[InputStream].contramapResult(p ⇒ open(Files.newInputStream(p)))
+    InputResource[InputStream].contramapResult(p ⇒ open(Files.newInputStream(p)))
   implicit val pathOutputResource: OutputResource[Path] =
     OutputResource[OutputStream].contramapResult(p ⇒ open(Files.newOutputStream(p)))
 

@@ -16,7 +16,6 @@
 
 package kantan.codecs.resource
 
-import java.io.Closeable
 import kantan.codecs.Result
 import scala.annotation.tailrec
 import scala.util.Try
@@ -38,7 +37,7 @@ import scala.util.Try
   * allows you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a
   * situation when you just want to stop, however, [[ResourceIterator.close()*]] is available.
   */
-trait ResourceIterator[+A] extends TraversableOnce[A] with Closeable { self ⇒
+trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { self ⇒
   // - Abstract methods ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Reads the next element in the underlying resource

@@ -16,14 +16,42 @@
 
 package kantan.codecs.resource
 
-sealed case class ResourceError(message: String) extends Exception {
-  override final val getMessage = message
-}
+sealed abstract trait ResourceError extends Product with Serializable
 
 object ResourceError {
-  def apply(msg: String, t: Throwable): ResourceError = new ResourceError(msg) {
-    override val getCause = t
+  sealed case class OpenError(message: String) extends Exception with ResourceError {
+    override final val getMessage = message
   }
 
-  def apply(t: Throwable): ResourceError = ResourceError(Option(t.getMessage).getOrElse("Resource error"), t)
+  object OpenError {
+    def apply(msg: String, t: Throwable): OpenError = new OpenError(msg) {
+      override val getCause = t
+    }
+
+    def apply(t: Throwable): OpenError = OpenError(Option(t.getMessage).getOrElse("Open error"), t)
+  }
+
+  sealed case class ProcessError(message: String) extends Exception with ResourceError {
+      override final val getMessage = message
+    }
+
+    object ProcessError {
+      def apply(msg: String, t: Throwable): ProcessError = new ProcessError(msg) {
+        override val getCause = t
+      }
+
+      def apply(t: Throwable): ProcessError = ProcessError(Option(t.getMessage).getOrElse("Process error"), t)
+    }
+
+  sealed case class CloseError(message: String) extends Exception with ResourceError {
+    override final val getMessage = message
+  }
+
+  object CloseError {
+    def apply(msg: String, t: Throwable): CloseError = new CloseError(msg) {
+      override val getCause = t
+    }
+
+    def apply(t: Throwable): CloseError = CloseError(Option(t.getMessage).getOrElse("Close error"), t)
+  }
 }
