@@ -119,12 +119,15 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html">
+        <a title="Defines codecs for encoding to and decoding from strings." href="../index.html">
               <span class="name">strings</span>
             </a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+      <p class="shortcomment cmt">Defines codecs for encoding to and decoding from strings.</p><div class="fullcomment"><div class="comment cmt"><p>Defines codecs for encoding to and decoding from strings.</p><p>These codecs are not necessary meant to use directly, but more as part of larger ones.
+<a href="https://github.com/nrinaudo/kantan.csv" target="_blank">kantan.csv</a>, for example, works with CSV files but delegates the act
+of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="../codecs$.html" class="extype" name="kantan.codecs.strings.codecs">kantan.codecs.strings.codecs</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.java8" visbl="pub" class="indented4 current" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="java8"></a><a id="java8:java8"></a>
       <span class="permalink">
@@ -376,7 +379,9 @@
         <span class="name">defaultInstantFormat</span><span class="result">: <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeInstances.html" class="extype" name="kantan.codecs.strings.java8.TimeInstances">TimeInstances</a></dd></dl></div>
+      <p class="shortcomment cmt">Default format for <code>java.time.Instant</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Default format for <code>java.time.Instant</code>.</p><p>When no instance is declared manually, the default instances of <a href="../index.html#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a> and <a href="../index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a> will
+assume this format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeInstances.html" class="extype" name="kantan.codecs.strings.java8.TimeInstances">TimeInstances</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeInstances#defaultInstantStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultInstantStringCodec:kantan.codecs.strings.StringCodec[java.time.Instant]"></a><a id="defaultInstantStringCodec:StringCodec[Instant]"></a>
       <span class="permalink">

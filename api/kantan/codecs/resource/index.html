@@ -182,33 +182,61 @@ if no other, more specific instance is found.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.resource.bom" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="bom"></a><a id="bom:bom"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#bom" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Adds Byte Order Mark support to resources." href="bom/index.html">
+              <span class="name">bom</span>
+            </a>
+      </span>
+      
+      <p class="shortcomment cmt">Adds Byte Order Mark support to resources.</p><div class="fullcomment"><div class="comment cmt"><p>Adds Byte Order Mark support to resources.</p><p>By importing this package, the default behaviour of kantan libraries will be changed to:
+ * add a BOM when writing textual data (if one exists for the output charset).
+ * attempt to find a BOM when reading textual data and, if one is found, use the corresponding charset (potentially
+   overriding whatever charset was specified &quot;in-code&quot;).</p><p>Those behaviours are not enabled by default as they're very Microsoft-specific.
+</p></div></div>
     </li><li class="current-entities indented3">
+                        <a class="object" href="Closeable$.html" title=""></a>
+                        <a class="trait" href="Closeable.html" title="Type class for all types that can be closed."></a>
+                        <a href="Closeable.html" title="Type class for all types that can be closed.">
+                          Closeable
+                        </a>
+                      </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="InputResource$.html" title=""></a>
-                        <a href="InputResource$.html" title="">
+                        <a class="object" href="InputResource$.html" title="Provides instance summoning methods for InputResource."></a>
+                        <a href="InputResource$.html" title="Provides instance summoning methods for InputResource.">
                           InputResource
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="OutputResource$.html" title=""></a>
-                        <a href="OutputResource$.html" title="">
+                        <a class="object" href="OutputResource$.html" title="Provides instance summoning methods for OutputResource."></a>
+                        <a href="OutputResource$.html" title="Provides instance summoning methods for OutputResource.">
                           OutputResource
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="ReaderResource$.html" title=""></a>
-                        <a href="ReaderResource$.html" title="">
+                        <a class="object" href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource."></a>
+                        <a href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource.">
                           ReaderResource
                         </a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="Resource$.html" title=""></a>
-                        <a class="trait" href="Resource.html" title=""></a>
-                        <a href="Resource.html" title="">
+                        <a class="trait" href="Resource.html" title="Represents a resource that can be opened and worked on."></a>
+                        <a href="Resource.html" title="Represents a resource that can be opened and worked on.">
                           Resource
                         </a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="ResourceError$.html" title=""></a>
-                        <a class="class" href="ResourceError.html" title=""></a>
+                        <a class="trait" href="ResourceError.html" title=""></a>
                         <a href="ResourceError.html" title="">
                           ResourceError
                         </a>
@@ -220,8 +248,8 @@ if no other, more specific instance is found.
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="WriterResource$.html" title=""></a>
-                        <a href="WriterResource$.html" title="">
+                        <a class="object" href="WriterResource$.html" title="Provides instance summoning methods for WriterResource."></a>
+                        <a href="WriterResource$.html" title="Provides instance summoning methods for WriterResource.">
                           WriterResource
                         </a>
                       </li><li name="kantan.codecs.scalaz" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -272,12 +300,15 @@ if no other, more specific instance is found.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../strings/index.html">
+        <a title="Defines codecs for encoding to and decoding from strings." href="../strings/index.html">
               <span class="name">strings</span>
             </a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+      <p class="shortcomment cmt">Defines codecs for encoding to and decoding from strings.</p><div class="fullcomment"><div class="comment cmt"><p>Defines codecs for encoding to and decoding from strings.</p><p>These codecs are not necessary meant to use directly, but more as part of larger ones.
+<a href="https://github.com/nrinaudo/kantan.csv" target="_blank">kantan.csv</a>, for example, works with CSV files but delegates the act
+of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="../strings/codecs$.html" class="extype" name="kantan.codecs.strings.codecs">kantan.codecs.strings.codecs</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li>
               </ul>
             </div>
@@ -358,10 +389,10 @@ if no other, more specific instance is found.
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="kantan.codecs.resource.InputResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="InputResource[A]=kantan.codecs.resource.Resource[A,java.io.InputStream,kantan.codecs.resource.ResourceError]"></a><a id="InputResource[A]:InputResource[A]"></a>
+              <ol><li name="kantan.codecs.resource.CloseResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CloseResult=kantan.codecs.Result[kantan.codecs.resource.ResourceError.CloseError,Unit]"></a><a id="CloseResult:CloseResult"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/index.html#InputResource[A]=kantan.codecs.resource.Resource[A,java.io.InputStream,kantan.codecs.resource.ResourceError]" title="Permalink">
+      <a href="../../../kantan/codecs/resource/index.html#CloseResult=kantan.codecs.Result[kantan.codecs.resource.ResourceError.CloseError,Unit]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -370,46 +401,14 @@ if no other, more specific instance is found.
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">InputResource</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.InputResource.A">A</span>, <span class="extype" name="java.io.InputStream">InputStream</span>, <a href="ResourceError.html" class="extype" name="kantan.codecs.resource.ResourceError">ResourceError</a>]</span>
+        <span class="name">CloseResult</span><span class="result alias"> = <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<a href="ResourceError$$CloseError.html" class="extype" name="kantan.codecs.resource.ResourceError.CloseError">CloseError</a>, <span class="extype" name="scala.Unit">Unit</span>]</span>
       </span>
       
       
-    </li><li name="kantan.codecs.resource.OutputResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="OutputResource[A]=kantan.codecs.resource.Resource[A,java.io.OutputStream,kantan.codecs.resource.ResourceError]"></a><a id="OutputResource[A]:OutputResource[A]"></a>
+    </li><li name="kantan.codecs.resource.Closeable" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="Closeable[A]extendsAnyRef"></a><a id="Closeable[A]:Closeable[A]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/index.html#OutputResource[A]=kantan.codecs.resource.Resource[A,java.io.OutputStream,kantan.codecs.resource.ResourceError]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">type</span>
-      </span>
-      <span class="symbol">
-        <span class="name">OutputResource</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.OutputResource.A">A</span>, <span class="extype" name="java.io.OutputStream">OutputStream</span>, <a href="ResourceError.html" class="extype" name="kantan.codecs.resource.ResourceError">ResourceError</a>]</span>
-      </span>
-      
-      
-    </li><li name="kantan.codecs.resource.ReaderResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="ReaderResource[A]=kantan.codecs.resource.Resource[A,java.io.Reader,kantan.codecs.resource.ResourceError]"></a><a id="ReaderResource[A]:ReaderResource[A]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/resource/index.html#ReaderResource[A]=kantan.codecs.resource.Resource[A,java.io.Reader,kantan.codecs.resource.ResourceError]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">type</span>
-      </span>
-      <span class="symbol">
-        <span class="name">ReaderResource</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.ReaderResource.A">A</span>, <span class="extype" name="java.io.Reader">Reader</span>, <a href="ResourceError.html" class="extype" name="kantan.codecs.resource.ResourceError">ResourceError</a>]</span>
-      </span>
-      
-      
-    </li><li name="kantan.codecs.resource.Resource" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="Resource[I,R,E]extendsAnyRef"></a><a id="Resource[I,R,E]:Resource[I,R,E]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/resource/index.html#Resource[I,R,E]extendsAnyRef" title="Permalink">
+      <a href="../../../kantan/codecs/resource/index.html#Closeable[A]extendsAnyRef" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -418,27 +417,131 @@ if no other, more specific instance is found.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Resource.html">
-              <span class="name">Resource</span>
-            </a><span class="tparams">[<span name="I">I</span>, <span name="R">R</span>, <span name="E">E</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Type class for all types that can be closed." href="Closeable.html">
+              <span class="name">Closeable</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Type class for all types that can be closed.</p>
+    </li><li name="kantan.codecs.resource.InputResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="InputResource[A]=kantan.codecs.resource.Resource[A,java.io.InputStream]"></a><a id="InputResource[A]:InputResource[A]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#InputResource[A]=kantan.codecs.resource.Resource[A,java.io.InputStream]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">InputResource</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.InputResource.A">A</span>, <span class="extype" name="java.io.InputStream">InputStream</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a> specialised for <code>java.io.InputStream</code>.</p>
+    </li><li name="kantan.codecs.resource.OpenResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="OpenResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.OpenError,A]"></a><a id="OpenResult[A]:OpenResult[A]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#OpenResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.OpenError,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">OpenResult</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<a href="ResourceError$$OpenError.html" class="extype" name="kantan.codecs.resource.ResourceError.OpenError">OpenError</a>, <span class="extype" name="kantan.codecs.resource.OpenResult.A">A</span>]</span>
       </span>
       
       
-    </li><li name="kantan.codecs.resource.ResourceError" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="ResourceErrorextendsExceptionwithProductwithSerializable"></a><a id="ResourceError:ResourceError"></a>
+    </li><li name="kantan.codecs.resource.OutputResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="OutputResource[A]=kantan.codecs.resource.Resource[A,java.io.OutputStream]"></a><a id="OutputResource[A]:OutputResource[A]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/index.html#ResourceErrorextendsExceptionwithProductwithSerializable" title="Permalink">
+      <a href="../../../kantan/codecs/resource/index.html#OutputResource[A]=kantan.codecs.resource.Resource[A,java.io.OutputStream]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">OutputResource</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.OutputResource.A">A</span>, <span class="extype" name="java.io.OutputStream">OutputStream</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a> specialised for <code>java.io.OutputStream</code>.</p>
+    </li><li name="kantan.codecs.resource.ProcessResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ProcessResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.ProcessError,A]"></a><a id="ProcessResult[A]:ProcessResult[A]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#ProcessResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.ProcessError,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ProcessResult</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<a href="ResourceError$$ProcessError.html" class="extype" name="kantan.codecs.resource.ResourceError.ProcessError">ProcessError</a>, <span class="extype" name="kantan.codecs.resource.ProcessResult.A">A</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.resource.ReaderResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ReaderResource[A]=kantan.codecs.resource.Resource[A,java.io.Reader]"></a><a id="ReaderResource[A]:ReaderResource[A]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#ReaderResource[A]=kantan.codecs.resource.Resource[A,java.io.Reader]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ReaderResource</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.ReaderResource.A">A</span>, <span class="extype" name="java.io.Reader">Reader</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a> specialised for <code>java.io.Reader</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a> specialised for <code>java.io.Reader</code>.</p><p>Note that it's good practice not to declare explicit instances of <a href="#ReaderResource[A]=kantan.codecs.resource.Resource[A,java.io.Reader]" class="extmbr" name="kantan.codecs.resource.ReaderResource">ReaderResource</a> for types that have an
+instance of <a href="#InputResource[A]=kantan.codecs.resource.Resource[A,java.io.InputStream]" class="extmbr" name="kantan.codecs.resource.InputResource">InputResource</a>. It's better to let the implicit resolution mechanism work out how to best turn
+an <code>InputStream</code> into a <code>Reader</code> - the <a href="bom/index.html" class="extype" name="kantan.codecs.resource.bom">kantan.codecs.resource.bom</a> package, in particular, relies on this.
+</p></div></div>
+    </li><li name="kantan.codecs.resource.Resource" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Resource[I,R]extendsAnyRef"></a><a id="Resource[I,R]:Resource[I,R]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#Resource[I,R]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="Represents a resource that can be opened and worked on." href="Resource.html">
+              <span class="name">Resource</span>
+            </a><span class="tparams">[<span name="I">I</span>, <span name="R">R</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Represents a resource that can be opened and worked on.</p><div class="fullcomment"><div class="comment cmt"><p>Represents a resource that can be opened and worked on.</p><p>The purpose of this trait is to abstract over the notion of &quot;things that can be opened&quot;, such as files, URLs...
+Default instances are provided for <code>java.io</code> types - <code>java.io.File</code>, for example, has instances for both
+opening it for reading and for writing.
+</p></div><dl class="paramcmts block"><dt class="tparam">I</dt><dd class="cmt"><p>type of the resource itself (eg <code>java.io.File</code>).</p></dd><dt class="tparam">R</dt><dd class="cmt"><p>type of the opened resource (eg <code>java.io.InputStream</code>)</p></dd></dl></div>
+    </li><li name="kantan.codecs.resource.ResourceError" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ResourceErrorextendsProductwithSerializable"></a><a id="ResourceError:ResourceError"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#ResourceErrorextendsProductwithSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier">sealed </span>
-        <span class="kind">case class</span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
         <a title="" href="ResourceError.html">
               <span class="name">ResourceError</span>
-            </a><span class="params">(<span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Exception">Exception</span> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -456,7 +559,7 @@ if no other, more specific instance is found.
       <span class="symbol">
         <a title="Offers iterator-like access to IO resources." href="ResourceIterator.html">
               <span class="name">ResourceIterator</span>
-            </a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>] with <span class="extype" name="java.io.Closeable">Closeable</span></span>
+            </a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>] with <span class="extype" name="java.io.Closeable">java.io.Closeable</span></span>
       </span>
       
       <p class="shortcomment cmt">Offers iterator-like access to IO resources.</p><div class="fullcomment"><div class="comment cmt"><p>Offers iterator-like access to IO resources.</p><p>For the most part, values of type <a href="ResourceIterator.html" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a> can be considered as iterators, with a few improvements.</p><p>First, they have a <a href="ResourceIterator.html#close():Unit" class="extmbr" name="kantan.codecs.resource.ResourceIterator#close">ResourceIterator.close()*</a> method, which allows you to release the underlying resource when
@@ -468,10 +571,10 @@ example, &quot;take the first <code>n</code> elements&quot; is <code>take(n)</co
 allows you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a
 situation when you just want to stop, however, <a href="ResourceIterator.html#close():Unit" class="extmbr" name="kantan.codecs.resource.ResourceIterator#close">ResourceIterator.close()*</a> is available.
 </p></div></div>
-    </li><li name="kantan.codecs.resource.WriterResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer,kantan.codecs.resource.ResourceError]"></a><a id="WriterResource[A]:WriterResource[A]"></a>
+    </li><li name="kantan.codecs.resource.ResourceResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ResourceResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError,A]"></a><a id="ResourceResult[A]:ResourceResult[A]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/index.html#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer,kantan.codecs.resource.ResourceError]" title="Permalink">
+      <a href="../../../kantan/codecs/resource/index.html#ResourceResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -480,10 +583,29 @@ situation when you just want to stop, however, <a href="ResourceIterator.html#cl
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">WriterResource</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.WriterResource.A">A</span>, <span class="extype" name="java.io.Writer">Writer</span>, <a href="ResourceError.html" class="extype" name="kantan.codecs.resource.ResourceError">ResourceError</a>]</span>
+        <span class="name">ResourceResult</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<a href="ResourceError.html" class="extype" name="kantan.codecs.resource.ResourceError">ResourceError</a>, <span class="extype" name="kantan.codecs.resource.ResourceResult.A">A</span>]</span>
       </span>
       
       
+    </li><li name="kantan.codecs.resource.WriterResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer]"></a><a id="WriterResource[A]:WriterResource[A]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">WriterResource</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.WriterResource.A">A</span>, <span class="extype" name="java.io.Writer">Writer</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a> specialised for <code>java.io.Writer</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Resource.html" class="extype" name="kantan.codecs.resource.Resource">Resource</a> specialised for <code>java.io.Writer</code>.</p><p>Note that it's good practice not to declare explicit instances of <a href="#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer]" class="extmbr" name="kantan.codecs.resource.WriterResource">WriterResource</a> for types that have an
+instance of <a href="#OutputResource[A]=kantan.codecs.resource.Resource[A,java.io.OutputStream]" class="extmbr" name="kantan.codecs.resource.OutputResource">OutputResource</a>. It's better to let the implicit resolution mechanism work out how to best turn
+an <code>OutputStream</code> into a <code>Writer</code> - the <a href="bom/index.html" class="extype" name="kantan.codecs.resource.bom">kantan.codecs.resource.bom</a> package, in particular, relies on this.
+</p></div></div>
     </li></ol>
             </div>
 
@@ -492,7 +614,25 @@ situation when you just want to stop, however, <a href="ResourceIterator.html#cl
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="kantan.codecs.resource.InputResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                <li name="kantan.codecs.resource.Closeable" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Closeable"></a><a id="Closeable:Closeable"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#Closeable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Closeable$.html">
+              <span class="name">Closeable</span>
+            </a>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.resource.InputResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="InputResource"></a><a id="InputResource:InputResource"></a>
       <span class="permalink">
       <a href="../../../kantan/codecs/resource/index.html#InputResource" title="Permalink">
@@ -504,12 +644,12 @@ situation when you just want to stop, however, <a href="ResourceIterator.html#cl
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="InputResource$.html">
+        <a title="Provides instance summoning methods for InputResource." href="InputResource$.html">
               <span class="name">InputResource</span>
             </a>
       </span>
       
-      
+      <p class="shortcomment cmt">Provides instance summoning methods for <a href="#InputResource[A]=kantan.codecs.resource.Resource[A,java.io.InputStream]" class="extmbr" name="kantan.codecs.resource.InputResource">InputResource</a>.</p>
     </li><li name="kantan.codecs.resource.OutputResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="OutputResource"></a><a id="OutputResource:OutputResource"></a>
       <span class="permalink">
@@ -522,12 +662,12 @@ situation when you just want to stop, however, <a href="ResourceIterator.html#cl
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="OutputResource$.html">
+        <a title="Provides instance summoning methods for OutputResource." href="OutputResource$.html">
               <span class="name">OutputResource</span>
             </a>
       </span>
       
-      
+      <p class="shortcomment cmt">Provides instance summoning methods for <a href="#OutputResource[A]=kantan.codecs.resource.Resource[A,java.io.OutputStream]" class="extmbr" name="kantan.codecs.resource.OutputResource">OutputResource</a>.</p>
     </li><li name="kantan.codecs.resource.ReaderResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ReaderResource"></a><a id="ReaderResource:ReaderResource"></a>
       <span class="permalink">
@@ -540,12 +680,12 @@ situation when you just want to stop, however, <a href="ResourceIterator.html#cl
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="ReaderResource$.html">
+        <a title="Provides instance summoning methods for ReaderResource." href="ReaderResource$.html">
               <span class="name">ReaderResource</span>
             </a>
       </span>
       
-      
+      <p class="shortcomment cmt">Provides instance summoning methods for <a href="#ReaderResource[A]=kantan.codecs.resource.Resource[A,java.io.Reader]" class="extmbr" name="kantan.codecs.resource.ReaderResource">ReaderResource</a>.</p>
     </li><li name="kantan.codecs.resource.Resource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Resource"></a><a id="Resource:Resource"></a>
       <span class="permalink">
@@ -612,12 +752,12 @@ situation when you just want to stop, however, <a href="ResourceIterator.html#cl
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="WriterResource$.html">
+        <a title="Provides instance summoning methods for WriterResource." href="WriterResource$.html">
               <span class="name">WriterResource</span>
             </a>
       </span>
       
-      
+      <p class="shortcomment cmt">Provides instance summoning methods for <a href="#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer]" class="extmbr" name="kantan.codecs.resource.WriterResource">WriterResource</a>.</p>
     </li>
               </ol>
             </div>

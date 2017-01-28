@@ -11,20 +11,20 @@ kantan.codecs is a support library for the various kantan projects.
 
 ## Getting started
 
-kantan.codecs is currently available both for Scala 2.10 and 2.11.
+kantan.codecs is currently available for Scala 2.10, 2.11 and 2.12.
 
-The current version is `0.1.10-SNAPSHOT`, which can be added to your project with one or more of the following line(s)
+The current version is `0.1.11`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:
 
 ```scala
 // Core library, included automatically if any other module is imported.
-libraryDependencies += "com.nrinaudo" %% "kantan.codecs" % "0.1.10-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.codecs" % "0.1.11"
 
 // Provides scalaz type class instances.
-libraryDependencies += "com.nrinaudo" %% "kantan.codecs-scalaz" % "0.1.10-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.codecs-scalaz" % "0.1.11"
 
 // Provides cats type class instances.
-libraryDependencies += "com.nrinaudo" %% "kantan.codecs-cats" % "0.1.10-SNAPSHOT"
+libraryDependencies += "com.nrinaudo" %% "kantan.codecs-cats" % "0.1.11"
 ```
 
 ## Motivation

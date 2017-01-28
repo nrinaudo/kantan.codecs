@@ -125,33 +125,61 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.resource.bom" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="bom"></a><a id="bom:bom"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#bom" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Adds Byte Order Mark support to resources." href="bom/index.html">
+              <span class="name">bom</span>
+            </a>
+      </span>
+      
+      <p class="shortcomment cmt">Adds Byte Order Mark support to resources.</p><div class="fullcomment"><div class="comment cmt"><p>Adds Byte Order Mark support to resources.</p><p>By importing this package, the default behaviour of kantan libraries will be changed to:
+ * add a BOM when writing textual data (if one exists for the output charset).
+ * attempt to find a BOM when reading textual data and, if one is found, use the corresponding charset (potentially
+   overriding whatever charset was specified &quot;in-code&quot;).</p><p>Those behaviours are not enabled by default as they're very Microsoft-specific.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs.resource">resource</a></dd></dl></div>
     </li><li class="current-entities indented3">
+                        <a class="object" href="Closeable$.html" title=""></a>
+                        <a class="trait" href="Closeable.html" title="Type class for all types that can be closed."></a>
+                        <a href="Closeable.html" title="Type class for all types that can be closed.">
+                          Closeable
+                        </a>
+                      </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="InputResource$.html" title=""></a>
-                        <a href="InputResource$.html" title="">
+                        <a class="object" href="InputResource$.html" title="Provides instance summoning methods for InputResource."></a>
+                        <a href="InputResource$.html" title="Provides instance summoning methods for InputResource.">
                           InputResource
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="OutputResource$.html" title=""></a>
-                        <a href="OutputResource$.html" title="">
+                        <a class="object" href="OutputResource$.html" title="Provides instance summoning methods for OutputResource."></a>
+                        <a href="OutputResource$.html" title="Provides instance summoning methods for OutputResource.">
                           OutputResource
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="ReaderResource$.html" title=""></a>
-                        <a href="ReaderResource$.html" title="">
+                        <a class="object" href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource."></a>
+                        <a href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource.">
                           ReaderResource
                         </a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="Resource$.html" title=""></a>
-                        <a class="trait" href="Resource.html" title=""></a>
-                        <a href="Resource.html" title="">
+                        <a class="trait" href="Resource.html" title="Represents a resource that can be opened and worked on."></a>
+                        <a href="Resource.html" title="Represents a resource that can be opened and worked on.">
                           Resource
                         </a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="ResourceError$.html" title=""></a>
-                        <a class="class" href="ResourceError.html" title=""></a>
+                        <a class="trait" href="ResourceError.html" title=""></a>
                         <a href="ResourceError.html" title="">
                           ResourceError
                         </a>
@@ -163,8 +191,8 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="" title=""></a>
-                        <a href="" title="">
+                        <a class="object" href="" title="Provides instance summoning methods for WriterResource."></a>
+                        <a href="" title="Provides instance summoning methods for WriterResource.">
                           WriterResource
                         </a>
                       </li>
@@ -195,7 +223,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/resource/WriterResource.scala" target="_blank">WriterResource.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides instance summoning methods for <a href="index.html#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer]" class="extmbr" name="kantan.codecs.resource.WriterResource">WriterResource</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/resource/WriterResource.scala" target="_blank">WriterResource.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -312,10 +340,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="index.html#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer,kantan.codecs.resource.ResourceError]" class="extmbr" name="kantan.codecs.resource.WriterResource">WriterResource</a>[<span class="extype" name="kantan.codecs.resource.WriterResource.apply.A">A</span>]</span>)</span><span class="result">: <a href="index.html#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer,kantan.codecs.resource.ResourceError]" class="extmbr" name="kantan.codecs.resource.WriterResource">WriterResource</a>[<span class="extype" name="kantan.codecs.resource.WriterResource.apply.A">A</span>]</span>
+        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="index.html#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer]" class="extmbr" name="kantan.codecs.resource.WriterResource">WriterResource</a>[<span class="extype" name="kantan.codecs.resource.WriterResource.apply.A">A</span>]</span>)</span><span class="result">: <a href="index.html#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer]" class="extmbr" name="kantan.codecs.resource.WriterResource">WriterResource</a>[<span class="extype" name="kantan.codecs.resource.WriterResource.apply.A">A</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Summons an implicit instance of <a href="index.html#WriterResource[A]=kantan.codecs.resource.Resource[A,java.io.Writer]" class="extmbr" name="kantan.codecs.resource.WriterResource">WriterResource</a> if one is found in scope, fails compilation otherwise.</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">

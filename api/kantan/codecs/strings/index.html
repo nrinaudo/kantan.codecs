@@ -235,7 +235,10 @@ if no other, more specific instance is found.
         <span class="name">strings</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+      <p class="shortcomment cmt">Defines codecs for encoding to and decoding from strings.</p><div class="fullcomment"><div class="comment cmt"><p>Defines codecs for encoding to and decoding from strings.</p><p>These codecs are not necessary meant to use directly, but more as part of larger ones.
+<a href="https://github.com/nrinaudo/kantan.csv" target="_blank">kantan.csv</a>, for example, works with CSV files but delegates the act
+of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">kantan.codecs.strings.codecs</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.java8" visbl="pub" class="indented4 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="java8"></a><a id="java8:java8"></a>
       <span class="permalink">
@@ -280,27 +283,15 @@ if no other, more specific instance is found.
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="StringCodec$.html" title=""></a>
-                        <a href="StringCodec$.html" title="">
+                        <a class="object" href="StringCodec$.html" title="Provides instance creation methods."></a>
+                        <a href="StringCodec$.html" title="Provides instance creation methods.">
                           StringCodec
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="trait" href="StringCodecInstances.html" title="Defines default instances of StringCodec for all primitive types."></a>
-                        <a href="StringCodecInstances.html" title="Defines default instances of StringCodec for all primitive types.">
-                          StringCodecInstances
-                        </a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="StringDecoder$.html" title=""></a>
-                        <a href="StringDecoder$.html" title="">
+                        <a class="object" href="StringDecoder$.html" title="Provides instance creation and summing methods for StringDecoder."></a>
+                        <a href="StringDecoder$.html" title="Provides instance creation and summing methods for StringDecoder.">
                           StringDecoder
-                        </a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="trait" href="StringDecoderInstances.html" title=""></a>
-                        <a href="StringDecoderInstances.html" title="">
-                          StringDecoderInstances
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
@@ -310,14 +301,8 @@ if no other, more specific instance is found.
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="trait" href="StringEncoderInstances.html" title="Defines default instances of StringEncoder."></a>
-                        <a href="StringEncoderInstances.html" title="Defines default instances of StringEncoder.">
-                          StringEncoderInstances
-                        </a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="codecs$.html" title=""></a>
-                        <a href="codecs$.html" title="">
+                        <a class="object" href="codecs$.html" title="Defines default instances for StringEncoder and StringDecoder."></a>
+                        <a href="codecs$.html" title="Defines default instances for StringEncoder and StringDecoder.">
                           codecs
                         </a>
                       </li>
@@ -348,7 +333,10 @@ if no other, more specific instance is found.
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/strings/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines codecs for encoding to and decoding from strings.</p><p>These codecs are not necessary meant to use directly, but more as part of larger ones.
+<a href="https://github.com/nrinaudo/kantan.csv" target="_blank">kantan.csv</a>, for example, works with CSV files but delegates the act
+of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">kantan.codecs.strings.codecs</a>.
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/strings/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -433,26 +421,8 @@ if no other, more specific instance is found.
         <span class="name">StringCodec</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.strings.StringCodec.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.StringCodecInstances" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="StringCodecInstancesextendsStringEncoderInstanceswithStringDecoderInstances"></a><a id="StringCodecInstances:StringCodecInstances"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/index.html#StringCodecInstancesextendsStringEncoderInstanceswithStringDecoderInstances" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a title="Defines default instances of StringCodec for all primitive types." href="StringCodecInstances.html">
-              <span class="name">StringCodecInstances</span>
-            </a><span class="result"> extends <a href="StringEncoderInstances.html" class="extype" name="kantan.codecs.strings.StringEncoderInstances">StringEncoderInstances</a> with <a href="StringDecoderInstances.html" class="extype" name="kantan.codecs.strings.StringDecoderInstances">StringDecoderInstances</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines default instances of <a href="#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> for all primitive types.</p>
-    </li><li name="kantan.codecs.strings.StringDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt"><a href="../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> for strings.</p>
+    </li><li name="kantan.codecs.strings.StringDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]"></a><a id="StringDecoder[A]:StringDecoder[A]"></a>
       <span class="permalink">
       <a href="../../../kantan/codecs/strings/index.html#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" title="Permalink">
@@ -467,26 +437,9 @@ if no other, more specific instance is found.
         <span class="name">StringDecoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.strings.StringDecoder.A">A</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.StringDecoderInstances" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="StringDecoderInstancesextendsAnyRef"></a><a id="StringDecoderInstances:StringDecoderInstances"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/index.html#StringDecoderInstancesextendsAnyRef" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="StringDecoderInstances.html">
-              <span class="name">StringDecoderInstances</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
-      </span>
-      
-      
-    </li><li name="kantan.codecs.strings.StringEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt"><a href="../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> for strings.</p><div class="fullcomment"><div class="comment cmt"><p><a href="../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> for strings.</p><p>Default instances can be found in <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.
+</p></div></div>
+    </li><li name="kantan.codecs.strings.StringEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]"></a><a id="StringEncoder[A]:StringEncoder[A]"></a>
       <span class="permalink">
       <a href="../../../kantan/codecs/strings/index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" title="Permalink">
@@ -501,25 +454,8 @@ if no other, more specific instance is found.
         <span class="name">StringEncoder</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.strings.StringEncoder.A">A</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.StringEncoderInstances" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="StringEncoderInstancesextendsAnyRef"></a><a id="StringEncoderInstances:StringEncoderInstances"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/index.html#StringEncoderInstancesextendsAnyRef" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a title="Defines default instances of StringEncoder." href="StringEncoderInstances.html">
-              <span class="name">StringEncoderInstances</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines default instances of <a href="#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a>.</p>
+      <p class="shortcomment cmt"><a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> for strings.</p><div class="fullcomment"><div class="comment cmt"><p><a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> for strings.</p><p>Default instances can be found in <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.
+</p></div></div>
     </li></ol>
             </div>
 
@@ -546,7 +482,7 @@ if no other, more specific instance is found.
       </span>
       
       
-    </li><li name="kantan.codecs.strings.StringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.StringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="StringCodec"></a><a id="StringCodec:StringCodec"></a>
       <span class="permalink">
       <a href="../../../kantan/codecs/strings/index.html#StringCodec" title="Permalink">
@@ -558,13 +494,15 @@ if no other, more specific instance is found.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="StringCodec$.html">
+        <a title="Provides instance creation methods." href="StringCodec$.html">
               <span class="name">StringCodec</span>
             </a>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.StringDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Provides instance creation methods.</p><div class="fullcomment"><div class="comment cmt"><p>Provides instance creation methods.</p><p>No instance summoning method is provided - this is by design. Developers should never work with codecs, but with
+instances of <a href="#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a> and <a href="#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a> instead. Codecs are merely meant as a declaration convenience.</p><p>Default instances are defined in <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.
+</p></div></div>
+    </li><li name="kantan.codecs.strings.StringDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="StringDecoder"></a><a id="StringDecoder:StringDecoder"></a>
       <span class="permalink">
       <a href="../../../kantan/codecs/strings/index.html#StringDecoder" title="Permalink">
@@ -576,12 +514,13 @@ if no other, more specific instance is found.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="StringDecoder$.html">
+        <a title="Provides instance creation and summing methods for StringDecoder." href="StringDecoder$.html">
               <span class="name">StringDecoder</span>
             </a>
       </span>
       
-      
+      <p class="shortcomment cmt">Provides instance creation and summing methods for <a href="#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides instance creation and summing methods for <a href="#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a>.</p><p>Default <a href="#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a> instances are provided in <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.
+</p></div></div>
     </li><li name="kantan.codecs.strings.StringEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StringEncoder"></a><a id="StringEncoder:StringEncoder"></a>
       <span class="permalink">
@@ -612,12 +551,12 @@ if no other, more specific instance is found.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="codecs$.html">
+        <a title="Defines default instances for StringEncoder and StringDecoder." href="codecs$.html">
               <span class="name">codecs</span>
-            </a><span class="result"> extends <a href="StringCodecInstances.html" class="extype" name="kantan.codecs.strings.StringCodecInstances">StringCodecInstances</a></span>
+            </a>
       </span>
       
-      
+      <p class="shortcomment cmt">Defines default instances for <a href="#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a> and <a href="#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a>.</p>
     </li>
               </ol>
             </div>

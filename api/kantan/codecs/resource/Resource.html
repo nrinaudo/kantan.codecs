@@ -125,33 +125,61 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.resource.bom" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="bom"></a><a id="bom:bom"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/index.html#bom" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Adds Byte Order Mark support to resources." href="bom/index.html">
+              <span class="name">bom</span>
+            </a>
+      </span>
+      
+      <p class="shortcomment cmt">Adds Byte Order Mark support to resources.</p><div class="fullcomment"><div class="comment cmt"><p>Adds Byte Order Mark support to resources.</p><p>By importing this package, the default behaviour of kantan libraries will be changed to:
+ * add a BOM when writing textual data (if one exists for the output charset).
+ * attempt to find a BOM when reading textual data and, if one is found, use the corresponding charset (potentially
+   overriding whatever charset was specified &quot;in-code&quot;).</p><p>Those behaviours are not enabled by default as they're very Microsoft-specific.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs.resource">resource</a></dd></dl></div>
     </li><li class="current-entities indented3">
+                        <a class="object" href="Closeable$.html" title=""></a>
+                        <a class="trait" href="Closeable.html" title="Type class for all types that can be closed."></a>
+                        <a href="Closeable.html" title="Type class for all types that can be closed.">
+                          Closeable
+                        </a>
+                      </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="InputResource$.html" title=""></a>
-                        <a href="InputResource$.html" title="">
+                        <a class="object" href="InputResource$.html" title="Provides instance summoning methods for InputResource."></a>
+                        <a href="InputResource$.html" title="Provides instance summoning methods for InputResource.">
                           InputResource
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="OutputResource$.html" title=""></a>
-                        <a href="OutputResource$.html" title="">
+                        <a class="object" href="OutputResource$.html" title="Provides instance summoning methods for OutputResource."></a>
+                        <a href="OutputResource$.html" title="Provides instance summoning methods for OutputResource.">
                           OutputResource
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="ReaderResource$.html" title=""></a>
-                        <a href="ReaderResource$.html" title="">
+                        <a class="object" href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource."></a>
+                        <a href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource.">
                           ReaderResource
                         </a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="Resource$.html" title=""></a>
-                        <a class="trait" href="" title=""></a>
-                        <a href="" title="">
+                        <a class="trait" href="" title="Represents a resource that can be opened and worked on."></a>
+                        <a href="" title="Represents a resource that can be opened and worked on.">
                           Resource
                         </a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="ResourceError$.html" title=""></a>
-                        <a class="class" href="ResourceError.html" title=""></a>
+                        <a class="trait" href="ResourceError.html" title=""></a>
                         <a href="ResourceError.html" title="">
                           ResourceError
                         </a>
@@ -163,8 +191,8 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="WriterResource$.html" title=""></a>
-                        <a href="WriterResource$.html" title="">
+                        <a class="object" href="WriterResource$.html" title="Provides instance summoning methods for WriterResource."></a>
+                        <a href="WriterResource$.html" title="Provides instance summoning methods for WriterResource.">
                           WriterResource
                         </a>
                       </li>
@@ -192,12 +220,15 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Resource</span><span class="tparams">[<span name="I">I</span>, <span name="R">R</span>, <span name="E">E</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">Resource</span><span class="tparams">[<span name="I">I</span>, <span name="R">R</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/resource/Resource.scala" target="_blank">Resource.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a resource that can be opened and worked on.</p><p>The purpose of this trait is to abstract over the notion of &quot;things that can be opened&quot;, such as files, URLs...
+Default instances are provided for <code>java.io</code> types - <code>java.io.File</code>, for example, has instances for both
+opening it for reading and for writing.
+</p></div><dl class="paramcmts block"><dt class="tparam">I</dt><dd class="cmt"><p>type of the resource itself (eg <code>java.io.File</code>).</p></dd><dt class="tparam">R</dt><dd class="cmt"><p>type of the opened resource (eg <code>java.io.InputStream</code>)</p></dd></dl><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/resource/Resource.scala" target="_blank">Resource.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -252,9 +283,9 @@
         <div class="values members">
               <h3>Abstract Value Members</h3>
               <ol><li name="kantan.codecs.resource.Resource#open" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="open(a:I):kantan.codecs.Result[E,R]"></a><a id="open(I):Result[E,R]"></a>
+      <a id="open(input:I):kantan.codecs.resource.OpenResult[R]"></a><a id="open(I):OpenResult[R]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/Resource.html#open(a:I):kantan.codecs.Result[E,R]" title="Permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#open(input:I):kantan.codecs.resource.OpenResult[R]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -263,10 +294,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">open</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="result">: <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.resource.Resource.E">E</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
+        <span class="name">open</span><span class="params">(<span name="input">input: <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="result">: <a href="index.html#OpenResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Opens the specified resource.</p>
     </li></ol>
             </div>
 
@@ -360,9 +391,9 @@
               
         </dd></dl></div>
     </li><li name="kantan.codecs.resource.Resource#contramap" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="contramap[AA](f:AA=&gt;I):kantan.codecs.resource.Resource[AA,R,E]"></a><a id="contramap[AA]((AA)⇒I):Resource[AA,R,E]"></a>
+      <a id="contramap[II](f:II=&gt;I):kantan.codecs.resource.Resource[II,R]"></a><a id="contramap[II]((II)⇒I):Resource[II,R]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/Resource.html#contramap[AA](f:AA=&gt;I):kantan.codecs.resource.Resource[AA,R,E]" title="Permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#contramap[II](f:II=&gt;I):kantan.codecs.resource.Resource[II,R]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -371,14 +402,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">contramap</span><span class="tparams">[<span name="AA">AA</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.contramap.AA">AA</span>) ⇒ <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.contramap.AA">AA</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</span>
+        <span class="name">contramap</span><span class="tparams">[<span name="II">II</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.contramap.II">II</span>) ⇒ <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.contramap.II">II</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
       </span>
       
       
     </li><li name="kantan.codecs.resource.Resource#contramapResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="contramapResult[AA](f:AA=&gt;kantan.codecs.Result[E,I]):kantan.codecs.resource.Resource[AA,R,E]"></a><a id="contramapResult[AA]((AA)⇒Result[E,I]):Resource[AA,R,E]"></a>
+      <a id="contramapResult[II](f:II=&gt;kantan.codecs.resource.OpenResult[I]):kantan.codecs.resource.Resource[II,R]"></a><a id="contramapResult[II]((II)⇒OpenResult[I]):Resource[II,R]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/Resource.html#contramapResult[AA](f:AA=&gt;kantan.codecs.Result[E,I]):kantan.codecs.resource.Resource[AA,R,E]" title="Permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#contramapResult[II](f:II=&gt;kantan.codecs.resource.OpenResult[I]):kantan.codecs.resource.Resource[II,R]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -387,7 +418,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">contramapResult</span><span class="tparams">[<span name="AA">AA</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.AA">AA</span>) ⇒ <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.resource.Resource.E">E</span>, <span class="extype" name="kantan.codecs.resource.Resource.I">I</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.AA">AA</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</span>
+        <span class="name">contramapResult</span><span class="tparams">[<span name="II">II</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.II">II</span>) ⇒ <a href="index.html#OpenResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.II">II</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
       </span>
       
       
@@ -494,9 +525,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="kantan.codecs.resource.Resource#map" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="map[BB](f:R=&gt;BB):kantan.codecs.resource.Resource[I,BB,E]"></a><a id="map[BB]((R)⇒BB):Resource[I,BB,E]"></a>
+      <a id="map[RR](f:R=&gt;RR):kantan.codecs.resource.Resource[I,RR]"></a><a id="map[RR]((R)⇒RR):Resource[I,RR]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/Resource.html#map[BB](f:R=&gt;BB):kantan.codecs.resource.Resource[I,BB,E]" title="Permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#map[RR](f:R=&gt;RR):kantan.codecs.resource.Resource[I,RR]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -505,14 +536,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">map</span><span class="tparams">[<span name="BB">BB</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <span class="extype" name="kantan.codecs.resource.Resource.map.BB">BB</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.map.BB">BB</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</span>
+        <span class="name">map</span><span class="tparams">[<span name="RR">RR</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <span class="extype" name="kantan.codecs.resource.Resource.map.RR">RR</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.map.RR">RR</span>]</span>
       </span>
       
       
     </li><li name="kantan.codecs.resource.Resource#mapResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="mapResult[BB](f:R=&gt;kantan.codecs.Result[E,BB]):kantan.codecs.resource.Resource[I,BB,E]"></a><a id="mapResult[BB]((R)⇒Result[E,BB]):Resource[I,BB,E]"></a>
+      <a id="mapResult[RR](f:R=&gt;kantan.codecs.resource.OpenResult[RR]):kantan.codecs.resource.Resource[I,RR]"></a><a id="mapResult[RR]((R)⇒OpenResult[RR]):Resource[I,RR]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/Resource.html#mapResult[BB](f:R=&gt;kantan.codecs.Result[E,BB]):kantan.codecs.resource.Resource[I,BB,E]" title="Permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#mapResult[RR](f:R=&gt;kantan.codecs.resource.OpenResult[RR]):kantan.codecs.resource.Resource[I,RR]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -521,7 +552,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">mapResult</span><span class="tparams">[<span name="BB">BB</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.resource.Resource.E">E</span>, <span class="extype" name="kantan.codecs.resource.Resource.mapResult.BB">BB</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.mapResult.BB">BB</span>, <span class="extype" name="kantan.codecs.resource.Resource.E">E</span>]</span>
+        <span class="name">mapResult</span><span class="tparams">[<span name="RR">RR</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <a href="index.html#OpenResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.mapResult.RR">RR</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.mapResult.RR">RR</span>]</span>
       </span>
       
       
@@ -671,6 +702,24 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="kantan.codecs.resource.Resource#withResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withResource[O](input:I)(f:R=&gt;kantan.codecs.resource.ProcessResult[O])(implicitc:kantan.codecs.resource.Closeable[R]):kantan.codecs.resource.ResourceResult[O]"></a><a id="withResource[O](I)((R)⇒ProcessResult[O])(Closeable[R]):ResourceResult[O]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#withResource[O](input:I)(f:R=&gt;kantan.codecs.resource.ProcessResult[O])(implicitc:kantan.codecs.resource.Closeable[R]):kantan.codecs.resource.ResourceResult[O]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withResource</span><span class="tparams">[<span name="O">O</span>]</span><span class="params">(<span name="input">input: <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <a href="index.html#ProcessResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.ProcessError,A]" class="extmbr" name="kantan.codecs.resource.ProcessResult">ProcessResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.withResource.O">O</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="c">c: <a href="Closeable.html" class="extype" name="kantan.codecs.resource.Closeable">Closeable</a>[<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>)</span><span class="result">: <a href="index.html#ResourceResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError,A]" class="extmbr" name="kantan.codecs.resource.ResourceResult">ResourceResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.withResource.O">O</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Opens the specified resource and applies the specified function to its content.</p><div class="fullcomment"><div class="comment cmt"><p>Opens the specified resource and applies the specified function to its content.</p><p>The resource will be closed regardless of whether <code>f</code> fails. Note that <code>f</code> is expected to be safe - it cannot
+throw but should instead wrap all errors in a <a href="index.html#ProcessResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.ProcessError,A]" class="extmbr" name="kantan.codecs.resource.ProcessResult">ProcessResult</a>.
+</p></div></div>
     </li>
               </ol>
             </div>
