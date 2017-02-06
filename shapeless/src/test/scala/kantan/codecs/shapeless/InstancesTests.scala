@@ -49,10 +49,6 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])
   checkAll("StringCodec[Int Or Boolean]", CodecTests[String, Int Or Boolean, DecodeError, codecs.type].codec[Int, Int])
 
-  checkAll("TaggedDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, tagged.type]
-    .decoder[Int, Int])
-  checkAll("TaggedEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, tagged.type].encoder[Int, Int])
-
   test("Encoder[?, CNil, ?] should fail") {
     intercept[IllegalStateException] {StringEncoder[CNil].encode(null)}
     ()

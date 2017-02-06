@@ -19,16 +19,14 @@ package kantan.codecs.strings.joda.time
 import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
 import kantan.codecs.strings._
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
-import org.joda.time.LocalTime
+import org.joda.time.LocalDateTime
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class LocalTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[LocalTime]", DecoderTests[String, LocalTime, DecodeError, codecs.type].decoder[Int, Int])
-  checkAll("StringEncoder[LocalTime]", EncoderTests[String, LocalTime, codecs.type].encoder[Int, Int])
-  checkAll("StringCodec[LocalTime]", CodecTests[String, LocalTime, DecodeError, codecs.type].codec[Int, Int])
-
-  checkAll("TaggedDecoder[LocalTime]", DecoderTests[String, LocalTime, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[LocalTime]", EncoderTests[String, LocalTime, tagged.type].encoder[Int, Int])
+class LocalDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  checkAll("StringDecoder[LocalDateTime]",
+    DecoderTests[String, LocalDateTime, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringEncoder[LocalDateTime]", EncoderTests[String, LocalDateTime, codecs.type].encoder[Int, Int])
+  checkAll("StringCodec[LocalDateTime]", CodecTests[String, LocalDateTime, DecodeError, codecs.type].codec[Int, Int])
 }

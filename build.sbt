@@ -25,23 +25,13 @@ kantanProject in ThisBuild := "codecs"
 lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .enablePlugins(UnpublishedPlugin)
-  .aggregate(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws, docs,
-    tests)
+  .aggregate(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws, docs)
   .aggregate(ifJava8[ProjectReference](java8, java8Laws):_*)
   .dependsOn(core)
 
-lazy val tests = project
-  .enablePlugins(UnpublishedPlugin)
-  .dependsOn(core, laws, catsLaws, scalazLaws, jodaTimeLaws, shapelessLaws)
-  .aggregate(ifJava8[ProjectReference](java8Tests):_*)
-  .settings(libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest"  % scalatestVersion % "test",
-    "commons-io"     % "commons-io" % commonsIoVersion % "test"
-  ))
-
 lazy val docs = project
   .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inAnyProject -- inProjects(ifNotJava8[ProjectReference](java8, java8Laws, java8Tests):_*)
+    inAnyProject -- inProjects(ifNotJava8[ProjectReference](java8, java8Laws):_*)
   )
   .enablePlugins(DocumentationPlugin)
   .dependsOn(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws)
@@ -57,9 +47,11 @@ lazy val core = project
     name       := "core"
   )
   .settings(libraryDependencies ++= Seq(
-    "org.spire-math" %% "imp"        % impVersion,
-    "org.scalatest"  %% "scalatest"  % scalatestVersion % "test")
-  )
+    "org.spire-math" %% "imp"       % impVersion,
+    "org.scalatest"  %% "scalatest" % scalatestVersion % "test",
+    "commons-io"     % "commons-io" % commonsIoVersion % "test"
+  ))
+  .laws("laws")
   .enablePlugins(PublishedPlugin)
 
 lazy val laws = project
@@ -72,7 +64,8 @@ lazy val laws = project
   .dependsOn(core)
   .settings(libraryDependencies ++= Seq(
     "org.scalacheck" %% "scalacheck" % scalacheckVersion,
-    "org.typelevel"  %% "discipline" % disciplineVersion
+    "org.typelevel"  %% "discipline" % disciplineVersion,
+    "org.scalatest"  %% "scalatest"  % scalatestVersion % "test"
   ))
 
 
@@ -85,7 +78,11 @@ lazy val cats = project
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core)
-  .settings(libraryDependencies += "org.typelevel" %% "cats" % catsVersion)
+  .settings(libraryDependencies ++= Seq(
+    "org.typelevel" %% "cats"      % catsVersion,
+    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+  ))
+  .laws("cats-laws")
 
 lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
   .settings(
@@ -111,9 +108,11 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
   .enablePlugins(PublishedPlugin)
   .dependsOn(core)
   .settings(libraryDependencies ++= Seq(
-    "joda-time" % "joda-time"    % jodaVersion,
-    "org.joda"  % "joda-convert" % jodaConvertVersion
+    "joda-time"      % "joda-time"    % jodaVersion,
+    "org.joda"       % "joda-convert" % jodaConvertVersion,
+    "org.scalatest" %% "scalatest"    % scalatestVersion % "test"
   ))
+  .laws("joda-time-laws")
 
 lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-laws"))
   .settings(
@@ -134,6 +133,8 @@ lazy val java8 = project
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core)
+  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
+  .laws("java8-laws")
 
 lazy val java8Laws = Project(id = "java8-laws", base = file("java8-laws"))
   .settings(
@@ -142,11 +143,6 @@ lazy val java8Laws = Project(id = "java8-laws", base = file("java8-laws"))
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, java8)
-
-lazy val java8Tests = Project(id = "java8-tests", base = file("java8-tests"))
-  .enablePlugins(UnpublishedPlugin)
-  .dependsOn(java8, java8Laws)
-  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test")
 
 
 
@@ -160,7 +156,11 @@ lazy val scalaz = project
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core)
-  .settings(libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion)
+  .settings(libraryDependencies ++= Seq(
+    "org.scalaz"    %% "scalaz-core" % scalazVersion,
+    "org.scalatest" %% "scalatest"   % scalatestVersion % "test"
+  ))
+  .laws("scalaz-laws")
 
 lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
   .settings(
@@ -186,7 +186,11 @@ lazy val shapeless = project
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core)
-  .settings(libraryDependencies += "com.chuusai" %% "shapeless" % shapelessVersion)
+  .settings(libraryDependencies ++= Seq(
+    "com.chuusai"   %% "shapeless" % shapelessVersion,
+    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+  ))
+  .laws("shapeless-laws")
 
 lazy val shapelessLaws = Project(id = "shapeless-laws", base = file("shapeless-laws"))
   .settings(
