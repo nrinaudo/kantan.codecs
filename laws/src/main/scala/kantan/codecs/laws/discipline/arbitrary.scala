@@ -88,7 +88,7 @@ trait ArbitraryInstances extends ArbitraryArities {
     for {
       id    ← Gen.identifier
       value ← implicitly[Arbitrary[String]].arbitrary
-    } yield DecodeError(s"Not a valid $id: '$value'"),
+    } yield DecodeError(s"'$value' is not a valid $id"),
     arbException.arbitrary.map(DecodeError.apply)
   ))
 

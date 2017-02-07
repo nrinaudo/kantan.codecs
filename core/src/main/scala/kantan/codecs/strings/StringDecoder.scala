@@ -52,7 +52,7 @@ object StringDecoder {
     * res1: kantan.codecs.Result[DecodeError, Int] = Success(1)
     *
     * scala> decoder("foobar")
-    * res2: kantan.codecs.Result[DecodeError, Int] = Failure(DecodeError(Not a valid Int: 'foobar'))
+    * res2: kantan.codecs.Result[DecodeError, Int] = Failure(DecodeError: 'foobar' is not a valid Int)
     * }}}
     *
     * This is typically used in conjunction with [StringDecoder.from], when creating instances for types that are not
@@ -63,7 +63,7 @@ object StringDecoder {
     * @tparam D decoded type.
     */
   def makeSafe[D](typeName: String)(f: String ⇒ D): String ⇒ Result[DecodeError, D] =
-    s ⇒ Result.nonFatal(f(s)).leftMap(t ⇒ DecodeError(s"Not a valid $typeName: '$s'", t))
+    s ⇒ Result.nonFatal(f(s)).leftMap(t ⇒ DecodeError(s"'$s' is not a valid $typeName", t))
 
   /** Creates a [[StringDecoder]] instance for `java.util.Date`.
     *
