@@ -9,16 +9,16 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .enablePlugins(UnpublishedPlugin)
   .aggregate(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws, docs)
-  .aggregate(ifJava8[ProjectReference](java8, java8Laws):_*)
+  .aggregateIf(java8Supported)(java8, java8Laws)
   .dependsOn(core)
 
 lazy val docs = project
-  .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inAnyProject -- inProjects(ifNotJava8[ProjectReference](java8, java8Laws):_*)
-  )
   .enablePlugins(DocumentationPlugin)
+  .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
+    inAnyProject -- inProjectsIf(java8Supported)(java8, java8Laws)
+  )
   .dependsOn(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws)
-  .dependsOn(ifJava8[ClasspathDep[ProjectReference]](java8, java8Laws):_*)
+  .dependsOnIf(java8Supported)(java8, java8Laws)
 
 
 
