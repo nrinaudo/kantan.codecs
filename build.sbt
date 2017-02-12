@@ -13,7 +13,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
   .settings(unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inAnyProject -- inProjectsIf(java8Supported)(java8, java8Laws)
+    inAnyProject -- inProjectsIf(!java8Supported)(java8, java8Laws)
   )
   .dependsOn(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws)
   .dependsOnIf(java8Supported)(java8, java8Laws)
