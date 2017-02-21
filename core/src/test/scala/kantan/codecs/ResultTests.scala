@@ -23,6 +23,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try
 
+@SuppressWarnings(Array("org.wartremover.warts.Throw"))
 class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   // - Generic tests ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

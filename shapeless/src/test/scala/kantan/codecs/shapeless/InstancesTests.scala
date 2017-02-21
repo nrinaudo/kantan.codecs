@@ -25,6 +25,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 import shapeless._
 
+@SuppressWarnings(Array("org.wartremover.warts.Null"))
 class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   // - HList / Coproduct instances -------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -42,8 +43,6 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
 
   // - Tests -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val decoder = StringDecoder[Int Or Boolean]
-
   checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
     .decoder[Int, Int])
   checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])

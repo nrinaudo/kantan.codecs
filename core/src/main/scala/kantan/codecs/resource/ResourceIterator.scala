@@ -37,6 +37,8 @@ import scala.util.Try
   * allows you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a
   * situation when you just want to stop, however, [[ResourceIterator.close()*]] is available.
   */
+@SuppressWarnings(Array("org.wartremover.warts.Var", "org.wartremover.warts.Throw", "org.wartremover.warts.While",
+  "org.wartremover.warts.Null"))
 trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { self ⇒
   // - Abstract methods ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -375,6 +377,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
 object ResourceIterator {
   val empty: ResourceIterator[Nothing] = new ResourceIterator[Nothing] {
     override def checkNext  = false
+    @SuppressWarnings(Array("org.wartremover.warts.Throw"))
     override def readNext() = throw new NoSuchElementException("next on empty resource iterator")
     override def release()  = ()
   }

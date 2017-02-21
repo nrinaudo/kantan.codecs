@@ -264,6 +264,7 @@ object Result {
 
     override def orElse[FF >: F, SS >: Nothing](default: ⇒ Result[FF, SS]) = default
     override def getOrElse[SS >: Nothing](default: ⇒ SS) = default
+    @SuppressWarnings(Array("org.wartremover.warts.Throw"))
     override def get = throw new NoSuchElementException(s"get on a Failure($value)")
 
     override def fold[C](ff: F ⇒ C, fs: Nothing ⇒ C): C = ff(value)

@@ -22,6 +22,7 @@ import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
+@SuppressWarnings(Array("org.wartremover.warts.Var", "org.wartremover.warts.While"))
 class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks {
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

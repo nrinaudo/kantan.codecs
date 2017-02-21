@@ -85,6 +85,7 @@ trait ShapelessInstances {
   (implicit dh: Decoder[E, H, F, T], dt: Decoder[E, D, F, T]): Decoder[E, H :+: D, F, T] =
     Decoder.from(e ⇒ dh.decode(e).map(Inl.apply).orElse(dt.decode(e).map(Inr.apply)))
 
+  @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   implicit def cnilEncoder[E, D, T]: Encoder[E, CNil, T] =
     Encoder.from(_ ⇒  throw new IllegalStateException("trying to encode CNil, this should not happen"))
 

@@ -37,7 +37,7 @@ trait ArbitraryInstances extends ArbitraryArities {
   // - Arbitrary results -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def success[S: Arbitrary]: Gen[Success[S]] =
-  Arbitrary.arbitrary[S].map(Success.apply)
+    Arbitrary.arbitrary[S].map(Success.apply)
   def failure[F: Arbitrary]: Gen[Failure[F]] =
     Arbitrary.arbitrary[F].map(Failure.apply)
 
@@ -45,7 +45,10 @@ trait ArbitraryInstances extends ArbitraryArities {
   implicit def arbFailure[F: Arbitrary]: Arbitrary[Failure[F]] = Arbitrary(failure)
 
   implicit def arbResult[F: Arbitrary, S: Arbitrary]: Arbitrary[Result[F, S]] =
-    Arbitrary(Gen.oneOf(success[S], failure[F]))
+    Arbitrary(Gen.oneOf(
+      success[S]: Gen[Result[F, S]],
+      failure[F]: Gen[Result[F, S]]
+    ))
 
 
 
@@ -76,7 +79,7 @@ trait ArbitraryInstances extends ArbitraryArities {
       i   ← Gen.choose(0, str.length)
     } yield {
       val (h, t) = str.splitAt(i)
-      IllegalValue(h + " " + t)
+      IllegalValue(s"$h $t")
     }
   }
 
@@ -196,5 +199,8 @@ trait ArbitraryInstances extends ArbitraryArities {
   implicit val arbException: Arbitrary[Exception] = Arbitrary(genException)
 
   implicit def arbTry[A](implicit aa: Arbitrary[A]): Arbitrary[Try[A]] =
-    Arbitrary(Gen.oneOf(arb[Exception].map(scala.util.Failure.apply), aa.arbitrary.map(scala.util.Success.apply)))
+    Arbitrary(Gen.oneOf(
+      arb[Exception].map(e ⇒ scala.util.Failure(e): Try[A]),
+      aa.arbitrary.map(a ⇒ scala.util.Success(a): Try[A])
+    ))
 }

@@ -18,15 +18,12 @@ package kantan.codecs.exported
 
 import kantan.codecs._
 import kantan.codecs.export.{DerivedDecoder, DerivedEncoder}
+import kantan.codecs.exported.DerivedCodecTests.{Just, Maybe, None}
 import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
-  sealed abstract class Maybe[+A] extends Product with Serializable
-  case class Just[A](value: A) extends Maybe[A]
-  case object None extends Maybe[Nothing]
-
   val decode: String ⇒ Result[DecodeError, Maybe[Int]] = s ⇒
     if(s.trim.isEmpty) Result.success(None)
     else               Result.nonFatalOr(DecodeError(s"Not a valid Int: '$s'"))(Just(s.toInt))
@@ -37,28 +34,38 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("Derived decoders should have a lower priority than bespoke ones") {
-    implicit val bespoke = StringDecoder.from(decode)
-    implicit val derived = DerivedDecoder[String, Maybe[Int], DecodeError, strings.codecs.type](decode)
+    implicit val bespoke: StringDecoder[Maybe[Int]] = StringDecoder.from(decode)
+    implicit val derived: DerivedDecoder[String, Maybe[Int], DecodeError, strings.codecs.type] =
+      DerivedDecoder[String, Maybe[Int], DecodeError, strings.codecs.type](decode)
 
     assert(implicitly[Decoder[String, Maybe[Int], DecodeError, strings.codecs.type]] == bespoke)
   }
 
   test("Derived encoders should have a lower priority than bespoke ones") {
-    implicit val bespoke = StringEncoder.from(encode)
-    implicit val derived = DerivedEncoder[String, Maybe[Int], strings.codecs.type](encode)
+    implicit val bespoke: StringEncoder[Maybe[Int]] = StringEncoder.from(encode)
+    implicit val derived: DerivedEncoder[String, Maybe[Int], strings.codecs.type] =
+      DerivedEncoder[String, Maybe[Int], strings.codecs.type](encode)
 
     assert(implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] == bespoke)
   }
 
   test("Derived decoders should be picked up when no other is available") {
-    implicit val derived = DerivedDecoder[String, Maybe[Int], Throwable, strings.codecs.type](decode)
+    implicit val derived: DerivedDecoder[String, Maybe[Int], Throwable, strings.codecs.type] =
+      DerivedDecoder[String, Maybe[Int], Throwable, strings.codecs.type](decode)
 
     assert(implicitly[Decoder[String, Maybe[Int], Throwable, strings.codecs.type]] == derived.value)
   }
 
   test("Derived encoders should be picked up when no other is available") {
-    implicit val derived = DerivedEncoder[String, Maybe[Int], strings.codecs.type](encode)
+    implicit val derived: DerivedEncoder[String, Maybe[Int], strings.codecs.type] =
+      DerivedEncoder[String, Maybe[Int], strings.codecs.type](encode)
 
     assert(implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] == derived.value)
   }
+}
+
+object DerivedCodecTests {
+  sealed abstract class Maybe[+A] extends Product with Serializable
+  final case class Just[A](value: A) extends Maybe[A]
+  final case object None extends Maybe[Nothing]
 }

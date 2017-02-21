@@ -21,8 +21,8 @@ For example:
 
 ```tut:silent
 sealed abstract class DecodeError extends Product with Serializable
-case class TypeError(cause: Throwable) extends DecodeError
-case class OutOfBounds(index: Int) extends DecodeError
+final case class TypeError(cause: Throwable) extends DecodeError
+final case class OutOfBounds(index: Int) extends DecodeError
 
 // Declares creation methods - TypeError(exception) is of type TypeError, DecodeError.typeError(exception) is of
 // type DecodeError.

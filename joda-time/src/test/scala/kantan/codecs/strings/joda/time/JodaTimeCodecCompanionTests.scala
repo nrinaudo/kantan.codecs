@@ -16,6 +16,7 @@
 
 package kantan.codecs.strings.joda.time
 
+import kantan.codecs.Codec
 import kantan.codecs.laws.discipline.CodecTests
 import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
@@ -30,10 +31,17 @@ class JodaTimeCodecCompanionTests extends FunSuite with GeneratorDrivenPropertyC
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
   }
 
-  implicit val dateTimeCodec = CodecCompanion.dateTimeCodec(defaultDateTimeFormat)
-  implicit val localDateTimeCodec = CodecCompanion.localDateTimeCodec(defaultLocalDateTimeFormat)
-  implicit val localDateCodec = CodecCompanion.localDateCodec(defaultLocalDateFormat)
-  implicit val localTimeCodec = CodecCompanion.localTimeCodec(defaultLocalTimeFormat)
+  implicit val dateTimeCodec: Codec[String, DateTime, DecodeError, codec.type] =
+    CodecCompanion.dateTimeCodec(defaultDateTimeFormat)
+
+  implicit val localDateTimeCodec: Codec[String, LocalDateTime, DecodeError, codec.type] =
+    CodecCompanion.localDateTimeCodec(defaultLocalDateTimeFormat)
+
+  implicit val localDateCodec: Codec[String, LocalDate, DecodeError, codec.type] =
+    CodecCompanion.localDateCodec(defaultLocalDateFormat)
+
+  implicit val localTimeCodec: Codec[String, LocalTime, DecodeError, codec.type] =
+    CodecCompanion.localTimeCodec(defaultLocalTimeFormat)
 
   checkAll("JodaTimeCodecCompanion[DateTime]", CodecTests[String, DateTime, DecodeError, codec.type].codec[Int, Int])
   checkAll("JodaTimeCodecCompanion[LocalDateTime]",

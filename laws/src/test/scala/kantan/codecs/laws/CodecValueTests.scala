@@ -76,7 +76,7 @@ class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
   testArbitrary[String, Option[Int], scodecs.type]("String", "Option[Int]")(s ⇒ if(s.isEmpty) None else Some(s.toInt))
   testArbitrary[String, Either[Boolean, Int], scodecs.type]("String", "Either[Boolean, Int]") { s ⇒
-    Try(Left(s.toBoolean)).getOrElse(Right(s.toInt))
+    Try(Left(s.toBoolean): Either[Boolean, Int]).getOrElse(Right(s.toInt): Either[Boolean, Int])
   }
   // TODO: re-enable?
   //testArbitrary[Seq[String], Seq[Int], scodecs.type]("String", "Seq[Int]")(_.map(_.toInt))

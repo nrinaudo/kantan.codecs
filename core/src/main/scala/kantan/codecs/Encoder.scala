@@ -37,6 +37,7 @@ trait Encoder[E, D, T] extends Any with Serializable {
     */
   def contramap[DD](f: DD ⇒ D): Encoder[E, DD, T] = Encoder.from(f andThen encode)
 
+  @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
   def tag[TT]: Encoder[E, D, TT] = this.asInstanceOf[Encoder[E, D, TT]]
 }
 

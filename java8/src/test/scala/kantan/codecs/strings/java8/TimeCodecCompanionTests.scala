@@ -17,6 +17,7 @@
 package kantan.codecs.strings.java8
 
 import java.time._
+import kantan.codecs.Codec
 import kantan.codecs.laws.discipline.CodecTests
 import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
@@ -30,12 +31,23 @@ class TimeCodecCompanionTests extends FunSuite with GeneratorDrivenPropertyCheck
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
   }
 
-  implicit val instantCodec = CodecCompanion.instantCodec(defaultInstantFormat)
-  implicit val zonedDateTimeCodec = CodecCompanion.zonedDateTimeCodec(defaultZonedDateTimeFormat)
-  implicit val offsetDateTimeCodec = CodecCompanion.offsetDateTimeCodec(defaultOffsetDateTimeFormat)
-  implicit val localDateTimeCodec = CodecCompanion.localDateTimeCodec(defaultLocalDateTimeFormat)
-  implicit val localDateCodec = CodecCompanion.localDateCodec(defaultLocalDateFormat)
-  implicit val localTimeCodec = CodecCompanion.localTimeCodec(defaultLocalTimeFormat)
+  implicit val instantCodec: Codec[String, Instant, DecodeError, codec.type] =
+    CodecCompanion.instantCodec(defaultInstantFormat)
+
+  implicit val zonedDateTimeCodec: Codec[String, ZonedDateTime, DecodeError, codec.type] =
+    CodecCompanion.zonedDateTimeCodec(defaultZonedDateTimeFormat)
+
+  implicit val offsetDateTimeCodec: Codec[String, OffsetDateTime, DecodeError, codec.type] =
+    CodecCompanion.offsetDateTimeCodec(defaultOffsetDateTimeFormat)
+
+  implicit val localDateTimeCodec: Codec[String, LocalDateTime, DecodeError, codec.type] =
+    CodecCompanion.localDateTimeCodec(defaultLocalDateTimeFormat)
+
+  implicit val localDateCodec: Codec[String, LocalDate, DecodeError, codec.type] =
+    CodecCompanion.localDateCodec(defaultLocalDateFormat)
+
+  implicit val localTimeCodec: Codec[String, LocalTime, DecodeError, codec.type] =
+    CodecCompanion.localTimeCodec(defaultLocalTimeFormat)
 
   checkAll("TimeCodecCompanion[Instant]", CodecTests[String, Instant, DecodeError, codec.type].codec[Int, Int])
   checkAll("TimeCodecCompanion[ZonedDateTime]",

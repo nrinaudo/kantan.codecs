@@ -20,7 +20,7 @@ sealed abstract trait ResourceError extends Product with Serializable
 
 object ResourceError {
   sealed case class OpenError(message: String) extends Exception with ResourceError {
-    override final val getMessage = message
+    override val getMessage = message
   }
 
   object OpenError {
@@ -32,7 +32,7 @@ object ResourceError {
   }
 
   sealed case class ProcessError(message: String) extends Exception with ResourceError {
-      override final val getMessage = message
+      override val getMessage = message
     }
 
     object ProcessError {
@@ -44,7 +44,7 @@ object ResourceError {
     }
 
   sealed case class CloseError(message: String) extends Exception with ResourceError {
-    override final val getMessage = message
+    override val getMessage = message
   }
 
   object CloseError {

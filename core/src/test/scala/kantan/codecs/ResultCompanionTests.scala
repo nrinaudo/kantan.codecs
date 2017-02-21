@@ -21,6 +21,7 @@ import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try
 
+@SuppressWarnings(Array("org.wartremover.warts.Throw"))
 class ResultCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
   object simple extends ResultCompanion.Simple[String]
 

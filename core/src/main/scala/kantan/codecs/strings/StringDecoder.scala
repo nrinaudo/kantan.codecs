@@ -72,7 +72,7 @@ object StringDecoder {
     *
     * scala> val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
     *
-    * scala> implicit val decoder = StringDecoder.dateDecoder(format)
+    * scala> implicit val decoder: StringDecoder[java.util.Date] = StringDecoder.dateDecoder(format)
     *
     * scala> decoder.decode("2016-01-17T22:03:12.012UTC").map(format.format)
     * res1: kantan.codecs.Result[DecodeError, String] = Success(2016-01-17T22:03:12.012UTC)

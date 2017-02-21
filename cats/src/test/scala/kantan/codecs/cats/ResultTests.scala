@@ -21,6 +21,7 @@ import cats.data.NonEmptyList
 import cats.instances.all._
 import cats.kernel.laws.{GroupLaws, OrderLaws}
 import cats.laws.discipline._
+import cats.laws.discipline.CartesianTests.Isomorphisms
 import cats.laws.discipline.arbitrary._
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
@@ -34,13 +35,13 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Disci
 
   implicit val noOrderCogen: Cogen[NoOrder] = Cogen(_.value.toLong)
 
-  implicit val noOrderEq = new Eq[NoOrder] {
+  implicit val noOrderEq: Eq[NoOrder] = new Eq[NoOrder] {
     override def eqv(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value
   }
-  implicit val arbNoEq = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
+  implicit val arbNoOrder: Arbitrary[NoOrder] = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
 
   // TODO: not sure why this isn't resolved automatically. Investigate.
-  implicit val test = CartesianTests.Isomorphisms.invariant[Result[String, ?]]
+  implicit val test: Isomorphisms[Result[String, ?]] = CartesianTests.Isomorphisms.invariant[Result[String, ?]]
 
   checkAll("Result[String, ?]", MonadTests[Result[String, ?]].monad[Int, Int, Int])
   checkAll("Result[?, ?]", BifunctorTests[Result].bifunctor[Int, Int, Int, Int, Int, Int])

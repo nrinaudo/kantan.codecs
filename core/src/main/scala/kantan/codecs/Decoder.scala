@@ -90,6 +90,7 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
     * This makes it possible to share similar decoders across various libraries. Extracting values from strings, for
     * example, is a common task for which the default implementation can be shared rather than copy / pasted.
     */
+  @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
   def tag[TT]: Decoder[E, D, F, TT] = this.asInstanceOf[Decoder[E, D, F, TT]]
 }
 
@@ -142,8 +143,7 @@ object Decoder {
     }
 
   def oneOf[E, D, F, T](ds: Seq[Decoder[E, D, F, T]]): Decoder[E, D, F, T] =
-    if(ds.isEmpty) sys.error("oneOf on an empty parameter list")
-    else           oneOf(ds.head, ds.tail:_*)
+    ds.headOption.map(head ⇒ oneOf(head, ds.drop(1):_*)).getOrElse(sys.error("oneOf on an empty parameter list"))
 
   /** Creates a new decoder using all specified values.
     *
@@ -154,8 +154,8 @@ object Decoder {
     def decode(input: E, h: Decoder[E, D, F, T], t: Seq[Decoder[E, D, F, T]]): Result[F, D] = {
       val res = h.decode(input)
 
-      if(res.isSuccess || t.isEmpty) res
-      else                           decode(input, t.head, t.tail)
+      if(res.isSuccess) res
+      else              t.headOption.map(head ⇒ decode(input, head, t.drop(1))).getOrElse(res)
     }
     Decoder.from(input ⇒ decode(input, head, tail))
   }

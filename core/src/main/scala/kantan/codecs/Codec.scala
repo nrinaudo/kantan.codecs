@@ -25,6 +25,7 @@ package kantan.codecs
   * fulfill.
   */
 trait Codec[E, D, F, T] extends Any with Decoder[E, D, F, T] with Encoder[E, D, T] {
+  @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
   override def tag[TT]: Codec[E, D, F, TT] = this.asInstanceOf[Codec[E, D, F, TT]]
   override def mapError[FF](f: F ⇒ FF): Codec[E, D, FF, T] = Codec.from(super.mapError(f), this)
 

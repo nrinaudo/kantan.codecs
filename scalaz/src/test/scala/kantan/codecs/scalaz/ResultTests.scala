@@ -28,10 +28,10 @@ import scalaz.std.string._
 
 class ResultTests extends ScalazSuite {
   case class NoOrder(value: Int)
-  implicit val noOrderEqual = new Equal[NoOrder] {
+  implicit val noOrderEqual: Equal[NoOrder] = new Equal[NoOrder] {
     override def equal(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value
   }
-  implicit val arbNoEqual = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
+  implicit val arbNoOrder: Arbitrary[NoOrder] = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
 
   checkAll("Result[String, Int]", order.laws[Result[String, Int]])
   checkAll("Result[String, Int]", equal.laws[Result[String, NoOrder]])
