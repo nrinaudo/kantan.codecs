@@ -402,7 +402,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
 
 scala&gt; <span class="kw">val</span> format = <span class="kw">new</span> SimpleDateFormat(<span class="lit">"yyyy-MM-dd'T'HH:mm:ss.SSSz"</span>)
 
-scala&gt; <span class="kw">implicit</span> <span class="kw">val</span> decoder = StringDecoder.dateDecoder(format)
+scala&gt; <span class="kw">implicit</span> <span class="kw">val</span> decoder: StringDecoder[java.util.Date] = StringDecoder.dateDecoder(format)
 
 scala&gt; decoder.decode(<span class="lit">"2016-01-17T22:03:12.012UTC"</span>).map(format.format)
 res1: kantan.codecs.Result[DecodeError, <span class="std">String</span>] = Success(<span class="num">2016</span>-<span class="num">01</span>-<span class="num">17</span>T22:<span class="num">03</span>:<span class="num">12.012</span>UTC)</pre></div><dl class="paramcmts block"><dt class="param">format</dt><dd class="cmt"><p>format used when parsing date values.</p></dd></dl></div>
@@ -547,7 +547,7 @@ scala&gt; decoder(<span class="lit">"1"</span>)
 res1: kantan.codecs.Result[DecodeError, <span class="std">Int</span>] = Success(<span class="num">1</span>)
 
 scala&gt; decoder(<span class="lit">"foobar"</span>)
-res2: kantan.codecs.Result[DecodeError, <span class="std">Int</span>] = Failure(DecodeError(Not a valid <span class="std">Int</span>: <span class="lit">'foobar'</span>))</pre><p>This is typically used in conjunction with [StringDecoder.from], when creating instances for types that are not
+res2: kantan.codecs.Result[DecodeError, <span class="std">Int</span>] = Failure(DecodeError: <span class="lit">'foobar'</span> is not a valid <span class="std">Int</span>)</pre><p>This is typically used in conjunction with [StringDecoder.from], when creating instances for types that are not
 isomorphic to <code>String</code>.
 </p></div><dl class="paramcmts block"><dt class="tparam">D</dt><dd class="cmt"><p>decoded type.</p></dd><dt class="param">typeName</dt><dd class="cmt"><p>name of the decoded type (used in error messages).</p></dd><dt class="param">f</dt><dd class="cmt"><p>decoding function.</p></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">

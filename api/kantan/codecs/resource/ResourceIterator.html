@@ -233,7 +233,10 @@ explicitly close it. This covers non-obvious cases such as <a href="#filter(p:A=
 example, &quot;take the first <code>n</code> elements&quot; is <code>take(n)</code>, or &quot;take all odd elements&quot; is <code>filter(_ % 2 == 0)</code>. This
 allows you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a
 situation when you just want to stop, however, <a href="#close():Unit" class="extmbr" name="kantan.codecs.resource.ResourceIterator#close">ResourceIterator.close()*</a> is available.
-</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>]</dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/resource/ResourceIterator.scala" target="_blank">ResourceIterator.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.codecs.resource.ResourceIterator">ResourceIterator</a>[<span class="extype" name="kantan.codecs.resource.ResourceIterator.A">A</span>]</dd><dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/resource/ResourceIterator.scala" target="_blank">ResourceIterator.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>

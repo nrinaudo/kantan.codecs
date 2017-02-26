@@ -276,6 +276,18 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                           EncoderCompanion
                         </a>
                       </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="class" href="Error.html" title="Base class for errors"></a>
+                        <a href="Error.html" title="Base class for errors">
+                          Error
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="class" href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions."></a>
+                        <a href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions.">
+                          ErrorCompanion
+                        </a>
+                      </li><li class="current-entities indented2">
                         <a class="object" href="Optional$.html" title=""></a>
                         <a class="trait" href="Optional.html" title="Type class that represents data types that have an &quot;empty&quot; value."></a>
                         <a href="Optional.html" title="Type class that represents data types that have an &quot;empty&quot; value.">
@@ -473,6 +485,45 @@ example. <a href="DecoderCompanion.html" class="extype" name="kantan.codecs.Deco
       </span>
       
       
+    </li><li name="kantan.codecs.Error" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="ErrorextendsExceptionwithProductwithSerializable"></a><a id="Error:Error"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#ErrorextendsExceptionwithProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Base class for errors" href="Error.html">
+              <span class="name">Error</span>
+            </a><span class="result"> extends <span class="extype" name="scala.Exception">Exception</span> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Base class for errors</p><div class="fullcomment"><div class="comment cmt"><p>Base class for errors</p><p>This is specifically meant for errors represented as ADTs. The fact that it extends <code>Exception</code> is an unfortunate
+side effect of the Scala stdlib's reliance on exceptions, as seen with <code>scala.concurrent.Future</code> and
+<code>scala.util.Try</code>, for example.
+</p></div></div>
+    </li><li name="kantan.codecs.ErrorCompanion" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ErrorCompanion[T&lt;:kantan.codecs.Error]extendsAnyRef"></a><a id="ErrorCompanion[T&lt;:Error]:ErrorCompanion[T]"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#ErrorCompanion[T&lt;:kantan.codecs.Error]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions." href="ErrorCompanion.html">
+              <span class="name">ErrorCompanion</span>
+            </a><span class="tparams">[<span name="T">T &lt;: <a href="Error.html" class="extype" name="kantan.codecs.Error">Error</a></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Provides useful instance creation methods for errors that might be created as a result of Java exceptions.</p>
     </li><li name="kantan.codecs.Optional" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Optional[A]extendsAnyRef"></a><a id="Optional[A]:Optional[A]"></a>
       <span class="permalink">
