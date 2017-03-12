@@ -18,7 +18,7 @@ package kantan.codecs.shapeless
 
 import kantan.codecs.{Decoder, Encoder, Result}
 import kantan.codecs.export.{DerivedDecoder, DerivedEncoder}
-import shapeless.{:+:, CNil, Coproduct, Generic, HList, Inl, Inr, Lazy}
+import shapeless.{:+:, CNil, Coproduct, Generic, HList, Inl, Inr, LabelledGeneric, Lazy}
 
 /** Provides `Codec` instances for case classes and sum types.
   *
@@ -42,6 +42,11 @@ trait ShapelessInstances {
   (implicit gen: Generic.Aux[D, H], er: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
   DerivedEncoder(s ⇒ er.value.encode(gen.to(s)))
 
+  /** Similar to [[caseClassEncoder]], but working with `LabelledGeneric` rather than just `Generic`. */
+  implicit def caseClassEncoderFromLabelled[E, D, T, H <: HList]
+  (implicit generic: LabelledGeneric.Aux[D, H], hEncoder: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
+    DerivedEncoder(value ⇒ hEncoder.value.encode(generic.to(value)))
+
   /** Provides a `Decoder` instance for case classes.
     *
     * Given a case class `D`, this expects n `Decoder` instance for the `HList` type corresponding to `D`. It will
@@ -50,6 +55,11 @@ trait ShapelessInstances {
   implicit def caseClassDecoder[E, D, F, T, H <: HList]
   (implicit gen: Generic.Aux[D, H], dr: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
   DerivedDecoder(s ⇒ dr.value.decode(s).map(gen.from))
+
+  /** Similar to [[caseClassDecoder]], but working with `LabelledGeneric` rather than just `Generic`. */
+  implicit def caseClassDecoderFromLabelled[E, D, F, T, H <: HList]
+  (implicit generic: LabelledGeneric.Aux[D, H], hDecoder: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
+    DerivedDecoder(value ⇒ hDecoder.value.decode(value).map(generic.from))
 
 
 
