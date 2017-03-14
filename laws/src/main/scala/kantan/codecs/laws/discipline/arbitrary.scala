@@ -21,13 +21,14 @@ import java.io._
 import java.net.{URI, URL}
 import java.nio.file.Path
 import java.util.{Date, UUID}
+import java.util.regex.Pattern
 import kantan.codecs._
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
 import org.scalacheck._
-import org.scalacheck.Arbitrary.{arbitrary ⇒ arb}
+import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
 import scala.util.Try
 
@@ -50,6 +51,24 @@ trait ArbitraryInstances extends ArbitraryArities {
       failure[F]: Gen[Result[F, S]]
     ))
 
+
+
+  // - Arbitrary patterns ----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  val genRegexOptions: Gen[Int] = listOf(oneOf(Pattern.UNIX_LINES, 256, Pattern.CANON_EQ, Pattern.CASE_INSENSITIVE,
+    Pattern.MULTILINE, Pattern.DOTALL, Pattern.LITERAL, Pattern.UNICODE_CASE, Pattern.COMMENTS))
+    .map(_.toSet.foldLeft(0)(_ | _))
+
+  // TODO: add more standard regexes to this list?
+  val genRegularExpression: Gen[String] =
+    oneOf("[a-zA-z]", "^[a-z0-9_-]{3,16}$", "^[a-z0-9_-]{6,18}$", "^#?([a-f0-9]{6}|[a-f0-9]{3})$")
+
+  val genPattern: Gen[Pattern] = for {
+    regex ← genRegularExpression
+    flags ← genRegexOptions
+  } yield Pattern.compile(regex, flags)
+
+  implicit val arbPattern: Arbitrary[Pattern] = Arbitrary(genPattern)
 
 
   // - CodecValue ------------------------------------------------------------------------------------------------------
