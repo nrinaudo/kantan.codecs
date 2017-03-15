@@ -40,12 +40,12 @@ trait ShapelessInstances {
     */
   implicit def caseClassEncoder[E, D, T, H <: HList]
   (implicit gen: Generic.Aux[D, H], er: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
-  DerivedEncoder(s ⇒ er.value.encode(gen.to(s)))
+  DerivedEncoder.from(s ⇒ er.value.encode(gen.to(s)))
 
   /** Similar to [[caseClassEncoder]], but working with `LabelledGeneric` rather than just `Generic`. */
   implicit def caseClassEncoderFromLabelled[E, D, T, H <: HList]
   (implicit generic: LabelledGeneric.Aux[D, H], hEncoder: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
-    DerivedEncoder(value ⇒ hEncoder.value.encode(generic.to(value)))
+    DerivedEncoder.from(value ⇒ hEncoder.value.encode(generic.to(value)))
 
   /** Provides a `Decoder` instance for case classes.
     *
@@ -54,12 +54,12 @@ trait ShapelessInstances {
     */
   implicit def caseClassDecoder[E, D, F, T, H <: HList]
   (implicit gen: Generic.Aux[D, H], dr: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
-  DerivedDecoder(s ⇒ dr.value.decode(s).map(gen.from))
+  DerivedDecoder.from(s ⇒ dr.value.decode(s).map(gen.from))
 
   /** Similar to [[caseClassDecoder]], but working with `LabelledGeneric` rather than just `Generic`. */
   implicit def caseClassDecoderFromLabelled[E, D, F, T, H <: HList]
   (implicit generic: LabelledGeneric.Aux[D, H], hDecoder: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
-    DerivedDecoder(value ⇒ hDecoder.value.decode(value).map(generic.from))
+    DerivedDecoder.from(value ⇒ hDecoder.value.decode(value).map(generic.from))
 
 
 
@@ -73,7 +73,7 @@ trait ShapelessInstances {
     */
   implicit def sumTypeEncoder[E, D, T, C <: Coproduct]
   (implicit gen: Generic.Aux[D, C], er: Lazy[Encoder[E, C, T]]): DerivedEncoder[E, D, T] =
-  DerivedEncoder(m ⇒ er.value.encode(gen.to(m)))
+  DerivedEncoder.from(m ⇒ er.value.encode(gen.to(m)))
 
   /** Provides a `Decoder` instance for sum types.
     *
@@ -82,7 +82,7 @@ trait ShapelessInstances {
     */
   implicit def sumTypeDecoder[E, D, F, T, C <: Coproduct]
   (implicit gen: Generic.Aux[D, C], dr: Lazy[Decoder[E, C, F, T]]): DerivedDecoder[E, D, F, T] =
-  DerivedDecoder(m ⇒ dr.value.decode(m).map(gen.from))
+  DerivedDecoder.from(m ⇒ dr.value.decode(m).map(gen.from))
 
 
 

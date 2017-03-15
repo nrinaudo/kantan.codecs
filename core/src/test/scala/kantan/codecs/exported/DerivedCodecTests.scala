@@ -36,7 +36,7 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("Derived decoders should have a lower priority than bespoke ones") {
     implicit val bespoke: StringDecoder[Maybe[Int]] = StringDecoder.from(decode)
     implicit val derived: DerivedDecoder[String, Maybe[Int], DecodeError, strings.codecs.type] =
-      DerivedDecoder[String, Maybe[Int], DecodeError, strings.codecs.type](decode)
+      DerivedDecoder.from[String, Maybe[Int], DecodeError, strings.codecs.type](decode)
 
     assert(implicitly[Decoder[String, Maybe[Int], DecodeError, strings.codecs.type]] == bespoke)
   }
@@ -44,21 +44,21 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("Derived encoders should have a lower priority than bespoke ones") {
     implicit val bespoke: StringEncoder[Maybe[Int]] = StringEncoder.from(encode)
     implicit val derived: DerivedEncoder[String, Maybe[Int], strings.codecs.type] =
-      DerivedEncoder[String, Maybe[Int], strings.codecs.type](encode)
+      DerivedEncoder.from[String, Maybe[Int], strings.codecs.type](encode)
 
     assert(implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] == bespoke)
   }
 
   test("Derived decoders should be picked up when no other is available") {
     implicit val derived: DerivedDecoder[String, Maybe[Int], Throwable, strings.codecs.type] =
-      DerivedDecoder[String, Maybe[Int], Throwable, strings.codecs.type](decode)
+      DerivedDecoder.from[String, Maybe[Int], Throwable, strings.codecs.type](decode)
 
     assert(implicitly[Decoder[String, Maybe[Int], Throwable, strings.codecs.type]] == derived.value)
   }
 
   test("Derived encoders should be picked up when no other is available") {
     implicit val derived: DerivedEncoder[String, Maybe[Int], strings.codecs.type] =
-      DerivedEncoder[String, Maybe[Int], strings.codecs.type](encode)
+      DerivedEncoder.from[String, Maybe[Int], strings.codecs.type](encode)
 
     assert(implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] == derived.value)
   }
