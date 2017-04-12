@@ -16,8 +16,46 @@
 
 package kantan.codecs.resource
 
-trait ResourceIterable[A] extends Traversable[A] {
+trait ResourceIterable[+A] extends Traversable[A] {
+  /** Type of the concrete implementation.
+    *
+    * This is needed to be able to perform transforming operations, such as [[map]], without losing information about
+    * the type we're working with.
+    */
+  type Repr[X] <: ResourceIterable[X]
+
+
+
+  // - Abstract methods ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Opens the underlying resource and returns an iterator on it. */
   def iterator: ResourceIterator[A]
+
+  /** Used to perform operations on the underlying operator, but later.
+    *
+    * The point is to allow methods such as [[map]] to be lazy: the mapping operation will be only be applied when
+    * [[iterator]] is called, not immediately as is `Traversable`'s default behaviour.
+    */
+  protected def onIterator[B](f: ResourceIterator[A] ⇒ ResourceIterator[B]): Repr[B]
+
+
+
+  // - "Lazy" methods --------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def map[B](f: A ⇒ B): Repr[B] = onIterator(_.map(f))
+  def flatMap[B](f: A ⇒ Repr[B]): Repr[B] = onIterator(_.flatMap(f.andThen(_.iterator)))
+  def collect[B](f: PartialFunction[A, B]): Repr[B] = onIterator(_.collect(f))
+  override def drop(n: Int): ResourceIterable[A] = onIterator(_.drop(n))
+  override def dropWhile(p: A ⇒ Boolean): ResourceIterable[A] = onIterator(_.dropWhile(p))
+  override def take(n: Int): ResourceIterable[A] = onIterator(_.take(n))
+  override def takeWhile(p: A ⇒ Boolean): ResourceIterable[A] = onIterator(_.takeWhile(p))
+  override def filter(p: A ⇒ Boolean): ResourceIterable[A] = onIterator(_.filter(p))
+  override def withFilter(p: A ⇒ Boolean): ResourceIterable[A] = onIterator(_.withFilter(p))
+
+
+
+  // - Traversable methods ---------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   override def foreach[U](f: A ⇒ U) = iterator.foreach(f)
   override def forall(p: A ⇒ Boolean) = iterator.forall(p)
   override def exists(p: A ⇒ Boolean) = iterator.exists(p)
@@ -26,3 +64,5 @@ trait ResourceIterable[A] extends Traversable[A] {
   override def foldRight[B](z: B)(op: (A, B) ⇒ B) = iterator.foldRight(z)(op)
   override def reduceRight[B >: A](op: (A, B) ⇒ B) = iterator.reduceRight(op)
 }
+
+
