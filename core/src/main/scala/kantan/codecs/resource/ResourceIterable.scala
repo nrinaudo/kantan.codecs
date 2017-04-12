@@ -16,7 +16,7 @@
 
 package kantan.codecs.resource
 
-trait ResourceIterable[+A] extends Traversable[A] {
+trait ResourceIterable[A] {
   /** Type of the concrete implementation.
     *
     * This is needed to be able to perform transforming operations, such as [[map]], without losing information about
@@ -45,24 +45,27 @@ trait ResourceIterable[+A] extends Traversable[A] {
   def map[B](f: A ⇒ B): Repr[B] = onIterator(_.map(f))
   def flatMap[B](f: A ⇒ Repr[B]): Repr[B] = onIterator(_.flatMap(f.andThen(_.iterator)))
   def collect[B](f: PartialFunction[A, B]): Repr[B] = onIterator(_.collect(f))
-  override def drop(n: Int): ResourceIterable[A] = onIterator(_.drop(n))
-  override def dropWhile(p: A ⇒ Boolean): ResourceIterable[A] = onIterator(_.dropWhile(p))
-  override def take(n: Int): ResourceIterable[A] = onIterator(_.take(n))
-  override def takeWhile(p: A ⇒ Boolean): ResourceIterable[A] = onIterator(_.takeWhile(p))
-  override def filter(p: A ⇒ Boolean): ResourceIterable[A] = onIterator(_.filter(p))
-  override def withFilter(p: A ⇒ Boolean): ResourceIterable[A] = onIterator(_.withFilter(p))
+  def drop(n: Int): Repr[A] = onIterator(_.drop(n))
+  def dropWhile(p: A ⇒ Boolean): Repr[A] = onIterator(_.dropWhile(p))
+  def take(n: Int): Repr[A] = onIterator(_.take(n))
+  def takeWhile(p: A ⇒ Boolean): Repr[A] = onIterator(_.takeWhile(p))
+  def filter(p: A ⇒ Boolean): Repr[A] = onIterator(_.filter(p))
+  def withFilter(p: A ⇒ Boolean): Repr[A] = onIterator(_.withFilter(p))
 
 
 
   // - Traversable methods ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  override def foreach[U](f: A ⇒ U) = iterator.foreach(f)
-  override def forall(p: A ⇒ Boolean) = iterator.forall(p)
-  override def exists(p: A ⇒ Boolean) = iterator.exists(p)
-  override def find(p: A ⇒ Boolean) = iterator.find(p)
-  override def isEmpty = !iterator.hasNext
-  override def foldRight[B](z: B)(op: (A, B) ⇒ B) = iterator.foldRight(z)(op)
-  override def reduceRight[B >: A](op: (A, B) ⇒ B) = iterator.reduceRight(op)
+  def foreach[U](f: A ⇒ U): Unit = iterator.foreach(f)
+  def forall(p: A ⇒ Boolean): Boolean = iterator.forall(p)
+  def exists(p: A ⇒ Boolean): Boolean = iterator.exists(p)
+  def find(p: A ⇒ Boolean): Option[A] = iterator.find(p)
+  def isEmpty: Boolean = !iterator.hasNext
+  def nonEmpty: Boolean = !isEmpty
+  def foldLeft[B](b: B)(op: (B, A) ⇒ B): B = iterator.foldLeft(b)(op)
+  def reduceLeft[B >: A](op: (B, A) ⇒ B): B = iterator.reduceLeft(op)
+  def foldRight[B](z: B)(op: (A, B) ⇒ B): B = iterator.foldRight(z)(op)
+  def reduceRight[B >: A](op: (A, B) ⇒ B): B = iterator.reduceRight(op)
 }
 
 
