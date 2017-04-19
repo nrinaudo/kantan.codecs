@@ -39,6 +39,7 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
       DerivedDecoder.from[String, Maybe[Int], DecodeError, strings.codecs.type](decode)
 
     assert(implicitly[Decoder[String, Maybe[Int], DecodeError, strings.codecs.type]] == bespoke)
+    derived // Allows this to compile - otherwise the compiler detects correctly that derived isn't used and fails.
   }
 
   test("Derived encoders should have a lower priority than bespoke ones") {
@@ -47,6 +48,7 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
       DerivedEncoder.from[String, Maybe[Int], strings.codecs.type](encode)
 
     assert(implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] == bespoke)
+    derived // Allows this to compile - otherwise the compiler detects correctly that derived isn't used and fails.
   }
 
   test("Derived decoders should be picked up when no other is available") {

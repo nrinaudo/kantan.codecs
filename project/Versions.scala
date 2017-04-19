@@ -7,7 +7,7 @@ object Versions {
   val joda                = "2.9.9"
   val scalacheck          = "1.13.5"
   val scalacheckShapeless = "1.1.5"
-  val scalatest           = "3.0.1"
-  val scalaz              = "7.2.10"
+  val scalatest           = "3.0.2"
+  val scalaz              = "7.2.11"
   val shapeless           = "2.3.2"
 }
