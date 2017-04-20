@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import java.io.Serializable
 import kantan.codecs.export.DerivedDecoder
 
 /** Type class for types that can be decoded from other types.
@@ -69,18 +70,24 @@ trait Decoder[E, D, F, T] extends Any with Serializable {
 
   /** Creates a new [[Decoder]] instance by transforming successful results with the specified function.
     *
-    * This differs from [[mapResult]] in that the transformation function cannot fail.
+    * This differs from [[emap]] in that the transformation function cannot fail.
     */
   def map[DD](f: D ⇒ DD): Decoder[E, DD, F, T] = andThen(_.map(f))
+
+  @deprecated("Use emap instead", "0.2.0")
+  def mapResult[DD](f: D ⇒ Result[F, DD]): Decoder[E, DD, F, T] = emap(f)
 
   /** Creates a new [[Decoder]] instance by transforming successful results with the specified function.
     *
     * This differs from [[map]] in that it allows the transformation function to fail.
     */
-  def mapResult[DD](f: D ⇒ Result[F, DD]): Decoder[E, DD, F, T] = andThen(_.flatMap(f))
+  def emap[DD](f: D ⇒ Result[F, DD]): Decoder[E, DD, F, T] = andThen(_.flatMap(f))
+
+  @deprecated("Use leftMap instead", "0.2.0")
+  def mapError[FF](f: F ⇒ FF): Decoder[E, D, FF, T] = leftMap(f)
 
   /** Creates a new [[Decoder]] instance by transforming errors with the specified function. */
-  def mapError[FF](f: F ⇒ FF): Decoder[E, D, FF, T] = andThen(_.leftMap(f))
+  def leftMap[FF](f: F ⇒ FF): Decoder[E, D, FF, T] = andThen(_.leftMap(f))
 
   /** Creates a new [[Decoder]] instance by transforming encoded values with the specified function. */
   def contramapEncoded[EE](f: EE ⇒ E): Decoder[EE, D, F, T] = Decoder.from(f andThen decode)

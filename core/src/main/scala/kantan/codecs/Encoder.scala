@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import java.io.Serializable
 import kantan.codecs.export.DerivedEncoder
 
 /** Type class for types that can be encoded into others.

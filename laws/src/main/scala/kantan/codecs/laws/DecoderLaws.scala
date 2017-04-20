@@ -47,11 +47,11 @@ trait DecoderLaws[E, D, F, T] {
   def mapComposition[A, B](v: CodecValue[E, D, T], f: D ⇒ A, g: A ⇒ B): Boolean =
     decoder.map(f andThen g).decode(v.encoded) == decoder.map(f).map(g).decode(v.encoded)
 
-  def mapErrorIdentity[A](v: CodecValue[E, D, T]): Boolean =
-    decoder.decode(v.encoded) == decoder.mapError(identity).decode(v.encoded)
+  def leftMapIdentity[A](v: CodecValue[E, D, T]): Boolean =
+    decoder.decode(v.encoded) == decoder.leftMap(identity).decode(v.encoded)
 
-  def mapErrorComposition[A, B](v: CodecValue[E, D, T], f: F ⇒ A, g: A ⇒ B): Boolean =
-    decoder.mapError(f andThen g).decode(v.encoded) == decoder.mapError(f).mapError(g).decode(v.encoded)
+  def leftMapComposition[A, B](v: CodecValue[E, D, T], f: F ⇒ A, g: A ⇒ B): Boolean =
+    decoder.leftMap(f andThen g).decode(v.encoded) == decoder.leftMap(f).leftMap(g).decode(v.encoded)
 
 
 
@@ -67,11 +67,11 @@ trait DecoderLaws[E, D, F, T] {
 
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def mapResultIdentity(v: CodecValue[E, D, T]): Boolean =
-    decoder.decode(v.encoded) == decoder.mapResult(Result.success).decode(v.encoded)
+  def emapIdentity(v: CodecValue[E, D, T]): Boolean =
+    decoder.decode(v.encoded) == decoder.emap(Result.success).decode(v.encoded)
 
-  def mapResultComposition[A, B](v: CodecValue[E, D, T], f: D ⇒ Result[F, A], g: A ⇒ Result[F, B]): Boolean =
-    decoder.mapResult(d ⇒ f(d).flatMap(g)).decode(v.encoded) ==  decoder.mapResult(f).mapResult(g).decode(v.encoded)
+  def emapComposition[A, B](v: CodecValue[E, D, T], f: D ⇒ Result[F, A], g: A ⇒ Result[F, B]): Boolean =
+    decoder.emap(d ⇒ f(d).flatMap(g)).decode(v.encoded) ==  decoder.emap(f).emap(g).decode(v.encoded)
 }
 
 object DecoderLaws {

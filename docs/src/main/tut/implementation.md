@@ -127,7 +127,7 @@ import kantan.codecs.strings.{StringEncoder, StringDecoder}
 
 trait CellDecoderInstances {
   def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
-    da.mapError(DecodeError.typeError).tag[codecs.type]
+    da.leftMap(DecodeError.typeError).tag[codecs.type]
 }
 
 trait CellEncoderInstances {
