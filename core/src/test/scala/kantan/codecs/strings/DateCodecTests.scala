@@ -29,7 +29,11 @@ class DateCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
     StringCodec.dateCodec(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.ENGLISH))
 
   checkAll("StringDecoder[Date]", DecoderTests[String, Date, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[Date]", SerializableTests[StringDecoder[Date]].serializable)
+
   checkAll("StringEncoder[Date]", EncoderTests[String, Date, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Date]", SerializableTests[StringEncoder[Date]].serializable)
+
   checkAll("StringCodec[Date]", CodecTests[String, Date, DecodeError, codecs.type].codec[Int, Int])
 
   checkAll("TaggedDecoder[Date]", DecoderTests[String, Date, DecodeError, tagged.type].decoder[Int, Int])

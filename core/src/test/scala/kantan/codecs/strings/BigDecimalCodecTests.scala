@@ -25,7 +25,11 @@ import tagged._
 
 class BigDecimalCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[BigDecimal]", DecoderTests[String, BigDecimal, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[BigDecimal]", SerializableTests[StringDecoder[BigDecimal]].serializable)
+
   checkAll("StringEncoder[BigDecimal]", EncoderTests[String, BigDecimal, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[BigDecimal]", SerializableTests[StringEncoder[BigDecimal]].serializable)
+
   checkAll("StringCodec[BigDecimal]", CodecTests[String, BigDecimal, DecodeError, codecs.type].codec[Int, Int])
 
   checkAll("TaggedDecoder[BigDecimal]", DecoderTests[String, BigDecimal, DecodeError, tagged.type].decoder[Int, Int])

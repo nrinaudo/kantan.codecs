@@ -26,7 +26,11 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class FileCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[File]", DecoderTests[String, File, DecodeError, codecs.type].bijectiveDecoder[Int, Int])
+  checkAll("StringDecoder[File]", SerializableTests[StringDecoder[File]].serializable)
+
   checkAll("StringEncoder[File]", EncoderTests[String, File, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[File]", SerializableTests[StringEncoder[File]].serializable)
+
   checkAll("StringCodec[File]", CodecTests[String, File, DecodeError, codecs.type].bijectiveCodec[Int, Int])
 
   checkAll("TaggedDecoder[File]", DecoderTests[String, File, DecodeError, tagged.type].bijectiveDecoder[Int, Int])

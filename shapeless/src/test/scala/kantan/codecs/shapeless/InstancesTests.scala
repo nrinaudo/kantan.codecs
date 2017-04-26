@@ -16,7 +16,7 @@
 
 package kantan.codecs.shapeless
 
-import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
+import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests, SerializableTests}
 import kantan.codecs.shapeless.laws._
 import kantan.codecs.shapeless.laws.discipline.arbitrary._
 import kantan.codecs.strings._
@@ -25,8 +25,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 import shapeless._
 
-@SuppressWarnings(Array("org.wartremover.warts.Null"))
-class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+object Instances {
   // - HList / Coproduct instances -------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val cnilDec: StringDecoder[CNil] = cnilDecoder(_ ⇒ DecodeError("Attempting to decode CNil"))
@@ -38,14 +37,21 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
 
   implicit def hlistDecoder[A: StringDecoder]: StringDecoder[A :: HNil] =
     StringDecoder[A].map(h ⇒ h :: HNil)
+}
 
-
+@SuppressWarnings(Array("org.wartremover.warts.Null"))
+class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  import Instances._
 
   // - Tests -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
     .decoder[Int, Int])
+  checkAll("StringDecoder[Int Or Boolean]", SerializableTests[StringDecoder[Int Or Boolean]].serializable)
+
   checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Int Or Boolean]", SerializableTests[StringEncoder[Int Or Boolean]].serializable)
+
   checkAll("StringCodec[Int Or Boolean]", CodecTests[String, Int Or Boolean, DecodeError, codecs.type].codec[Int, Int])
 
   test("Encoder[?, CNil, ?] should fail") {

@@ -25,7 +25,11 @@ import tagged._
 
 class ByteCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[Byte]", DecoderTests[String, Byte, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[Byte]", SerializableTests[StringDecoder[Byte]].serializable)
+
   checkAll("StringEncoder[Byte]", EncoderTests[String, Byte, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Byte]", SerializableTests[StringEncoder[Byte]].serializable)
+
   checkAll("StringCodec[Byte]", CodecTests[String, Byte, DecodeError, codecs.type].codec[Int, Int])
 
   checkAll("TaggedDecoder[Byte]", DecoderTests[String, Byte, DecodeError, tagged.type].decoder[Int, Int])

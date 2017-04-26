@@ -18,14 +18,18 @@ package kantan.codecs.strings
 
 import kantan.codecs.laws.discipline._
 import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.strings.tagged._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
-import tagged._
 
 class DoubleCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[Double]", DecoderTests[String, Double, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[Double]", SerializableTests[StringDecoder[Double]].serializable)
+
   checkAll("StringEncoder[Double]", EncoderTests[String, Double, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Double]", SerializableTests[StringEncoder[Double]].serializable)
+
   checkAll("StringCodec[Double]", CodecTests[String, Double, DecodeError, codecs.type].codec[Int, Int])
 
   checkAll("TaggedDecoder[Double]", DecoderTests[String, Double, DecodeError, tagged.type].decoder[Int, Int])

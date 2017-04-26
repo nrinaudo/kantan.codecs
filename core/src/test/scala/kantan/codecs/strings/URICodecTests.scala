@@ -26,7 +26,11 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class URICodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[URI]", DecoderTests[String, URI, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[URI]", SerializableTests[StringDecoder[URI]].serializable)
+
   checkAll("StringEncoder[URI]", EncoderTests[String, URI, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[URI]", SerializableTests[StringEncoder[URI]].serializable)
+
   checkAll("StringCodec[URI]", CodecTests[String, URI, DecodeError, codecs.type].codec[Int, Int])
 
   checkAll("TaggedDecoder[URI]", DecoderTests[String, URI, DecodeError, tagged.type].decoder[Int, Int])

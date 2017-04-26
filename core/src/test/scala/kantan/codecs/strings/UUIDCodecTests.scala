@@ -26,7 +26,11 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class UUIDCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[UUID]", DecoderTests[String, UUID, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[UUID]", SerializableTests[StringDecoder[UUID]].serializable)
+
   checkAll("StringEncoder[UUID]", EncoderTests[String, UUID, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[UUID]", SerializableTests[StringEncoder[UUID]].serializable)
+
   checkAll("StringCodec[UUID]", CodecTests[String, UUID, DecodeError, codecs.type].codec[Int, Int])
 
   checkAll("TaggedDecoder[UUID]", DecoderTests[String, UUID, DecodeError, tagged.type].decoder[Int, Int])
