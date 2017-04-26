@@ -16,7 +16,6 @@
 
 package kantan.codecs
 
-import java.io.Serializable
 import kantan.codecs.export.DerivedDecoder
 
 /** Type class for types that can be decoded from other types.
@@ -26,7 +25,7 @@ import kantan.codecs.export.DerivedDecoder
   * @tparam F failure type - how to represent errors.
   * @tparam T tag type - used to specialise decoder instances, and usually where default implementations are declared.
   */
-trait Decoder[E, D, F, T] extends Any with Serializable {
+trait Decoder[E, D, F, T] extends Serializable {
   // - Decoding --------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Decodes encoded data.

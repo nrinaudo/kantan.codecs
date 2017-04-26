@@ -25,7 +25,7 @@ package kantan.codecs
   * served by obtaining the [[Decoder]] instance for `Option` and mapping on it.
   *
   */
-trait Optional[A] {
+trait Optional[A] extends Serializable {
   def empty: A
   def isEmpty(a: A): Boolean = a == empty
 }

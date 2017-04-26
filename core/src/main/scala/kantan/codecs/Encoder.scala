@@ -16,7 +16,6 @@
 
 package kantan.codecs
 
-import java.io.Serializable
 import kantan.codecs.export.DerivedEncoder
 
 /** Type class for types that can be encoded into others.
@@ -25,7 +24,7 @@ import kantan.codecs.export.DerivedEncoder
   * @tparam D decoded type - what to encode from.
   * @tparam T tag type.
   */
-trait Encoder[E, D, T] extends Any with Serializable {
+trait Encoder[E, D, T] extends Serializable {
   /** Encodes the specified value. */
   def encode(d: D): E
 
