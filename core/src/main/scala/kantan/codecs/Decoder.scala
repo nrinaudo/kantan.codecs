@@ -105,7 +105,7 @@ trait Decoder[E, D, F, T] extends Serializable {
   * Most libraries that use kantan.codecs will declare type aliases for decoders - `CellDecoder` in kantan.csv, for
   * example. [[DecoderCompanion]] lets such types have a useful companion object without a lot of code duplication.
   */
-trait DecoderCompanion[E, F, T] {
+trait DecoderCompanion[E, F, T] extends Serializable {
   /** Creates a new [[Decoder]] instance from the specified function. */
   @inline def from[D](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = Decoder.from(f)
 
