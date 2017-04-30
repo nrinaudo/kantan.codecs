@@ -26,6 +26,10 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class DateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[DateTime]", DecoderTests[String, DateTime, DecodeError, codecs.type].decoder[Int, Int])
+  //checkAll("StringDecoder[DateTime]", SerializableTests[StringEncoder[DateTime]].serializable)
+
   checkAll("StringEncoder[DateTime]", EncoderTests[String, DateTime, codecs.type].encoder[Int, Int])
+  //checkAll("StringEncoder[DateTime]", SerializableTests[StringEncoder[DateTime]].serializable)
+
   checkAll("StringCodec[DateTime]", CodecTests[String, DateTime, DecodeError, codecs.type].codec[Int, Int])
 }

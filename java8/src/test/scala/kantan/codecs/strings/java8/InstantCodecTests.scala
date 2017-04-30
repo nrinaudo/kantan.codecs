@@ -26,6 +26,10 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class InstantCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[Instant]", DecoderTests[String, Instant, DecodeError, codecs.type].decoder[Int, Int])
+  //checkAll("StringDecoder[Instant]", SerializableTests[StringDecoder[Instant]].serializable)
+
   checkAll("StringEncoder[Instant]", EncoderTests[String, Instant, codecs.type].encoder[Int, Int])
+  //checkAll("StringEncoder[Instant]", SerializableTests[StringEncoder[Instant]].serializable)
+
   checkAll("StringCodec[Instant]", CodecTests[String, Instant, DecodeError, codecs.type].codec[Int, Int])
 }
