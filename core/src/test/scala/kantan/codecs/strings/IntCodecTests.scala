@@ -25,7 +25,11 @@ import tagged._
 
 class IntCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[Int]", DecoderTests[String, Int, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[Int]", SerializableTests[StringDecoder[Int]].serializable)
+
   checkAll("StringEncoder[Int]", EncoderTests[String, Int, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Int]", SerializableTests[StringEncoder[Int]].serializable)
+
   checkAll("StringCodec[Int]", CodecTests[String, Int, DecodeError, codecs.type].codec[Int, Int])
 
   checkAll("TaggedDecoder[Int]", DecoderTests[String, Int, DecodeError, tagged.type].decoder[Int, Int])
