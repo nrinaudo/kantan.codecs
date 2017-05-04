@@ -16,7 +16,7 @@
 
 package kantan.codecs.strings.joda.time
 
-import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
+import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests, SerializableTests}
 import kantan.codecs.strings._
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
 import org.joda.time.LocalDate
@@ -26,10 +26,10 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class LocalDateCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[LocalDate]",DecoderTests[String, LocalDate, DecodeError, codecs.type].decoder[Int, Int])
-  //checkAll("StringDecoder[LocalDate]", SerializableTests[StringEncoder[LocalDate]].serializable)
+  checkAll("StringDecoder[LocalDate]", SerializableTests[StringEncoder[LocalDate]].serializable)
 
   checkAll("StringEncoder[LocalDate]", EncoderTests[String, LocalDate, codecs.type].encoder[Int, Int])
-  //checkAll("StringEncoder[LocalDate]", SerializableTests[StringEncoder[LocalDate]].serializable)
+  checkAll("StringEncoder[LocalDate]", SerializableTests[StringEncoder[LocalDate]].serializable)
 
   checkAll("StringCodec[LocalDate]", CodecTests[String, LocalDate, DecodeError, codecs.type].codec[Int, Int])
 }

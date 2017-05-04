@@ -17,7 +17,7 @@
 package kantan.codecs.strings.java8
 
 import java.time.Instant
-import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests}
+import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests, SerializableTests}
 import kantan.codecs.strings._
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -26,10 +26,10 @@ import org.typelevel.discipline.scalatest.Discipline
 
 class InstantCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
   checkAll("StringDecoder[Instant]", DecoderTests[String, Instant, DecodeError, codecs.type].decoder[Int, Int])
-  //checkAll("StringDecoder[Instant]", SerializableTests[StringDecoder[Instant]].serializable)
+  checkAll("StringDecoder[Instant]", SerializableTests[StringDecoder[Instant]].serializable)
 
   checkAll("StringEncoder[Instant]", EncoderTests[String, Instant, codecs.type].encoder[Int, Int])
-  //checkAll("StringEncoder[Instant]", SerializableTests[StringEncoder[Instant]].serializable)
+  checkAll("StringEncoder[Instant]", SerializableTests[StringEncoder[Instant]].serializable)
 
   checkAll("StringCodec[Instant]", CodecTests[String, Instant, DecodeError, codecs.type].codec[Int, Int])
 }

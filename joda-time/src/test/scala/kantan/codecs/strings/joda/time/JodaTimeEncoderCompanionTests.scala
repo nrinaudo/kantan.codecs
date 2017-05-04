@@ -16,6 +16,8 @@
 
 package kantan.codecs.strings.joda.time
 
+import kantan.codecs.Encoder
+import kantan.codecs.export.Exported
 import kantan.codecs.laws.discipline.EncoderTests
 import kantan.codecs.strings.StringEncoder
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
@@ -25,8 +27,15 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class JodaTimeEncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  type TestEncoder[D] = Exported[Encoder[String, D, codec.type]]
+
   object EncoderCompanion extends JodaTimeEncoderCompanion[String, codec.type] {
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
+
+    implicit val dateTimeTestEncoder: TestEncoder[DateTime] = Exported(defaultDateTimeEncoder)
+    implicit val localDateTimeTestEncoder: TestEncoder[LocalDateTime] = Exported(defaultLocalDateTimeEncoder)
+    implicit val localDateTestEncoder: TestEncoder[LocalDate] = Exported(defaultLocalDateEncoder)
+    implicit val localTimeTestEncoder: TestEncoder[LocalTime] = Exported(defaultLocalTimeEncoder)
   }
 
   import EncoderCompanion._

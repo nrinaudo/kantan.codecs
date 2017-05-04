@@ -17,17 +17,19 @@
 package kantan.codecs.laws
 
 import scala.util.Try
+import SerializableTools._
 
 /** Laws for serializable type class instances. */
 trait SerializableLaws[A] {
   def value: A
 
   def serializable(): Boolean = {
-    try {SerializableTools.serialize(value)}
+    // TODO: remove
+    try { deserialize(serialize(value)) }
     catch {
       case e: Exception ⇒ e.printStackTrace()
     }
-    Try(SerializableTools.serialize(value)).isSuccess
+    Try(deserialize(serialize(value))).isSuccess
   }
 }
 

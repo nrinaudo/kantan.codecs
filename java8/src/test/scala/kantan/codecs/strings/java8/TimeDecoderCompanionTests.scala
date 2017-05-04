@@ -17,6 +17,8 @@
 package kantan.codecs.strings.java8
 
 import java.time._
+import kantan.codecs.Decoder
+import kantan.codecs.export.Exported
 import kantan.codecs.laws.discipline.DecoderTests
 import kantan.codecs.strings.{DecodeError, StringDecoder}
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
@@ -25,8 +27,17 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class TimeDecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+  type TestDecoder[D] = Exported[Decoder[String, D, DecodeError, codec.type]]
+
   object DecoderCompanion extends TimeDecoderCompanion[String, DecodeError, codec.type] {
     override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
+
+    implicit val instantTestDecoder: TestDecoder[Instant] = Exported(defaultInstantDecoder)
+    implicit val zonedDateTimeTestDecoder: TestDecoder[ZonedDateTime] = Exported(defaultZonedDateTimeDecoder)
+    implicit val offsetDateTimeTestDecoder: TestDecoder[OffsetDateTime] = Exported(defaultOffsetDateTimeDecoder)
+    implicit val localDateTimeTestDecoder: TestDecoder[LocalDateTime] = Exported(defaultLocalDateTimeDecoder)
+    implicit val localDateTestDecoder: TestDecoder[LocalDate] = Exported(defaultLocalDateDecoder)
+    implicit val localTimeTestDecoder: TestDecoder[LocalTime] = Exported(defaultLocalTimeDecoder)
   }
 
   import DecoderCompanion._
