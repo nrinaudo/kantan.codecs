@@ -46,7 +46,7 @@ object HasBuilder extends LowPriorityHasBuilderInstances {
     override def newBuilder = f
   }
 
-  implicit def treeSetHasBuilder[A]: HasBuilder[TreeSet, A] = HasBuilder(TreeSet.newBuilder[A])
+  implicit def treeSetHasBuilder[A: Ordering]: HasBuilder[TreeSet, A] = HasBuilder(TreeSet.newBuilder[A])
   implicit def queueHasBuilder[A]: HasBuilder[Queue, A] = HasBuilder(Queue.newBuilder[A])
   implicit def listHasBuilder[A]: HasBuilder[List, A] = HasBuilder(List.newBuilder[A])
   implicit def streamHasBuilder[A]: HasBuilder[Stream, A] = HasBuilder(Stream.newBuilder[A])
