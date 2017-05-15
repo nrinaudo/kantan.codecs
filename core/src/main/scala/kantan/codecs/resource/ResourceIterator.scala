@@ -284,6 +284,10 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     override def release()  = self.close()
   }
 
+  /** Applies the specified function to the [[Result.Success Success]] case of the underlying [[Result]]. */
+  def mapResult[E, S, B](f: S ⇒ B)(implicit ev: A <:< Result[E, S]): ResourceIterator[Result[E, B]] =
+    map(_.map(f))
+
   def flatMap[B](f: A ⇒ ResourceIterator[B]): ResourceIterator[B] = {
     var cur: ResourceIterator[B] = ResourceIterator.empty
     new ResourceIterator[B] {
@@ -293,9 +297,15 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     }
   }
 
+  def flatMapResult[E, S, B](f: S ⇒ Result[E, B])(implicit ev: A <:< Result[E, S]): ResourceIterator[Result[E, B]] =
+    map(_.flatMap(f))
+
   def filter(p: A ⇒ Boolean): ResourceIterator[A] = collect {
     case a if p(a) ⇒ a
   }
+
+  def filterResult[E, S](p: S ⇒ Boolean)(implicit ev: A <:< Result[E, S]): ResourceIterator[A] =
+    filter(_.exists(p))
 
   def withFilter(p: A ⇒ Boolean): ResourceIterator[A] = filter(p)
 

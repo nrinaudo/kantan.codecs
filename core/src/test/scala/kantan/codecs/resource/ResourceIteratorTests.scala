@@ -18,6 +18,7 @@ package kantan.codecs.resource
 
 import imp.imp
 import kantan.codecs.Result
+import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -173,15 +174,33 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
     }
   }
 
+  test("mapResult should behave as expected") {
+    forAll { (is: List[Result[Boolean, Int]], f: Int ⇒ String) ⇒
+      assert(ResourceIterator(is:_*).mapResult(f).toList == is.map(_.map(f)))
+    }
+  }
+
   test("flatMap should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ List[String]) ⇒
       assert(ResourceIterator(is:_*).flatMap(f.andThen(ss ⇒ ResourceIterator(ss:_*))).toList == is.flatMap(f))
     }
   }
 
+  test("flatMapResult should behave as expected") {
+    forAll { (is: List[Result[Boolean, Int]], f: Int ⇒ Result[Boolean, String]) ⇒
+      assert(ResourceIterator(is:_*).flatMapResult(f).toList == is.map(_.flatMap(f)))
+    }
+  }
+
   test("filter should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
       assert(ResourceIterator(is:_*).filter(f).toList == is.filter(f))
+    }
+  }
+
+  test("filterResult should behave as expected") {
+    forAll { (is: List[Result[Boolean, Int]], f: Int ⇒ Boolean) ⇒
+      assert(ResourceIterator(is:_*).filterResult(f).toList == is.filter(_.exists(f)))
     }
   }
 
