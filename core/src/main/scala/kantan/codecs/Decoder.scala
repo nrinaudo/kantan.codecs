@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import kantan.codecs.Result.Success
 import kantan.codecs.export.DerivedDecoder
 
 /** Type class for types that can be decoded from other types.
@@ -52,6 +53,9 @@ trait Decoder[E, D, F, T] extends Serializable {
 
   // - Composition -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+  /** Creates a new [[Decoder]] instance with a fallback decoder if the current one fails. */
+  def orElse[DD >: D](d: Decoder[E, DD, F, T]): Decoder[E, DD, F, T] = Decoder.from(e ⇒ decode(e).orElse(d.decode(e)))
+
   /** Creates a new [[Decoder]] instance by transforming raw results with the specified function.
     *
     * Most of the time, other combinators such as [[map]] should be preferred. [[andThen]] is mostly useful when
@@ -106,8 +110,40 @@ trait Decoder[E, D, F, T] extends Serializable {
   * example. [[DecoderCompanion]] lets such types have a useful companion object without a lot of code duplication.
   */
 trait DecoderCompanion[E, F, T] extends Serializable {
-  /** Creates a new [[Decoder]] instance from the specified function. */
+  /** Summons an implicit instance of [[Decoder]] if one is found, fails compilation otherwise.
+    *
+    * This is a slightly faster, less verbose version of `implicitly`.
+    */
+  def apply[D](implicit ev: Decoder[E, D, F, T]): Decoder[E, D, F, T] = macro imp.summon[Decoder[E, D, F, T]]
+
+  /** Creates a new [[Decoder]] instance from the specified function.
+    *
+    * Note that if your decoding function is "safe" - there is no input on which it can fail - you should probably be
+    * using [[fromSafe]] instead.
+    */
   @inline def from[D](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = Decoder.from(f)
+
+  /** Creates a new [[Decoder]] instance from the specified function.
+    *
+    * Note that if your decoding function is "unsafe" - it can fail on some input - you should be using [[from]]
+    * or [[fromUnsafe]] instead.
+    */
+  def fromSafe[D](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.from(f andThen Success.apply)
+
+  /** Creates a new [[Decoder]] instance from the specified function.
+    *
+    * This method turns the specified function safe. The error message might end up being a bit generic though - use
+    * [[from]] if you want to deal with errors explicitly.
+    */
+  def fromUnsafe[D](f: E ⇒ D)(implicit trans: ExceptionTransformer[F]): Decoder[E, D, F, T] = Decoder.from { e ⇒
+    Result.nonFatal(f(e)).leftMap(trans.transform)
+  }
+
+  def fromPartial[D](f: PartialFunction[E, Result[F, D]])(implicit t: ExceptionTransformer[F]): Decoder[E, D, F, T] = 
+    Decoder.from { e ⇒
+      if(f.isDefinedAt(e)) f(e)
+      else                 Result.failure(t.transform(new Exception(s"Not acceptable: '$e'")))
+    }
 
   /** Creates a new [[Decoder]] instance from the specified alternatives.
     *
@@ -144,9 +180,7 @@ object Decoder {
   /** Provides a [[Decoder]] instance for `Either[A, B]`, provided both `A` and `B` have a [[Decoder]] instance. */
   implicit def eitherDecoder[E, D1, D2, F, T](implicit d1: Decoder[E, D1, F, T], d2: Decoder[E, D2, F, T])
   : Decoder[E, Either[D1, D2], F, T] =
-    Decoder.from { s ⇒
-      d1.decode(s).map(a ⇒ Left(a): Either[D1, D2]).orElse(d2.decode(s).map(b ⇒ Right(b): Either[D1, D2]))
-    }
+    d1.map(Left.apply).orElse(d2.map(Right.apply))
 
   def oneOf[E, D, F, T](ds: Seq[Decoder[E, D, F, T]]): Decoder[E, D, F, T] =
     ds.headOption.map(head ⇒ oneOf(head, ds.drop(1):_*)).getOrElse(sys.error("oneOf on an empty parameter list"))
@@ -157,12 +191,6 @@ object Decoder {
     * if none is found, the last failure.
     */
   def oneOf[E, D, F, T](head: Decoder[E, D, F, T], tail: Decoder[E, D, F, T]*): Decoder[E, D, F, T] = {
-    def decode(input: E, h: Decoder[E, D, F, T], t: Seq[Decoder[E, D, F, T]]): Result[F, D] = {
-      val res = h.decode(input)
-
-      if(res.isSuccess) res
-      else              t.headOption.map(head ⇒ decode(input, head, t.drop(1))).getOrElse(res)
-    }
-    Decoder.from(input ⇒ decode(input, head, tail))
+    tail.foldLeft(head)(_ orElse _)
   }
 }

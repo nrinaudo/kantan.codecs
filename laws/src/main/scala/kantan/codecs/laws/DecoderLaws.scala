@@ -60,8 +60,13 @@ trait DecoderLaws[E, D, F, T] {
   def contramapEncodedIdentity(v: CodecValue[E, D, T]): Boolean =
     decoder.decode(v.encoded) == decoder.contramapEncoded(identity[E]).decode(v.encoded)
 
-  def contramapEncodedComposition[A, B](b: B, f: A ⇒ E, g: B ⇒ A): Boolean =
+  def contramapEncodedComposition[A, B](b: B, f: A ⇒ E, g: B ⇒ A): Boolean = {
+    if(decoder.contramapEncoded(g andThen f).decode(b) != decoder.contramapEncoded(f).contramapEncoded(g).decode(b)) {
+      println(decoder.contramapEncoded(g andThen f).decode(b))
+      println(decoder.contramapEncoded(f).contramapEncoded(g).decode(b))
+    }
     decoder.contramapEncoded(g andThen f).decode(b) == decoder.contramapEncoded(f).contramapEncoded(g).decode(b)
+  }
 
 
 

@@ -19,7 +19,7 @@ package kantan.codecs.laws.discipline
 import imp.imp
 import java.io._
 import java.net.{URI, URL}
-import java.nio.file.Path
+import java.nio.file.{AccessMode, Path}
 import java.util.{Date, UUID}
 import java.util.regex.Pattern
 import kantan.codecs._
@@ -31,6 +31,7 @@ import org.scalacheck._
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen._
 import scala.util.Try
+import scala.util.matching.Regex
 
 object arbitrary extends ArbitraryInstances
 
@@ -52,6 +53,14 @@ trait ArbitraryInstances extends ArbitraryArities {
     ))
 
 
+  // - Arbitrary AccessMode --------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  // This is just a sample java enum.
+  implicit val arbAccessMode: Arbitrary[AccessMode] =
+      Arbitrary(Gen.oneOf(AccessMode.READ, AccessMode.WRITE, AccessMode.EXECUTE))
+
+  implicit val cogenAccessMode: Cogen[AccessMode] = implicitly[Cogen[String]].contramap(_.name())
+
 
   // - Arbitrary patterns ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -69,6 +78,10 @@ trait ArbitraryInstances extends ArbitraryArities {
   } yield Pattern.compile(regex, flags)
 
   implicit val arbPattern: Arbitrary[Pattern] = Arbitrary(genPattern)
+  implicit val cogenPattern: Cogen[Pattern] = implicitly[Cogen[String]].contramap(_.pattern())
+
+  implicit val arbRegex: Arbitrary[Regex] = Arbitrary(genRegularExpression.map(_.r))
+  implicit val cogenRegex: Cogen[Regex] = implicitly[Cogen[String]].contramap(_.pattern.pattern())
 
 
   // - CodecValue ------------------------------------------------------------------------------------------------------

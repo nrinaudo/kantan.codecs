@@ -42,6 +42,13 @@ trait Encoder[E, D, T] extends Serializable {
 }
 
 trait EncoderCompanion[E, T] {
+  /** Summons an implicit instance of [[Encoder]] if one is found, fails compilation otherwise.
+    *
+    * This is a slightly faster, less verbose version of `implicitly`.
+    */
+  def apply[D](implicit ev: Encoder[E, D, T]): Encoder[E, D, T] = macro imp.summon[Encoder[E, D, T]]
+
+  /** Creates a new instance of [[Encoder]] from the specified function. */
   @inline def from[D](f: D ⇒ E): Encoder[E, D, T] = Encoder.from(f)
 }
 

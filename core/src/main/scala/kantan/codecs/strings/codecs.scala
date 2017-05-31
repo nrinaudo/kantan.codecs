@@ -20,10 +20,68 @@ import java.io.File
 import java.net.{URI, URL}
 import java.nio.file.{Path, Paths}
 import java.util.UUID
+import java.util.regex.Pattern
 import kantan.codecs.Result
+import scala.reflect.ClassTag
+import scala.util.matching.Regex
 
 /** Defines default instances for [[StringEncoder]] and [[StringDecoder]]. */
 object codecs {
+  /** Defines a [[StringCodec]] instance for Java enumerations.
+    *
+    * {{{
+    * scala> import java.nio.file.AccessMode
+    *
+    * // Decoding example
+    * scala> StringDecoder[AccessMode].decode("READ")
+    * res1: kantan.codecs.Result[DecodeError, AccessMode] = Success(READ)
+    *
+    * // Encoding example
+    * scala> StringEncoder[AccessMode].encode(AccessMode.READ)
+    * res2: String = READ
+    * }}}
+    */
+  @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
+  implicit def javaEnumStringCodec[T <: Enum[T]](implicit tag: ClassTag[T]): StringCodec[T] =
+  StringCodec.from(StringDecoder.makeSafe("Enum")(s => {
+    val enumClass = tag.runtimeClass.asInstanceOf[Class[T]]
+    Enum.valueOf(enumClass, s)
+  }))(_.name())
+
+  /** Defines a [[StringCodec]] instance for `Pattern`.
+    *
+    * {{{
+    * scala> import java.util.regex.Pattern
+    *
+    * // Decoding example
+    * scala> StringDecoder[Pattern].decode("[a-z]")
+    * res1: kantan.codecs.Result[DecodeError, Pattern] = Success([a-z])
+    *
+    * // Encoding example
+    * scala> StringEncoder[Pattern].encode(Pattern.compile("[a-z]"))
+    * res2: String = [a-z]
+    * }}}
+    */
+  implicit val patternStringCodec: StringCodec[Pattern] =
+    StringCodec.from(StringDecoder.makeSafe("Pattern")(s ⇒ Pattern.compile(s.trim)))(_.pattern())
+
+  /** Defines a [[StringCodec]] instance for `Regex`.
+    *
+    * {{{
+    * scala> import scala.util.matching.Regex
+    *
+    * // Decoding example
+    * scala> StringDecoder[Regex].decode("[a-z]")
+    * res1: kantan.codecs.Result[DecodeError, Regex] = Success([a-z])
+    *
+    * // Encoding example
+    * scala> StringEncoder[Regex].encode("[a-z]".r)
+    * res2: String = [a-z]
+    * }}}
+    */
+  implicit val regexStringCodec: StringCodec[Regex] =
+    StringCodec.from(StringDecoder.makeSafe("Regex")(s ⇒ s.trim.r))(_.pattern.pattern())
+
   /** Defines a [[StringCodec]] instance for `BigDecimal`.
     *
     * {{{

@@ -26,13 +26,11 @@ abstract class Error(message: String) extends Exception(message) with Product wi
   override final def toString: String = productPrefix + ": " + getMessage
 }
 
-/** Provides useful instance creation methods for errors that might be created as a result of Java exceptions. */
-abstract class ErrorCompanion[T <: Error](defaultMessage: String)(f: String ⇒ T) {
-  def apply(msg: String, cause: Throwable): T = {
-    val error = f(msg)
-    error.initCause(cause)
-    error
-  }
 
-  def apply(cause: Throwable): T = apply(Option(cause.getMessage).getOrElse(defaultMessage), cause)
+/** Provides useful instance creation methods for errors that might be created as a result of Java exceptions. */
+abstract class ErrorCompanion[T <: Error](defaultMsg: String)(f: String ⇒ T) {
+  implicit val exceptionTransformer: ExceptionTransformer[T] = ExceptionTransformer.from(defaultMsg, f)
+
+  def apply(msg: String, cause: Throwable): T = exceptionTransformer.transform(msg, cause)
+  def apply(cause: Throwable): T = exceptionTransformer.transform(cause)
 }

@@ -18,28 +18,13 @@ package kantan.codecs.strings
 
 import java.text.DateFormat
 import java.util.Date
-import kantan.codecs.{Decoder, Result}
+import kantan.codecs.{DecoderCompanion, Result}
 
 /** Provides instance creation and summing methods for [[StringDecoder]].
   *
   * Default [[StringDecoder]] instances are provided in [[codecs]].
   */
-object StringDecoder {
-  /** Summons an implicit instance of `StringDecoder[D]` if one can be found, fails compilation otherwise.
-    *
-    * This is equivalent to calling `implicitly[StringDecoder[D]]`, with the following advantages:
-    *  - more pleasant syntax.
-    *  - faster, since the resulting bytecode doesn't contain a method call.
-    */
-  def apply[D](implicit ev: StringDecoder[D]): StringDecoder[D] = macro imp.summon[StringDecoder[D]]
-
-  /** Creates an instance of [[StringDecoder]] from the specified decoding function.
-    *
-    * @param f how to decode to `D`.
-    * @tparam D decoded type
-    */
-  def from[D](f: String ⇒ Result[DecodeError, D]): StringDecoder[D] = Decoder.from(f)
-
+object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] {
   /** Creates a safe decoding function from the specified unsafe one.
     *
     * This method expects the specified decoding function to be able to fail by throwing exceptions. These will be
