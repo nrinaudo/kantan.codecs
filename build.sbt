@@ -1,4 +1,5 @@
 kantanProject in ThisBuild := "codecs"
+startYear in ThisBuild     := Some(2016)
 
 
 // - root projects -----------------------------------------------------------------------------------------------------
