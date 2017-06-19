@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Nicolas Rinaudo
+ * Copyright 2016 Nicolas Rinaudo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,13 +60,8 @@ trait DecoderLaws[E, D, F, T] {
   def contramapEncodedIdentity(v: CodecValue[E, D, T]): Boolean =
     decoder.decode(v.encoded) == decoder.contramapEncoded(identity[E]).decode(v.encoded)
 
-  def contramapEncodedComposition[A, B](b: B, f: A ⇒ E, g: B ⇒ A): Boolean = {
-    if(decoder.contramapEncoded(g andThen f).decode(b) != decoder.contramapEncoded(f).contramapEncoded(g).decode(b)) {
-      println(decoder.contramapEncoded(g andThen f).decode(b))
-      println(decoder.contramapEncoded(f).contramapEncoded(g).decode(b))
-    }
+  def contramapEncodedComposition[A, B](b: B, f: A ⇒ E, g: B ⇒ A): Boolean =
     decoder.contramapEncoded(g andThen f).decode(b) == decoder.contramapEncoded(f).contramapEncoded(g).decode(b)
-  }
 
 
 
@@ -77,6 +72,9 @@ trait DecoderLaws[E, D, F, T] {
 
   def emapComposition[A, B](v: CodecValue[E, D, T], f: D ⇒ Result[F, A], g: A ⇒ Result[F, B]): Boolean =
     decoder.emap(d ⇒ f(d).flatMap(g)).decode(v.encoded) ==  decoder.emap(f).emap(g).decode(v.encoded)
+
+  // TODO: filter
+  // TODO: collect
 }
 
 object DecoderLaws {

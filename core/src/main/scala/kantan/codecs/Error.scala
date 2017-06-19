@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Nicolas Rinaudo
+ * Copyright 2016 Nicolas Rinaudo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,15 @@ abstract class Error(message: String) extends Exception(message) with Product wi
 
 /** Provides useful instance creation methods for errors that might be created as a result of Java exceptions. */
 abstract class ErrorCompanion[T <: Error](defaultMsg: String)(f: String ⇒ T) {
-  implicit val exceptionTransformer: ExceptionTransformer[T] = ExceptionTransformer.from(defaultMsg, f)
+  implicit val exceptionTransformer: ExceptionTransformer[T] = new ExceptionTransformer[T] {
+    override def transform(msg: String, cause: Throwable) = {
+      val error = f(msg)
+      error.initCause(cause)
+      error
+    }
+
+    override def transform(cause: Throwable): T = transform(Option(cause.getMessage).getOrElse(defaultMsg), cause)
+  }
 
   def apply(msg: String, cause: Throwable): T = exceptionTransformer.transform(msg, cause)
   def apply(cause: Throwable): T = exceptionTransformer.transform(cause)

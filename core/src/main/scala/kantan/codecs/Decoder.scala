@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Nicolas Rinaudo
+ * Copyright 2016 Nicolas Rinaudo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -86,6 +86,23 @@ trait Decoder[E, D, F, T] extends Serializable {
     */
   def emap[DD](f: D ⇒ Result[F, DD]): Decoder[E, DD, F, T] = andThen(_.flatMap(f))
 
+  /** Applies the specified partial function, turning all non-matches to failures.
+    *
+    * You can think as [[collect]] as a bit like a [[filter]] and a [[map]] merged into one.
+    */
+  def collect[DD](f: PartialFunction[D, DD])(implicit t: ExceptionTransformer[F]): Decoder[E, DD, F, T] = emap { d ⇒
+    if(f.isDefinedAt(d)) Success(f(d))
+    else                 Result.failure(t.transform(new Exception(s"Not acceptable: '$d'")))
+  }
+
+  /** Turns all values that don't match the specified predicates into failures.
+    *
+    * See [[collect]] if you wish to transform the values in the same call.
+    */
+  def filter(f: D ⇒ Boolean)(implicit t: ExceptionTransformer[F]): Decoder[E, D, F, T] = collect {
+    case d if f(d) ⇒ d
+  }
+
   @deprecated("Use leftMap instead", "0.2.0")
   def mapError[FF](f: F ⇒ FF): Decoder[E, D, FF, T] = leftMap(f)
 
@@ -128,18 +145,17 @@ trait DecoderCompanion[E, F, T] extends Serializable {
     * Note that if your decoding function is "unsafe" - it can fail on some input - you should be using [[from]]
     * or [[fromUnsafe]] instead.
     */
-  def fromSafe[D](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.from(f andThen Success.apply)
+  @inline def fromSafe[D](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.fromSafe(f)
 
   /** Creates a new [[Decoder]] instance from the specified function.
     *
     * This method turns the specified function safe. The error message might end up being a bit generic though - use
     * [[from]] if you want to deal with errors explicitly.
     */
-  def fromUnsafe[D](f: E ⇒ D)(implicit trans: ExceptionTransformer[F]): Decoder[E, D, F, T] = Decoder.from { e ⇒
-    Result.nonFatal(f(e)).leftMap(trans.transform)
-  }
+  @inline def fromUnsafe[D](f: E ⇒ D)(implicit trans: ExceptionTransformer[F]): Decoder[E, D, F, T] =
+    Decoder.fromUnsafe(f)
 
-  def fromPartial[D](f: PartialFunction[E, Result[F, D]])(implicit t: ExceptionTransformer[F]): Decoder[E, D, F, T] = 
+  def fromPartial[D](f: PartialFunction[E, Result[F, D]])(implicit t: ExceptionTransformer[F]): Decoder[E, D, F, T] =
     Decoder.from { e ⇒
       if(f.isDefinedAt(e)) f(e)
       else                 Result.failure(t.transform(new Exception(s"Not acceptable: '$e'")))
@@ -166,6 +182,20 @@ object Decoder {
   /** Creates a new [[Decoder]] instance that applies the specified function when decoding. */
   def from[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
     override def decode(e: E) = f(e)
+  }
+
+  /** Turns a safe function into a [[Decoder]].
+    *
+    * The specified function is expected not to throw exceptions. If it does, you should use [[fromUnsafe]] instead.
+    */
+  def fromSafe[E, D, F, T](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.from(f andThen Success.apply)
+
+/** Turns an unsafe function into a [[Decoder]].
+  *
+  * The specified function is assumed to throw, and errors will be dealt with properly.
+  */
+  def fromUnsafe[E, D, F: ExceptionTransformer, T](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.from { e ⇒
+    ExceptionTransformer.result(f(e))
   }
 
   implicit def decoderFromExported[E, D, F, T](implicit da: DerivedDecoder[E, D, F, T]): Decoder[E, D, F, T] =
