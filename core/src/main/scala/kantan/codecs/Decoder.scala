@@ -133,19 +133,8 @@ trait DecoderCompanion[E, F, T] extends Serializable {
     */
   def apply[D](implicit ev: Decoder[E, D, F, T]): Decoder[E, D, F, T] = macro imp.summon[Decoder[E, D, F, T]]
 
-  /** Creates a new [[Decoder]] instance from the specified function.
-    *
-    * Note that if your decoding function is "safe" - there is no input on which it can fail - you should probably be
-    * using [[fromSafe]] instead.
-    */
+  /** Creates a new [[Decoder]] instance from the specified function. */
   @inline def from[D](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = Decoder.from(f)
-
-  /** Creates a new [[Decoder]] instance from the specified function.
-    *
-    * Note that if your decoding function is "unsafe" - it can fail on some input - you should be using [[from]]
-    * or [[fromUnsafe]] instead.
-    */
-  @inline def fromSafe[D](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.fromSafe(f)
 
   /** Creates a new [[Decoder]] instance from the specified function.
     *
@@ -184,16 +173,10 @@ object Decoder {
     override def decode(e: E) = f(e)
   }
 
-  /** Turns a safe function into a [[Decoder]].
+  /** Turns an unsafe function into a [[Decoder]].
     *
-    * The specified function is expected not to throw exceptions. If it does, you should use [[fromUnsafe]] instead.
+    * The specified function is assumed to throw, and errors will be dealt with properly.
     */
-  def fromSafe[E, D, F, T](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.from(f andThen Success.apply)
-
-/** Turns an unsafe function into a [[Decoder]].
-  *
-  * The specified function is assumed to throw, and errors will be dealt with properly.
-  */
   def fromUnsafe[E, D, F: ExceptionTransformer, T](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.from { e ⇒
     ExceptionTransformer.result(f(e))
   }
@@ -212,15 +195,11 @@ object Decoder {
   : Decoder[E, Either[D1, D2], F, T] =
     d1.map(Left.apply).orElse(d2.map(Right.apply))
 
-  def oneOf[E, D, F, T](ds: Seq[Decoder[E, D, F, T]]): Decoder[E, D, F, T] =
-    ds.headOption.map(head ⇒ oneOf(head, ds.drop(1):_*)).getOrElse(sys.error("oneOf on an empty parameter list"))
-
   /** Creates a new decoder using all specified values.
     *
     * The generated decoder will try each of the specified decoders in turn, and return either the first success or,
     * if none is found, the last failure.
     */
-  def oneOf[E, D, F, T](head: Decoder[E, D, F, T], tail: Decoder[E, D, F, T]*): Decoder[E, D, F, T] = {
-    tail.foldLeft(head)(_ orElse _)
-  }
+  def oneOf[E, D, F, T](ds: Decoder[E, D, F, T]*): Decoder[E, D, F, T] =
+    ds.reduceOption(_ orElse _).getOrElse(sys.error("oneOf on an empty parameter list"))
 }
