@@ -25,11 +25,11 @@ trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, 
 
   // - Misc. laws ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def mapErrorIdentityEncoding[A](d: D): Boolean =
-    codec.encode(d) == codec.mapError(identity).encode(d)
+  def leftMapIdentityEncoding[A](d: D): Boolean =
+    codec.encode(d) == codec.leftMap(identity).encode(d)
 
-  def mapErrorCompositionEncoding[A, B](d: D, f: F ⇒ A, g: A ⇒ B): Boolean =
-    codec.mapError(f andThen g).encode(d) == codec.mapError(f).mapError(g).encode(d)
+  def leftMapCompositionEncoding[A, B](d: D, f: F ⇒ A, g: A ⇒ B): Boolean =
+    codec.leftMap(f andThen g).encode(d) == codec.leftMap(f).leftMap(g).encode(d)
 
 
 

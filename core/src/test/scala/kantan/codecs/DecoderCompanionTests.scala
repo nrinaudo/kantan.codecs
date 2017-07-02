@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import kantan.codecs.error._
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -23,6 +24,8 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
   object codec
   object Companion extends DecoderCompanion[String, String, codec.type]
+
+  implicit val stringIsError: IsError[String] = IsError[Exception].map(_.getMessage)
 
   type Dec = String ⇒ Result[String, Int]
 
@@ -32,24 +35,19 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
     }
   }
 
-  test("DecodreCompanion.oneOf should be equivalent to Decoder.oneOf for varargs") {
-    forAll { (h: Dec, t: List[Dec], str: String) ⇒
-      assert(Companion.oneOf(Companion.from(h), t.map(Companion.from):_*).decode(str) ==
-             Decoder.oneOf(Decoder.from[String, Int, String, codec.type](h),
-               t.map(Decoder.from[String, Int, String, codec.type]):_*).decode(str))
-    }
-  }
-
   test("DecoderCompanion.oneOf should be equivalent to Decoder.oneOf for non-empty lists") {
     forAll { (h: Dec, t: List[Dec], str: String) ⇒
-      assert(Companion.oneOf((h +: t).map(Companion.from)).decode(str) ==
-             Decoder.oneOf((h +: t).map(Decoder.from[String, Int, String, codec.type])).decode(str))
+      val cDec = Companion.oneOf((h :: t).map(Companion.from[Int]):_*)
+      val dDec = Decoder.oneOf((h :: t).map(Decoder.from[String, Int, String, codec.type]):_*)
+
+      assert(cDec.decode(str) == dDec.decode(str))
     }
   }
 
   test("DecoderCompanion.oneOf should be equivalent to Decoder.oneOf for empty lists") {
-    intercept[Exception] { Decoder.oneOf(List.empty[Decoder[String, Int, Exception, codec.type]]) }
-    intercept[Exception] { Companion.oneOf(List.empty) }
-    ()
+    val cDec = Companion.oneOf()
+    val dDec = Decoder.oneOf[String, Int, String, codec.type]()
+
+    forAll { (str: String) ⇒ assert(cDec.decode(str) == dDec.decode(str)) }
   }
 }

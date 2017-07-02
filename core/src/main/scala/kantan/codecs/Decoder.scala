@@ -17,6 +17,7 @@
 package kantan.codecs
 
 import kantan.codecs.Result.Success
+import kantan.codecs.error._
 import kantan.codecs.export.DerivedDecoder
 
 /** Type class for types that can be decoded from other types.
@@ -90,16 +91,16 @@ trait Decoder[E, D, F, T] extends Serializable {
     *
     * You can think as [[collect]] as a bit like a [[filter]] and a [[map]] merged into one.
     */
-  def collect[DD](f: PartialFunction[D, DD])(implicit t: ExceptionTransformer[F]): Decoder[E, DD, F, T] = emap { d ⇒
+  def collect[DD](f: PartialFunction[D, DD])(implicit t: IsError[F]): Decoder[E, DD, F, T] = emap { d ⇒
     if(f.isDefinedAt(d)) Success(f(d))
-    else                 Result.failure(t.transform(new Exception(s"Not acceptable: '$d'")))
+    else                 Result.failure(t.fromMessage(s"Not acceptable: '$d'"))
   }
 
   /** Turns all values that don't match the specified predicates into failures.
     *
     * See [[collect]] if you wish to transform the values in the same call.
     */
-  def filter(f: D ⇒ Boolean)(implicit t: ExceptionTransformer[F]): Decoder[E, D, F, T] = collect {
+  def filter(f: D ⇒ Boolean)(implicit t: IsError[F]): Decoder[E, D, F, T] = collect {
     case d if f(d) ⇒ d
   }
 
@@ -141,13 +142,13 @@ trait DecoderCompanion[E, F, T] extends Serializable {
     * This method turns the specified function safe. The error message might end up being a bit generic though - use
     * [[from]] if you want to deal with errors explicitly.
     */
-  @inline def fromUnsafe[D](f: E ⇒ D)(implicit trans: ExceptionTransformer[F]): Decoder[E, D, F, T] =
+  @inline def fromUnsafe[D](f: E ⇒ D)(implicit t: IsError[F]): Decoder[E, D, F, T] =
     Decoder.fromUnsafe(f)
 
-  def fromPartial[D](f: PartialFunction[E, Result[F, D]])(implicit t: ExceptionTransformer[F]): Decoder[E, D, F, T] =
+  def fromPartial[D](f: PartialFunction[E, Result[F, D]])(implicit t: IsError[F]): Decoder[E, D, F, T] =
     Decoder.from { e ⇒
       if(f.isDefinedAt(e)) f(e)
-      else                 Result.failure(t.transform(new Exception(s"Not acceptable: '$e'")))
+      else                 Result.failure(t.fromMessage(s"Not acceptable: '$e'"))
     }
 
   /** Creates a new [[Decoder]] instance from the specified alternatives.
@@ -155,16 +156,7 @@ trait DecoderCompanion[E, F, T] extends Serializable {
     * When decoding, each of the specified decoders will be attempted. The result will be the first success if found,
     * or the last failure otherwise.
     */
-  @inline def oneOf[D](h: Decoder[E, D, F, T], t: Decoder[E, D, F, T]*): Decoder[E, D, F, T] = Decoder.oneOf(h, t:_*)
-
-  /** Creates a new [[Decoder]] instance from the specified alternatives.
-    *
-    * When decoding, each of the specified decoders will be attempted. The result will be the first success if found,
-    * or the last failure otherwise.
-    *
-    * Note that an exception will be thrown if the specified list is empty.
-    */
-  @inline def oneOf[D](ds: Seq[Decoder[E, D, F, T]]): Decoder[E, D, F, T] = Decoder.oneOf(ds)
+  @inline def oneOf[D](ds: Decoder[E, D, F, T]*)(implicit i: IsError[F]): Decoder[E, D, F, T] = Decoder.oneOf(ds:_*)
 }
 
 object Decoder {
@@ -177,8 +169,8 @@ object Decoder {
     *
     * The specified function is assumed to throw, and errors will be dealt with properly.
     */
-  def fromUnsafe[E, D, F: ExceptionTransformer, T](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.from { e ⇒
-    ExceptionTransformer.result(f(e))
+  def fromUnsafe[E, D, F: IsError, T](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.from { e ⇒
+    IsError.result(f(e))
   }
 
   implicit def decoderFromExported[E, D, F, T](implicit da: DerivedDecoder[E, D, F, T]): Decoder[E, D, F, T] =
@@ -200,6 +192,7 @@ object Decoder {
     * The generated decoder will try each of the specified decoders in turn, and return either the first success or,
     * if none is found, the last failure.
     */
-  def oneOf[E, D, F, T](ds: Decoder[E, D, F, T]*): Decoder[E, D, F, T] =
-    ds.reduceOption(_ orElse _).getOrElse(sys.error("oneOf on an empty parameter list"))
+  def oneOf[E, D, F: IsError, T](ds: Decoder[E, D, F, T]*): Decoder[E, D, F, T] =
+    ds.reduceOption(_ orElse _)
+      .getOrElse(Decoder.from(d ⇒ Result.Failure(IsError[F].fromMessage(s"Not acceptable: '$d'"))))
 }

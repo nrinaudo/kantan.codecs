@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
+package kantan.codecs.error
 
 /** Base class for errors
   *
@@ -29,16 +29,19 @@ abstract class Error(message: String) extends Exception(message) with Product wi
 
 /** Provides useful instance creation methods for errors that might be created as a result of Java exceptions. */
 abstract class ErrorCompanion[T <: Error](defaultMsg: String)(f: String ⇒ T) {
-  implicit val exceptionTransformer: ExceptionTransformer[T] = new ExceptionTransformer[T] {
-    override def transform(msg: String, cause: Throwable) = {
+  implicit val isError: IsError[T] = new IsError[T] {
+    override def from(msg: String, cause: Throwable) = {
       val error = f(msg)
       error.initCause(cause)
       error
     }
 
-    override def transform(cause: Throwable): T = transform(Option(cause.getMessage).getOrElse(defaultMsg), cause)
+    override def fromMessage(msg: String) = from(msg, new Exception(msg))
+
+    override def fromThrowable(cause: Throwable): T = from(Option(cause.getMessage).getOrElse(defaultMsg), cause)
   }
 
-  def apply(msg: String, cause: Throwable): T = exceptionTransformer.transform(msg, cause)
-  def apply(cause: Throwable): T = exceptionTransformer.transform(cause)
+  def apply(msg: String, cause: Throwable): T = isError.from(msg, cause)
+  def apply(cause: Throwable): T = isError.fromThrowable(cause)
+  def apply(msg: String): T = isError.fromMessage(msg)
 }

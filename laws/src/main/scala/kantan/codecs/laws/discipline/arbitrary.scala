@@ -78,7 +78,7 @@ trait ArbitraryInstances extends ArbitraryArities {
   } yield Pattern.compile(regex, flags)
 
   implicit val arbPattern: Arbitrary[Pattern] = Arbitrary(genPattern)
-  implicit val cogenPattern: Cogen[Pattern] = implicitly[Cogen[String]].contramap(_.pattern())
+  implicit val cogenPattern: Cogen[Pattern] = implicitly[Cogen[(String, Int)]].contramap(p ⇒ (p.pattern(), p.flags()))
 
   implicit val arbRegex: Arbitrary[Regex] = Arbitrary(genRegularExpression.map(_.r))
   implicit val cogenRegex: Cogen[Regex] = implicitly[Cogen[String]].contramap(_.pattern.pattern())
