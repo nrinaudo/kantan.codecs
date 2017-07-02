@@ -161,7 +161,7 @@ object codecs {
     * }}}
     */
   implicit val doubleStringCodec: StringCodec[Double] =
-    StringCodec.from(StringDecoder.makeSafe("Double")(s ⇒ s.trim.toDouble))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Double")(s ⇒ java.lang.Double.parseDouble(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Byte`.
     *
@@ -176,7 +176,7 @@ object codecs {
     * }}}
     */
   implicit val byteStringCodec: StringCodec[Byte] =
-    StringCodec.from(StringDecoder.makeSafe("Byte")(s ⇒ s.trim.toByte))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Byte")(s ⇒ java.lang.Byte.parseByte(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Float`.
     *
@@ -191,7 +191,7 @@ object codecs {
     * }}}
     */
   implicit val floatStringCodec: StringCodec[Float] =
-    StringCodec.from(StringDecoder.makeSafe("Float")(s ⇒ s.trim.toFloat))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Float")(s ⇒ java.lang.Float.parseFloat(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Int`.
     *
@@ -206,7 +206,7 @@ object codecs {
     * }}}
     */
   implicit val intStringCodec: StringCodec[Int] =
-    StringCodec.from(StringDecoder.makeSafe("Int")(s ⇒ s.trim.toInt))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Int")(s ⇒ Integer.parseInt(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Long`.
     *
@@ -221,7 +221,7 @@ object codecs {
     * }}}
     */
   implicit val longStringCodec: StringCodec[Long] =
-    StringCodec.from(StringDecoder.makeSafe("Long")(s ⇒ s.trim.toLong))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Long")(s ⇒ java.lang.Long.parseLong(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Short`.
     *
@@ -236,7 +236,7 @@ object codecs {
     * }}}
     */
   implicit val shortStringCodec: StringCodec[Short] =
-    StringCodec.from(StringDecoder.makeSafe("Short")(s ⇒ s.trim.toShort))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Short")(s ⇒ java.lang.Short.parseShort(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `String`.
     *
