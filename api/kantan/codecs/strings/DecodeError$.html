@@ -219,7 +219,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">DecodeError</span><span class="result"> extends <a href="../ErrorCompanion.html" class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>] with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">DecodeError</span><span class="result"> extends <a href="../error/ErrorCompanion.html" class="extype" name="kantan.codecs.error.ErrorCompanion">ErrorCompanion</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>] with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -228,7 +228,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="../ErrorCompanion.html" class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="../error/ErrorCompanion.html" class="extype" name="kantan.codecs.error.ErrorCompanion">ErrorCompanion</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -254,7 +254,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.codecs.strings.DecodeError"><span>DecodeError</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="kantan.codecs.ErrorCompanion"><span>ErrorCompanion</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.codecs.strings.DecodeError"><span>DecodeError</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="kantan.codecs.error.ErrorCompanion"><span>ErrorCompanion</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -329,7 +329,23 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.codecs.ErrorCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="kantan.codecs.error.ErrorCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(msg:String):T"></a><a id="apply(String):DecodeError"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/strings/DecodeError$.html#apply(msg:String):T" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="msg">msg: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../error/ErrorCompanion.html" class="extype" name="kantan.codecs.error.ErrorCompanion">ErrorCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.error.ErrorCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="apply(cause:Throwable):T"></a><a id="apply(Throwable):DecodeError"></a>
       <span class="permalink">
       <a href="../../../kantan/codecs/strings/DecodeError$.html#apply(cause:Throwable):T" title="Permalink">
@@ -344,8 +360,8 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">apply</span><span class="params">(<span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../ErrorCompanion.html" class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.ErrorCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../error/ErrorCompanion.html" class="extype" name="kantan.codecs.error.ErrorCompanion">ErrorCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.error.ErrorCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="apply(msg:String,cause:Throwable):T"></a><a id="apply(String,Throwable):DecodeError"></a>
       <span class="permalink">
       <a href="../../../kantan/codecs/strings/DecodeError$.html#apply(msg:String,cause:Throwable):T" title="Permalink">
@@ -360,7 +376,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">apply</span><span class="params">(<span name="msg">msg: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../ErrorCompanion.html" class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../error/ErrorCompanion.html" class="extype" name="kantan.codecs.error.ErrorCompanion">ErrorCompanion</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -485,6 +501,22 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="kantan.codecs.error.ErrorCompanion#isError" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isError:kantan.codecs.error.IsError[T]"></a><a id="isError:IsError[DecodeError]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/strings/DecodeError$.html#isError:kantan.codecs.error.IsError[T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isError</span><span class="result">: <a href="../error/IsError.html" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../error/ErrorCompanion.html" class="extype" name="kantan.codecs.error.ErrorCompanion">ErrorCompanion</a></dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -661,8 +693,8 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
               <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="kantan.codecs.ErrorCompanion">
-              <h3>Inherited from <a href="../ErrorCompanion.html" class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>]</h3>
+            </div><div class="parent" name="kantan.codecs.error.ErrorCompanion">
+              <h3>Inherited from <a href="../error/ErrorCompanion.html" class="extype" name="kantan.codecs.error.ErrorCompanion">ErrorCompanion</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>]</h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

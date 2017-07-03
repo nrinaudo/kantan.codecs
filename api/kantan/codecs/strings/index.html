@@ -125,6 +125,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.collection" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collection"></a><a id="collection:collection"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#collection" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../collection/index.html">
+              <span class="name">collection</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.error" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="error"></a><a id="error:error"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#error" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../error/index.html">
+              <span class="name">error</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li><li name="kantan.codecs.export" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="export"></a><a id="export:export"></a>
       <span class="permalink">
@@ -402,7 +438,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       <span class="symbol">
         <a title="" href="DecodeError.html">
               <span class="name">DecodeError</span>
-            </a><span class="params">(<span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="../Error.html" class="extype" name="kantan.codecs.Error">Error</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="params">(<span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="../error/Error.html" class="extype" name="kantan.codecs.error.Error">Error</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -478,7 +514,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       <span class="symbol">
         <a title="" href="DecodeError$.html">
               <span class="name">DecodeError</span>
-            </a><span class="result"> extends <a href="../ErrorCompanion.html" class="extype" name="kantan.codecs.ErrorCompanion">ErrorCompanion</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>] with <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="result"> extends <a href="../error/ErrorCompanion.html" class="extype" name="kantan.codecs.error.ErrorCompanion">ErrorCompanion</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>] with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -516,7 +552,7 @@ instances of <a href="#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.co
       <span class="symbol">
         <a title="Provides instance creation and summing methods for StringDecoder." href="StringDecoder$.html">
               <span class="name">StringDecoder</span>
-            </a>
+            </a><span class="result"> extends <a href="../DecoderCompanion.html" class="extype" name="kantan.codecs.DecoderCompanion">DecoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       
       <p class="shortcomment cmt">Provides instance creation and summing methods for <a href="#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides instance creation and summing methods for <a href="#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a>.</p><p>Default <a href="#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a> instances are provided in <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.

@@ -125,6 +125,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.collection" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collection"></a><a id="collection:collection"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#collection" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="collection/index.html">
+              <span class="name">collection</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.error" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="error"></a><a id="error:error"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#error" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="error/index.html">
+              <span class="name">error</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li><li name="kantan.codecs.export" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="export"></a><a id="export:export"></a>
       <span class="permalink">
@@ -242,7 +278,7 @@ if no other, more specific instance is found.
 of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="strings/codecs$.html" class="extype" name="kantan.codecs.strings.codecs">kantan.codecs.strings.codecs</a>.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li><li class="current-entities indented2">
-                        <a class="object" href="Codec$.html" title=""></a>
+                        <a class="object" href="Codec$.html" title="Provides instance creation methods for Codec."></a>
                         <a class="trait" href="Codec.html" title="Combines a Decoder and an Encoder."></a>
                         <a href="Codec.html" title="Combines a Decoder and an Encoder.">
                           Codec
@@ -276,18 +312,6 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                         <a class="trait" href="" title=""></a>
                         <a href="" title="">
                           EncoderCompanion
-                        </a>
-                      </li><li class="current-entities indented2">
-                        <span class="separator"></span>
-                        <a class="class" href="Error.html" title="Base class for errors"></a>
-                        <a href="Error.html" title="Base class for errors">
-                          Error
-                        </a>
-                      </li><li class="current-entities indented2">
-                        <span class="separator"></span>
-                        <a class="class" href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions."></a>
-                        <a href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions.">
-                          ErrorCompanion
                         </a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Optional$.html" title=""></a>
@@ -440,6 +464,23 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="kantan.codecs.EncoderCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply[D](implicitev:kantan.codecs.Encoder[E,D,T]):kantan.codecs.Encoder[E,D,T]"></a><a id="apply[D](Encoder[E,D,T]):Encoder[E,D,T]"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/EncoderCompanion.html#apply[D](implicitev:kantan.codecs.Encoder[E,D,T]):kantan.codecs.Encoder[E,D,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">macro </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.EncoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.EncoderCompanion.apply.D">D</span>, <span class="extype" name="kantan.codecs.EncoderCompanion.T">T</span>]</span>)</span><span class="result">: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.EncoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.EncoderCompanion.apply.D">D</span>, <span class="extype" name="kantan.codecs.EncoderCompanion.T">T</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Summons an implicit instance of <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> if one is found, fails compilation otherwise.</p><div class="fullcomment"><div class="comment cmt"><p>Summons an implicit instance of <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> if one is found, fails compilation otherwise.</p><p>This is a slightly faster, less verbose version of <code>implicitly</code>.
+</p></div></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -547,7 +588,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.EncoderCompanion.from.D">D</span>) ⇒ <span class="extype" name="kantan.codecs.EncoderCompanion.E">E</span></span>)</span><span class="result">: <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.EncoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.EncoderCompanion.from.D">D</span>, <span class="extype" name="kantan.codecs.EncoderCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Creates a new instance of <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> from the specified function.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new instance of <a href="Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> from the specified function.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@inline</span><span class="args">()</span>
               
         </dd></dl></div>

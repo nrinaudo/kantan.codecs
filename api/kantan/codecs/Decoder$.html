@@ -125,6 +125,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.collection" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collection"></a><a id="collection:collection"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#collection" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="collection/index.html">
+              <span class="name">collection</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.error" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="error"></a><a id="error:error"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#error" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="error/index.html">
+              <span class="name">error</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li><li name="kantan.codecs.export" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="export"></a><a id="export:export"></a>
       <span class="permalink">
@@ -242,7 +278,7 @@ if no other, more specific instance is found.
 of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="strings/codecs$.html" class="extype" name="kantan.codecs.strings.codecs">kantan.codecs.strings.codecs</a>.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li><li class="current-entities indented2">
-                        <a class="object" href="Codec$.html" title=""></a>
+                        <a class="object" href="Codec$.html" title="Provides instance creation methods for Codec."></a>
                         <a class="trait" href="Codec.html" title="Combines a Decoder and an Encoder."></a>
                         <a href="Codec.html" title="Combines a Decoder and an Encoder.">
                           Codec
@@ -276,18 +312,6 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                         <a class="trait" href="EncoderCompanion.html" title=""></a>
                         <a href="EncoderCompanion.html" title="">
                           EncoderCompanion
-                        </a>
-                      </li><li class="current-entities indented2">
-                        <span class="separator"></span>
-                        <a class="class" href="Error.html" title="Base class for errors"></a>
-                        <a href="Error.html" title="Base class for errors">
-                          Error
-                        </a>
-                      </li><li class="current-entities indented2">
-                        <span class="separator"></span>
-                        <a class="class" href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions."></a>
-                        <a href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions.">
-                          ErrorCompanion
                         </a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Optional$.html" title=""></a>
@@ -582,6 +606,23 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </span>
       
       <p class="shortcomment cmt">Creates a new <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that applies the specified function when decoding.</p>
+    </li><li name="kantan.codecs.Decoder#fromUnsafe" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fromUnsafe[E,D,F,T](f:E=&gt;D)(implicitevidence$1:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="fromUnsafe[E,D,F,T]((E)⇒D)(IsError[F]):Decoder[E,D,F,T]"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/Decoder$.html#fromUnsafe[E,D,F,T](f:E=&gt;D)(implicitevidence$1:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromUnsafe</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.Decoder.fromUnsafe.E">E</span>) ⇒ <span class="extype" name="kantan.codecs.Decoder.fromUnsafe.D">D</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="error/IsError.html" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<span class="extype" name="kantan.codecs.Decoder.fromUnsafe.F">F</span>]</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.Decoder.fromUnsafe.E">E</span>, <span class="extype" name="kantan.codecs.Decoder.fromUnsafe.D">D</span>, <span class="extype" name="kantan.codecs.Decoder.fromUnsafe.F">F</span>, <span class="extype" name="kantan.codecs.Decoder.fromUnsafe.T">T</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Turns an unsafe function into a <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Turns an unsafe function into a <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>.</p><p>The specified function is assumed to throw, and errors will be dealt with properly.
+</p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -679,9 +720,9 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="kantan.codecs.Decoder#oneOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="oneOf[E,D,F,T](head:kantan.codecs.Decoder[E,D,F,T],tail:kantan.codecs.Decoder[E,D,F,T]*):kantan.codecs.Decoder[E,D,F,T]"></a><a id="oneOf[E,D,F,T](Decoder[E,D,F,T],Decoder[E,D,F,T]*):Decoder[E,D,F,T]"></a>
+      <a id="oneOf[E,D,F,T](ds:kantan.codecs.Decoder[E,D,F,T]*)(implicitevidence$3:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="oneOf[E,D,F,T](Decoder[E,D,F,T]*)(IsError[F]):Decoder[E,D,F,T]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/Decoder$.html#oneOf[E,D,F,T](head:kantan.codecs.Decoder[E,D,F,T],tail:kantan.codecs.Decoder[E,D,F,T]*):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
+      <a href="../../kantan/codecs/Decoder$.html#oneOf[E,D,F,T](ds:kantan.codecs.Decoder[E,D,F,T]*)(implicitevidence$3:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -690,32 +731,16 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">oneOf</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span name="head">head: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.Decoder.oneOf.E">E</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.F">F</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.T">T</span>]</span>, <span name="tail">tail: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.Decoder.oneOf.E">E</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.F">F</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.T">T</span>]*</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.Decoder.oneOf.E">E</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.F">F</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.T">T</span>]</span>
+        <span class="name">oneOf</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span name="ds">ds: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.Decoder.oneOf.E">E</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.F">F</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.T">T</span>]*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="error/IsError.html" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<span class="extype" name="kantan.codecs.Decoder.oneOf.F">F</span>]</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.Decoder.oneOf.E">E</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.F">F</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.T">T</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new decoder using all specified values.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new decoder using all specified values.</p><p>The generated decoder will try each of the specified decoders in turn, and return either the first success or,
 if none is found, the last failure.
 </p></div></div>
-    </li><li name="kantan.codecs.Decoder#oneOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="oneOf[E,D,F,T](ds:Seq[kantan.codecs.Decoder[E,D,F,T]]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="oneOf[E,D,F,T](Seq[Decoder[E,D,F,T]]):Decoder[E,D,F,T]"></a>
-      <span class="permalink">
-      <a href="../../kantan/codecs/Decoder$.html#oneOf[E,D,F,T](ds:Seq[kantan.codecs.Decoder[E,D,F,T]]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">oneOf</span><span class="tparams">[<span name="E">E</span>, <span name="D">D</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span name="ds">ds: <span class="extype" name="scala.Seq">Seq</span>[<a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.Decoder.oneOf.E">E</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.F">F</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.T">T</span>]]</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.Decoder.oneOf.E">E</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.F">F</span>, <span class="extype" name="kantan.codecs.Decoder.oneOf.T">T</span>]</span>
-      </span>
-      
-      
     </li><li name="kantan.codecs.Decoder#optionalDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="optionalDecoder[E,D,F,T](implicitevidence$1:kantan.codecs.Optional[E],implicitda:kantan.codecs.Decoder[E,D,F,T]):kantan.codecs.Decoder[E,Option[D],F,T]"></a><a id="optionalDecoder[E,D,F,T](Optional[E],Decoder[E,D,F,T]):Decoder[E,Option[D],F,T]"></a>
+      <a id="optionalDecoder[E,D,F,T](implicitevidence$2:kantan.codecs.Optional[E],implicitda:kantan.codecs.Decoder[E,D,F,T]):kantan.codecs.Decoder[E,Option[D],F,T]"></a><a id="optionalDecoder[E,D,F,T](Optional[E],Decoder[E,D,F,T]):Decoder[E,Option[D],F,T]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/Decoder$.html#optionalDecoder[E,D,F,T](implicitevidence$1:kantan.codecs.Optional[E],implicitda:kantan.codecs.Decoder[E,D,F,T]):kantan.codecs.Decoder[E,Option[D],F,T]" title="Permalink">
+      <a href="../../kantan/codecs/Decoder$.html#optionalDecoder[E,D,F,T](implicitevidence$2:kantan.codecs.Optional[E],implicitda:kantan.codecs.Decoder[E,D,F,T]):kantan.codecs.Decoder[E,Option[D],F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>

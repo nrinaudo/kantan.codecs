@@ -125,6 +125,42 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.collection" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collection"></a><a id="collection:collection"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#collection" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="collection/index.html">
+              <span class="name">collection</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
+    </li><li name="kantan.codecs.error" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="error"></a><a id="error:error"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#error" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="error/index.html">
+              <span class="name">error</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li><li name="kantan.codecs.export" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="export"></a><a id="export:export"></a>
       <span class="permalink">
@@ -242,7 +278,7 @@ if no other, more specific instance is found.
 of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="strings/codecs$.html" class="extype" name="kantan.codecs.strings.codecs">kantan.codecs.strings.codecs</a>.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
     </li><li class="current-entities indented2">
-                        <a class="object" href="Codec$.html" title=""></a>
+                        <a class="object" href="Codec$.html" title="Provides instance creation methods for Codec."></a>
                         <a class="trait" href="Codec.html" title="Combines a Decoder and an Encoder."></a>
                         <a href="Codec.html" title="Combines a Decoder and an Encoder.">
                           Codec
@@ -276,18 +312,6 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                         <a class="trait" href="EncoderCompanion.html" title=""></a>
                         <a href="EncoderCompanion.html" title="">
                           EncoderCompanion
-                        </a>
-                      </li><li class="current-entities indented2">
-                        <span class="separator"></span>
-                        <a class="class" href="Error.html" title="Base class for errors"></a>
-                        <a href="Error.html" title="Base class for errors">
-                          Error
-                        </a>
-                      </li><li class="current-entities indented2">
-                        <span class="separator"></span>
-                        <a class="class" href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions."></a>
-                        <a href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions.">
-                          ErrorCompanion
                         </a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Optional$.html" title=""></a>
@@ -330,7 +354,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">DecoderCompanion</span><span class="tparams">[<span name="E">E</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">DecoderCompanion</span><span class="tparams">[<span name="E">E</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -341,8 +365,13 @@ example. <a href="" class="extype" name="kantan.codecs.DecoderCompanion">Decoder
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div><div class="toggleContainer block">
+            <span class="toggle">
+              Known Subclasses
+            </span>
+            <div class="subClasses hiddenContent"><a href="strings/StringDecoder$.html" class="extype" name="kantan.codecs.strings.StringDecoder">StringDecoder</a></div>
+          </div></div>
         
 
       <div id="mbrsel">
@@ -367,7 +396,7 @@ example. <a href="" class="extype" name="kantan.codecs.DecoderCompanion">Decoder
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.codecs.DecoderCompanion"><span>DecoderCompanion</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.codecs.DecoderCompanion"><span>DecoderCompanion</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -442,6 +471,23 @@ example. <a href="" class="extype" name="kantan.codecs.DecoderCompanion">Decoder
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="kantan.codecs.DecoderCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply[D](implicitev:kantan.codecs.Decoder[E,D,F,T]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="apply[D](Decoder[E,D,F,T]):Decoder[E,D,F,T]"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/DecoderCompanion.html#apply[D](implicitev:kantan.codecs.Decoder[E,D,F,T]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">macro </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.apply.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.apply.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Summons an implicit instance of <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> if one is found, fails compilation otherwise.</p><div class="fullcomment"><div class="comment cmt"><p>Summons an implicit instance of <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> if one is found, fails compilation otherwise.</p><p>This is a slightly faster, less verbose version of <code>implicitly</code>.
+</p></div></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -553,6 +599,43 @@ example. <a href="" class="extype" name="kantan.codecs.DecoderCompanion">Decoder
                 <span class="name">@inline</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="kantan.codecs.DecoderCompanion#fromPartial" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="fromPartial[D](f:PartialFunction[E,kantan.codecs.Result[F,D]])(implicitt:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="fromPartial[D](PartialFunction[E,Result[F,D]])(IsError[F]):Decoder[E,D,F,T]"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/DecoderCompanion.html#fromPartial[D](f:PartialFunction[E,kantan.codecs.Result[F,D]])(implicitt:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromPartial</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: <span class="extype" name="scala.PartialFunction">PartialFunction</span>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.fromPartial.D">D</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="t">t: <a href="error/IsError.html" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>]</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.fromPartial.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.DecoderCompanion#fromUnsafe" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fromUnsafe[D](f:E=&gt;D)(implicitt:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="fromUnsafe[D]((E)⇒D)(IsError[F]):Decoder[E,D,F,T]"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/DecoderCompanion.html#fromUnsafe[D](f:E=&gt;D)(implicitt:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromUnsafe</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>) ⇒ <span class="extype" name="kantan.codecs.DecoderCompanion.fromUnsafe.D">D</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="t">t: <a href="error/IsError.html" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>]</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.fromUnsafe.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance from the specified function.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance from the specified function.</p><p>This method turns the specified function safe. The error message might end up being a bit generic though - use
+<a href="#from[D](f:E=&gt;kantan.codecs.Result[F,D]):kantan.codecs.Decoder[E,D,F,T]" class="extmbr" name="kantan.codecs.DecoderCompanion#from">from</a> if you want to deal with errors explicitly.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -650,9 +733,9 @@ example. <a href="" class="extype" name="kantan.codecs.DecoderCompanion">Decoder
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="kantan.codecs.DecoderCompanion#oneOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="oneOf[D](ds:Seq[kantan.codecs.Decoder[E,D,F,T]]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="oneOf[D](Seq[Decoder[E,D,F,T]]):Decoder[E,D,F,T]"></a>
+      <a id="oneOf[D](ds:kantan.codecs.Decoder[E,D,F,T]*)(impliciti:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]"></a><a id="oneOf[D](Decoder[E,D,F,T]*)(IsError[F]):Decoder[E,D,F,T]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/DecoderCompanion.html#oneOf[D](ds:Seq[kantan.codecs.Decoder[E,D,F,T]]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
+      <a href="../../kantan/codecs/DecoderCompanion.html#oneOf[D](ds:kantan.codecs.Decoder[E,D,F,T]*)(impliciti:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -661,28 +744,7 @@ example. <a href="" class="extype" name="kantan.codecs.DecoderCompanion">Decoder
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">oneOf</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="ds">ds: <span class="extype" name="scala.Seq">Seq</span>[<a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]]</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Creates a new <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance from the specified alternatives.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance from the specified alternatives.</p><p>When decoding, each of the specified decoders will be attempted. The result will be the first success if found,
-or the last failure otherwise.</p><p>Note that an exception will be thrown if the specified list is empty.
-</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@inline</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="kantan.codecs.DecoderCompanion#oneOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="oneOf[D](h:kantan.codecs.Decoder[E,D,F,T],t:kantan.codecs.Decoder[E,D,F,T]*):kantan.codecs.Decoder[E,D,F,T]"></a><a id="oneOf[D](Decoder[E,D,F,T],Decoder[E,D,F,T]*):Decoder[E,D,F,T]"></a>
-      <span class="permalink">
-      <a href="../../kantan/codecs/DecoderCompanion.html#oneOf[D](h:kantan.codecs.Decoder[E,D,F,T],t:kantan.codecs.Decoder[E,D,F,T]*):kantan.codecs.Decoder[E,D,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">oneOf</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="h">h: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]</span>, <span name="t">t: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]*</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]</span>
+        <span class="name">oneOf</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="ds">ds: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="i">i: <a href="error/IsError.html" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>]</span>)</span><span class="result">: <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.DecoderCompanion.E">E</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.oneOf.D">D</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.DecoderCompanion.T">T</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance from the specified alternatives.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance from the specified alternatives.</p><p>When decoding, each of the specified decoders will be attempted. The result will be the first success if found,
@@ -799,7 +861,11 @@ or the last failure otherwise.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

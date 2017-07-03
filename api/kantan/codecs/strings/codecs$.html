@@ -667,6 +667,33 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></div></
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="kantan.codecs.strings.codecs#javaEnumStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="javaEnumStringCodec[T&lt;:Enum[T]](implicittag:scala.reflect.ClassTag[T]):kantan.codecs.strings.StringCodec[T]"></a><a id="javaEnumStringCodec[T&lt;:Enum[T]](ClassTag[T]):StringCodec[T]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/strings/codecs$.html#javaEnumStringCodec[T&lt;:Enum[T]](implicittag:scala.reflect.ClassTag[T]):kantan.codecs.strings.StringCodec[T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">javaEnumStringCodec</span><span class="tparams">[<span name="T">T &lt;: <span class="extype" name="java.lang.Enum">Enum</span>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="tag">tag: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>)</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for Java enumerations.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for Java enumerations.</p><pre>scala&gt; <span class="kw">import</span> java.nio.file.AccessMode
+
+<span class="cmt">// Decoding example</span>
+scala&gt; StringDecoder[AccessMode].decode(<span class="lit">"READ"</span>)
+res1: kantan.codecs.Result[DecodeError, AccessMode] = Success(READ)
+
+<span class="cmt">// Encoding example</span>
+scala&gt; StringEncoder[AccessMode].encode(AccessMode.READ)
+res2: <span class="std">String</span> = READ</pre></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="kantan.codecs.strings.codecs#longStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="longStringCodec:kantan.codecs.strings.StringCodec[Long]"></a><a id="longStringCodec:StringCodec[Long]"></a>
       <span class="permalink">
@@ -761,6 +788,54 @@ res1: kantan.codecs.Result[DecodeError, Path] = Success(/home/nrinaudo)
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[Path].encode(Paths.get(<span class="lit">"/home/nrinaudo"</span>))
 res2: <span class="std">String</span> = /home/nrinaudo</pre></div></div>
+    </li><li name="kantan.codecs.strings.codecs#patternStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="patternStringCodec:kantan.codecs.strings.StringCodec[java.util.regex.Pattern]"></a><a id="patternStringCodec:StringCodec[Pattern]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/strings/codecs$.html#patternStringCodec:kantan.codecs.strings.StringCodec[java.util.regex.Pattern]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">patternStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="java.util.regex.Pattern">Pattern</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Pattern</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Pattern</code>.</p><pre>scala&gt; <span class="kw">import</span> java.util.regex.Pattern
+
+<span class="cmt">// Decoding example</span>
+scala&gt; StringDecoder[Pattern].decode(<span class="lit">"[a-z]"</span>)
+res1: kantan.codecs.Result[DecodeError, Pattern] = Success([a-z])
+
+<span class="cmt">// Encoding example</span>
+scala&gt; StringEncoder[Pattern].encode(Pattern.compile(<span class="lit">"[a-z]"</span>))
+res2: <span class="std">String</span> = [a-z]</pre></div></div>
+    </li><li name="kantan.codecs.strings.codecs#regexStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="regexStringCodec:kantan.codecs.strings.StringCodec[scala.util.matching.Regex]"></a><a id="regexStringCodec:StringCodec[Regex]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/strings/codecs$.html#regexStringCodec:kantan.codecs.strings.StringCodec[scala.util.matching.Regex]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">regexStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="scala.util.matching.Regex">Regex</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Regex</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Regex</code>.</p><pre>scala&gt; <span class="kw">import</span> scala.util.matching.Regex
+
+<span class="cmt">// Decoding example</span>
+scala&gt; StringDecoder[Regex].decode(<span class="lit">"[a-z]"</span>)
+res1: kantan.codecs.Result[DecodeError, Regex] = Success([a-z])
+
+<span class="cmt">// Encoding example</span>
+scala&gt; StringEncoder[Regex].encode(<span class="lit">"[a-z]"</span>.r)
+res2: <span class="std">String</span> = [a-z]</pre></div></div>
     </li><li name="kantan.codecs.strings.codecs#shortStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="shortStringCodec:kantan.codecs.strings.StringCodec[Short]"></a><a id="shortStringCodec:StringCodec[Short]"></a>
       <span class="permalink">

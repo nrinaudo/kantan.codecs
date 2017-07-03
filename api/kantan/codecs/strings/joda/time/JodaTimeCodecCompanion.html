@@ -183,6 +183,12 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs.strings.joda.time">time</a></dd></dl></div>
     </li><li class="current-entities indented5">
+                        <a class="object" href="Format$.html" title=""></a>
+                        <a class="trait" href="Format.html" title=""></a>
+                        <a href="Format.html" title="">
+                          Format
+                        </a>
+                      </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="trait" href="" title=""></a>
                         <a href="" title="">
@@ -199,12 +205,6 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                         <a class="trait" href="JodaTimeEncoderCompanion.html" title=""></a>
                         <a href="JodaTimeEncoderCompanion.html" title="">
                           JodaTimeEncoderCompanion
-                        </a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="trait" href="JodaTimeInstances.html" title=""></a>
-                        <a href="JodaTimeInstances.html" title="">
-                          JodaTimeInstances
                         </a>
                       </li>
               </ul>
@@ -234,7 +234,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/joda-time/src/main/scala/kantan/codecs/strings/joda/time/JodaTimeInstances.scala" target="_blank">JodaTimeInstances.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/joda-time/src/main/scala/kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.scala" target="_blank">JodaTimeCodecCompanion.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -413,9 +413,9 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
               
         </dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#dateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="dateTimeCodec[D](format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeCodec[D](DateTimeFormatter):Codec[E,DateTime,F,T]"></a>
+      <a id="dateTimeCodec(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeCodec(Format):Codec[E,DateTime,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeCodec[D](format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeCodec(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -424,14 +424,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">dateTimeCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">dateTimeCodec</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#dateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="dateTimeCodec(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeCodec(⇒DateTimeFormatter):Codec[E,DateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeCodec(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">dateTimeCodec</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#dateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="dateTimeCodec(format:String):kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeCodec(String):Codec[E,DateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeCodec(format:String):kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">dateTimeCodec</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#dateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="dateTimeDecoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeDecoder(DateTimeFormatter):Decoder[E,DateTime,F,T]"></a>
+      <a id="dateTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeDecoder(Format):Decoder[E,DateTime,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeDecoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -440,14 +472,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">dateTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">dateTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#dateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="dateTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeDecoder(⇒DateTimeFormatter):Decoder[E,DateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">dateTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#dateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="dateTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeDecoder(String):Decoder[E,DateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">dateTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#dateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="dateTimeEncoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.DateTime,T]"></a><a id="dateTimeEncoder(DateTimeFormatter):Encoder[E,DateTime,T]"></a>
+      <a id="dateTimeEncoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Encoder[E,org.joda.time.DateTime,T]"></a><a id="dateTimeEncoder(Format):Encoder[E,DateTime,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeEncoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.DateTime,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeEncoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Encoder[E,org.joda.time.DateTime,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -456,135 +520,231 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">dateTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">dateTimeEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="defaultDateTimeDecoder:kantan.codecs.export.Exported[kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]]"></a><a id="defaultDateTimeDecoder:Exported[Decoder[E,DateTime,F,T]]"></a>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#dateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="dateTimeEncoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.DateTime,T]"></a><a id="dateTimeEncoder(⇒DateTimeFormatter):Encoder[E,DateTime,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultDateTimeDecoder:kantan.codecs.export.Exported[kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeEncoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.DateTime,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultDateTimeDecoder</span><span class="result">: <a href="../../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">Exported</a>[<a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]]</span>
+        <span class="name">dateTimeEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#dateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="dateTimeEncoder(format:String):kantan.codecs.Encoder[E,org.joda.time.DateTime,T]"></a><a id="dateTimeEncoder(String):Encoder[E,DateTime,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#dateTimeEncoder(format:String):kantan.codecs.Encoder[E,org.joda.time.DateTime,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">dateTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#defaultDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="defaultDateTimeCodec:kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]"></a><a id="defaultDateTimeCodec:Codec[E,DateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultDateTimeCodec:kantan.codecs.Codec[E,org.joda.time.DateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">defaultDateTimeCodec</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="defaultDateTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]"></a><a id="defaultDateTimeDecoder:Decoder[E,DateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultDateTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">defaultDateTimeDecoder</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#defaultDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="defaultDateTimeEncoder:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,org.joda.time.DateTime,T]]"></a><a id="defaultDateTimeEncoder:Exported[Encoder[E,DateTime,T]]"></a>
+      <a id="defaultDateTimeEncoder:kantan.codecs.Encoder[E,org.joda.time.DateTime,T]"></a><a id="defaultDateTimeEncoder:Encoder[E,DateTime,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultDateTimeEncoder:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,org.joda.time.DateTime,T]]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultDateTimeEncoder:kantan.codecs.Encoder[E,org.joda.time.DateTime,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultDateTimeEncoder</span><span class="result">: <a href="../../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">Exported</a>[<a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]]</span>
+        <span class="name">defaultDateTimeEncoder</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="defaultLocalDateDecoder:kantan.codecs.export.Exported[kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]]"></a><a id="defaultLocalDateDecoder:Exported[Decoder[E,LocalDate,F,T]]"></a>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#defaultLocalDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="defaultLocalDateCodec:kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]"></a><a id="defaultLocalDateCodec:Codec[E,LocalDate,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateDecoder:kantan.codecs.export.Exported[kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateCodec:kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultLocalDateDecoder</span><span class="result">: <a href="../../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">Exported</a>[<a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]]</span>
+        <span class="name">defaultLocalDateCodec</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="defaultLocalDateDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]"></a><a id="defaultLocalDateDecoder:Decoder[E,LocalDate,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">defaultLocalDateDecoder</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#defaultLocalDateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="defaultLocalDateEncoder:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]]"></a><a id="defaultLocalDateEncoder:Exported[Encoder[E,LocalDate,T]]"></a>
+      <a id="defaultLocalDateEncoder:kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]"></a><a id="defaultLocalDateEncoder:Encoder[E,LocalDate,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateEncoder:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateEncoder:kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultLocalDateEncoder</span><span class="result">: <a href="../../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">Exported</a>[<a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]]</span>
+        <span class="name">defaultLocalDateEncoder</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="defaultLocalDateTimeDecoder:kantan.codecs.export.Exported[kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]]"></a><a id="defaultLocalDateTimeDecoder:Exported[Decoder[E,LocalDateTime,F,T]]"></a>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#defaultLocalDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="defaultLocalDateTimeCodec:kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]"></a><a id="defaultLocalDateTimeCodec:Codec[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateTimeDecoder:kantan.codecs.export.Exported[kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateTimeCodec:kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultLocalDateTimeDecoder</span><span class="result">: <a href="../../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">Exported</a>[<a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]]</span>
+        <span class="name">defaultLocalDateTimeCodec</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="defaultLocalDateTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]"></a><a id="defaultLocalDateTimeDecoder:Decoder[E,LocalDateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">defaultLocalDateTimeDecoder</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#defaultLocalDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="defaultLocalDateTimeEncoder:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]]"></a><a id="defaultLocalDateTimeEncoder:Exported[Encoder[E,LocalDateTime,T]]"></a>
+      <a id="defaultLocalDateTimeEncoder:kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]"></a><a id="defaultLocalDateTimeEncoder:Encoder[E,LocalDateTime,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateTimeEncoder:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalDateTimeEncoder:kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultLocalDateTimeEncoder</span><span class="result">: <a href="../../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">Exported</a>[<a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]]</span>
+        <span class="name">defaultLocalDateTimeEncoder</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="defaultLocalTimeDecoder:kantan.codecs.export.Exported[kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]]"></a><a id="defaultLocalTimeDecoder:Exported[Decoder[E,LocalTime,F,T]]"></a>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#defaultLocalTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="defaultLocalTimeCodec:kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]"></a><a id="defaultLocalTimeCodec:Codec[E,LocalTime,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalTimeDecoder:kantan.codecs.export.Exported[kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalTimeCodec:kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultLocalTimeDecoder</span><span class="result">: <a href="../../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">Exported</a>[<a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]]</span>
+        <span class="name">defaultLocalTimeCodec</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="defaultLocalTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]"></a><a id="defaultLocalTimeDecoder:Decoder[E,LocalTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">defaultLocalTimeDecoder</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#defaultLocalTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="defaultLocalTimeEncoder:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]]"></a><a id="defaultLocalTimeEncoder:Exported[Encoder[E,LocalTime,T]]"></a>
+      <a id="defaultLocalTimeEncoder:kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]"></a><a id="defaultLocalTimeEncoder:Encoder[E,LocalTime,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalTimeEncoder:kantan.codecs.export.Exported[kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#defaultLocalTimeEncoder:kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultLocalTimeEncoder</span><span class="result">: <a href="../../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">Exported</a>[<a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]]</span>
+        <span class="name">defaultLocalTimeEncoder</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
@@ -691,9 +851,9 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#localDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="localDateCodec[D](format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateCodec[D](DateTimeFormatter):Codec[E,LocalDate,F,T]"></a>
+      <a id="localDateCodec[D](format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateCodec[D](Format):Codec[E,LocalDate,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateCodec[D](format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateCodec[D](format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -702,14 +862,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">localDateCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">localDateCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#localDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="localDateCodec[D](format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateCodec[D](⇒DateTimeFormatter):Codec[E,LocalDate,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateCodec[D](format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#localDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="localDateCodec[D](format:String):kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateCodec[D](String):Codec[E,LocalDate,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateCodec[D](format:String):kantan.codecs.Codec[E,org.joda.time.LocalDate,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localDateDecoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateDecoder(DateTimeFormatter):Decoder[E,LocalDate,F,T]"></a>
+      <a id="localDateDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateDecoder(Format):Decoder[E,LocalDate,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateDecoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -718,14 +910,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localDateDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateDecoder(⇒DateTimeFormatter):Decoder[E,LocalDate,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localDateDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateDecoder(String):Decoder[E,LocalDate,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#localDateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localDateEncoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]"></a><a id="localDateEncoder(DateTimeFormatter):Encoder[E,LocalDate,T]"></a>
+      <a id="localDateEncoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]"></a><a id="localDateEncoder(Format):Encoder[E,LocalDate,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateEncoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateEncoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -734,14 +958,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">localDateEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">localDateEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#localDateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localDateEncoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]"></a><a id="localDateEncoder(⇒DateTimeFormatter):Encoder[E,LocalDate,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateEncoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#localDateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localDateEncoder(format:String):kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]"></a><a id="localDateEncoder(String):Encoder[E,LocalDate,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateEncoder(format:String):kantan.codecs.Encoder[E,org.joda.time.LocalDate,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#localDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="localDateTimeCodec[D](format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeCodec[D](DateTimeFormatter):Codec[E,LocalDateTime,F,T]"></a>
+      <a id="localDateTimeCodec[D](format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeCodec[D](Format):Codec[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeCodec[D](format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeCodec[D](format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -750,14 +1006,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">localDateTimeCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">localDateTimeCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#localDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="localDateTimeCodec[D](format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeCodec[D](⇒DateTimeFormatter):Codec[E,LocalDateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeCodec[D](format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateTimeCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#localDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="localDateTimeCodec[D](format:String):kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeCodec[D](String):Codec[E,LocalDateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeCodec[D](format:String):kantan.codecs.Codec[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateTimeCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localDateTimeDecoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(DateTimeFormatter):Decoder[E,LocalDateTime,F,T]"></a>
+      <a id="localDateTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(Format):Decoder[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeDecoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -766,14 +1054,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localDateTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(⇒DateTimeFormatter):Decoder[E,LocalDateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localDateTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(String):Decoder[E,LocalDateTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#localDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localDateTimeEncoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]"></a><a id="localDateTimeEncoder(DateTimeFormatter):Encoder[E,LocalDateTime,T]"></a>
+      <a id="localDateTimeEncoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]"></a><a id="localDateTimeEncoder(Format):Encoder[E,LocalDateTime,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeEncoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeEncoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -782,14 +1102,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">localDateTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">localDateTimeEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#localDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localDateTimeEncoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]"></a><a id="localDateTimeEncoder(⇒DateTimeFormatter):Encoder[E,LocalDateTime,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeEncoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateTimeEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#localDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localDateTimeEncoder(format:String):kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]"></a><a id="localDateTimeEncoder(String):Encoder[E,LocalDateTime,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localDateTimeEncoder(format:String):kantan.codecs.Encoder[E,org.joda.time.LocalDateTime,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localDateTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#localTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="localTimeCodec[D](format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeCodec[D](DateTimeFormatter):Codec[E,LocalTime,F,T]"></a>
+      <a id="localTimeCodec[D](format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeCodec[D](Format):Codec[E,LocalTime,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeCodec[D](format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeCodec[D](format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -798,14 +1150,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">localTimeCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">localTimeCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#localTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="localTimeCodec[D](format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeCodec[D](⇒DateTimeFormatter):Codec[E,LocalTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeCodec[D](format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localTimeCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion#localTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="localTimeCodec[D](format:String):kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeCodec[D](String):Codec[E,LocalTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeCodec[D](format:String):kantan.codecs.Codec[E,org.joda.time.LocalTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localTimeCodec</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localTimeDecoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeDecoder(DateTimeFormatter):Decoder[E,LocalTime,F,T]"></a>
+      <a id="localTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeDecoder(Format):Decoder[E,LocalTime,F,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeDecoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -814,14 +1198,46 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeDecoder(⇒DateTimeFormatter):Decoder[E,LocalTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeDecoder(String):Decoder[E,LocalTime,F,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion">JodaTimeDecoderCompanion</a></dd></dl></div>
     </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#localTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localTimeEncoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]"></a><a id="localTimeEncoder(DateTimeFormatter):Encoder[E,LocalTime,T]"></a>
+      <a id="localTimeEncoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]"></a><a id="localTimeEncoder(Format):Encoder[E,LocalTime,T]"></a>
       <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeEncoder(format:org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]" title="Permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeEncoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -830,7 +1246,39 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">localTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+        <span class="name">localTimeEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#localTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localTimeEncoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]"></a><a id="localTimeEncoder(⇒DateTimeFormatter):Encoder[E,LocalTime,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeEncoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localTimeEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion#localTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="localTimeEncoder(format:String):kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]"></a><a id="localTimeEncoder(String):Encoder[E,LocalTime,T]"></a>
+      <span class="permalink">
+      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeCodecCompanion.html#localTimeEncoder(format:String):kantan.codecs.Encoder[E,org.joda.time.LocalTime,T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeCodecCompanion.T">T</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="JodaTimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.joda.time.JodaTimeEncoderCompanion">JodaTimeEncoderCompanion</a></dd></dl></div>

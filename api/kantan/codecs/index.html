@@ -123,6 +123,42 @@
       </span>
       
       
+    </li><li name="kantan.codecs.collection" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="collection"></a><a id="collection:collection"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#collection" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="collection/index.html">
+              <span class="name">collection</span>
+            </a>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.error" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="error"></a><a id="error:error"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#error" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="error/index.html">
+              <span class="name">error</span>
+            </a>
+      </span>
+      
+      
     </li><li name="kantan.codecs.export" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="export"></a><a id="export:export"></a>
       <span class="permalink">
@@ -240,7 +276,7 @@ if no other, more specific instance is found.
 of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="strings/codecs$.html" class="extype" name="kantan.codecs.strings.codecs">kantan.codecs.strings.codecs</a>.
 </p></div></div>
     </li><li class="current-entities indented2">
-                        <a class="object" href="Codec$.html" title=""></a>
+                        <a class="object" href="Codec$.html" title="Provides instance creation methods for Codec."></a>
                         <a class="trait" href="Codec.html" title="Combines a Decoder and an Encoder."></a>
                         <a href="Codec.html" title="Combines a Decoder and an Encoder.">
                           Codec
@@ -274,18 +310,6 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                         <a class="trait" href="EncoderCompanion.html" title=""></a>
                         <a href="EncoderCompanion.html" title="">
                           EncoderCompanion
-                        </a>
-                      </li><li class="current-entities indented2">
-                        <span class="separator"></span>
-                        <a class="class" href="Error.html" title="Base class for errors"></a>
-                        <a href="Error.html" title="Base class for errors">
-                          Error
-                        </a>
-                      </li><li class="current-entities indented2">
-                        <span class="separator"></span>
-                        <a class="class" href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions."></a>
-                        <a href="ErrorCompanion.html" title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions.">
-                          ErrorCompanion
                         </a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Optional$.html" title=""></a>
@@ -369,9 +393,9 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <div id="types" class="types members">
               <h3>Type Members</h3>
               <ol><li name="kantan.codecs.Codec" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="Codec[E,D,F,T]extendsAnywithDecoder[E,D,F,T]withEncoder[E,D,T]"></a><a id="Codec[E,D,F,T]:Codec[E,D,F,T]"></a>
+      <a id="Codec[E,D,F,T]extendsDecoder[E,D,F,T]withEncoder[E,D,T]"></a><a id="Codec[E,D,F,T]:Codec[E,D,F,T]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/index.html#Codec[E,D,F,T]extendsAnywithDecoder[E,D,F,T]withEncoder[E,D,T]" title="Permalink">
+      <a href="../../kantan/codecs/index.html#Codec[E,D,F,T]extendsDecoder[E,D,F,T]withEncoder[E,D,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -410,9 +434,9 @@ fulfill.
       
       
     </li><li name="kantan.codecs.Decoder" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="Decoder[E,D,F,T]extendsAnywithSerializable"></a><a id="Decoder[E,D,F,T]:Decoder[E,D,F,T]"></a>
+      <a id="Decoder[E,D,F,T]extendsSerializable"></a><a id="Decoder[E,D,F,T]:Decoder[E,D,F,T]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/index.html#Decoder[E,D,F,T]extendsAnywithSerializable" title="Permalink">
+      <a href="../../kantan/codecs/index.html#Decoder[E,D,F,T]extendsSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -429,9 +453,9 @@ fulfill.
       <p class="shortcomment cmt">Type class for types that can be decoded from other types.</p><div class="fullcomment"><div class="comment cmt"><p>Type class for types that can be decoded from other types.
 </p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>encoded type - what to decode from.</p></dd><dt class="tparam">D</dt><dd class="cmt"><p>decoded type - what to decode to.</p></dd><dt class="tparam">F</dt><dd class="cmt"><p>failure type - how to represent errors.</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>tag type - used to specialise decoder instances, and usually where default implementations are declared.</p></dd></dl></div>
     </li><li name="kantan.codecs.DecoderCompanion" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="DecoderCompanion[E,F,T]extendsAnyRef"></a><a id="DecoderCompanion[E,F,T]:DecoderCompanion[E,F,T]"></a>
+      <a id="DecoderCompanion[E,F,T]extendsSerializable"></a><a id="DecoderCompanion[E,F,T]:DecoderCompanion[E,F,T]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/index.html#DecoderCompanion[E,F,T]extendsAnyRef" title="Permalink">
+      <a href="../../kantan/codecs/index.html#DecoderCompanion[E,F,T]extendsSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -442,16 +466,16 @@ fulfill.
       <span class="symbol">
         <a title="Provides methods commonly declared by companion objects for specialised decoder types." href="DecoderCompanion.html">
               <span class="name">DecoderCompanion</span>
-            </a><span class="tparams">[<span name="E">E</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+            </a><span class="tparams">[<span name="E">E</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Provides methods commonly declared by companion objects for specialised decoder types.</p><div class="fullcomment"><div class="comment cmt"><p>Provides methods commonly declared by companion objects for specialised decoder types.</p><p>Most libraries that use kantan.codecs will declare type aliases for decoders - <code>CellDecoder</code> in kantan.csv, for
 example. <a href="DecoderCompanion.html" class="extype" name="kantan.codecs.DecoderCompanion">DecoderCompanion</a> lets such types have a useful companion object without a lot of code duplication.
 </p></div></div>
     </li><li name="kantan.codecs.Encoder" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="Encoder[E,D,T]extendsAnywithSerializable"></a><a id="Encoder[E,D,T]:Encoder[E,D,T]"></a>
+      <a id="Encoder[E,D,T]extendsSerializable"></a><a id="Encoder[E,D,T]:Encoder[E,D,T]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/index.html#Encoder[E,D,T]extendsAnywithSerializable" title="Permalink">
+      <a href="../../kantan/codecs/index.html#Encoder[E,D,T]extendsSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -485,49 +509,10 @@ example. <a href="DecoderCompanion.html" class="extype" name="kantan.codecs.Deco
       </span>
       
       
-    </li><li name="kantan.codecs.Error" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="ErrorextendsExceptionwithProductwithSerializable"></a><a id="Error:Error"></a>
-      <span class="permalink">
-      <a href="../../kantan/codecs/index.html#ErrorextendsExceptionwithProductwithSerializable" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a title="Base class for errors" href="Error.html">
-              <span class="name">Error</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Exception">Exception</span> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Base class for errors</p><div class="fullcomment"><div class="comment cmt"><p>Base class for errors</p><p>This is specifically meant for errors represented as ADTs. The fact that it extends <code>Exception</code> is an unfortunate
-side effect of the Scala stdlib's reliance on exceptions, as seen with <code>scala.concurrent.Future</code> and
-<code>scala.util.Try</code>, for example.
-</p></div></div>
-    </li><li name="kantan.codecs.ErrorCompanion" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="ErrorCompanion[T&lt;:kantan.codecs.Error]extendsAnyRef"></a><a id="ErrorCompanion[T&lt;:Error]:ErrorCompanion[T]"></a>
-      <span class="permalink">
-      <a href="../../kantan/codecs/index.html#ErrorCompanion[T&lt;:kantan.codecs.Error]extendsAnyRef" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a title="Provides useful instance creation methods for errors that might be created as a result of Java exceptions." href="ErrorCompanion.html">
-              <span class="name">ErrorCompanion</span>
-            </a><span class="tparams">[<span name="T">T &lt;: <a href="Error.html" class="extype" name="kantan.codecs.Error">Error</a></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Provides useful instance creation methods for errors that might be created as a result of Java exceptions.</p>
     </li><li name="kantan.codecs.Optional" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="Optional[A]extendsAnyRef"></a><a id="Optional[A]:Optional[A]"></a>
+      <a id="Optional[A]extendsSerializable"></a><a id="Optional[A]:Optional[A]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/index.html#Optional[A]extendsAnyRef" title="Permalink">
+      <a href="../../kantan/codecs/index.html#Optional[A]extendsSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -538,7 +523,7 @@ side effect of the Scala stdlib's reliance on exceptions, as seen with <code>sca
       <span class="symbol">
         <a title="Type class that represents data types that have an &quot;empty&quot; value." href="Optional.html">
               <span class="name">Optional</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Type class that represents data types that have an &quot;empty&quot; value.</p><div class="fullcomment"><div class="comment cmt"><p>Type class that represents data types that have an &quot;empty&quot; value.</p><p>The purpose of this type class is to allow automatic derivation of <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> for decoded types that might not
@@ -583,12 +568,12 @@ more convenient to use in for-comprehensions, as it has proper <a href="Result.h
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Codec$.html">
+        <a title="Provides instance creation methods for Codec." href="Codec$.html">
               <span class="name">Codec</span>
             </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Provides instance creation methods for <a href="Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>.</p>
     </li><li name="kantan.codecs.Decoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Decoder"></a><a id="Decoder:Decoder"></a>
       <span class="permalink">
@@ -639,7 +624,7 @@ more convenient to use in for-comprehensions, as it has proper <a href="Result.h
       <span class="symbol">
         <a title="" href="Optional$.html">
               <span class="name">Optional</span>
-            </a>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       

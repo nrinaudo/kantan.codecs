@@ -4,9 +4,6 @@ title:  "Implementing a new codec library"
 section: tutorial
 ---
 
-
-
-
 This is meant as guidelines for implementing codec libraries based on kantan.codecs. Since it's essentially meant as
 a quick reminder to myself, it's probably too terse and not terribly understandable to anyone else. I'm fairly certain
 no one but me will ever use kantan.codecs directly, but should I be wrong, feel free to create an issue asking for
@@ -35,6 +32,8 @@ object DecodeError {
 It's good form to "hide" [`Result`] as much as possible though, and a type alias should be declared:
 
 ```scala
+import kantan.codecs._
+
 type DecodeResult[A] = Result[DecodeError, A]
 ```
 
@@ -128,7 +127,7 @@ import kantan.codecs.strings.{StringEncoder, StringDecoder}
 
 trait CellDecoderInstances {
   def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
-    da.mapError(DecodeError.typeError).tag[codecs.type]
+    da.leftMap(DecodeError.typeError).tag[codecs.type]
 }
 
 trait CellEncoderInstances {
