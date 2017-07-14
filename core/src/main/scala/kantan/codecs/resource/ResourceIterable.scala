@@ -16,6 +16,8 @@
 
 package kantan.codecs.resource
 
+import scala.collection.generic.CanBuildFrom
+
 trait ResourceIterable[A] {
   /** Type of the concrete implementation.
     *
@@ -66,6 +68,16 @@ trait ResourceIterable[A] {
   def reduceLeft[B >: A](op: (B, A) ⇒ B): B = iterator.reduceLeft(op)
   def foldRight[B](z: B)(op: (A, B) ⇒ B): B = iterator.foldRight(z)(op)
   def reduceRight[B >: A](op: (A, B) ⇒ B): B = iterator.reduceRight(op)
+
+
+
+  // - Transformation methods ------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  def to[F[_]](implicit cbf: CanBuildFrom[Nothing, A, F[A]]): F[A] = iterator.to[F]
+  def toIndexedSeq: IndexedSeq[A] = to[IndexedSeq]
+  def toIterable: Iterable[A] = to[Iterable]
+  def toList: List[A] = to[List]
+  def toSeq: Seq[A] = to[Seq]
+  def toSet: Set[A] = to[Set]
+  def toVector: Vector[A] = to[Vector]
 }
-
-
