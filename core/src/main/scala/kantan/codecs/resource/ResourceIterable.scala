@@ -16,6 +16,7 @@
 
 package kantan.codecs.resource
 
+import kantan.codecs.Result
 import scala.collection.generic.CanBuildFrom
 
 trait ResourceIterable[A] {
@@ -46,6 +47,11 @@ trait ResourceIterable[A] {
   // -------------------------------------------------------------------------------------------------------------------
   def map[B](f: A ⇒ B): Repr[B] = onIterator(_.map(f))
   def flatMap[B](f: A ⇒ Repr[B]): Repr[B] = onIterator(_.flatMap(f.andThen(_.iterator)))
+
+  def emap[E, S, B](f: S ⇒ Result[E, B])(implicit ev: A <:< Result[E, S]): Repr[Result[E, B]] =
+    onIterator(_.emap(f))
+
+
   def collect[B](f: PartialFunction[A, B]): Repr[B] = onIterator(_.collect(f))
   def drop(n: Int): Repr[A] = onIterator(_.drop(n))
   def dropWhile(p: A ⇒ Boolean): Repr[A] = onIterator(_.dropWhile(p))

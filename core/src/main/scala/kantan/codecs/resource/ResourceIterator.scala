@@ -297,7 +297,11 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     }
   }
 
+  @deprecated("Use emap instead", "0.2.2")
   def flatMapResult[E, S, B](f: S ⇒ Result[E, B])(implicit ev: A <:< Result[E, S]): ResourceIterator[Result[E, B]] =
+    emap(f)
+
+  def emap[E, S, B](f: S ⇒ Result[E, B])(implicit ev: A <:< Result[E, S]): ResourceIterator[Result[E, B]] =
     map(_.flatMap(f))
 
   def filter(p: A ⇒ Boolean): ResourceIterator[A] = collect {
