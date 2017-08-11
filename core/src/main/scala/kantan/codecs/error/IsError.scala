@@ -24,21 +24,25 @@ import kantan.codecs._
   * values of the right error type.
   */
 trait IsError[E] { self ⇒
+
   /** Creates a new instance of `E` from an exception. */
   def fromThrowable(t: Throwable): E
+
   /** Creates a new instance of `E` from an error message. */
   def fromMessage(msg: String): E
+
   /** Creates a new instance of `E` from an error message and exception. */
   def from(msg: String, t: Throwable): E
 
   def map[EE](f: E ⇒ EE): IsError[EE] = new IsError[EE] {
-    override def fromThrowable(t: Throwable) = f(self.fromThrowable(t))
-    override def fromMessage(msg: String) = f(self.fromMessage(msg))
+    override def fromThrowable(t: Throwable)     = f(self.fromThrowable(t))
+    override def fromMessage(msg: String)        = f(self.fromMessage(msg))
     override def from(msg: String, t: Throwable) = f(self.from(msg, t))
   }
 }
 
 object IsError {
+
   /** Summons an implicit instance of `IsError[A]` if one is found in scope, fails compilation otherwise. */
   def apply[A](implicit ev: IsError[A]): IsError[A] = macro imp.summon[IsError[A]]
 
@@ -47,8 +51,8 @@ object IsError {
 
   /** Default instance for `Exception.` */
   implicit val exceptionIsError: IsError[Exception] = new IsError[Exception] {
-    override def fromThrowable(t: Throwable) = new Exception(t)
-    override def fromMessage(msg: String) = new Exception(msg)
+    override def fromThrowable(t: Throwable)     = new Exception(t)
+    override def fromMessage(msg: String)        = new Exception(msg)
     override def from(msg: String, t: Throwable) = new Exception(msg, t)
   }
 }

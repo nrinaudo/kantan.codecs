@@ -32,27 +32,35 @@ class TimeDecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChe
   object DecoderCompanion extends TimeDecoderCompanion[String, DecodeError, codec.type] {
     override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
 
-    implicit val instantTestDecoder: TestDecoder[Instant] = Exported(defaultInstantDecoder)
-    implicit val zonedDateTimeTestDecoder: TestDecoder[ZonedDateTime] = Exported(defaultZonedDateTimeDecoder)
+    implicit val instantTestDecoder: TestDecoder[Instant]               = Exported(defaultInstantDecoder)
+    implicit val zonedDateTimeTestDecoder: TestDecoder[ZonedDateTime]   = Exported(defaultZonedDateTimeDecoder)
     implicit val offsetDateTimeTestDecoder: TestDecoder[OffsetDateTime] = Exported(defaultOffsetDateTimeDecoder)
-    implicit val localDateTimeTestDecoder: TestDecoder[LocalDateTime] = Exported(defaultLocalDateTimeDecoder)
-    implicit val localDateTestDecoder: TestDecoder[LocalDate] = Exported(defaultLocalDateDecoder)
-    implicit val localTimeTestDecoder: TestDecoder[LocalTime] = Exported(defaultLocalTimeDecoder)
+    implicit val localDateTimeTestDecoder: TestDecoder[LocalDateTime]   = Exported(defaultLocalDateTimeDecoder)
+    implicit val localDateTestDecoder: TestDecoder[LocalDate]           = Exported(defaultLocalDateDecoder)
+    implicit val localTimeTestDecoder: TestDecoder[LocalTime]           = Exported(defaultLocalTimeDecoder)
   }
 
   import DecoderCompanion._
 
-  checkAll("TimeDecoderCompanion[Instant]",
-    DecoderTests[String, Instant, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[ZonedDateTime]",
-    DecoderTests[String, ZonedDateTime, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[OffsetDateTime]",
-    DecoderTests[String, OffsetDateTime, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[LocalDateTime]",
-    DecoderTests[String, LocalDateTime, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[LocalDate]",
-    DecoderTests[String, LocalDate, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[LocalTime]",
-    DecoderTests[String, LocalTime, DecodeError, codec.type].decoder[Int, Int])
+  checkAll("TimeDecoderCompanion[Instant]", DecoderTests[String, Instant, DecodeError, codec.type].decoder[Int, Int])
+  checkAll(
+    "TimeDecoderCompanion[ZonedDateTime]",
+    DecoderTests[String, ZonedDateTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[OffsetDateTime]",
+    DecoderTests[String, OffsetDateTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[LocalDateTime]",
+    DecoderTests[String, LocalDateTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[LocalDate]",
+    DecoderTests[String, LocalDate, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[LocalTime]",
+    DecoderTests[String, LocalTime, DecodeError, codec.type].decoder[Int, Int]
+  )
 }
-

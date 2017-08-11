@@ -20,9 +20,8 @@ import kantan.codecs.Codec
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 import org.joda.time.format.DateTimeFormatter
 
-trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T]
-                                              with JodaTimeEncoderCompanion[E, T] {
-  def dateTimeCodec(format: String): Codec[E, DateTime, F, T] = dateTimeCodec(Format(format))
+trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] with JodaTimeEncoderCompanion[E, T] {
+  def dateTimeCodec(format: String): Codec[E, DateTime, F, T]              = dateTimeCodec(Format(format))
   def dateTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, DateTime, F, T] = dateTimeCodec(Format(format))
   def dateTimeCodec(format: Format): Codec[E, DateTime, F, T] =
     Codec.from(dateTimeDecoder(format), dateTimeEncoder(format))
@@ -36,13 +35,13 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T]
     Codec.from(localDateTimeDecoder(format), localDateTimeEncoder(format))
   def defaultLocalDateTimeCodec: Codec[E, LocalDateTime, F, T] = localDateTimeCodec(defaultLocalDateTimeFormat)
 
-  def localDateCodec[D](format: String): Codec[E, LocalDate, F, T] = localDateCodec(Format(format))
+  def localDateCodec[D](format: String): Codec[E, LocalDate, F, T]              = localDateCodec(Format(format))
   def localDateCodec[D](format: ⇒ DateTimeFormatter): Codec[E, LocalDate, F, T] = localDateCodec(Format(format))
   def localDateCodec[D](format: Format): Codec[E, LocalDate, F, T] =
     Codec.from(localDateDecoder(format), localDateEncoder(format))
   def defaultLocalDateCodec: Codec[E, LocalDate, F, T] = localDateCodec(defaultLocalDateFormat)
 
-  def localTimeCodec[D](format: String): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
+  def localTimeCodec[D](format: String): Codec[E, LocalTime, F, T]              = localTimeCodec(Format(format))
   def localTimeCodec[D](format: ⇒ DateTimeFormatter): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
   def localTimeCodec[D](format: Format): Codec[E, LocalTime, F, T] =
     Codec.from(localTimeDecoder(format), localTimeEncoder(format))

@@ -22,10 +22,10 @@ import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 trait Format {
   def formatter: DateTimeFormatter
 
-  def parseDateTime(str: String): DateTime = formatter.parseDateTime(str)
+  def parseDateTime(str: String): DateTime           = formatter.parseDateTime(str)
   def parseLocalDateTime(str: String): LocalDateTime = formatter.parseLocalDateTime(str)
-  def parseLocalTime(str: String): LocalTime = formatter.parseLocalTime(str)
-  def parseLocalDate(str: String): LocalDate = formatter.parseLocalDate(str)
+  def parseLocalTime(str: String): LocalTime         = formatter.parseLocalTime(str)
+  def parseLocalDate(str: String): LocalDate         = formatter.parseLocalDate(str)
 
   def format(instant: ReadableInstant): String = formatter.print(instant)
   def format(instant: ReadablePartial): String = formatter.print(instant)
@@ -38,7 +38,7 @@ object Format {
 
   def apply(str: String): Format = {
     val format: Format = new Format with Serializable {
-      val pattern: String = str
+      val pattern: String                    = str
       @transient override lazy val formatter = DateTimeFormat.forPattern(pattern)
     }
     format.formatter

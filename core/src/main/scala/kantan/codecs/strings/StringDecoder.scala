@@ -25,6 +25,7 @@ import kantan.codecs.{DecoderCompanion, Result}
   * Default [[StringDecoder]] instances are provided in [[codecs]].
   */
 object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] {
+
   /** Creates a safe decoding function from the specified unsafe one.
     *
     * This method expects the specified decoding function to be able to fail by throwing exceptions. These will be

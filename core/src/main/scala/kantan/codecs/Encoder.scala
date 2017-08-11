@@ -25,6 +25,7 @@ import kantan.codecs.export.DerivedEncoder
   * @tparam T tag type.
   */
 trait Encoder[E, D, T] extends Serializable {
+
   /** Encodes the specified value. */
   def encode(d: D): E
 
@@ -42,6 +43,7 @@ trait Encoder[E, D, T] extends Serializable {
 }
 
 trait EncoderCompanion[E, T] {
+
   /** Summons an implicit instance of [[Encoder]] if one is found, fails compilation otherwise.
     *
     * This is a slightly faster, less verbose version of `implicitly`.
@@ -62,11 +64,10 @@ object Encoder {
   implicit def optionalEncoder[E: Optional, D, T](implicit ea: Encoder[E, D, T]): Encoder[E, Option[D], T] =
     Encoder.from(_.map(ea.encode).getOrElse(Optional[E].empty))
 
-  implicit def eitherEncoder[E, D1, D2, T](implicit ea: Encoder[E, D1, T], eb: Encoder[E, D2, T])
-  : Encoder[E, Either[D1, D2], T] =
+  implicit def eitherEncoder[E, D1, D2, T](implicit ea: Encoder[E, D1, T],
+                                           eb: Encoder[E, D2, T]): Encoder[E, Either[D1, D2], T] =
     Encoder.from {
       case Left(a)  ⇒ ea.encode(a)
       case Right(b) ⇒ eb.encode(b)
     }
 }
-

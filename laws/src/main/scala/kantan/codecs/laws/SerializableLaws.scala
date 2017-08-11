@@ -25,7 +25,7 @@ trait SerializableLaws[A] {
 
   def serialize(o: Any): Array[Byte] = {
     val baos = new ByteArrayOutputStream
-    val oos = new ObjectOutputStream(baos)
+    val oos  = new ObjectOutputStream(baos)
 
     oos.writeObject(o)
     oos.flush()
@@ -34,7 +34,7 @@ trait SerializableLaws[A] {
 
   def deserialize(data: Array[Byte]): Any = {
     val bais = new ByteArrayInputStream(data)
-    val ois = new ObjectInputStream(bais)
+    val ois  = new ObjectInputStream(bais)
     ois.readObject
   }
 

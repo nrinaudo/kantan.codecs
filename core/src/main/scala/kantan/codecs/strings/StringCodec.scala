@@ -28,6 +28,7 @@ import kantan.codecs.{Codec, Result}
   * Default instances are defined in [[codecs]].
   */
 object StringCodec {
+
   /** Creates a new [[StringCodec]] instance from the specified decoding and encoding functions.
     *
     * @param f how to decode to instances of `D`.

@@ -22,14 +22,11 @@ import java.net.{URI, URL}
 import java.nio.file.{AccessMode, Path}
 import java.util.{Date, UUID}
 import java.util.regex.Pattern
-import kantan.codecs._
-import kantan.codecs.Result.{Failure, Success}
+import kantan.codecs._, Result.{Failure, Success}
 import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
-import org.scalacheck._
-import org.scalacheck.Arbitrary.{arbitrary => arb}
-import org.scalacheck.Gen._
+import org.scalacheck._, Arbitrary.{arbitrary ⇒ arb}, Gen._
 import scala.util.Try
 import scala.util.matching.Regex
 
@@ -47,26 +44,36 @@ trait ArbitraryInstances extends ArbitraryArities {
   implicit def arbFailure[F: Arbitrary]: Arbitrary[Failure[F]] = Arbitrary(failure)
 
   implicit def arbResult[F: Arbitrary, S: Arbitrary]: Arbitrary[Result[F, S]] =
-    Arbitrary(Gen.oneOf(
-      success[S]: Gen[Result[F, S]],
-      failure[F]: Gen[Result[F, S]]
-    ))
-
+    Arbitrary(
+      Gen.oneOf(
+        success[S]: Gen[Result[F, S]],
+        failure[F]: Gen[Result[F, S]]
+      )
+    )
 
   // - Arbitrary AccessMode --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   // This is just a sample java enum.
   implicit val arbAccessMode: Arbitrary[AccessMode] =
-      Arbitrary(Gen.oneOf(AccessMode.READ, AccessMode.WRITE, AccessMode.EXECUTE))
+    Arbitrary(Gen.oneOf(AccessMode.READ, AccessMode.WRITE, AccessMode.EXECUTE))
 
   implicit val cogenAccessMode: Cogen[AccessMode] = implicitly[Cogen[String]].contramap(_.name())
 
-
   // - Arbitrary patterns ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  val genRegexOptions: Gen[Int] = listOf(oneOf(Pattern.UNIX_LINES, 256, Pattern.CANON_EQ, Pattern.CASE_INSENSITIVE,
-    Pattern.MULTILINE, Pattern.DOTALL, Pattern.LITERAL, Pattern.UNICODE_CASE, Pattern.COMMENTS))
-    .map(_.toSet.foldLeft(0)(_ | _))
+  val genRegexOptions: Gen[Int] = listOf(
+    oneOf(
+      Pattern.UNIX_LINES,
+      256,
+      Pattern.CANON_EQ,
+      Pattern.CASE_INSENSITIVE,
+      Pattern.MULTILINE,
+      Pattern.DOTALL,
+      Pattern.LITERAL,
+      Pattern.UNICODE_CASE,
+      Pattern.COMMENTS
+    )
+  ).map(_.toSet.foldLeft(0)(_ | _))
 
   // TODO: add more standard regexes to this list?
   val genRegularExpression: Gen[String] =
@@ -78,23 +85,23 @@ trait ArbitraryInstances extends ArbitraryArities {
   } yield Pattern.compile(regex, flags)
 
   implicit val arbPattern: Arbitrary[Pattern] = Arbitrary(genPattern)
-  implicit val cogenPattern: Cogen[Pattern] = implicitly[Cogen[(String, Int)]].contramap(p ⇒ (p.pattern(), p.flags()))
+  implicit val cogenPattern: Cogen[Pattern]   = implicitly[Cogen[(String, Int)]].contramap(p ⇒ (p.pattern(), p.flags()))
 
   implicit val arbRegex: Arbitrary[Regex] = Arbitrary(genRegularExpression.map(_.r))
-  implicit val cogenRegex: Cogen[Regex] = implicitly[Cogen[String]].contramap(_.pattern.pattern())
-
+  implicit val cogenRegex: Cogen[Regex]   = implicitly[Cogen[String]].contramap(_.pattern.pattern())
 
   // - CodecValue ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbValue[E, D, T](implicit arbL: Arbitrary[LegalValue[E, D, T]], arbI: Arbitrary[IllegalValue[E, D, T]])
-  : Arbitrary[CodecValue[E, D, T]] =
-  Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
+  implicit def arbValue[E, D, T](implicit arbL: Arbitrary[LegalValue[E, D, T]],
+                                 arbI: Arbitrary[IllegalValue[E, D, T]]): Arbitrary[CodecValue[E, D, T]] =
+    Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
 
   implicit def arbLegalValueFromEnc[E, A: Arbitrary, T](implicit ea: Encoder[E, A, T]): Arbitrary[LegalValue[E, A, T]] =
     arbLegalValue(ea.encode)
 
-  implicit def arbIllegalValueFromDec[E: Arbitrary, A, T](implicit da: Decoder[E, A, _, T])
-  : Arbitrary[IllegalValue[E, A, T]] = arbIllegalValue(e ⇒ da.decode(e).isFailure)
+  implicit def arbIllegalValueFromDec[E: Arbitrary, A, T](
+    implicit da: Decoder[E, A, _, T]
+  ): Arbitrary[IllegalValue[E, A, T]] = arbIllegalValue(e ⇒ da.decode(e).isFailure)
 
   def arbLegalValue[E, A, T](encode: A ⇒ E)(implicit arbA: Arbitrary[A]): Arbitrary[LegalValue[E, A, T]] = Arbitrary {
     arbA.arbitrary.map(a ⇒ LegalValue(encode(a), a))
@@ -115,17 +122,17 @@ trait ArbitraryInstances extends ArbitraryArities {
     }
   }
 
-
-
   // - String codecs ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val arbStringDecodeError: Arbitrary[DecodeError] = Arbitrary(Gen.oneOf(
-    for {
-      id    ← Gen.identifier
-      value ← implicitly[Arbitrary[String]].arbitrary
-    } yield DecodeError(s"'$value' is not a valid $id"),
-    arbException.arbitrary.map(DecodeError.apply)
-  ))
+  implicit val arbStringDecodeError: Arbitrary[DecodeError] = Arbitrary(
+    Gen.oneOf(
+      for {
+        id    ← Gen.identifier
+        value ← implicitly[Arbitrary[String]].arbitrary
+      } yield DecodeError(s"'$value' is not a valid $id"),
+      arbException.arbitrary.map(DecodeError.apply)
+    )
+  )
 
   implicit def arbStringEncoder[A: Arbitrary: Cogen]: Arbitrary[StringEncoder[A]] =
     Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(StringEncoder.from))
@@ -155,9 +162,6 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   implicit val arbPath: Arbitrary[Path] = Arbitrary(arbFile.arbitrary.map(_.toPath))
 
-
-
-
   // This is necessary to prevent ScalaCheck from generating BigDecimal values that cannot be serialized because their
   // scale is higher than MAX_INT.
   // Note that this isn't actually an issue with ScalaCheck but with Scala itself, and is(?) fixed in Scala 2.12:
@@ -166,10 +170,10 @@ trait ArbitraryInstances extends ArbitraryArities {
     import java.math.MathContext._
     val mcGen = oneOf(DECIMAL32, DECIMAL64, DECIMAL128)
     val bdGen = for {
-      x ← Arbitrary.arbitrary[BigInt]
-      mc ← mcGen
+      x     ← Arbitrary.arbitrary[BigInt]
+      mc    ← mcGen
       limit ← const(math.max(x.abs.toString.length - mc.getPrecision, 0))
-      scale ← Gen.choose(Int.MinValue + limit , Int.MaxValue)
+      scale ← Gen.choose(Int.MinValue + limit, Int.MaxValue)
     } yield {
       try {
         BigDecimal(x, scale, mc)
@@ -189,21 +193,20 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   implicit val arbUuid: Arbitrary[UUID] = Arbitrary(Gen.uuid)
 
-
   // - Cogen -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def cogenResult[A: Cogen, B: Cogen]: Cogen[Result[A, B]] =
-  implicitly[Cogen[Either[A, B]]].contramap(_.toEither)
+    implicitly[Cogen[Either[A, B]]].contramap(_.toEither)
 
-  implicit val cogenUrl: Cogen[URL] = implicitly[Cogen[String]].contramap(_.toString)
-  implicit val cogenUri: Cogen[URI] = implicitly[Cogen[String]].contramap(_.toString)
+  implicit val cogenUrl: Cogen[URL]                       = implicitly[Cogen[String]].contramap(_.toString)
+  implicit val cogenUri: Cogen[URI]                       = implicitly[Cogen[String]].contramap(_.toString)
   implicit val cogenStringDecodeError: Cogen[DecodeError] = implicitly[Cogen[String]].contramap(_.message)
   implicit val cogenUUID: Cogen[UUID] =
     Cogen.tuple2[Long, Long].contramap(uuid ⇒ (uuid.getMostSignificantBits, uuid.getLeastSignificantBits))
+  @SuppressWarnings(Array("org.wartremover.warts.ToString"))
   implicit val cogenPath: Cogen[Path] = implicitly[Cogen[String]].contramap(_.toString)
   implicit val cogenFile: Cogen[File] = implicitly[Cogen[String]].contramap(_.toString)
   implicit val cogenDate: Cogen[Date] = Cogen(_.getTime)
-
 
   // - Exceptions ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -211,7 +214,7 @@ trait ArbitraryInstances extends ArbitraryArities {
     arbFile.arbitrary.map(f ⇒ new FileNotFoundException(s"File not found: $f"))
 
   val genUnsupportedEncoding: Gen[UnsupportedEncodingException] =
-      Gen.identifier.map(i ⇒ new UnsupportedEncodingException(s"Unsupported encoding: $i"))
+    Gen.identifier.map(i ⇒ new UnsupportedEncodingException(s"Unsupported encoding: $i"))
 
   val genIoException: Gen[IOException] =
     Gen.oneOf(genFileNotFound, genUnsupportedEncoding, Gen.const(new EOFException))
@@ -231,8 +234,10 @@ trait ArbitraryInstances extends ArbitraryArities {
   implicit val arbException: Arbitrary[Exception] = Arbitrary(genException)
 
   implicit def arbTry[A](implicit aa: Arbitrary[A]): Arbitrary[Try[A]] =
-    Arbitrary(Gen.oneOf(
-      arb[Exception].map(e ⇒ scala.util.Failure(e): Try[A]),
-      aa.arbitrary.map(a ⇒ scala.util.Success(a): Try[A])
-    ))
+    Arbitrary(
+      Gen.oneOf(
+        arb[Exception].map(e ⇒ scala.util.Failure(e): Try[A]),
+        aa.arbitrary.map(a ⇒ scala.util.Success(a): Try[A])
+      )
+    )
 }

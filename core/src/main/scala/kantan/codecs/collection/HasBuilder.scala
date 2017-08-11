@@ -47,13 +47,13 @@ object HasBuilder extends LowPriorityHasBuilderInstances {
   }
 
   implicit def treeSetHasBuilder[A: Ordering]: HasBuilder[TreeSet, A] = HasBuilder(TreeSet.newBuilder[A])
-  implicit def queueHasBuilder[A]: HasBuilder[Queue, A] = HasBuilder(Queue.newBuilder[A])
-  implicit def listHasBuilder[A]: HasBuilder[List, A] = HasBuilder(List.newBuilder[A])
-  implicit def streamHasBuilder[A]: HasBuilder[Stream, A] = HasBuilder(Stream.newBuilder[A])
-  implicit def vectorHasBuilder[A]: HasBuilder[Vector, A] = HasBuilder(Vector.newBuilder[A])
-  implicit def indexedSeqHasBuilder[A]: HasBuilder[IndexedSeq, A] = HasBuilder(IndexedSeq.newBuilder[A])
-  implicit def traversableHasBuilder[A]: HasBuilder[Traversable, A] = HasBuilder(Traversable.newBuilder[A])
-  implicit def seqHasBuilder[A]: HasBuilder[Seq, A] = HasBuilder(Seq.newBuilder[A])
-  implicit def setHasBuilder[A]: HasBuilder[Set, A] = HasBuilder(Set.newBuilder[A])
-  implicit def arrayHasBuilder[A: ClassTag]: HasBuilder[Array, A] = HasBuilder(Array.newBuilder[A])
+  implicit def queueHasBuilder[A]: HasBuilder[Queue, A]               = HasBuilder(Queue.newBuilder[A])
+  implicit def listHasBuilder[A]: HasBuilder[List, A]                 = HasBuilder(List.newBuilder[A])
+  implicit def streamHasBuilder[A]: HasBuilder[Stream, A]             = HasBuilder(Stream.newBuilder[A])
+  implicit def vectorHasBuilder[A]: HasBuilder[Vector, A]             = HasBuilder(Vector.newBuilder[A])
+  implicit def indexedSeqHasBuilder[A]: HasBuilder[IndexedSeq, A]     = HasBuilder(IndexedSeq.newBuilder[A])
+  implicit def traversableHasBuilder[A]: HasBuilder[Traversable, A]   = HasBuilder(Traversable.newBuilder[A])
+  implicit def seqHasBuilder[A]: HasBuilder[Seq, A]                   = HasBuilder(Seq.newBuilder[A])
+  implicit def setHasBuilder[A]: HasBuilder[Set, A]                   = HasBuilder(Set.newBuilder[A])
+  implicit def arrayHasBuilder[A: ClassTag]: HasBuilder[Array, A]     = HasBuilder(Array.newBuilder[A])
 }

@@ -37,7 +37,7 @@ object Optional {
     override val empty = a
   }
 
-  implicit val optString: Optional[String] = Optional("")
-  implicit def optSeq[A]: Optional[Seq[A]] = Optional(Seq.empty[A])
+  implicit val optString: Optional[String]       = Optional("")
+  implicit def optSeq[A]: Optional[Seq[A]]       = Optional(Seq.empty[A])
   implicit def optOption[A]: Optional[Option[A]] = Optional(Option.empty[A])
 }

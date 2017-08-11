@@ -37,8 +37,8 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
   test("DecoderCompanion.oneOf should be equivalent to Decoder.oneOf for non-empty lists") {
     forAll { (h: Dec, t: List[Dec], str: String) ⇒
-      val cDec = Companion.oneOf((h :: t).map(Companion.from[Int]):_*)
-      val dDec = Decoder.oneOf((h :: t).map(Decoder.from[String, Int, String, codec.type]):_*)
+      val cDec = Companion.oneOf((h :: t).map(Companion.from[Int]): _*)
+      val dDec = Decoder.oneOf((h :: t).map(Decoder.from[String, Int, String, codec.type]): _*)
 
       assert(cDec.decode(str) == dDec.decode(str))
     }
@@ -48,6 +48,8 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
     val cDec = Companion.oneOf()
     val dDec = Decoder.oneOf[String, Int, String, codec.type]()
 
-    forAll { (str: String) ⇒ assert(cDec.decode(str) == dDec.decode(str)) }
+    forAll { (str: String) ⇒
+      assert(cDec.decode(str) == dDec.decode(str))
+    }
   }
 }

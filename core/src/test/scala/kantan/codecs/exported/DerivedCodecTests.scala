@@ -26,7 +26,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
   val decode: String ⇒ Result[DecodeError, Maybe[Int]] = s ⇒
     if(s.trim.isEmpty) Result.success(None)
-    else               Result.nonFatalOr(DecodeError(s"Not a valid Int: '$s'"))(Just(s.toInt))
+    else Result.nonFatalOr(DecodeError(s"Not a valid Int: '$s'"))(Just(s.toInt))
 
   val encode: Maybe[Int] ⇒ String = _ match {
     case Just(i) ⇒ i.toString
@@ -67,7 +67,7 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
 }
 
 object DerivedCodecTests {
-  sealed abstract class Maybe[+A] extends Product with Serializable
+  sealed abstract class Maybe[+A]    extends Product with Serializable
   final case class Just[A](value: A) extends Maybe[A]
-  final case object None extends Maybe[Nothing]
+  final case object None             extends Maybe[Nothing]
 }

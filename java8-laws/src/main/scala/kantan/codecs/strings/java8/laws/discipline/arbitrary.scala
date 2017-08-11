@@ -44,8 +44,6 @@ trait ArbitraryInstances {
   implicit val arbIllegalInstantString: Arbitrary[IllegalString[Instant]] =
     arbIllegalValue(s ⇒ Try(Instant.parse(s)).isFailure)
 
-
-
   // - LocalDate instances ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val arbLocalDate: Arbitrary[LocalDate] = Arbitrary(Arbitrary.arbitrary[LocalDateTime].map(_.toLocalDate))
@@ -58,7 +56,6 @@ trait ArbitraryInstances {
   implicit val arbIllegalLocalDateString: Arbitrary[IllegalString[LocalDate]] =
     arbIllegalValue(s ⇒ Try(LocalDate.parse(s)).isFailure)
 
-
   // - LocalTime instances ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val arbLocalTime: Arbitrary[LocalTime] = Arbitrary(Arbitrary.arbitrary[LocalDateTime].map(_.toLocalTime))
@@ -70,7 +67,6 @@ trait ArbitraryInstances {
     arbLegalValue(DateTimeFormatter.ISO_LOCAL_TIME.format)
   implicit val arbIllegalLocalTimeString: Arbitrary[IllegalString[LocalTime]] =
     arbIllegalValue(s ⇒ Try(LocalTime.parse(s)).isFailure)
-
 
   // - LocalDateTime instances -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -94,17 +90,18 @@ trait ArbitraryInstances {
   implicit val arbIllegalLocalDateTimeString: Arbitrary[IllegalString[LocalDateTime]] =
     arbIllegalValue(s ⇒ Try(LocalDateTime.parse(s)).isFailure)
 
-
   // - ZonedDateTime instances -----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val arbZonedDateTime: Arbitrary[ZonedDateTime] = Arbitrary(
     for {
       instant ← Arbitrary.arbitrary[Instant]
       zoneId  ← Arbitrary.arbitrary[ZoneId]
-    } yield ZonedDateTime.ofInstant(
-      instant,
-      if(zoneId == ZoneId.of("GMT0")) ZoneId.of("UTC") else zoneId // avoid JDK-8138664
-    ))
+    } yield
+      ZonedDateTime.ofInstant(
+        instant,
+        if(zoneId == ZoneId.of("GMT0")) ZoneId.of("UTC") else zoneId // avoid JDK-8138664
+      )
+  )
 
   implicit val cogenZonedDateTime: Cogen[ZonedDateTime] =
     Cogen.tuple2[LocalDate, LocalTime].contramap(dt ⇒ (dt.toLocalDate, dt.toLocalTime))
@@ -113,7 +110,6 @@ trait ArbitraryInstances {
     arbLegalValue(DateTimeFormatter.ISO_ZONED_DATE_TIME.format)
   implicit val arbIllegalZonedDateTimeString: Arbitrary[IllegalString[ZonedDateTime]] =
     arbIllegalValue(s ⇒ Try(ZonedDateTime.parse(s)).isFailure)
-
 
   // - OffsetDateTime instances ----------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

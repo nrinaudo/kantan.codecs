@@ -32,12 +32,12 @@ class TimeEncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChe
   object EncoderCompanion extends TimeEncoderCompanion[String, codec.type] {
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
 
-    implicit val instantTestEncoder: TestEncoder[Instant] = Exported(defaultInstantEncoder)
-    implicit val zonedDateTimeTestEncoder: TestEncoder[ZonedDateTime] = Exported(defaultZonedDateTimeEncoder)
+    implicit val instantTestEncoder: TestEncoder[Instant]               = Exported(defaultInstantEncoder)
+    implicit val zonedDateTimeTestEncoder: TestEncoder[ZonedDateTime]   = Exported(defaultZonedDateTimeEncoder)
     implicit val offsetDateTimeTestEncoder: TestEncoder[OffsetDateTime] = Exported(defaultOffsetDateTimeEncoder)
-    implicit val localDateTimeTestEncoder: TestEncoder[LocalDateTime] = Exported(defaultLocalDateTimeEncoder)
-    implicit val localDateTestEncoder: TestEncoder[LocalDate] = Exported(defaultLocalDateEncoder)
-    implicit val localTimeTestEncoder: TestEncoder[LocalTime] = Exported(defaultLocalTimeEncoder)
+    implicit val localDateTimeTestEncoder: TestEncoder[LocalDateTime]   = Exported(defaultLocalDateTimeEncoder)
+    implicit val localDateTestEncoder: TestEncoder[LocalDate]           = Exported(defaultLocalDateEncoder)
+    implicit val localTimeTestEncoder: TestEncoder[LocalTime]           = Exported(defaultLocalTimeEncoder)
   }
 
   import EncoderCompanion._
@@ -49,4 +49,3 @@ class TimeEncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChe
   checkAll("TimeEncoderCompanion[LocalDate]", EncoderTests[String, LocalDate, codec.type].encoder[Int, Int])
   checkAll("TimeEncoderCompanion[LocalTime]", EncoderTests[String, LocalTime, codec.type].encoder[Int, Int])
 }
-

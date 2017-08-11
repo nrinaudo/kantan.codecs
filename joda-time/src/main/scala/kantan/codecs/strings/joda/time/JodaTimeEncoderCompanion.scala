@@ -24,10 +24,10 @@ import org.joda.time.format.DateTimeFormatter
 trait JodaTimeEncoderCompanion[E, T] {
   def encoderFrom[D](d: StringEncoder[D]): Encoder[E, D, T]
 
-  def dateTimeEncoder(format: String): Encoder[E, DateTime, T] = dateTimeEncoder(Format(format))
+  def dateTimeEncoder(format: String): Encoder[E, DateTime, T]              = dateTimeEncoder(Format(format))
   def dateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, DateTime, T] = dateTimeEncoder(Format(format))
-  def dateTimeEncoder(format: Format): Encoder[E, DateTime, T] = encoderFrom(dateTimeStringEncoder(format))
-  def defaultDateTimeEncoder: Encoder[E, DateTime, T] = dateTimeEncoder(defaultDateTimeFormat)
+  def dateTimeEncoder(format: Format): Encoder[E, DateTime, T]              = encoderFrom(dateTimeStringEncoder(format))
+  def defaultDateTimeEncoder: Encoder[E, DateTime, T]                       = dateTimeEncoder(defaultDateTimeFormat)
 
   def localDateTimeEncoder(format: String): Encoder[E, LocalDateTime, T] = localDateTimeEncoder(Format(format))
   def localDateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDateTime, T] =
@@ -36,13 +36,13 @@ trait JodaTimeEncoderCompanion[E, T] {
     encoderFrom(localDateTimeStringEncoder(format))
   def defaultLocalDateTimeEncoder: Encoder[E, LocalDateTime, T] = localDateTimeEncoder(defaultLocalDateTimeFormat)
 
-  def localDateEncoder(format: String): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
+  def localDateEncoder(format: String): Encoder[E, LocalDate, T]              = localDateEncoder(Format(format))
   def localDateEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
-  def localDateEncoder(format: Format): Encoder[E, LocalDate, T] = encoderFrom(localDateStringEncoder(format))
-  def defaultLocalDateEncoder: Encoder[E, LocalDate, T] = localDateEncoder(defaultLocalDateFormat)
+  def localDateEncoder(format: Format): Encoder[E, LocalDate, T]              = encoderFrom(localDateStringEncoder(format))
+  def defaultLocalDateEncoder: Encoder[E, LocalDate, T]                       = localDateEncoder(defaultLocalDateFormat)
 
-  def localTimeEncoder(format: String): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
+  def localTimeEncoder(format: String): Encoder[E, LocalTime, T]              = localTimeEncoder(Format(format))
   def localTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
-  def localTimeEncoder(format: Format): Encoder[E, LocalTime, T] = encoderFrom(localTimeStringEncoder(format))
-  def defaultLocalTimeEncoder: Encoder[E, LocalTime, T] = localTimeEncoder(defaultLocalTimeFormat)
+  def localTimeEncoder(format: Format): Encoder[E, LocalTime, T]              = encoderFrom(localTimeStringEncoder(format))
+  def defaultLocalTimeEncoder: Encoder[E, LocalTime, T]                       = localTimeEncoder(defaultLocalTimeFormat)
 }

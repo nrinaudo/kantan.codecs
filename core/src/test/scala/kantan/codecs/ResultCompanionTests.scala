@@ -30,19 +30,27 @@ class ResultCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("Simple.success should behave like Result.success") {
-    forAll { i: Int ⇒ assert(simple.success(i) == Result.success(i)) }
+    forAll { i: Int ⇒
+      assert(simple.success(i) == Result.success(i))
+    }
   }
 
   test("Simple.failure should behave like Result.failure") {
-    forAll { s: String ⇒ assert(simple.failure(s) == Result.failure(s)) }
+    forAll { s: String ⇒
+      assert(simple.failure(s) == Result.failure(s))
+    }
   }
 
   test("Simple.fromEither should behave like Result.fromEither") {
-    forAll { (e: Either[String, Int]) ⇒ assert(simple.fromEither(e) == Result.fromEither(e)) }
+    forAll { (e: Either[String, Int]) ⇒
+      assert(simple.fromEither(e) == Result.fromEither(e))
+    }
   }
 
   test("Simple.fromOption should behave like Result.fromOption") {
-    forAll { (o: Option[Int], s: String) ⇒ assert(simple.fromOption(o, s) == Result.fromOption(o, s)) }
+    forAll { (o: Option[Int], s: String) ⇒
+      assert(simple.fromOption(o, s) == Result.fromOption(o, s))
+    }
   }
 
   test("Simple.sequence should behave like Result.sequence") {
@@ -52,11 +60,15 @@ class ResultCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   test("WithDefault.apply should yield the expected result on success") {
-    forAll { i: Int ⇒ assert(withDefault(i) == Result.success(i)) }
+    forAll { i: Int ⇒
+      assert(withDefault(i) == Result.success(i))
+    }
   }
 
   test("WithDefault.apply should yield the expected result on failure") {
-    forAll { e: Exception ⇒ assert(withDefault(throw e) == Result.failure(e.getMessage)) }
+    forAll { e: Exception ⇒
+      assert(withDefault(throw e) == Result.failure(e.getMessage))
+    }
   }
 
   test("WithDefault.fromTry should yield the expected result") {
