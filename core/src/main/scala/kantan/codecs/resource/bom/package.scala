@@ -31,6 +31,6 @@ package object bom {
   implicit def writerFromStream[A: OutputResource](implicit codec: Codec): WriterResource[A] =
     OutputResource[A].map(BomWriter(_, codec))
 
-  implicit def readerFromStream[A: InputResource](implicit codec: Codec): ReaderResource[A]  =
+  implicit def readerFromStream[A: InputResource](implicit codec: Codec): ReaderResource[A] =
     InputResource[A].map(BomReader(_, codec))
 }

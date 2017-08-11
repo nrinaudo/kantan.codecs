@@ -18,16 +18,15 @@ package kantan.codecs.laws.discipline
 
 import arbitrary._
 import imp.imp
-import kantan.codecs.laws._
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws._, CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop._
 
 trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[E, D, T] {
   def laws: CodecLaws[E, D, F, T]
 
-  private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit av: Arbitrary[CodecValue[E, D, T]])
-  : RuleSet =
+  private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
+      implicit av: Arbitrary[CodecValue[E, D, T]]): RuleSet =
     new DefaultRuleSet(
       "round trip",
       Some(encoder[A, B]),
@@ -48,24 +47,25 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
   def bijectiveCodec[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet = new RuleSet {
     implicit val arbValues: Arbitrary[CodecValue[E, D, T]] = Arbitrary(arbLegal.arbitrary)
 
-    val name = "bijective codec"
-    val bases = Nil
+    val name    = "bijective codec"
+    val bases   = Nil
     val parents = Seq(coreRules[A, B], bijectiveDecoder[A, B])
-    val props = Seq.empty
+    val props   = Seq.empty
   }
 
   def codec[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
     new RuleSet {
-      val name = "codec"
-      val bases = Nil
+      val name    = "codec"
+      val bases   = Nil
       val parents = Seq(coreRules[A, B], decoder[A, B])
-      val props = Seq.empty
+      val props   = Seq.empty
     }
 }
 
 object CodecTests {
-  def apply[E: Arbitrary: Cogen, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T]
-  (implicit l: CodecLaws[E, D, F, T], al: Arbitrary[LegalValue[E, D, T]]): CodecTests[E, D, F, T] =
+  def apply[E: Arbitrary: Cogen, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](
+      implicit l: CodecLaws[E, D, F, T],
+      al: Arbitrary[LegalValue[E, D, T]]): CodecTests[E, D, F, T] =
     new CodecTests[E, D, F, T] {
       override val laws     = l
       override val arbLegal = al

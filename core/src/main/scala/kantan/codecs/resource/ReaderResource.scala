@@ -18,6 +18,7 @@ package kantan.codecs.resource
 
 /** Provides instance summoning methods for [[ReaderResource]]. */
 object ReaderResource {
+
   /** Summons an implicit instance of [[ReaderResource]] if one is found in scope, fails compilation otherwise. */
   def apply[A](implicit ev: ReaderResource[A]): ReaderResource[A] = macro imp.summon[ReaderResource[A]]
 }

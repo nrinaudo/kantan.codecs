@@ -24,12 +24,10 @@ trait DecoderLaws[E, D, F, T] {
   def decoder: Decoder[E, D, F, T]
 
   private def cmp(result: Result[F, D], cv: CodecValue[E, D, T]): Boolean = (cv, result) match {
-    case (IllegalValue(_),  Result.Failure(_))  ⇒ true
+    case (IllegalValue(_), Result.Failure(_))   ⇒ true
     case (LegalValue(_, d), Result.Success(d2)) ⇒ d == d2
     case _                                      ⇒ false
   }
-
-
 
   // - Simple laws -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -37,7 +35,6 @@ trait DecoderLaws[E, D, F, T] {
 
   def decodeFailure(v: IllegalValue[E, D, T]): Boolean =
     Prop.throws(classOf[Exception])(decoder.unsafeDecode(v.encoded))
-
 
   // - Functor laws ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -53,8 +50,6 @@ trait DecoderLaws[E, D, F, T] {
   def leftMapComposition[A, B](v: CodecValue[E, D, T], f: F ⇒ A, g: A ⇒ B): Boolean =
     decoder.leftMap(f andThen g).decode(v.encoded) == decoder.leftMap(f).leftMap(g).decode(v.encoded)
 
-
-
   // - Contravariant laws ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def contramapEncodedIdentity(v: CodecValue[E, D, T]): Boolean =
@@ -63,15 +58,13 @@ trait DecoderLaws[E, D, F, T] {
   def contramapEncodedComposition[A, B](b: B, f: A ⇒ E, g: B ⇒ A): Boolean =
     decoder.contramapEncoded(g andThen f).decode(b) == decoder.contramapEncoded(f).contramapEncoded(g).decode(b)
 
-
-
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def emapIdentity(v: CodecValue[E, D, T]): Boolean =
     decoder.decode(v.encoded) == decoder.emap(Result.success).decode(v.encoded)
 
   def emapComposition[A, B](v: CodecValue[E, D, T], f: D ⇒ Result[F, A], g: A ⇒ Result[F, B]): Boolean =
-    decoder.emap(d ⇒ f(d).flatMap(g)).decode(v.encoded) ==  decoder.emap(f).emap(g).decode(v.encoded)
+    decoder.emap(d ⇒ f(d).flatMap(g)).decode(v.encoded) == decoder.emap(f).emap(g).decode(v.encoded)
 
   // TODO: filter
   // TODO: collect

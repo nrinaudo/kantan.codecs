@@ -32,17 +32,17 @@ class JodaTimeCodecCompanionTests extends FunSuite with GeneratorDrivenPropertyC
     override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
 
-    implicit val dateTimeTestCodec: TestCodec[DateTime] = defaultDateTimeCodec
+    implicit val dateTimeTestCodec: TestCodec[DateTime]           = defaultDateTimeCodec
     implicit val localDateTimeTestCodec: TestCodec[LocalDateTime] = defaultLocalDateTimeCodec
-    implicit val localDateTestCodec: TestCodec[LocalDate] = defaultLocalDateCodec
-    implicit val localTimeTestCodec: TestCodec[LocalTime] = defaultLocalTimeCodec
+    implicit val localDateTestCodec: TestCodec[LocalDate]         = defaultLocalDateCodec
+    implicit val localTimeTestCodec: TestCodec[LocalTime]         = defaultLocalTimeCodec
   }
 
   import CodecCompanion._
 
   checkAll("JodaTimeCodecCompanion[DateTime]", CodecTests[String, DateTime, DecodeError, codec.type].codec[Int, Int])
   checkAll("JodaTimeCodecCompanion[LocalDateTime]",
-    CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int])
+           CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int])
   checkAll("JodaTimeCodecCompanion[LocalDate]", CodecTests[String, LocalDate, DecodeError, codec.type].codec[Int, Int])
   checkAll("JodaTimeCodecCompanion[LocalTime]", CodecTests[String, LocalTime, DecodeError, codec.type].codec[Int, Int])
 }

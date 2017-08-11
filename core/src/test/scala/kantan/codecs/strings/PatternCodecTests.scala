@@ -33,4 +33,4 @@ class PatternCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with
   checkAll("TaggedDecoder[Pattern]", DecoderTests[String, Pattern, DecodeError, tagged.type].bijectiveDecoder[Int, Int])
   checkAll("TaggedEncoder[Pattern]", EncoderTests[String, Pattern, tagged.type].encoder[Int, Int])
 }
-*/
+ */

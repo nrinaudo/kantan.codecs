@@ -20,6 +20,7 @@ import java.io._
 import scala.io.Codec
 
 object BomReader {
+
   /** Size, in bytes, of the largest BOM we support. */
   private val maxBytes: Int = ByteOrderMark.values.foldLeft(0)((acc, bom) ⇒ math.max(acc, bom.bytes.length))
 
@@ -34,10 +35,10 @@ object BomReader {
       val read = input.read(buf)
 
       // Empty stream.
-      if(read == -1) None
+      if (read == -1) None
 
       // Stream with enough data for the largest BOM
-      else if(read == maxBytes) Some(buf)
+      else if (read == maxBytes) Some(buf)
 
       // Stream with too little data for the largest BOM, resize our array to fit what was actually read.
       else {
@@ -55,17 +56,17 @@ object BomReader {
       ByteOrderMark.values.sortBy(-_.bytes.length).find { bom ⇒
         (bom.bytes.length <= buf.length) && bom.bytes.indices.forall(i ⇒ bom.bytes(i) == buf(i))
       } match {
-          // No matching BOM was found, push all bytes back in the stream and open a reader on it.
+        // No matching BOM was found, push all bytes back in the stream and open a reader on it.
         case None ⇒
           val in = new PushbackInputStream(input, buf.length)
           in.unread(buf)
           new InputStreamReader(in, codec.charSet)
 
-          // A matching BOM was found. Either its' BOM is the same size as the amount of bytes we read from the stream,
-          // in which case we can just open a reader on the remaining bytes, or it's smaller and we need to push some
-          // bytes back into the stream.
+        // A matching BOM was found. Either its' BOM is the same size as the amount of bytes we read from the stream,
+        // in which case we can just open a reader on the remaining bytes, or it's smaller and we need to push some
+        // bytes back into the stream.
         case Some(bom) ⇒
-          if(bom.bytes.length == buf.length) new InputStreamReader(input, bom.charset)
+          if (bom.bytes.length == buf.length) new InputStreamReader(input, bom.charset)
           else {
             val in = new PushbackInputStream(input, buf.length - bom.bytes.length)
             in.unread(buf, bom.bytes.length, buf.length - bom.bytes.length)

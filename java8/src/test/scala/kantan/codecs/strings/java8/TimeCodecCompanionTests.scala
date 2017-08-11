@@ -32,23 +32,23 @@ class TimeCodecCompanionTests extends FunSuite with GeneratorDrivenPropertyCheck
     override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
 
-    implicit val instantTestCodec: TestCodec[Instant] = defaultInstantCodec
-    implicit val zonedDateTimeTestCodec: TestCodec[ZonedDateTime] = defaultZonedDateTimeCodec
+    implicit val instantTestCodec: TestCodec[Instant]               = defaultInstantCodec
+    implicit val zonedDateTimeTestCodec: TestCodec[ZonedDateTime]   = defaultZonedDateTimeCodec
     implicit val offsetDateTimeTestCodec: TestCodec[OffsetDateTime] = defaultOffsetDateTimeCodec
-    implicit val localDateTimeTestCodec: TestCodec[LocalDateTime] = defaultLocalDateTimeCodec
-    implicit val localDateTestCodec: TestCodec[LocalDate] = defaultLocalDateCodec
-    implicit val localTimeTestCodec: TestCodec[LocalTime] = defaultLocalTimeCodec
+    implicit val localDateTimeTestCodec: TestCodec[LocalDateTime]   = defaultLocalDateTimeCodec
+    implicit val localDateTestCodec: TestCodec[LocalDate]           = defaultLocalDateCodec
+    implicit val localTimeTestCodec: TestCodec[LocalTime]           = defaultLocalTimeCodec
   }
 
   import CodecCompanion._
 
   checkAll("TimeCodecCompanion[Instant]", CodecTests[String, Instant, DecodeError, codec.type].codec[Int, Int])
   checkAll("TimeCodecCompanion[ZonedDateTime]",
-    CodecTests[String, ZonedDateTime, DecodeError, codec.type].codec[Int, Int])
+           CodecTests[String, ZonedDateTime, DecodeError, codec.type].codec[Int, Int])
   checkAll("TimeCodecCompanion[OffsetDateTime]",
-    CodecTests[String, OffsetDateTime, DecodeError, codec.type].codec[Int, Int])
+           CodecTests[String, OffsetDateTime, DecodeError, codec.type].codec[Int, Int])
   checkAll("TimeCodecCompanion[LocalDateTime]",
-    CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int])
+           CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int])
   checkAll("TimeCodecCompanion[LocalDate]", CodecTests[String, LocalDate, DecodeError, codec.type].codec[Int, Int])
   checkAll("TimeCodecCompanion[LocalTime]", CodecTests[String, LocalTime, DecodeError, codec.type].codec[Int, Int])
 }

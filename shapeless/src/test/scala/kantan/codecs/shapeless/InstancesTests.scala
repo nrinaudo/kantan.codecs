@@ -45,8 +45,9 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
 
   // - Tests -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  checkAll("StringDecoder[Int Or Boolean]", DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
-    .decoder[Int, Int])
+  checkAll("StringDecoder[Int Or Boolean]",
+           DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
+             .decoder[Int, Int])
   checkAll("StringDecoder[Int Or Boolean]", SerializableTests[StringDecoder[Int Or Boolean]].serializable)
 
   checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])
@@ -55,7 +56,7 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
   checkAll("StringCodec[Int Or Boolean]", CodecTests[String, Int Or Boolean, DecodeError, codecs.type].codec[Int, Int])
 
   test("Encoder[?, CNil, ?] should fail") {
-    intercept[IllegalStateException] {StringEncoder[CNil].encode(null)}
+    intercept[IllegalStateException] { StringEncoder[CNil].encode(null) }
     ()
   }
 }

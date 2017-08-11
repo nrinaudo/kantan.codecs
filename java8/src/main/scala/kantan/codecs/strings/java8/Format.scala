@@ -23,11 +23,11 @@ import java.time.temporal.TemporalAccessor
 trait Format {
   def formatter: DateTimeFormatter
 
-  def parseInstant(str: String): Instant = Parse.instant(str, formatter)
-  def parseLocalDateTime(str: String): LocalDateTime = LocalDateTime.parse(str, formatter)
-  def parseZonedDateTime(str: String): ZonedDateTime = ZonedDateTime.parse(str, formatter)
-  def parseLocalTime(str: String): LocalTime = LocalTime.parse(str, formatter)
-  def parseLocalDate(str: String): LocalDate = LocalDate.parse(str, formatter)
+  def parseInstant(str: String): Instant               = Instant.from(formatter.parse(str))
+  def parseLocalDateTime(str: String): LocalDateTime   = LocalDateTime.parse(str, formatter)
+  def parseZonedDateTime(str: String): ZonedDateTime   = ZonedDateTime.parse(str, formatter)
+  def parseLocalTime(str: String): LocalTime           = LocalTime.parse(str, formatter)
+  def parseLocalDate(str: String): LocalDate           = LocalDate.parse(str, formatter)
   def parseOffsetDateTime(str: String): OffsetDateTime = OffsetDateTime.parse(str, formatter)
 
   def format(temporal: TemporalAccessor): String = formatter.format(temporal)
@@ -40,7 +40,7 @@ object Format {
 
   def apply(str: String): Format = {
     val format: Format = new Format with Serializable {
-      val pattern: String = str
+      val pattern: String                    = str
       @transient override lazy val formatter = DateTimeFormatter.ofPattern(pattern)
     }
     format.formatter

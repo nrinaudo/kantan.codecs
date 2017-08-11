@@ -36,9 +36,9 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
   // -------------------------------------------------------------------------------------------------------------------
   /** Returns `true` if the result is a success. */
   def isSuccess: Boolean
+
   /** Returns `true` if the result is a failure. */
   def isFailure: Boolean = !isSuccess
-
 
   // - Value retrieval -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -65,8 +65,6 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
     * Other value retrieval methods, such as [[getOrElse]] or [[valueOr]], should almost always be preferred.
     */
   def get: S
-
-
 
   // - Standard Scala operations ---------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -106,8 +104,6 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
     */
   def ensure[FF >: F](fail: ⇒ FF)(f: S ⇒ Boolean): Result[FF, S]
 
-
-
   // - Foldable operations ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def fold[A](ff: F ⇒ A, fs: S ⇒ A): A
@@ -115,18 +111,15 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
   def foldRight[A](acc: A)(f: (S, A) ⇒ A): A =
     fold(_ ⇒ acc, s ⇒ f(s, acc))
 
-
   // - Monad operations ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def map[SS](f: S ⇒ SS): Result[F, SS]
   def flatMap[FF >: F, SS](f: S ⇒ Result[FF, SS]): Result[FF, SS]
 
-
   // - Comonad operations ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def leftMap[FF](f: F ⇒ FF): Result[FF, S]
   def leftFlatMap[FF, SS >: S](f: F ⇒ Result[FF, SS]): Result[FF, SS]
-
 
   // - BiMonad operations ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -136,14 +129,14 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
     case Failure(e) ⇒ f(e)
   }
 
-
-
   // - Conversion to standard types ------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Turns a $success into a `Some` and a $failure into a `None`. */
   def toOption: Option[S]
+
   /** Turns a $success into a `Right` and a $failure into a `Left`. */
   def toEither: Either[F, S]
+
   /** Turns a $success into a singleton list and a $failure into an empty list. */
   def toList: List[S]
 }
@@ -155,23 +148,27 @@ sealed abstract class Result[+F, +S] extends Product with Serializable {
   * `DecodeResult`'s companion object, which can be achieved by extending [[kantan.codecs.ResultCompanion.WithDefault]].
   */
 object ResultCompanion {
+
   /** Provides companion object methods for result types that do not have a sane default error type.
     *
     * If your specialised result type has a sane default (such as `TypeError` for `DecodeResult` in kantan.csv), use
     * [[WithDefault]] instead.
     */
   trait Simple[F] {
+
     /** Turns a collection of results into a result of a collection. */
-    @inline def sequence[S, M[X] <: TraversableOnce[X]]
-    (rs: M[Result[F, S]])(implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]): Result[F, M[S]] = Result.sequence(rs)
+    @inline def sequence[S, M[X] <: TraversableOnce[X]](rs: M[Result[F, S]])(
+        implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]): Result[F, M[S]] = Result.sequence(rs)
 
     /** Turns the specified value into a success. */
     @inline def success[S](s: S): Result[F, S] = Result.success(s)
+
     /** Turns the specified value into a failure. */
     @inline def failure(f: F): Result[F, Nothing] = Result.failure(f)
 
     /** Turns the specified `Either` into a result. */
     @inline def fromEither[S](e: Either[F, S]): Result[F, S] = Result.fromEither(e)
+
     /** Turns the specified `Option` into a result. */
     @inline def fromOption[S](o: Option[S], f: ⇒ F): Result[F, S] = Result.fromOption(o, f)
   }
@@ -181,11 +178,13 @@ object ResultCompanion {
     * This default error type is materialised by [[fromThrowable]].
     */
   trait WithDefault[F] extends Simple[F] {
+
     /** Turns an exception into an error. */
     protected def fromThrowable(t: Throwable): F
 
     /** Attempts to evaluate the specified expression. */
     @inline def apply[S](s: ⇒ S): Result[F, S] = Result.nonFatal(s).leftMap(fromThrowable)
+
     /** Turns the specified `Try` into a result. */
     @inline def fromTry[S](t: Try[S]): Result[F, S] = Result.fromTry(t).leftMap(fromThrowable)
   }
@@ -195,20 +194,20 @@ object Result {
   // - Helper methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Turns a collection of results into a result of a collection. */
-  def sequence[F, S, M[X] <: TraversableOnce[X]](rs: M[Result[F, S]])
-                                                (implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]])
-  : Result[F, M[S]] =
-  rs.foldLeft(Result.success[F, mutable.Builder[S, M[S]]](cbf(rs))) { (builder, res) ⇒
-    for(b ← builder; r ← res) yield b += r
-  }.map(_.result())
-
-
+  def sequence[F, S, M[X] <: TraversableOnce[X]](rs: M[Result[F, S]])(
+      implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]): Result[F, M[S]] =
+    rs.foldLeft(Result.success[F, mutable.Builder[S, M[S]]](cbf(rs))) { (builder, res) ⇒
+        for {
+          b ← builder
+          r ← res
+        } yield b += r
+      }
+      .map(_.result())
 
   // - Instance construction -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def nonFatal[S](s: ⇒ S): Result[Throwable, S] =
-  try { success(s) }
-  catch { case scala.util.control.NonFatal(t) ⇒ failure(t) }
+    try { success(s) } catch { case scala.util.control.NonFatal(t) ⇒ failure(t) }
 
   def nonFatalOr[F, S](f: ⇒ F)(s: ⇒ S): Result[F, S] = nonFatal(s).leftMap(_ ⇒ f)
 
@@ -217,45 +216,41 @@ object Result {
     case scala.util.Failure(f) ⇒ failure(f)
   }
 
-  def fromEither[F, S](e: Either[F, S]): Result[F, S] = e.fold(failure, success)
+  def fromEither[F, S](e: Either[F, S]): Result[F, S]      = e.fold(failure, success)
   def fromOption[F, S](o: Option[S], f: ⇒ F): Result[F, S] = o.fold(failure[F, S](f))(success)
 
   @inline def success[F, S](s: S): Result[F, S] = Success(s)
   @inline def failure[F, S](f: F): Result[F, S] = Failure(f)
 
-
-
   // - Successes -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   final case class Success[S](value: S) extends Result[Nothing, S] {
-    override def isSuccess= true
+    override def isSuccess = true
 
     override def orElse[FF >: Nothing, SS >: S](default: ⇒ Result[FF, SS]) = this
-    override def getOrElse[SS >: S](default: ⇒ SS) = value
-    override def get = value
+    override def getOrElse[SS >: S](default: ⇒ SS)                         = value
+    override def get                                                       = value
 
     override def fold[C](ff: Nothing ⇒ C, fs: S ⇒ C): C = fs(value)
 
-    override def foreach(f: S ⇒ Unit) = f(value)
-    override def recover[SS >: S](pf: PartialFunction[Nothing, SS]) = this
+    override def foreach(f: S ⇒ Unit)                                                              = f(value)
+    override def recover[SS >: S](pf: PartialFunction[Nothing, SS])                                = this
     override def recoverWith[SS >: S, FF >: Nothing](pf: PartialFunction[Nothing, Result[FF, SS]]) = this
-    override def valueOr[SS >: S](f: Nothing ⇒ SS) = value
-    override def forall(f: S ⇒ Boolean) = f(value)
-    override def ensure[FF >: Nothing](fail: ⇒ FF)(f: S ⇒ Boolean) = if(f(value)) this else failure(fail)
-    override def exists(f: S ⇒ Boolean) = f(value)
+    override def valueOr[SS >: S](f: Nothing ⇒ SS)                                                 = value
+    override def forall(f: S ⇒ Boolean)                                                            = f(value)
+    override def ensure[FF >: Nothing](fail: ⇒ FF)(f: S ⇒ Boolean)                                 = if (f(value)) this else failure(fail)
+    override def exists(f: S ⇒ Boolean)                                                            = f(value)
 
-    override def map[SS](f: S ⇒ SS) = copy(value = f(value))
+    override def map[SS](f: S ⇒ SS)                                = copy(value = f(value))
     override def flatMap[FF >: Nothing, SS](f: S ⇒ Result[FF, SS]) = f(value)
 
-    override def leftMap[FF](f: Nothing ⇒ FF) = this
+    override def leftMap[FF](f: Nothing ⇒ FF)                          = this
     override def leftFlatMap[FF, SS >: S](f: Nothing ⇒ Result[FF, SS]) = this
 
     override def toOption = Some(value)
     override def toEither = Right(value)
-    override def toList = List(value)
+    override def toList   = List(value)
   }
-
-
 
   // - Failures --------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -263,7 +258,7 @@ object Result {
     override def isSuccess = false
 
     override def orElse[FF >: F, SS >: Nothing](default: ⇒ Result[FF, SS]) = default
-    override def getOrElse[SS >: Nothing](default: ⇒ SS) = default
+    override def getOrElse[SS >: Nothing](default: ⇒ SS)                   = default
     @SuppressWarnings(Array("org.wartremover.warts.Throw"))
     override def get = throw new NoSuchElementException(s"get on a Failure($value)")
 
@@ -271,24 +266,24 @@ object Result {
 
     override def foreach(f: Nothing ⇒ Unit): Unit = ()
     override def recover[SS >: Nothing](pf: PartialFunction[F, SS]) =
-      if(pf.isDefinedAt(value)) success(pf(value))
-      else                      this
+      if (pf.isDefinedAt(value)) success(pf(value))
+      else this
     override def recoverWith[SS >: Nothing, FF >: F](pf: PartialFunction[F, Result[FF, SS]]) =
-      if(pf.isDefinedAt(value)) pf(value)
-      else                      this
-    override def valueOr[SS >: Nothing](f: F ⇒ SS) = f(value)
-    override def forall(f: Nothing ⇒ Boolean) = true
+      if (pf.isDefinedAt(value)) pf(value)
+      else this
+    override def valueOr[SS >: Nothing](f: F ⇒ SS)                 = f(value)
+    override def forall(f: Nothing ⇒ Boolean)                      = true
     override def ensure[FF >: F](fail: ⇒ FF)(f: Nothing ⇒ Boolean) = this
-    override def exists(f: Nothing ⇒ Boolean) = false
+    override def exists(f: Nothing ⇒ Boolean)                      = false
 
-    override def map[S](f: Nothing ⇒ S) = this
+    override def map[S](f: Nothing ⇒ S)                          = this
     override def flatMap[FF >: F, S](f: Nothing ⇒ Result[FF, S]) = this
 
-    override def leftMap[FF](f: F ⇒ FF) = copy(value = f(value))
+    override def leftMap[FF](f: F ⇒ FF)                                = copy(value = f(value))
     override def leftFlatMap[FF, SS >: Nothing](f: F ⇒ Result[FF, SS]) = f(value)
 
     override val toOption = None
     override def toEither = Left(value)
-    override val toList = Nil
+    override val toList   = Nil
   }
 }

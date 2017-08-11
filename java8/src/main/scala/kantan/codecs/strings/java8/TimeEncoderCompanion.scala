@@ -24,15 +24,15 @@ import kantan.codecs.strings.StringEncoder
 trait TimeEncoderCompanion[E, T] {
   def encoderFrom[D](d: StringEncoder[D]): Encoder[E, D, T]
 
-  def localTimeEncoder(format: String): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
+  def localTimeEncoder(format: String): Encoder[E, LocalTime, T]              = localTimeEncoder(Format(format))
   def localTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
-  def localTimeEncoder(format: Format): Encoder[E, LocalTime, T] = encoderFrom(localTimeStringEncoder(format))
-  def defaultLocalTimeEncoder: Encoder[E, LocalTime, T] = localTimeEncoder(defaultLocalTimeFormat)
+  def localTimeEncoder(format: Format): Encoder[E, LocalTime, T]              = encoderFrom(localTimeStringEncoder(format))
+  def defaultLocalTimeEncoder: Encoder[E, LocalTime, T]                       = localTimeEncoder(defaultLocalTimeFormat)
 
-  def localDateEncoder(format: String): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
+  def localDateEncoder(format: String): Encoder[E, LocalDate, T]              = localDateEncoder(Format(format))
   def localDateEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
-  def localDateEncoder(format: Format): Encoder[E, LocalDate, T] = encoderFrom(localDateStringEncoder(format))
-  def defaultLocalDateEncoder: Encoder[E, LocalDate, T] = localDateEncoder(defaultLocalDateFormat)
+  def localDateEncoder(format: Format): Encoder[E, LocalDate, T]              = encoderFrom(localDateStringEncoder(format))
+  def defaultLocalDateEncoder: Encoder[E, LocalDate, T]                       = localDateEncoder(defaultLocalDateFormat)
 
   def localDateTimeEncoder(format: String): Encoder[E, LocalDateTime, T] = localDateTimeEncoder(Format(format))
   def localDateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDateTime, T] =
@@ -57,7 +57,7 @@ trait TimeEncoderCompanion[E, T] {
   def defaultZonedDateTimeEncoder: Encoder[E, ZonedDateTime, T] =
     zonedDateTimeEncoder(defaultZonedDateTimeFormat)
 
-  def instantEncoder(format: String): Encoder[E, Instant, T] = instantEncoder(Format(format))
+  def instantEncoder(format: String): Encoder[E, Instant, T]              = instantEncoder(Format(format))
   def instantEncoder(format: ⇒ DateTimeFormatter): Encoder[E, Instant, T] = instantEncoder(Format(format))
   def instantEncoder(format: Format): Encoder[E, Instant, T] =
     encoderFrom(instantStringCodec(format))

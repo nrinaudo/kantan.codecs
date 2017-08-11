@@ -20,6 +20,7 @@ import kantan.codecs.Result
 
 /** Type class for all types that can be closed. */
 trait Closeable[A] {
+
   /** Closes the specified value. */
   def close(a: A): CloseResult
 }

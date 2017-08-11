@@ -23,7 +23,7 @@ private[bom] sealed abstract class ByteOrderMark(val charset: Charset) {
 }
 
 private[bom] object ByteOrderMark {
-  object Utf8 extends ByteOrderMark(Charset.forName("UTF-8"))
+  object Utf8    extends ByteOrderMark(Charset.forName("UTF-8"))
   object Utf16BE extends ByteOrderMark(Charset.forName("UTF-16BE"))
   object Utf16LE extends ByteOrderMark(Charset.forName("UTF-16LE"))
   object Utf32BE extends ByteOrderMark(Charset.forName("UTF-32BE"))

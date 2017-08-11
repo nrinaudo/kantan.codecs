@@ -17,8 +17,8 @@
 package kantan.codecs.laws
 
 import java.util.UUID
-import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.laws.CodecValue._
+import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.strings.{codecs ⇒ scodecs}
 import org.scalacheck.{Arbitrary, Prop}
 import org.scalatest.FunSuite
@@ -45,14 +45,15 @@ class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks {
   }
 
   // Not the most elegant code I wrote, but it does the job.
-  def testArbitrary[E, D, T](E: String, D: String)(f: E ⇒ D)
-                            (implicit arbL: Arbitrary[LegalValue[E, D, T]], arbI: Arbitrary[IllegalValue[E, D, T]])
-  : Unit = {
-    test(s"Arbitrary[LegalValue[$E, $D]] should generate legal values") {
-      forAll { li: LegalValue[E, D, T] ⇒ assert(f(li.encoded) == li.decoded )}
+  def testArbitrary[E, D, T](e: String, d: String)(f: E ⇒ D)(implicit arbL: Arbitrary[LegalValue[E, D, T]],
+                                                             arbI: Arbitrary[IllegalValue[E, D, T]]): Unit = {
+    test(s"Arbitrary[LegalValue[$e, $d]] should generate legal values") {
+      forAll { li: LegalValue[E, D, T] ⇒
+        assert(f(li.encoded) == li.decoded)
+      }
     }
 
-    test(s"Arbitrary[IllegalValue[$E, $D]] should generate illegal values") {
+    test(s"Arbitrary[IllegalValue[$e, $d]] should generate illegal values") {
       forAll { li: IllegalValue[E, D, T] ⇒
         Prop.throws(classOf[Exception])(f(li.encoded))
         ()
@@ -71,10 +72,10 @@ class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks {
   testArbitrary[String, BigDecimal, scodecs.type]("String", "BigDecimal")(BigDecimal.apply)
   testArbitrary[String, UUID, scodecs.type]("String", "UUID")(UUID.fromString)
   testArbitrary[String, Char, scodecs.type]("String", "Char") { s ⇒
-    if(s.length != 1) sys.error("not a valid char")
-    else              s.charAt(0)
+    if (s.length != 1) sys.error("not a valid char")
+    else s.charAt(0)
   }
-  testArbitrary[String, Option[Int], scodecs.type]("String", "Option[Int]")(s ⇒ if(s.isEmpty) None else Some(s.toInt))
+  testArbitrary[String, Option[Int], scodecs.type]("String", "Option[Int]")(s ⇒ if (s.isEmpty) None else Some(s.toInt))
   testArbitrary[String, Either[Boolean, Int], scodecs.type]("String", "Either[Boolean, Int]") { s ⇒
     Try(Left(s.toBoolean): Either[Boolean, Int]).getOrElse(Right(s.toInt): Either[Boolean, Int])
   }

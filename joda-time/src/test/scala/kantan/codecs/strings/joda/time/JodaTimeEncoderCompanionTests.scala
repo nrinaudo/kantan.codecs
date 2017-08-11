@@ -32,10 +32,10 @@ class JodaTimeEncoderCompanionTests extends FunSuite with GeneratorDrivenPropert
   object EncoderCompanion extends JodaTimeEncoderCompanion[String, codec.type] {
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
 
-    implicit val dateTimeTestEncoder: TestEncoder[DateTime] = Exported(defaultDateTimeEncoder)
+    implicit val dateTimeTestEncoder: TestEncoder[DateTime]           = Exported(defaultDateTimeEncoder)
     implicit val localDateTimeTestEncoder: TestEncoder[LocalDateTime] = Exported(defaultLocalDateTimeEncoder)
-    implicit val localDateTestEncoder: TestEncoder[LocalDate] = Exported(defaultLocalDateEncoder)
-    implicit val localTimeTestEncoder: TestEncoder[LocalTime] = Exported(defaultLocalTimeEncoder)
+    implicit val localDateTestEncoder: TestEncoder[LocalDate]         = Exported(defaultLocalDateEncoder)
+    implicit val localTimeTestEncoder: TestEncoder[LocalTime]         = Exported(defaultLocalTimeEncoder)
   }
 
   import EncoderCompanion._

@@ -21,6 +21,7 @@ import java.util.Date
 import kantan.codecs.Encoder
 
 object StringEncoder {
+
   /** Summons an implicit instance of `StringEncoder[D]` if one can be found, fails compilation otherwise. */
   def apply[D](implicit ev: StringEncoder[D]): StringEncoder[D] = macro imp.summon[StringEncoder[D]]
 

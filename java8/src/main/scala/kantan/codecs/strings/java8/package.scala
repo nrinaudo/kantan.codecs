@@ -35,8 +35,6 @@ package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type
 
   implicit val defaultStringInstantCodec: StringCodec[Instant] = defaultInstantCodec
 
-
-
   // - LocalDateTime codecs --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val defaultLocalDateTimeFormat: Format = Format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
@@ -52,8 +50,6 @@ package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type
 
   implicit val defaultStringLocalDateTimeCodec: StringCodec[LocalDateTime] = defaultLocalDateTimeCodec
 
-
-
   // - ZonedDateTime codecs --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val defaultZonedDateTimeFormat: Format = Format(DateTimeFormatter.ISO_ZONED_DATE_TIME)
@@ -67,8 +63,6 @@ package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type
     StringCodec.from(zonedDateTimeStringDecoder(format), zonedDateTimeStringEncoder(format))
 
   implicit val defaultStringZonedDateTimeCodec: StringCodec[ZonedDateTime] = defaultZonedDateTimeCodec
-
-
 
   // - OffsetDateTime codecs -------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -85,8 +79,6 @@ package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type
 
   implicit val defaultStringOffsetDateTimeCodec: StringCodec[OffsetDateTime] = defaultOffsetDateTimeCodec
 
-
-
   // - LocalDate codecs ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val defaultLocalDateFormat: Format = Format(DateTimeFormatter.ISO_LOCAL_DATE)
@@ -102,8 +94,6 @@ package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type
 
   implicit val defaultStringLocalDateCodec: StringCodec[LocalDate] = defaultLocalDateCodec
 
-
-
   // - LocalTime codecs ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val defaultLocalTimeFormat: Format = Format(DateTimeFormatter.ISO_LOCAL_TIME)
@@ -118,8 +108,6 @@ package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type
     StringCodec.from(localTimeStringDecoder(format), localTimeStringEncoder(format))
 
   implicit val defaultStringLocalTimeCodec: StringCodec[LocalTime] = defaultLocalTimeCodec
-
-
 
   // - TimeCodecCompanion implementation -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

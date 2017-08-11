@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter
 import kantan.codecs.Codec
 
 trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with TimeEncoderCompanion[E, T] {
-  def localTimeCodec(format: String): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
+  def localTimeCodec(format: String): Codec[E, LocalTime, F, T]              = localTimeCodec(Format(format))
   def localTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
   def localTimeCodec(format: Format): Codec[E, LocalTime, F, T] =
     Codec.from(localTimeDecoder(format), localTimeEncoder(format))

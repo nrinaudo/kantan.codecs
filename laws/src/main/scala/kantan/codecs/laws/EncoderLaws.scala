@@ -22,11 +22,9 @@ import kantan.codecs.laws.CodecValue.LegalValue
 trait EncoderLaws[E, D, T] {
   def encoder: Encoder[E, D, T]
 
-
   // - Simple laws -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def encode(v: LegalValue[E, D, T]): Boolean = encoder.encode(v.decoded) == v.encoded
-
 
   // - Covariant functor laws ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -34,8 +32,6 @@ trait EncoderLaws[E, D, T] {
 
   def mapEncodedComposition[A, B](d: D, f: E ⇒ A, g: A ⇒ B): Boolean =
     encoder.mapEncoded(f andThen g).encode(d) == encoder.mapEncoded(f).mapEncoded(g).encode(d)
-
-
 
   // - Contravariant functor laws --------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

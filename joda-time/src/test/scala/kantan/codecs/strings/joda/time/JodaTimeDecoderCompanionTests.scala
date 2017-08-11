@@ -32,20 +32,20 @@ class JodaTimeDecoderCompanionTests extends FunSuite with GeneratorDrivenPropert
   object DecoderCompanion extends JodaTimeDecoderCompanion[String, DecodeError, codec.type] {
     override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
 
-    implicit val dateTimeTestDecoder: TestDecoder[DateTime] = Exported(defaultDateTimeDecoder)
+    implicit val dateTimeTestDecoder: TestDecoder[DateTime]           = Exported(defaultDateTimeDecoder)
     implicit val localDateTimeTestDecoder: TestDecoder[LocalDateTime] = Exported(defaultLocalDateTimeDecoder)
-    implicit val localDateTestDecoder: TestDecoder[LocalDate] = Exported(defaultLocalDateDecoder)
-    implicit val localTimeTestDecoder: TestDecoder[LocalTime] = Exported(defaultLocalTimeDecoder)
+    implicit val localDateTestDecoder: TestDecoder[LocalDate]         = Exported(defaultLocalDateDecoder)
+    implicit val localTimeTestDecoder: TestDecoder[LocalTime]         = Exported(defaultLocalTimeDecoder)
   }
 
   import DecoderCompanion._
 
   checkAll("JodaTimeDecoderCompanion[DateTime]",
-    DecoderTests[String, DateTime, DecodeError, codec.type].decoder[Int, Int])
+           DecoderTests[String, DateTime, DecodeError, codec.type].decoder[Int, Int])
   checkAll("JodaTimeDecoderCompanion[LocalDateTime]",
-    DecoderTests[String, LocalDateTime, DecodeError, codec.type].decoder[Int, Int])
+           DecoderTests[String, LocalDateTime, DecodeError, codec.type].decoder[Int, Int])
   checkAll("JodaTimeDecoderCompanion[LocalDate]",
-    DecoderTests[String, LocalDate, DecodeError, codec.type].decoder[Int, Int])
+           DecoderTests[String, LocalDate, DecodeError, codec.type].decoder[Int, Int])
   checkAll("JodaTimeDecoderCompanion[LocalTime]",
-    DecoderTests[String, LocalTime, DecodeError, codec.type].decoder[Int, Int])
+           DecoderTests[String, LocalTime, DecodeError, codec.type].decoder[Int, Int])
 }

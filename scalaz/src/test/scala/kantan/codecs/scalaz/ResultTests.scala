@@ -42,10 +42,14 @@ class ResultTests extends ScalazSuite {
   checkAll("Result[?, ?]", bitraverse.laws[Result[?, ?]])
 
   test("Show should yield the expected result for successes") {
-    forAll { i: Int ⇒ assert(Show[Result[String, Int]].shows(Result.success(i)) == s"Success($i)") }
+    forAll { i: Int ⇒
+      assert(Show[Result[String, Int]].shows(Result.success(i)) == s"Success($i)")
+    }
   }
 
   test("Show should yield the expected result for failures") {
-    forAll { i: Int ⇒ assert(Show[Result[Int, String]].shows(Result.failure(i)) == s"Failure($i)") }
+    forAll { i: Int ⇒
+      assert(Show[Result[Int, String]].shows(Result.failure(i)) == s"Failure($i)")
+    }
   }
 }

@@ -32,6 +32,7 @@ import scala.io.Codec
   * @tparam R type of the opened resource (eg `java.io.InputStream`)
   */
 trait Resource[I, R] { self ⇒
+
   /** Opens the specified resource. */
   def open(input: I): OpenResult[R]
 
@@ -66,12 +67,10 @@ object Resource {
   // - Raw streams -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def streamInputResource[I <: InputStream]: InputResource[I] = Resource.from(Result.success)
-  implicit def readerReaderResource[R <: Reader]: ReaderResource[R] = Resource.from(Result.success)
+  implicit def readerReaderResource[R <: Reader]: ReaderResource[R]    = Resource.from(Result.success)
 
   implicit def streamOutputResource[O <: OutputStream]: OutputResource[O] = Resource.from(Result.success)
-  implicit def writerWriterResource[W <: Writer]: WriterResource[W] = Resource.from(Result.success)
-
-
+  implicit def writerWriterResource[W <: Writer]: WriterResource[W]       = Resource.from(Result.success)
 
   // - Byte to char ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -83,8 +82,6 @@ object Resource {
   implicit def writerFromStream[A: OutputResource](implicit codec: Codec): WriterResource[A] =
     OutputResource[A].map(o ⇒ new OutputStreamWriter(o, codec.charSet))
 
-
-
   // - Standard types --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val pathInputResource: InputResource[Path] =
@@ -92,7 +89,7 @@ object Resource {
   implicit val pathOutputResource: OutputResource[Path] =
     OutputResource[OutputStream].contramapResult(p ⇒ open(Files.newOutputStream(p)))
 
-  implicit val fileInputResource: InputResource[File] = InputResource[Path].contramap(_.toPath)
+  implicit val fileInputResource: InputResource[File]   = InputResource[Path].contramap(_.toPath)
   implicit val fileOutputResource: OutputResource[File] = OutputResource[Path].contramap(_.toPath)
 
   implicit val bytesInputResource: InputResource[Array[Byte]] =

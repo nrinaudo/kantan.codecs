@@ -38,13 +38,14 @@ trait ShapelessInstances {
     * then simply turn values of type `D` into values of the corresponding `HList`, then let the encoder take it from
     * there.
     */
-  implicit def caseClassEncoder[E, D, T, H <: HList]
-  (implicit gen: Generic.Aux[D, H], er: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
-  DerivedEncoder.from(s ⇒ er.value.encode(gen.to(s)))
+  implicit def caseClassEncoder[E, D, T, H <: HList](implicit gen: Generic.Aux[D, H],
+                                                     er: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
+    DerivedEncoder.from(s ⇒ er.value.encode(gen.to(s)))
 
   /** Similar to [[caseClassEncoder]], but working with `LabelledGeneric` rather than just `Generic`. */
-  implicit def caseClassEncoderFromLabelled[E, D, T, H <: HList]
-  (implicit generic: LabelledGeneric.Aux[D, H], hEncoder: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
+  implicit def caseClassEncoderFromLabelled[E, D, T, H <: HList](
+      implicit generic: LabelledGeneric.Aux[D, H],
+      hEncoder: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
     DerivedEncoder.from(value ⇒ hEncoder.value.encode(generic.to(value)))
 
   /** Provides a `Decoder` instance for case classes.
@@ -52,16 +53,15 @@ trait ShapelessInstances {
     * Given a case class `D`, this expects n `Decoder` instance for the `HList` type corresponding to `D`. It will
     * then rely on that to turn encoded values into an `HList`, then turn the resulting value into a `D`.
     */
-  implicit def caseClassDecoder[E, D, F, T, H <: HList]
-  (implicit gen: Generic.Aux[D, H], dr: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
-  DerivedDecoder.from(s ⇒ dr.value.decode(s).map(gen.from))
+  implicit def caseClassDecoder[E, D, F, T, H <: HList](implicit gen: Generic.Aux[D, H],
+                                                        dr: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
+    DerivedDecoder.from(s ⇒ dr.value.decode(s).map(gen.from))
 
   /** Similar to [[caseClassDecoder]], but working with `LabelledGeneric` rather than just `Generic`. */
-  implicit def caseClassDecoderFromLabelled[E, D, F, T, H <: HList]
-  (implicit generic: LabelledGeneric.Aux[D, H], hDecoder: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
+  implicit def caseClassDecoderFromLabelled[E, D, F, T, H <: HList](
+      implicit generic: LabelledGeneric.Aux[D, H],
+      hDecoder: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
     DerivedDecoder.from(value ⇒ hDecoder.value.decode(value).map(generic.from))
-
-
 
   // - Sum types -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -71,36 +71,34 @@ trait ShapelessInstances {
     * will then simply turn values of type `D` into values of the corresponding `Coproduct`, then let the encoder take
     * it from there.
     */
-  implicit def sumTypeEncoder[E, D, T, C <: Coproduct]
-  (implicit gen: Generic.Aux[D, C], er: Lazy[Encoder[E, C, T]]): DerivedEncoder[E, D, T] =
-  DerivedEncoder.from(m ⇒ er.value.encode(gen.to(m)))
+  implicit def sumTypeEncoder[E, D, T, C <: Coproduct](implicit gen: Generic.Aux[D, C],
+                                                       er: Lazy[Encoder[E, C, T]]): DerivedEncoder[E, D, T] =
+    DerivedEncoder.from(m ⇒ er.value.encode(gen.to(m)))
 
   /** Provides a `Decoder` instance for sum types.
     *
     * Given a case class `D`, this expects n `Decoder` instance for the `Coproduct` type corresponding to `D`.
     * It will then rely on that to turn encoded values into a `Coproduct`, then turn the resulting value into a `D`.
     */
-  implicit def sumTypeDecoder[E, D, F, T, C <: Coproduct]
-  (implicit gen: Generic.Aux[D, C], dr: Lazy[Decoder[E, C, F, T]]): DerivedDecoder[E, D, F, T] =
-  DerivedDecoder.from(m ⇒ dr.value.decode(m).map(gen.from))
-
-
+  implicit def sumTypeDecoder[E, D, F, T, C <: Coproduct](implicit gen: Generic.Aux[D, C],
+                                                          dr: Lazy[Decoder[E, C, F, T]]): DerivedDecoder[E, D, F, T] =
+    DerivedDecoder.from(m ⇒ dr.value.decode(m).map(gen.from))
 
   // - Coproducts ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def cnilDecoder[E, F, T](f: E ⇒ F): Decoder[E, CNil, F, T] =
     Decoder.from(f andThen Result.failure)
 
-  implicit def coproductDecoder[E, H, D <: Coproduct, F, T]
-  (implicit dh: Decoder[E, H, F, T], dt: Decoder[E, D, F, T]): Decoder[E, H :+: D, F, T] =
+  implicit def coproductDecoder[E, H, D <: Coproduct, F, T](implicit dh: Decoder[E, H, F, T],
+                                                            dt: Decoder[E, D, F, T]): Decoder[E, H :+: D, F, T] =
     Decoder.from(e ⇒ dh.decode(e).map(Inl.apply).orElse(dt.decode(e).map(Inr.apply)))
 
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   implicit def cnilEncoder[E, D, T]: Encoder[E, CNil, T] =
-    Encoder.from(_ ⇒  throw new IllegalStateException("trying to encode CNil, this should not happen"))
+    Encoder.from(_ ⇒ throw new IllegalStateException("trying to encode CNil, this should not happen"))
 
-  implicit def coproductEncoder[E, H, D <: Coproduct, T]
-  (implicit eh: Encoder[E, H, T], ed: Encoder[E, D, T]): Encoder[E, H :+: D, T] = Encoder.from {
+  implicit def coproductEncoder[E, H, D <: Coproduct, T](implicit eh: Encoder[E, H, T],
+                                                         ed: Encoder[E, D, T]): Encoder[E, H :+: D, T] = Encoder.from {
     case Inl(h) ⇒ eh.encode(h)
     case Inr(d) ⇒ ed.encode(d)
   }

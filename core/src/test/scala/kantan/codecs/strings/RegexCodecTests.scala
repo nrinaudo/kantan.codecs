@@ -33,4 +33,4 @@ class RegexCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with D
   checkAll("TaggedDecoder[Regex]", DecoderTests[String, Regex, DecodeError, tagged.type].bijectiveDecoder[Int, Int])
   checkAll("TaggedEncoder[Regex]", EncoderTests[String, Regex, tagged.type].encoder[Int, Int])
 }
-*/
+ */
