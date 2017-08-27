@@ -19,12 +19,12 @@ package kantan.codecs
 import java.util.NoSuchElementException
 import kantan.codecs.Result.{Failure, Success}
 import kantan.codecs.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
+import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try
 
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
-class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   // - Generic tests ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   test("foreach should not be executed for failures and pass the correct value for successes") {
@@ -32,7 +32,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
       d match {
         case Success(i) ⇒
           d.foreach { v ⇒
-            assert(i == v); ()
+            i should be(v)
+            ()
           }
         case Failure(_) ⇒ d.foreach(_ ⇒ fail())
       }
@@ -42,8 +43,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("forall should return true for failures, or the expected value for successes") {
     forAll { (d: Result[String, Int], f: Int ⇒ Boolean) ⇒
       d match {
-        case Success(i) ⇒ assert(d.forall(f) == f(i))
-        case Failure(_) ⇒ assert(d.forall(f))
+        case Success(i) ⇒ d.forall(f) should be(f(i))
+        case Failure(_) ⇒ d.forall(f) should be(true)
       }
     }
   }
@@ -51,7 +52,7 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("get should throw for failures and return the expected value for successes") {
     forAll { (d: Result[String, Int]) ⇒
       d match {
-        case Success(i) ⇒ assert(d.get == i)
+        case Success(i) ⇒ d.get should be(i)
         case Failure(_) ⇒
           intercept[NoSuchElementException](d.get)
           ()
@@ -62,8 +63,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("getOrElse should return the default value for failures and the expected one for successes") {
     forAll { (d: Result[String, Int], v: Int) ⇒
       d match {
-        case Success(i) ⇒ assert(d.getOrElse(v) == i)
-        case Failure(_) ⇒ assert(d.getOrElse(v) == v)
+        case Success(i) ⇒ d.getOrElse(v) should be(i)
+        case Failure(_) ⇒ d.getOrElse(v) should be(v)
       }
     }
   }
@@ -71,8 +72,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("valueOr should apply the specified function to a failure's value, or do nothing for a success") {
     forAll { (d: Result[String, Int], or: String ⇒ Int) ⇒
       d match {
-        case Success(i) ⇒ assert(d.valueOr(or) == i)
-        case Failure(s) ⇒ assert(d.valueOr(or) == or(s))
+        case Success(i) ⇒ d.valueOr(or) should be(i)
+        case Failure(s) ⇒ d.valueOr(or) should be(or(s))
       }
     }
   }
@@ -80,8 +81,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("exists should return false for failures, true for successes where it applies") {
     forAll { (d: Result[String, Int], f: Int ⇒ Boolean) ⇒
       d match {
-        case Success(i) ⇒ assert(d.exists(f) == f(i))
-        case Failure(s) ⇒ assert(!d.exists(f))
+        case Success(i) ⇒ d.exists(f) should be(f(i))
+        case Failure(s) ⇒ d.exists(f) should be(false)
       }
     }
   }
@@ -90,9 +91,9 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
     forAll { (d: Result[String, Int], failure: String, f: Int ⇒ Boolean) ⇒
       d match {
         case Success(i) ⇒
-          if (f(i)) assert(d.ensure(failure)(f) == d)
-          else assert(d.ensure(failure)(f) == Result.failure(failure))
-        case Failure(s) ⇒ assert(d.ensure(failure)(f) == d)
+          if(f(i)) d.ensure(failure)(f) should be(d)
+          else d.ensure(failure)(f) should be(Result.failure(failure))
+        case Failure(s) ⇒ d.ensure(failure)(f) should be(d)
       }
     }
   }
@@ -102,10 +103,10 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
       {
         val partial = Function.unlift(f)
         d match {
-          case Success(i) ⇒ assert(d.recover(partial) == Result.success(i))
+          case Success(i) ⇒ d.recover(partial) should be(Result.success(i))
           case Failure(s) ⇒
-            if (partial.isDefinedAt(s)) assert(d.recover(partial) == Result.success(partial(s)))
-            else assert(d.recover(partial) == d)
+            if(partial.isDefinedAt(s)) d.recover(partial) should be(Result.success(partial(s)))
+            else d.recover(partial) should be(d)
         }
       }
     }
@@ -115,10 +116,10 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
     forAll { (d: Result[String, Int], f: String ⇒ Option[Result[String, Int]]) ⇒
       val partial = Function.unlift(f)
       d match {
-        case Success(i) ⇒ assert(d.recoverWith(partial) == Result.success(i))
+        case Success(i) ⇒ d.recoverWith(partial) should be(Result.success(i))
         case Failure(s) ⇒
-          if (partial.isDefinedAt(s)) assert(d.recoverWith(partial) == partial(s))
-          else assert(d.recoverWith(partial) == d)
+          if(partial.isDefinedAt(s)) d.recoverWith(partial) should be(partial(s))
+          else d.recoverWith(partial) should be(d)
       }
     }
   }
@@ -126,8 +127,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("fromTry should return a Failure from a Failure and a Success from a Success") {
     forAll { (t: Try[Int]) ⇒
       t match {
-        case scala.util.Failure(e) ⇒ assert(Result.fromTry(t) == Failure(e))
-        case scala.util.Success(i) ⇒ assert(Result.fromTry(t) == Success(i))
+        case scala.util.Failure(e) ⇒ Result.fromTry(t) should be(Failure(e))
+        case scala.util.Success(i) ⇒ Result.fromTry(t) should be(Success(i))
       }
     }
   }
@@ -135,8 +136,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("fromEither should return a Failure from a Left and a Success from a Right") {
     forAll { (e: Either[String, Int]) ⇒
       e match {
-        case Left(s)  ⇒ assert(Result.fromEither(e) == Failure(s))
-        case Right(i) ⇒ assert(Result.fromEither(e) == Success(i))
+        case Left(s)  ⇒ Result.fromEither(e) should be(Failure(s))
+        case Right(i) ⇒ Result.fromEither(e) should be(Success(i))
       }
     }
   }
@@ -144,8 +145,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("fromOption should return a Failure from a None and a Success from a Some") {
     forAll { (o: Option[Int], s: String) ⇒
       o match {
-        case None    ⇒ assert(Result.fromOption(o, s) == Failure(s))
-        case Some(i) ⇒ assert(Result.fromOption(o, s) == Success(i))
+        case None    ⇒ Result.fromOption(o, s) should be(Failure(s))
+        case Some(i) ⇒ Result.fromOption(o, s) should be(Success(i))
       }
     }
   }
@@ -162,8 +163,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("flatMap should apply to successes and leave failures untouched") {
     forAll { (d: Result[Int, String], f: String ⇒ Result[Int, Float]) ⇒
       d match {
-        case Success(s)     ⇒ assert(d.flatMap(f) == f(s))
-        case e @ Failure(_) ⇒ assert(d.flatMap(f) == e)
+        case Success(s)     ⇒ d.flatMap(f) should be(f(s))
+        case e @ Failure(_) ⇒ d.flatMap(f) should be(e)
       }
     }
   }
@@ -171,8 +172,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("leftFlatMap should apply to failures and leave successes untouched") {
     forAll { (d: Result[Int, String], f: Int ⇒ Result[Float, String]) ⇒
       d match {
-        case s @ Success(_) ⇒ assert(d.leftFlatMap(f) == s)
-        case Failure(e)     ⇒ assert(d.leftFlatMap(f) == f(e))
+        case s @ Success(_) ⇒ d.leftFlatMap(f) should be(s)
+        case Failure(e)     ⇒ d.leftFlatMap(f) should be(f(e))
       }
     }
   }
@@ -180,8 +181,8 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   test("biFlatMap should behave as expected") {
     forAll { (d: Result[Int, String], f: Int ⇒ Result[Int, String], g: String ⇒ Result[Int, String]) ⇒
       d match {
-        case Failure(e) ⇒ assert(d.biFlatMap(f, g) == f(e))
-        case Success(s) ⇒ assert(d.biFlatMap(f, g) == g(s))
+        case Failure(e) ⇒ d.biFlatMap(f, g) should be(f(e))
+        case Success(s) ⇒ d.biFlatMap(f, g) should be(g(s))
       }
     }
   }
@@ -190,25 +191,25 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   // -------------------------------------------------------------------------------------------------------------------
   test("nonFatal should return the expected value when no error occurs") {
     forAll { (i: Int) ⇒
-      assert(Result.nonFatal(i) == Success(i))
+      Result.nonFatal(i) should be(Success(i))
     }
   }
 
   test("nonFatal should return the expected failure when an error occurs") {
     forAll { (e: Exception) ⇒
-      assert(Result.nonFatal(throw e) == Failure(e))
+      Result.nonFatal(throw e) should be(Failure(e))
     }
   }
 
   test("nonFatalOr should return the expected value when no error occurs") {
     forAll { (s: String, i: Int) ⇒
-      assert(Result.nonFatalOr(s)(i) == Success(i))
+      Result.nonFatalOr(s)(i) should be(Success(i))
     }
   }
 
   test("nonFatalOr should return the expected failure when an error occurs") {
     forAll { (s: String, e: Exception) ⇒
-      assert(Result.nonFatalOr(s)(throw e) == Failure(s))
+      Result.nonFatalOr(s)(throw e) should be(Failure(s))
     }
   }
 
@@ -216,26 +217,26 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   // -------------------------------------------------------------------------------------------------------------------
   test("Success should be a success") {
     forAll { s: Success[Int] ⇒
-      assert(s.isSuccess)
-      assert(!s.isFailure)
+      s.isSuccess should be(true)
+      s.isFailure should be(false)
     }
   }
 
   test("Success.toOption should be a Some") {
     forAll { s: Success[Int] ⇒
-      assert(s.toOption == Some(s.value))
+      s.toOption should be(Some(s.value))
     }
   }
 
   test("Success.toEither should be a Right") {
     forAll { s: Success[Int] ⇒
-      assert(s.toEither == Right(s.value))
+      s.toEither should be(Right(s.value))
     }
   }
 
   test("Success.toList should not be empty") {
     forAll { s: Success[Int] ⇒
-      assert(s.toList == List(s.value))
+      s.toList should be(List(s.value))
     }
   }
 
@@ -243,26 +244,26 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks {
   // -------------------------------------------------------------------------------------------------------------------
   test("Failure should be a failure") {
     forAll { f: Failure[Int] ⇒
-      assert(!f.isSuccess)
-      assert(f.isFailure)
+      f.isSuccess should be(false)
+      f.isFailure should be(true)
     }
   }
 
   test("Failure.toOption should be a None") {
     forAll { f: Failure[Int] ⇒
-      assert(f.toOption.isEmpty)
+      f.toOption should be('empty)
     }
   }
 
   test("Failure.toEither should be a Left") {
     forAll { f: Failure[Int] ⇒
-      assert(f.toEither == Left(f.value))
+      f.toEither should be(Left(f.value))
     }
   }
 
   test("Failure.toList should be Nil") {
     forAll { f: Failure[Int] ⇒
-      assert(f.toList == Nil)
+      f.toList should be('empty)
     }
   }
 }

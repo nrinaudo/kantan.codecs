@@ -158,7 +158,8 @@ object ResultCompanion {
 
     /** Turns a collection of results into a result of a collection. */
     @inline def sequence[S, M[X] <: TraversableOnce[X]](rs: M[Result[F, S]])(
-        implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]): Result[F, M[S]] = Result.sequence(rs)
+      implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]
+    ): Result[F, M[S]] = Result.sequence(rs)
 
     /** Turns the specified value into a success. */
     @inline def success[S](s: S): Result[F, S] = Result.success(s)
@@ -194,8 +195,9 @@ object Result {
   // - Helper methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Turns a collection of results into a result of a collection. */
-  def sequence[F, S, M[X] <: TraversableOnce[X]](rs: M[Result[F, S]])(
-      implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]): Result[F, M[S]] =
+  def sequence[F, S, M[X] <: TraversableOnce[X]](
+    rs: M[Result[F, S]]
+  )(implicit cbf: CanBuildFrom[M[Result[F, S]], S, M[S]]): Result[F, M[S]] =
     rs.foldLeft(Result.success[F, mutable.Builder[S, M[S]]](cbf(rs))) { (builder, res) ⇒
         for {
           b ← builder
@@ -238,7 +240,7 @@ object Result {
     override def recoverWith[SS >: S, FF >: Nothing](pf: PartialFunction[Nothing, Result[FF, SS]]) = this
     override def valueOr[SS >: S](f: Nothing ⇒ SS)                                                 = value
     override def forall(f: S ⇒ Boolean)                                                            = f(value)
-    override def ensure[FF >: Nothing](fail: ⇒ FF)(f: S ⇒ Boolean)                                 = if (f(value)) this else failure(fail)
+    override def ensure[FF >: Nothing](fail: ⇒ FF)(f: S ⇒ Boolean)                                 = if(f(value)) this else failure(fail)
     override def exists(f: S ⇒ Boolean)                                                            = f(value)
 
     override def map[SS](f: S ⇒ SS)                                = copy(value = f(value))
@@ -266,10 +268,10 @@ object Result {
 
     override def foreach(f: Nothing ⇒ Unit): Unit = ()
     override def recover[SS >: Nothing](pf: PartialFunction[F, SS]) =
-      if (pf.isDefinedAt(value)) success(pf(value))
+      if(pf.isDefinedAt(value)) success(pf(value))
       else this
     override def recoverWith[SS >: Nothing, FF >: F](pf: PartialFunction[F, Result[FF, SS]]) =
-      if (pf.isDefinedAt(value)) pf(value)
+      if(pf.isDefinedAt(value)) pf(value)
       else this
     override def valueOr[SS >: Nothing](f: F ⇒ SS)                 = f(value)
     override def forall(f: Nothing ⇒ Boolean)                      = true

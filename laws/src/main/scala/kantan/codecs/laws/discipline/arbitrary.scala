@@ -48,7 +48,8 @@ trait ArbitraryInstances extends ArbitraryArities {
       Gen.oneOf(
         success[S]: Gen[Result[F, S]],
         failure[F]: Gen[Result[F, S]]
-      ))
+      )
+    )
 
   // - Arbitrary AccessMode --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -71,8 +72,8 @@ trait ArbitraryInstances extends ArbitraryArities {
       Pattern.LITERAL,
       Pattern.UNICODE_CASE,
       Pattern.COMMENTS
-    ))
-    .map(_.toSet.foldLeft(0)(_ | _))
+    )
+  ).map(_.toSet.foldLeft(0)(_ | _))
 
   // TODO: add more standard regexes to this list?
   val genRegularExpression: Gen[String] =
@@ -99,7 +100,8 @@ trait ArbitraryInstances extends ArbitraryArities {
     arbLegalValue(ea.encode)
 
   implicit def arbIllegalValueFromDec[E: Arbitrary, A, T](
-      implicit da: Decoder[E, A, _, T]): Arbitrary[IllegalValue[E, A, T]] = arbIllegalValue(e ⇒ da.decode(e).isFailure)
+    implicit da: Decoder[E, A, _, T]
+  ): Arbitrary[IllegalValue[E, A, T]] = arbIllegalValue(e ⇒ da.decode(e).isFailure)
 
   def arbLegalValue[E, A, T](encode: A ⇒ E)(implicit arbA: Arbitrary[A]): Arbitrary[LegalValue[E, A, T]] = Arbitrary {
     arbA.arbitrary.map(a ⇒ LegalValue(encode(a), a))
@@ -129,7 +131,8 @@ trait ArbitraryInstances extends ArbitraryArities {
         value ← implicitly[Arbitrary[String]].arbitrary
       } yield DecodeError(s"'$value' is not a valid $id"),
       arbException.arbitrary.map(DecodeError.apply)
-    ))
+    )
+  )
 
   implicit def arbStringEncoder[A: Arbitrary: Cogen]: Arbitrary[StringEncoder[A]] =
     Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(StringEncoder.from))
@@ -234,5 +237,6 @@ trait ArbitraryInstances extends ArbitraryArities {
       Gen.oneOf(
         arb[Exception].map(e ⇒ scala.util.Failure(e): Try[A]),
         aa.arbitrary.map(a ⇒ scala.util.Success(a): Try[A])
-      ))
+      )
+    )
 }

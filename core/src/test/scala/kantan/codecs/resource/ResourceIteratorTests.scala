@@ -20,11 +20,11 @@ import imp.imp
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest.FunSuite
+import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 @SuppressWarnings(Array("org.wartremover.warts.Var", "org.wartremover.warts.While"))
-class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   case class FailingIterator[A](iterator: Iterator[A], index: Int) {
@@ -32,7 +32,7 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
       var i = 0
 
       def checkFail(): Unit = {
-        if (i == index) sys.error("failed")
+        if(i == index) sys.error("failed")
         i += 1
       }
 
@@ -59,92 +59,92 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
   def closedWhenEmpty[A](r: ResourceIterator[A]): Boolean = {
     var closed = false
     val r2     = r.withClose(() ⇒ closed = true)
-    while (r2.hasNext) r2.next()
+    while(r2.hasNext) r2.next()
     closed
   }
 
   // - Tests -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   test("the empty resource iterator should have its close method called") {
-    assert(closedWhenEmpty(ResourceIterator.empty))
+    closedWhenEmpty(ResourceIterator.empty) should be(true)
   }
 
   test("drop should drop the expected number of elements") {
     forAll { (is: List[Int], n: Int) ⇒
-      assert(ResourceIterator(is: _*).drop(n).toList == is.drop(n))
+      ResourceIterator(is: _*).drop(n).toList should be(is.drop(n))
     }
   }
 
   test("safe 'dropped' iterators should close properly and not leak exceptions") {
     forAll { (is: FailingIterator[Int], n: Int) ⇒
-      assert(closedWhenEmpty(is.resourceIterator.drop(n).safe(new Throwable("eos"))(identity)))
+      closedWhenEmpty(is.resourceIterator.drop(n).safe(new Throwable("eos"))(identity)) should be(true)
     }
   }
 
   test("'dropWhiled' iterators should have their close method called when empty") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(closedWhenEmpty(ResourceIterator(is: _*).dropWhile(f)))
+      closedWhenEmpty(ResourceIterator(is: _*).dropWhile(f)) should be(true)
     }
   }
 
   test("safe 'dropWhiled' iterators should close properly and not leak exceptions") {
     forAll { (is: FailingIterator[Int], f: Int ⇒ Boolean) ⇒
-      assert(closedWhenEmpty(is.resourceIterator.dropWhile(f).safe(new Throwable("eos"))(identity)))
+      closedWhenEmpty(is.resourceIterator.dropWhile(f).safe(new Throwable("eos"))(identity)) should be(true)
     }
   }
 
   test("'dropped' iterators should have their close method called when empty") {
     forAll { (is: List[Int], n: Int) ⇒
-      assert(closedWhenEmpty(ResourceIterator(is: _*).drop(n)))
+      closedWhenEmpty(ResourceIterator(is: _*).drop(n)) should be(true)
     }
   }
 
   test("dropWhile should drop the expected elements") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(ResourceIterator(is: _*).dropWhile(f).toList == is.dropWhile(f))
+      ResourceIterator(is: _*).dropWhile(f).toList should be(is.dropWhile(f))
     }
   }
 
   test("takeWhile should take the expected elements") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(ResourceIterator(is: _*).takeWhile(f).toList == is.takeWhile(f))
+      ResourceIterator(is: _*).takeWhile(f).toList should be(is.takeWhile(f))
     }
   }
 
   test("'takeWhiled' iterators should have their close method called when empty") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(closedWhenEmpty(ResourceIterator(is: _*).takeWhile(f)))
+      closedWhenEmpty(ResourceIterator(is: _*).takeWhile(f)) should be(true)
     }
   }
 
   test("safe 'takeWhiled' iterators should close properly and not leak exceptions") {
     forAll { (is: FailingIterator[Int], f: Int ⇒ Boolean) ⇒
-      assert(closedWhenEmpty(is.resourceIterator.takeWhile(f).safe(new Throwable("eos"))(identity)))
+      closedWhenEmpty(is.resourceIterator.takeWhile(f).safe(new Throwable("eos"))(identity)) should be(true)
     }
   }
 
   test("take should take the expected number of elements") {
     forAll { (is: List[Int], n: Int) ⇒
-      assert(ResourceIterator(is: _*).take(n).toList == is.take(n))
+      ResourceIterator(is: _*).take(n).toList should be(is.take(n))
     }
   }
 
   test("'taken' iterators should have their close method called when empty") {
     forAll { (is: List[Int], n: Int) ⇒
-      assert(closedWhenEmpty(ResourceIterator(is: _*).take(n)))
+      closedWhenEmpty(ResourceIterator(is: _*).take(n)) should be(true)
     }
   }
 
   test("safe 'taken' iterators should close properly and not leak exceptions") {
     forAll { (is: FailingIterator[Int], n: Int) ⇒
-      assert(closedWhenEmpty(is.resourceIterator.take(n).safe(new Throwable("eos"))(identity)))
+      closedWhenEmpty(is.resourceIterator.take(n).safe(new Throwable("eos"))(identity)) should be(true)
     }
   }
 
   test("iterators created by take should fail when too many elements are requested") {
     forAll { (is: List[Int], n: Int) ⇒
       val res = ResourceIterator(is: _*).take(n)
-      while (res.hasNext) res.next()
+      while(res.hasNext) res.next()
       intercept[NoSuchElementException] { res.next() }
       ()
     }
@@ -153,14 +153,14 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
   test("collect should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ Option[String]) ⇒
       val partial = Function.unlift(f)
-      assert(ResourceIterator(is: _*).collect(partial).toList == is.collect(partial))
+      ResourceIterator(is: _*).collect(partial).toList should be(is.collect(partial))
     }
   }
 
   test("iterators created by collect should fail when too many elements are requested") {
     forAll { (is: List[Int], f: Int ⇒ Option[String]) ⇒
       val res = ResourceIterator(is: _*).collect(Function.unlift(f))
-      while (res.hasNext) res.next()
+      while(res.hasNext) res.next()
       intercept[NoSuchElementException] { res.next() }
       ()
     }
@@ -168,64 +168,64 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
   test("map should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ String) ⇒
-      assert(ResourceIterator(is: _*).map(f).toList == is.map(f))
+      ResourceIterator(is: _*).map(f).toList should be(is.map(f))
     }
   }
 
   test("mapResult should behave as expected") {
     forAll { (is: List[Result[Boolean, Int]], f: Int ⇒ String) ⇒
-      assert(ResourceIterator(is: _*).mapResult(f).toList == is.map(_.map(f)))
+      ResourceIterator(is: _*).mapResult(f).toList should be(is.map(_.map(f)))
     }
   }
 
   test("flatMap should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ List[String]) ⇒
-      assert(ResourceIterator(is: _*).flatMap(f.andThen(ss ⇒ ResourceIterator(ss: _*))).toList == is.flatMap(f))
+      ResourceIterator(is: _*).flatMap(f.andThen(ss ⇒ ResourceIterator(ss: _*))).toList should be(is.flatMap(f))
     }
   }
 
   test("flatMapResult should behave as expected") {
     forAll { (is: List[Result[Boolean, Int]], f: Int ⇒ Result[Boolean, String]) ⇒
-      assert(ResourceIterator(is: _*).emap(f).toList == is.map(_.flatMap(f)))
+      ResourceIterator(is: _*).emap(f).toList should be(is.map(_.flatMap(f)))
     }
   }
 
   test("filter should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(ResourceIterator(is: _*).filter(f).toList == is.filter(f))
+      ResourceIterator(is: _*).filter(f).toList should be(is.filter(f))
     }
   }
 
   test("filterResult should behave as expected") {
     forAll { (is: List[Result[Boolean, Int]], f: Int ⇒ Boolean) ⇒
-      assert(ResourceIterator(is: _*).filterResult(f).toList == is.filter(_.exists(f)))
+      ResourceIterator(is: _*).filterResult(f).toList should be(is.filter(_.exists(f)))
     }
   }
 
   test("filtered iterators should close when empty") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(closedWhenEmpty(ResourceIterator(is: _*).filter(f)))
+      closedWhenEmpty(ResourceIterator(is: _*).filter(f)) should be(true)
     }
   }
 
   test("withFilter should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(ResourceIterator(is: _*).withFilter(f).toList == is.iterator.withFilter(f).toList)
+      ResourceIterator(is: _*).withFilter(f).toList should be(is.iterator.withFilter(f).toList)
     }
   }
 
   test("seq should behave as expected") {
     forAll { (is: List[Int]) ⇒
-      assert(ResourceIterator(is: _*).seq.toList == is)
+      ResourceIterator(is: _*).seq.toList should be(is)
     }
   }
 
   test("the empty iterator should have a definite size") {
-    assert(ResourceIterator.empty.hasDefiniteSize)
+    ResourceIterator.empty.hasDefiniteSize should be(true)
   }
 
   test("the empty iterator should not have a next element") {
-    assert(!ResourceIterator.empty.hasNext)
+    ResourceIterator.empty.hasNext should be(false)
   }
 
   test("the empty iterator should throw when next is called") {
@@ -235,67 +235,67 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
   test("non-empty iterators should not have a definite size") {
     forAll { (i: Int, is: List[Int]) ⇒
-      assert(!ResourceIterator(i :: is: _*).hasDefiniteSize)
+      ResourceIterator(i :: is: _*).hasDefiniteSize should be(false)
     }
   }
 
   test("forall should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(ResourceIterator(is: _*).forall(f) == is.forall(f))
+      ResourceIterator(is: _*).forall(f) should be(is.forall(f))
     }
   }
 
   test("isEmpty should behave as expected") {
     forAll { (is: List[Int]) ⇒
-      assert(ResourceIterator(is: _*).isEmpty == is.isEmpty)
+      ResourceIterator(is: _*).isEmpty should be(is.isEmpty)
     }
   }
 
   test("find should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(ResourceIterator(is: _*).find(f) == is.find(f))
+      ResourceIterator(is: _*).find(f) should be(is.find(f))
     }
   }
 
   test("exists should behave as expected") {
     forAll { (is: List[Int], f: Int ⇒ Boolean) ⇒
-      assert(ResourceIterator(is: _*).exists(f) == is.exists(f))
+      ResourceIterator(is: _*).exists(f) should be(is.exists(f))
     }
   }
 
   test("isTraversableAgain should return false") {
     forAll { (is: List[Int]) ⇒
-      assert(!ResourceIterator(is: _*).isTraversableAgain)
+      ResourceIterator(is: _*).isTraversableAgain should be(false)
     }
   }
 
   test("toTraversable should behave as expected") {
     forAll { (is: List[Int]) ⇒
-      assert(ResourceIterator(is: _*).toTraversable.toList == is)
+      ResourceIterator(is: _*).toTraversable.toList should be(is)
     }
   }
 
   test("toIterator should behave as expected") {
     forAll { (is: List[Int]) ⇒
-      assert(ResourceIterator(is: _*).toIterator.sameElements(is.toIterator))
+      ResourceIterator(is: _*).toIterator.sameElements(is.toIterator) should be(true)
     }
   }
 
   test("toStream should behave as expected") {
     forAll { (is: List[Int]) ⇒
-      assert(ResourceIterator(is: _*).toStream == is.toStream)
+      ResourceIterator(is: _*).toStream should be(is.toStream)
     }
   }
 
   test("to[List] should behave as expected") {
     forAll { (is: List[Int]) ⇒
-      assert(ResourceIterator(is: _*).to[List] == is)
+      ResourceIterator(is: _*).to[List] should be(is)
     }
   }
 
   test("withClose should register the close function properly") {
     forAll { (is: List[Int]) ⇒
-      assert(closedWhenEmpty(ResourceIterator(is: _*)))
+      closedWhenEmpty(ResourceIterator(is: _*)) should be(true)
     }
   }
 
@@ -304,8 +304,8 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
       val error: Throwable = new NoSuchElementException
 
       val res = ResourceIterator(is: _*).safe(error)(identity)
-      assert(closedWhenEmpty(res))
-      assert(res.next() == Result.Failure(error))
+      closedWhenEmpty(res) should be(true)
+      res.next() should be(Result.Failure(error))
     }
   }
 
@@ -317,10 +317,10 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
         .withClose(() ⇒ closed = true)
         .safe(new Throwable("eos"))(identity)
 
-      while (res.hasNext) {
-        if (res.next().isFailure) assert(!res.hasNext)
+      while(res.hasNext) {
+        if(res.next().isFailure) res.hasNext should be(false)
       }
-      assert(closed)
+      closed should be(true)
     }
   }
 
@@ -328,7 +328,7 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
     forAll { is: List[Int] ⇒
       val res = ResourceIterator(is: _*)
       res.close()
-      assert(!res.hasNext)
+      res.hasNext should be(false)
     }
   }
 }

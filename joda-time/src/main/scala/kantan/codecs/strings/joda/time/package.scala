@@ -38,8 +38,10 @@ package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.t
   // - LocalDateTime codecs --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val defaultLocalDateTimeFormat: Format = Format(
-    new DateTimeFormatter(ISODateTimeFormat.dateTime().getPrinter,
-                          ISODateTimeFormat.localDateOptionalTimeParser().getParser)
+    new DateTimeFormatter(
+      ISODateTimeFormat.dateTime().getPrinter,
+      ISODateTimeFormat.localDateOptionalTimeParser().getParser
+    )
   )
 
   def localDateTimeStringDecoder(format: Format): StringDecoder[LocalDateTime] =

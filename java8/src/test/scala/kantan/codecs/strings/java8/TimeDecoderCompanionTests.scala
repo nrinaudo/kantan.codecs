@@ -43,14 +43,24 @@ class TimeDecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChe
   import DecoderCompanion._
 
   checkAll("TimeDecoderCompanion[Instant]", DecoderTests[String, Instant, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[ZonedDateTime]",
-           DecoderTests[String, ZonedDateTime, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[OffsetDateTime]",
-           DecoderTests[String, OffsetDateTime, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[LocalDateTime]",
-           DecoderTests[String, LocalDateTime, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[LocalDate]",
-           DecoderTests[String, LocalDate, DecodeError, codec.type].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[LocalTime]",
-           DecoderTests[String, LocalTime, DecodeError, codec.type].decoder[Int, Int])
+  checkAll(
+    "TimeDecoderCompanion[ZonedDateTime]",
+    DecoderTests[String, ZonedDateTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[OffsetDateTime]",
+    DecoderTests[String, OffsetDateTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[LocalDateTime]",
+    DecoderTests[String, LocalDateTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[LocalDate]",
+    DecoderTests[String, LocalDate, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[LocalTime]",
+    DecoderTests[String, LocalTime, DecodeError, codec.type].decoder[Int, Int]
+  )
 }

@@ -24,8 +24,10 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class AccessModeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[AccessMode]",
-           DecoderTests[String, AccessMode, DecodeError, codecs.type].bijectiveDecoder[Int, Int])
+  checkAll(
+    "StringDecoder[AccessMode]",
+    DecoderTests[String, AccessMode, DecodeError, codecs.type].bijectiveDecoder[Int, Int]
+  )
   checkAll("StringDecoder[AccessMode]", SerializableTests[StringDecoder[AccessMode]].serializable)
 
   checkAll("StringEncoder[AccessMode]", EncoderTests[String, AccessMode, codecs.type].encoder[Int, Int])
@@ -33,7 +35,9 @@ class AccessModeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks w
 
   checkAll("StringCodec[AccessMode]", CodecTests[String, AccessMode, DecodeError, codecs.type].bijectiveCodec[Int, Int])
 
-  checkAll("TaggedDecoder[AccessMode]",
-           DecoderTests[String, AccessMode, DecodeError, tagged.type].bijectiveDecoder[Int, Int])
+  checkAll(
+    "TaggedDecoder[AccessMode]",
+    DecoderTests[String, AccessMode, DecodeError, tagged.type].bijectiveDecoder[Int, Int]
+  )
   checkAll("TaggedEncoder[AccessMode]", EncoderTests[String, AccessMode, tagged.type].encoder[Int, Int])
 }

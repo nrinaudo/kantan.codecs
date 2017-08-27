@@ -43,12 +43,18 @@ class TimeCodecCompanionTests extends FunSuite with GeneratorDrivenPropertyCheck
   import CodecCompanion._
 
   checkAll("TimeCodecCompanion[Instant]", CodecTests[String, Instant, DecodeError, codec.type].codec[Int, Int])
-  checkAll("TimeCodecCompanion[ZonedDateTime]",
-           CodecTests[String, ZonedDateTime, DecodeError, codec.type].codec[Int, Int])
-  checkAll("TimeCodecCompanion[OffsetDateTime]",
-           CodecTests[String, OffsetDateTime, DecodeError, codec.type].codec[Int, Int])
-  checkAll("TimeCodecCompanion[LocalDateTime]",
-           CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int])
+  checkAll(
+    "TimeCodecCompanion[ZonedDateTime]",
+    CodecTests[String, ZonedDateTime, DecodeError, codec.type].codec[Int, Int]
+  )
+  checkAll(
+    "TimeCodecCompanion[OffsetDateTime]",
+    CodecTests[String, OffsetDateTime, DecodeError, codec.type].codec[Int, Int]
+  )
+  checkAll(
+    "TimeCodecCompanion[LocalDateTime]",
+    CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int]
+  )
   checkAll("TimeCodecCompanion[LocalDate]", CodecTests[String, LocalDate, DecodeError, codec.type].codec[Int, Int])
   checkAll("TimeCodecCompanion[LocalTime]", CodecTests[String, LocalTime, DecodeError, codec.type].codec[Int, Int])
 }

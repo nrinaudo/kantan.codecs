@@ -35,10 +35,10 @@ object BomReader {
       val read = input.read(buf)
 
       // Empty stream.
-      if (read == -1) None
+      if(read == -1) None
 
       // Stream with enough data for the largest BOM
-      else if (read == maxBytes) Some(buf)
+      else if(read == maxBytes) Some(buf)
 
       // Stream with too little data for the largest BOM, resize our array to fit what was actually read.
       else {
@@ -66,7 +66,7 @@ object BomReader {
         // in which case we can just open a reader on the remaining bytes, or it's smaller and we need to push some
         // bytes back into the stream.
         case Some(bom) ⇒
-          if (bom.bytes.length == buf.length) new InputStreamReader(input, bom.charset)
+          if(bom.bytes.length == buf.length) new InputStreamReader(input, bom.charset)
           else {
             val in = new PushbackInputStream(input, buf.length - bom.bytes.length)
             in.unread(buf, bom.bytes.length, buf.length - bom.bytes.length)

@@ -26,7 +26,8 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
   def laws: CodecLaws[E, D, F, T]
 
   private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
-      implicit av: Arbitrary[CodecValue[E, D, T]]): RuleSet =
+    implicit av: Arbitrary[CodecValue[E, D, T]]
+  ): RuleSet =
     new DefaultRuleSet(
       "round trip",
       Some(encoder[A, B]),
@@ -64,8 +65,9 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
 
 object CodecTests {
   def apply[E: Arbitrary: Cogen, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](
-      implicit l: CodecLaws[E, D, F, T],
-      al: Arbitrary[LegalValue[E, D, T]]): CodecTests[E, D, F, T] =
+    implicit l: CodecLaws[E, D, F, T],
+    al: Arbitrary[LegalValue[E, D, T]]
+  ): CodecTests[E, D, F, T] =
     new CodecTests[E, D, F, T] {
       override val laws     = l
       override val arbLegal = al

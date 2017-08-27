@@ -20,13 +20,15 @@ import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.scalaz.laws.discipline.scalatest.ScalazSuite
 import org.scalacheck.Arbitrary
+import org.scalatest.Matchers
 import scalaz._
 import scalaz.scalacheck.ScalazArbitrary._
 import scalaz.scalacheck.ScalazProperties._
+import scalaz.scalacheck.ScalazProperties.{equal ⇒ equ}
 import scalaz.std.anyVal._
 import scalaz.std.string._
 
-class ResultTests extends ScalazSuite {
+class ResultTests extends ScalazSuite with Matchers {
   case class NoOrder(value: Int)
   implicit val noOrderEqual: Equal[NoOrder] = new Equal[NoOrder] {
     override def equal(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value
@@ -34,7 +36,7 @@ class ResultTests extends ScalazSuite {
   implicit val arbNoOrder: Arbitrary[NoOrder] = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
 
   checkAll("Result[String, Int]", order.laws[Result[String, Int]])
-  checkAll("Result[String, Int]", equal.laws[Result[String, NoOrder]])
+  checkAll("Result[String, Int]", equ.laws[Result[String, NoOrder]])
   checkAll("Result[String, NonEmptyList[Int]]", semigroup.laws[Result[String, NonEmptyList[Int]]])
   checkAll("Result[String, Int]", monoid.laws[Result[String, Int]])
   checkAll("Result[String, ?]", monad.laws[Result[String, ?]])
@@ -43,13 +45,13 @@ class ResultTests extends ScalazSuite {
 
   test("Show should yield the expected result for successes") {
     forAll { i: Int ⇒
-      assert(Show[Result[String, Int]].shows(Result.success(i)) == s"Success($i)")
+      Show[Result[String, Int]].shows(Result.success(i)) should be(s"Success($i)")
     }
   }
 
   test("Show should yield the expected result for failures") {
     forAll { i: Int ⇒
-      assert(Show[Result[Int, String]].shows(Result.failure(i)) == s"Failure($i)")
+      Show[Result[Int, String]].shows(Result.failure(i)) should be(s"Failure($i)")
     }
   }
 }

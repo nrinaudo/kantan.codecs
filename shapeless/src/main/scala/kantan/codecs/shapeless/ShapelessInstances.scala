@@ -44,8 +44,9 @@ trait ShapelessInstances {
 
   /** Similar to [[caseClassEncoder]], but working with `LabelledGeneric` rather than just `Generic`. */
   implicit def caseClassEncoderFromLabelled[E, D, T, H <: HList](
-      implicit generic: LabelledGeneric.Aux[D, H],
-      hEncoder: Lazy[Encoder[E, H, T]]): DerivedEncoder[E, D, T] =
+    implicit generic: LabelledGeneric.Aux[D, H],
+    hEncoder: Lazy[Encoder[E, H, T]]
+  ): DerivedEncoder[E, D, T] =
     DerivedEncoder.from(value ⇒ hEncoder.value.encode(generic.to(value)))
 
   /** Provides a `Decoder` instance for case classes.
@@ -59,8 +60,9 @@ trait ShapelessInstances {
 
   /** Similar to [[caseClassDecoder]], but working with `LabelledGeneric` rather than just `Generic`. */
   implicit def caseClassDecoderFromLabelled[E, D, F, T, H <: HList](
-      implicit generic: LabelledGeneric.Aux[D, H],
-      hDecoder: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
+    implicit generic: LabelledGeneric.Aux[D, H],
+    hDecoder: Lazy[Decoder[E, H, F, T]]
+  ): DerivedDecoder[E, D, F, T] =
     DerivedDecoder.from(value ⇒ hDecoder.value.decode(value).map(generic.from))
 
   // - Sum types -------------------------------------------------------------------------------------------------------

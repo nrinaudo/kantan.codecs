@@ -41,8 +41,10 @@ class JodaTimeCodecCompanionTests extends FunSuite with GeneratorDrivenPropertyC
   import CodecCompanion._
 
   checkAll("JodaTimeCodecCompanion[DateTime]", CodecTests[String, DateTime, DecodeError, codec.type].codec[Int, Int])
-  checkAll("JodaTimeCodecCompanion[LocalDateTime]",
-           CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int])
+  checkAll(
+    "JodaTimeCodecCompanion[LocalDateTime]",
+    CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int]
+  )
   checkAll("JodaTimeCodecCompanion[LocalDate]", CodecTests[String, LocalDate, DecodeError, codec.type].codec[Int, Int])
   checkAll("JodaTimeCodecCompanion[LocalTime]", CodecTests[String, LocalTime, DecodeError, codec.type].codec[Int, Int])
 }

@@ -24,7 +24,8 @@ trait ScalazInstances extends LowPriorityScalazInstances {
   // - \/ instances ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def disjunctionDecoder[E, DA, DB, F, T](
-      implicit da: Decoder[E, Either[DA, DB], F, T]): Decoder[E, DA \/ DB, F, T] =
+    implicit da: Decoder[E, Either[DA, DB], F, T]
+  ): Decoder[E, DA \/ DB, F, T] =
     da.map(\/.fromEither)
 
   implicit def disjunctionEncoder[E, DA, DB, T](implicit ea: Encoder[E, Either[DA, DB], T]): Encoder[E, DA \/ DB, T] =
@@ -104,8 +105,8 @@ trait ScalazInstances extends LowPriorityScalazInstances {
     }
 
   implicit def resultBitraverse: Bitraverse[Result] = new Bitraverse[Result] {
-    override def bitraverseImpl[G[_], A, B, C, D](fab: Result[A, B])(f: A ⇒ G[C], g: B ⇒ G[D])(
-        implicit ag: Applicative[G]) =
+    override def bitraverseImpl[G[_], A, B, C, D](fab: Result[A, B])(f: A ⇒ G[C],
+                                                                     g: B ⇒ G[D])(implicit ag: Applicative[G]) =
       fab match {
         case Failure(a) ⇒ Functor[G].map(f(a))(Failure.apply)
         case Success(b) ⇒ Functor[G].map(g(b))(Success.apply)

@@ -90,7 +90,7 @@ trait Decoder[E, D, F, T] extends Serializable {
     * You can think as [[collect]] as a bit like a [[filter]] and a [[map]] merged into one.
     */
   def collect[DD](f: PartialFunction[D, DD])(implicit t: IsError[F]): Decoder[E, DD, F, T] = emap { d ⇒
-    if (f.isDefinedAt(d)) Success(f(d))
+    if(f.isDefinedAt(d)) Success(f(d))
     else Result.failure(t.fromMessage(s"Not acceptable: '$d'"))
   }
 
@@ -146,7 +146,7 @@ trait DecoderCompanion[E, F, T] extends Serializable {
 
   def fromPartial[D](f: PartialFunction[E, Result[F, D]])(implicit t: IsError[F]): Decoder[E, D, F, T] =
     Decoder.from { e ⇒
-      if (f.isDefinedAt(e)) f(e)
+      if(f.isDefinedAt(e)) f(e)
       else Result.failure(t.fromMessage(s"Not acceptable: '$e'"))
     }
 
@@ -178,7 +178,7 @@ object Decoder {
 
   implicit def optionalDecoder[E: Optional, D, F, T](implicit da: Decoder[E, D, F, T]): Decoder[E, Option[D], F, T] =
     Decoder.from { e ⇒
-      if (Optional[E].isEmpty(e)) Result.success(None)
+      if(Optional[E].isEmpty(e)) Result.success(None)
       else da.decode(e).map(Some.apply)
     }
 

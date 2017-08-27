@@ -17,22 +17,22 @@
 package kantan.codecs
 
 import kantan.codecs.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
+import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
-class CodecCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class CodecCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   object codec
   object Companion extends CodecCompanion[String, String, codec.type]
 
   test("CodecCompanion.from should be equivalent to Codec.from (for encoding)") {
     forAll { (f: String ⇒ Result[String, Int], g: Int ⇒ String, i: Int) ⇒
-      assert(Codec.from(f)(g).encode(i) == Companion.from(f)(g).encode(i))
+      Codec.from(f)(g).encode(i) should be(Companion.from(f)(g).encode(i))
     }
   }
 
   test("CodecCompanion.from should be equivalent to Codec.from (for decoding)") {
     forAll { (f: String ⇒ Result[String, Int], g: Int ⇒ String, str: String) ⇒
-      assert(Codec.from(f)(g).decode(str) == Companion.from(f)(g).decode(str))
+      Codec.from(f)(g).decode(str) should be(Companion.from(f)(g).decode(str))
     }
   }
 }
