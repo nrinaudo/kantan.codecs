@@ -16,16 +16,16 @@
 
 package kantan.codecs
 
-import org.scalatest.FunSuite
+import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
-class EncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class EncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   object codec
   object Companion extends EncoderCompanion[String, codec.type]
 
   test("EncoderCompanion.from should be equivalent to Encoder.from") {
     forAll { (f: Int ⇒ String, i: Int) ⇒
-      assert(Encoder.from(f).encode(i) == Companion.from(f).encode(i))
+      Encoder.from(f).encode(i) should be(Companion.from(f).encode(i))
     }
   }
 }

@@ -18,10 +18,10 @@ package kantan.codecs
 
 import kantan.codecs.error._
 import kantan.codecs.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
+import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
-class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   object codec
   object Companion extends DecoderCompanion[String, String, codec.type]
 
@@ -31,7 +31,7 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
   test("DecoderCompanion.from should be equivalent to Decoder.from") {
     forAll { (f: Dec, str: String) ⇒
-      assert(Decoder.from(f).decode(str) == Companion.from(f).decode(str))
+      Decoder.from(f).decode(str) should be(Companion.from(f).decode(str))
     }
   }
 
@@ -40,7 +40,7 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
       val cDec = Companion.oneOf((h :: t).map(Companion.from[Int]): _*)
       val dDec = Decoder.oneOf((h :: t).map(Decoder.from[String, Int, String, codec.type]): _*)
 
-      assert(cDec.decode(str) == dDec.decode(str))
+      cDec.decode(str) should be(dDec.decode(str))
     }
   }
 
@@ -49,7 +49,7 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
     val dDec = Decoder.oneOf[String, Int, String, codec.type]()
 
     forAll { (str: String) ⇒
-      assert(cDec.decode(str) == dDec.decode(str))
+      cDec.decode(str) should be(dDec.decode(str))
     }
   }
 }

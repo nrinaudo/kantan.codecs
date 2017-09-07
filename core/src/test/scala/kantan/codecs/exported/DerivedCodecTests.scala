@@ -20,10 +20,10 @@ import kantan.codecs._
 import kantan.codecs.export.{DerivedDecoder, DerivedEncoder}
 import kantan.codecs.exported.DerivedCodecTests.{Just, Maybe, None}
 import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
-import org.scalatest.FunSuite
+import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
-class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   val decode: String ⇒ Result[DecodeError, Maybe[Int]] = s ⇒
     if(s.trim.isEmpty) Result.success(None)
     else Result.nonFatalOr(DecodeError(s"Not a valid Int: '$s'"))(Just(s.toInt))
@@ -38,7 +38,7 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
     implicit val derived: DerivedDecoder[String, Maybe[Int], DecodeError, strings.codecs.type] =
       DerivedDecoder.from[String, Maybe[Int], DecodeError, strings.codecs.type](decode)
 
-    assert(implicitly[Decoder[String, Maybe[Int], DecodeError, strings.codecs.type]] == bespoke)
+    implicitly[Decoder[String, Maybe[Int], DecodeError, strings.codecs.type]] should be(bespoke)
     derived // Allows this to compile - otherwise the compiler detects correctly that derived isn't used and fails.
   }
 
@@ -47,7 +47,7 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
     implicit val derived: DerivedEncoder[String, Maybe[Int], strings.codecs.type] =
       DerivedEncoder.from[String, Maybe[Int], strings.codecs.type](encode)
 
-    assert(implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] == bespoke)
+    implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] should be(bespoke)
     derived // Allows this to compile - otherwise the compiler detects correctly that derived isn't used and fails.
   }
 
@@ -55,14 +55,14 @@ class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks {
     implicit val derived: DerivedDecoder[String, Maybe[Int], Throwable, strings.codecs.type] =
       DerivedDecoder.from[String, Maybe[Int], Throwable, strings.codecs.type](decode)
 
-    assert(implicitly[Decoder[String, Maybe[Int], Throwable, strings.codecs.type]] == derived.value)
+    implicitly[Decoder[String, Maybe[Int], Throwable, strings.codecs.type]] should be(derived.value)
   }
 
   test("Derived encoders should be picked up when no other is available") {
     implicit val derived: DerivedEncoder[String, Maybe[Int], strings.codecs.type] =
       DerivedEncoder.from[String, Maybe[Int], strings.codecs.type](encode)
 
-    assert(implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] == derived.value)
+    implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] should be(derived.value)
   }
 }
 

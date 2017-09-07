@@ -17,12 +17,12 @@
 package kantan.codecs
 
 import kantan.codecs.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
+import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try
 
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
-class ResultCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class ResultCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   object simple extends ResultCompanion.Simple[String]
 
   object withDefault extends ResultCompanion.WithDefault[String] {
@@ -31,43 +31,43 @@ class ResultCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   test("Simple.success should behave like Result.success") {
     forAll { i: Int ⇒
-      assert(simple.success(i) == Result.success(i))
+      simple.success(i) should be(Result.success(i))
     }
   }
 
   test("Simple.failure should behave like Result.failure") {
     forAll { s: String ⇒
-      assert(simple.failure(s) == Result.failure(s))
+      simple.failure(s) should be(Result.failure(s))
     }
   }
 
   test("Simple.fromEither should behave like Result.fromEither") {
     forAll { (e: Either[String, Int]) ⇒
-      assert(simple.fromEither(e) == Result.fromEither(e))
+      simple.fromEither(e) should be(Result.fromEither(e))
     }
   }
 
   test("Simple.fromOption should behave like Result.fromOption") {
     forAll { (o: Option[Int], s: String) ⇒
-      assert(simple.fromOption(o, s) == Result.fromOption(o, s))
+      simple.fromOption(o, s) should be(Result.fromOption(o, s))
     }
   }
 
   test("Simple.sequence should behave like Result.sequence") {
     forAll { (l: List[Result[String, Int]]) ⇒
-      assert(simple.sequence(l) == Result.sequence(l))
+      simple.sequence(l) should be(Result.sequence(l))
     }
   }
 
   test("WithDefault.apply should yield the expected result on success") {
     forAll { i: Int ⇒
-      assert(withDefault(i) == Result.success(i))
+      withDefault(i) should be(Result.success(i))
     }
   }
 
   test("WithDefault.apply should yield the expected result on failure") {
     forAll { e: Exception ⇒
-      assert(withDefault(throw e) == Result.failure(e.getMessage))
+      withDefault(throw e) should be(Result.failure(e.getMessage))
     }
   }
 
@@ -76,8 +76,8 @@ class ResultCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks {
       val res = withDefault.fromTry(ti)
 
       ti match {
-        case scala.util.Success(i) ⇒ assert(res == Result.Success(i))
-        case scala.util.Failure(t) ⇒ assert(res == Result.Failure(t.getMessage))
+        case scala.util.Success(i) ⇒ res should be(Result.Success(i))
+        case scala.util.Failure(t) ⇒ res should be(Result.Failure(t.getMessage))
       }
     }
   }
