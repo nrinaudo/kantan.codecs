@@ -22,7 +22,7 @@ import scala.io.Codec
 object InMemoryBomWriter {
   def write(str: String, codec: Codec): Array[Byte] = {
     val bytes = new ByteArrayOutputStream()
-    val out = BomWriter(bytes, codec)
+    val out   = BomWriter(bytes, codec)
     out.write(str)
     out.close()
     bytes.toByteArray

@@ -11,7 +11,7 @@ kantan.codecs is a support library for the various kantan projects.
 
 ## Getting started
 
-kantan.codecs is currently available for Scala 2.10, 2.11 and 2.12.
+kantan.codecs is currently available for Scala 2.11 and 2.12.
 
 The current version is `@VERSION@`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:

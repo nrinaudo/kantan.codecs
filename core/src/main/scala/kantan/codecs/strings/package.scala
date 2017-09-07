@@ -25,6 +25,7 @@ package kantan.codecs
   * Default instances can be found in [[kantan.codecs.strings.codecs]].
   */
 package object strings {
+
   /** [[Encoder]] for strings.
     *
     * Default instances can be found in [[codecs]].

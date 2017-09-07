@@ -20,14 +20,13 @@ import kantan.codecs.Result
 import scala.collection.generic.CanBuildFrom
 
 trait ResourceIterable[A] {
+
   /** Type of the concrete implementation.
     *
     * This is needed to be able to perform transforming operations, such as [[map]], without losing information about
     * the type we're working with.
     */
   type Repr[X] <: ResourceIterable[X]
-
-
 
   // - Abstract methods ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -41,49 +40,42 @@ trait ResourceIterable[A] {
     */
   protected def onIterator[B](f: ResourceIterator[A] ⇒ ResourceIterator[B]): Repr[B]
 
-
-
   // - "Lazy" methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def map[B](f: A ⇒ B): Repr[B] = onIterator(_.map(f))
+  def map[B](f: A ⇒ B): Repr[B]           = onIterator(_.map(f))
   def flatMap[B](f: A ⇒ Repr[B]): Repr[B] = onIterator(_.flatMap(f.andThen(_.iterator)))
 
   def emap[E, S, B](f: S ⇒ Result[E, B])(implicit ev: A <:< Result[E, S]): Repr[Result[E, B]] =
     onIterator(_.emap(f))
 
-
   def collect[B](f: PartialFunction[A, B]): Repr[B] = onIterator(_.collect(f))
-  def drop(n: Int): Repr[A] = onIterator(_.drop(n))
-  def dropWhile(p: A ⇒ Boolean): Repr[A] = onIterator(_.dropWhile(p))
-  def take(n: Int): Repr[A] = onIterator(_.take(n))
-  def takeWhile(p: A ⇒ Boolean): Repr[A] = onIterator(_.takeWhile(p))
-  def filter(p: A ⇒ Boolean): Repr[A] = onIterator(_.filter(p))
-  def withFilter(p: A ⇒ Boolean): Repr[A] = onIterator(_.withFilter(p))
-
-
+  def drop(n: Int): Repr[A]                         = onIterator(_.drop(n))
+  def dropWhile(p: A ⇒ Boolean): Repr[A]            = onIterator(_.dropWhile(p))
+  def take(n: Int): Repr[A]                         = onIterator(_.take(n))
+  def takeWhile(p: A ⇒ Boolean): Repr[A]            = onIterator(_.takeWhile(p))
+  def filter(p: A ⇒ Boolean): Repr[A]               = onIterator(_.filter(p))
+  def withFilter(p: A ⇒ Boolean): Repr[A]           = onIterator(_.withFilter(p))
 
   // - Traversable methods ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def foreach[U](f: A ⇒ U): Unit = iterator.foreach(f)
-  def forall(p: A ⇒ Boolean): Boolean = iterator.forall(p)
-  def exists(p: A ⇒ Boolean): Boolean = iterator.exists(p)
-  def find(p: A ⇒ Boolean): Option[A] = iterator.find(p)
-  def isEmpty: Boolean = !iterator.hasNext
-  def nonEmpty: Boolean = !isEmpty
-  def foldLeft[B](b: B)(op: (B, A) ⇒ B): B = iterator.foldLeft(b)(op)
-  def reduceLeft[B >: A](op: (B, A) ⇒ B): B = iterator.reduceLeft(op)
-  def foldRight[B](z: B)(op: (A, B) ⇒ B): B = iterator.foldRight(z)(op)
+  def foreach[U](f: A ⇒ U): Unit             = iterator.foreach(f)
+  def forall(p: A ⇒ Boolean): Boolean        = iterator.forall(p)
+  def exists(p: A ⇒ Boolean): Boolean        = iterator.exists(p)
+  def find(p: A ⇒ Boolean): Option[A]        = iterator.find(p)
+  def isEmpty: Boolean                       = !iterator.hasNext
+  def nonEmpty: Boolean                      = !isEmpty
+  def foldLeft[B](b: B)(op: (B, A) ⇒ B): B   = iterator.foldLeft(b)(op)
+  def reduceLeft[B >: A](op: (B, A) ⇒ B): B  = iterator.reduceLeft(op)
+  def foldRight[B](z: B)(op: (A, B) ⇒ B): B  = iterator.foldRight(z)(op)
   def reduceRight[B >: A](op: (A, B) ⇒ B): B = iterator.reduceRight(op)
-
-
 
   // - Transformation methods ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def to[F[_]](implicit cbf: CanBuildFrom[Nothing, A, F[A]]): F[A] = iterator.to[F]
-  def toIndexedSeq: IndexedSeq[A] = to[IndexedSeq]
-  def toIterable: Iterable[A] = to[Iterable]
-  def toList: List[A] = to[List]
-  def toSeq: Seq[A] = to[Seq]
-  def toSet: Set[A] = to[Set]
-  def toVector: Vector[A] = to[Vector]
+  def toIndexedSeq: IndexedSeq[A]                                  = to[IndexedSeq]
+  def toIterable: Iterable[A]                                      = to[Iterable]
+  def toList: List[A]                                              = to[List]
+  def toSeq: Seq[A]                                                = to[Seq]
+  def toSet: Set[A]                                                = to[Set]
+  def toVector: Vector[A]                                          = to[Vector]
 }

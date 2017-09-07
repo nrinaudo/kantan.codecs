@@ -24,15 +24,15 @@ import kantan.codecs.strings.StringDecoder
 trait TimeDecoderCompanion[E, F, T] {
   def decoderFrom[D](d: StringDecoder[D]): Decoder[E, D, F, T]
 
-  def localTimeDecoder(format: String): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
+  def localTimeDecoder(format: String): Decoder[E, LocalTime, F, T]              = localTimeDecoder(Format(format))
   def localTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
-  def localTimeDecoder(format: Format): Decoder[E, LocalTime, F, T] = decoderFrom(localTimeStringDecoder(format))
-  def defaultLocalTimeDecoder: Decoder[E, LocalTime, F, T] = localTimeDecoder(defaultLocalTimeFormat)
+  def localTimeDecoder(format: Format): Decoder[E, LocalTime, F, T]              = decoderFrom(localTimeStringDecoder(format))
+  def defaultLocalTimeDecoder: Decoder[E, LocalTime, F, T]                       = localTimeDecoder(defaultLocalTimeFormat)
 
-  def localDateDecoder(format: String): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
+  def localDateDecoder(format: String): Decoder[E, LocalDate, F, T]              = localDateDecoder(Format(format))
   def localDateDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
-  def localDateDecoder(format: Format): Decoder[E, LocalDate, F, T] = decoderFrom(localDateStringCodec(format))
-  def defaultLocalDateDecoder: Decoder[E, LocalDate, F, T] = localDateDecoder(defaultLocalDateFormat)
+  def localDateDecoder(format: Format): Decoder[E, LocalDate, F, T]              = decoderFrom(localDateStringCodec(format))
+  def defaultLocalDateDecoder: Decoder[E, LocalDate, F, T]                       = localDateDecoder(defaultLocalDateFormat)
 
   def localDateTimeDecoder(format: String): Decoder[E, LocalDateTime, F, T] = localDateTimeDecoder(Format(format))
   def localDateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDateTime, F, T] =
@@ -56,8 +56,8 @@ trait TimeDecoderCompanion[E, F, T] {
     decoderFrom(zonedDateTimeStringCodec(format))
   def defaultZonedDateTimeDecoder: Decoder[E, ZonedDateTime, F, T] = zonedDateTimeDecoder(defaultZonedDateTimeFormat)
 
-  def instantDecoder(format: String): Decoder[E, Instant, F, T] = instantDecoder(Format(format))
+  def instantDecoder(format: String): Decoder[E, Instant, F, T]              = instantDecoder(Format(format))
   def instantDecoder(format: ⇒ DateTimeFormatter): Decoder[E, Instant, F, T] = instantDecoder(Format(format))
-  def instantDecoder(format: Format): Decoder[E, Instant, F, T] = decoderFrom(instantStringCodec(format))
-  def defaultInstantDecoder: Decoder[E, Instant, F, T] = instantDecoder(defaultInstantFormat)
+  def instantDecoder(format: Format): Decoder[E, Instant, F, T]              = decoderFrom(instantStringCodec(format))
+  def defaultInstantDecoder: Decoder[E, Instant, F, T]                       = instantDecoder(defaultInstantFormat)
 }

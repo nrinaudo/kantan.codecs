@@ -27,6 +27,7 @@ import scala.util.matching.Regex
 
 /** Defines default instances for [[StringEncoder]] and [[StringDecoder]]. */
 object codecs {
+
   /** Defines a [[StringCodec]] instance for Java enumerations.
     *
     * {{{
@@ -43,10 +44,10 @@ object codecs {
     */
   @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
   implicit def javaEnumStringCodec[T <: Enum[T]](implicit tag: ClassTag[T]): StringCodec[T] =
-  StringCodec.from(StringDecoder.makeSafe("Enum")(s => {
-    val enumClass = tag.runtimeClass.asInstanceOf[Class[T]]
-    Enum.valueOf(enumClass, s)
-  }))(_.name())
+    StringCodec.from(StringDecoder.makeSafe("Enum")(s ⇒ {
+      val enumClass = tag.runtimeClass.asInstanceOf[Class[T]]
+      Enum.valueOf(enumClass, s)
+    }))(_.name())
 
   /** Defines a [[StringCodec]] instance for `Pattern`.
     *
@@ -145,7 +146,7 @@ object codecs {
     // willfully ignored, at least for the time being.
     val t = if(s.length > 1) s.trim else s
     if(t.length == 1) Result.success(t.charAt(0))
-    else              Result.failure(DecodeError(s"Not a valid Char: '$s'"))
+    else Result.failure(DecodeError(s"Not a valid Char: '$s'"))
   }(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Double`.
@@ -335,6 +336,7 @@ object codecs {
     * res2: String = /home/nrinaudo
     * }}}
     */
+  @SuppressWarnings(Array("org.wartremover.warts.ToString"))
   implicit val pathStringCodec: StringCodec[Path] =
     StringCodec.from(StringDecoder.makeSafe("Path")(p ⇒ Paths.get(p.trim)))(_.toString)
 }

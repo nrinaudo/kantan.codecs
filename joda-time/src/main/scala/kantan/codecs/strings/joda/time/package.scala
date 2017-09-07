@@ -35,13 +35,13 @@ package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.t
 
   implicit val defaultStringDateTimeCodec: StringCodec[DateTime] = defaultDateTimeCodec
 
-
-
   // - LocalDateTime codecs --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val defaultLocalDateTimeFormat: Format = Format(
-    new DateTimeFormatter(ISODateTimeFormat.dateTime().getPrinter,
-    ISODateTimeFormat.localDateOptionalTimeParser().getParser)
+    new DateTimeFormatter(
+      ISODateTimeFormat.dateTime().getPrinter,
+      ISODateTimeFormat.localDateOptionalTimeParser().getParser
+    )
   )
 
   def localDateTimeStringDecoder(format: Format): StringDecoder[LocalDateTime] =
@@ -54,13 +54,10 @@ package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.t
 
   implicit val defaultStringLocalDateTimeCodec: StringCodec[LocalDateTime] = defaultLocalDateTimeCodec
 
-
-
   // - LocalDate codecs ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val defaultLocalDateFormat: Format = Format(
-    new DateTimeFormatter(ISODateTimeFormat.date().getPrinter,
-    ISODateTimeFormat.localDateParser().getParser)
+    new DateTimeFormatter(ISODateTimeFormat.date().getPrinter, ISODateTimeFormat.localDateParser().getParser)
   )
 
   def localDateStringDecoder(format: Format): StringDecoder[LocalDate] =
@@ -73,13 +70,10 @@ package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.t
 
   implicit val defaultStringLocalDateCodec: StringCodec[LocalDate] = defaultLocalDateCodec
 
-
-
   // - LocalTime codecs ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   val defaultLocalTimeFormat: Format = Format(
-    new DateTimeFormatter(ISODateTimeFormat.time().getPrinter,
-    ISODateTimeFormat.localTimeParser().getParser)
+    new DateTimeFormatter(ISODateTimeFormat.time().getPrinter, ISODateTimeFormat.localTimeParser().getParser)
   )
 
   def localTimeStringDecoder(format: Format): StringDecoder[LocalTime] =
@@ -91,7 +85,6 @@ package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.t
     StringCodec.from(localTimeStringDecoder(format), localTimeStringEncoder(format))
 
   implicit val defaultStringLocalTimeCodec: StringCodec[LocalTime] = defaultLocalTimeCodec
-
 
   // - JodaTimeCodecCompanion implementation ---------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

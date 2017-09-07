@@ -20,8 +20,7 @@ import cats._
 import cats.data.NonEmptyList
 import cats.instances.all._
 import cats.kernel.laws.{GroupLaws, OrderLaws}
-import cats.laws.discipline._
-import cats.laws.discipline.CartesianTests.Isomorphisms
+import cats.laws.discipline._, CartesianTests.Isomorphisms
 import cats.laws.discipline.arbitrary._
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
@@ -52,10 +51,14 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Disci
   checkAll("Result[String, NonEmptyList[Int]]", GroupLaws[Result[String, NonEmptyList[Int]]].semigroup)
 
   test("Show should yield the expected result for successes") {
-    forAll { i: Int ⇒ assert(Show[Result[String, Int]].show(Result.success(i)) == s"Success($i)") }
+    forAll { i: Int ⇒
+      assert(Show[Result[String, Int]].show(Result.success(i)) == s"Success($i)")
+    }
   }
 
   test("Show should yield the expected result for failures") {
-    forAll { i: Int ⇒ assert(Show[Result[Int, String]].show(Result.failure(i)) == s"Failure($i)") }
+    forAll { i: Int ⇒
+      assert(Show[Result[Int, String]].show(Result.failure(i)) == s"Failure($i)")
+    }
   }
 }

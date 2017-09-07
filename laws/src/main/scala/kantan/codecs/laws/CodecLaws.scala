@@ -22,7 +22,6 @@ import kantan.codecs.laws.CodecValue.LegalValue
 trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, D, T] {
   implicit lazy val codec: Codec[E, D, F, T] = Codec.from(decoder.decode _)(encoder.encode _)
 
-
   // - Misc. laws ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def leftMapIdentityEncoding[A](d: D): Boolean =
@@ -30,8 +29,6 @@ trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, 
 
   def leftMapCompositionEncoding[A, B](d: D, f: F ⇒ A, g: A ⇒ B): Boolean =
     codec.leftMap(f andThen g).encode(d) == codec.leftMap(f).leftMap(g).encode(d)
-
-
 
   // - Invariant functor laws ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -58,8 +55,6 @@ trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, 
 
   def imapEncodedCompositionDecoding[A, B](b: B, f1: E ⇒ A, f2: A ⇒ E, g1: A ⇒ B, g2: B ⇒ A): Boolean =
     codec.imapEncoded(f1)(f2).imapEncoded(g1)(g2).decode(b) == codec.imapEncoded(g1 compose f1)(f2 compose g2).decode(b)
-
-
 
   // - Round trip laws -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

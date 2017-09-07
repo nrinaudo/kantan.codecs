@@ -17,8 +17,7 @@
 package kantan.codecs.laws.discipline
 
 import imp.imp
-import kantan.codecs.laws._
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws._, CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop._
@@ -36,7 +35,8 @@ trait DecoderTests[E, D, F, T] extends Laws {
   implicit val cogenD: Cogen[D]
 
   private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit arbED: Arbitrary[CodecValue[E, D, T]]) =
-    new SimpleRuleSet("core",
+    new SimpleRuleSet(
+      "core",
       "decode"                       → forAll(laws.decode _),
       "map identity"                 → forAll(laws.mapIdentity _),
       "emap identity"                → forAll(laws.emapIdentity _),
@@ -65,8 +65,10 @@ trait DecoderTests[E, D, F, T] extends Laws {
 }
 
 object DecoderTests {
-  def apply[E: Arbitrary, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T]
-  (implicit l: DecoderLaws[E, D, F, T], al: Arbitrary[LegalValue[E, D, T]]): DecoderTests[E, D, F, T] =
+  def apply[E: Arbitrary, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](
+    implicit l: DecoderLaws[E, D, F, T],
+    al: Arbitrary[LegalValue[E, D, T]]
+  ): DecoderTests[E, D, F, T] =
     new DecoderTests[E, D, F, T] {
       override val laws     = l
       override val arbLegal = al

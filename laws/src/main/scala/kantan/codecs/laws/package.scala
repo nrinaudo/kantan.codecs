@@ -19,7 +19,7 @@ package kantan.codecs
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 
 package object laws {
-  type StringValue[A] = CodecValue[String, A, strings.codecs.type]
-  type LegalString[A] = LegalValue[String, A, strings.codecs.type]
+  type StringValue[A]   = CodecValue[String, A, strings.codecs.type]
+  type LegalString[A]   = LegalValue[String, A, strings.codecs.type]
   type IllegalString[A] = IllegalValue[String, A, strings.codecs.type]
 }

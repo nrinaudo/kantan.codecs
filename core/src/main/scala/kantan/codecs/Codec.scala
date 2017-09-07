@@ -28,17 +28,17 @@ trait Codec[E, D, F, T] extends Decoder[E, D, F, T] with Encoder[E, D, T] {
   @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
   override def tag[TT]: Codec[E, D, F, TT] = this.asInstanceOf[Codec[E, D, F, TT]]
 
-  override def leftMap[FF](f: F ⇒ FF):  Codec[E, D, FF, T] = Codec.from(super.leftMap(f), this)
+  override def leftMap[FF](f: F ⇒ FF): Codec[E, D, FF, T] = Codec.from(super.leftMap(f), this)
 
   @deprecated("Use leftMap instead", "0.2.1")
   override def mapError[FF](f: F ⇒ FF): Codec[E, D, FF, T] = leftMap(f)
 
-  def imap[DD](f: D ⇒ DD)(g: DD ⇒ D): Codec[E, DD, F, T] =  Codec.from((e: E) ⇒ decode(e).map(f))(g andThen encode)
+  def imap[DD](f: D ⇒ DD)(g: DD ⇒ D): Codec[E, DD, F, T]        = Codec.from((e: E) ⇒ decode(e).map(f))(g andThen encode)
   def imapEncoded[EE](f: E ⇒ EE)(g: EE ⇒ E): Codec[EE, D, F, T] = Codec.from(g andThen decode)(d ⇒ f(encode(d)))
 }
 
 trait CodecCompanion[E, F, T] {
-  @inline def from[D](f: E ⇒ Result[F, D])(g: D ⇒ E): Codec[E, D, F, T] = Codec.from(f)(g)
+  @inline def from[D](f: E ⇒ Result[F, D])(g: D ⇒ E): Codec[E, D, F, T]               = Codec.from(f)(g)
   @inline def from[D](d: Decoder[E, D, F, T], e: Encoder[E, D, T]): Codec[E, D, F, T] = Codec.from(d, e)
 }
 

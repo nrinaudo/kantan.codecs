@@ -32,16 +32,16 @@ object ResourceError {
   }
 
   sealed case class ProcessError(message: String) extends Exception with ResourceError {
-      override val getMessage = message
+    override val getMessage = message
+  }
+
+  object ProcessError {
+    def apply(msg: String, t: Throwable): ProcessError = new ProcessError(msg) {
+      override val getCause = t
     }
 
-    object ProcessError {
-      def apply(msg: String, t: Throwable): ProcessError = new ProcessError(msg) {
-        override val getCause = t
-      }
-
-      def apply(t: Throwable): ProcessError = ProcessError(Option(t.getMessage).getOrElse("Process error"), t)
-    }
+    def apply(t: Throwable): ProcessError = ProcessError(Option(t.getMessage).getOrElse("Process error"), t)
+  }
 
   sealed case class CloseError(message: String) extends Exception with ResourceError {
     override val getMessage = message

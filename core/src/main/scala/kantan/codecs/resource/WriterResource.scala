@@ -18,6 +18,7 @@ package kantan.codecs.resource
 
 /** Provides instance summoning methods for [[WriterResource]]. */
 object WriterResource {
+
   /** Summons an implicit instance of [[WriterResource]] if one is found in scope, fails compilation otherwise. */
   def apply[A](implicit ev: WriterResource[A]): WriterResource[A] = macro imp.summon[WriterResource[A]]
 }

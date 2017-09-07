@@ -23,19 +23,23 @@ import scalaz.{\/, Maybe}
 object arbitrary extends ArbitraryInstances
 
 trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances {
-  implicit def arbLegalMaybe[E, D, T]
-  (implicit al: Arbitrary[LegalValue[E, Option[D], T]]): Arbitrary[LegalValue[E, Maybe[D], T]] =
+  implicit def arbLegalMaybe[E, D, T](
+    implicit al: Arbitrary[LegalValue[E, Option[D], T]]
+  ): Arbitrary[LegalValue[E, Maybe[D], T]] =
     Arbitrary(al.arbitrary.map(_.mapDecoded(v ⇒ Maybe.fromOption(v))))
 
-  implicit def arbIllegalMaybe[E, D, T]
-  (implicit al: Arbitrary[IllegalValue[E, Option[D], T]]): Arbitrary[IllegalValue[E, Maybe[D], T]] =
-      Arbitrary(al.arbitrary.map(_.mapDecoded(v ⇒ Maybe.fromOption(v))))
+  implicit def arbIllegalMaybe[E, D, T](
+    implicit al: Arbitrary[IllegalValue[E, Option[D], T]]
+  ): Arbitrary[IllegalValue[E, Maybe[D], T]] =
+    Arbitrary(al.arbitrary.map(_.mapDecoded(v ⇒ Maybe.fromOption(v))))
 
-  implicit def arbLegalDisjunction[E, DL, DR, T]
-  (implicit a: Arbitrary[LegalValue[E, Either[DL, DR], T]]): Arbitrary[LegalValue[E, DL \/ DR, T]] =
+  implicit def arbLegalDisjunction[E, DL, DR, T](
+    implicit a: Arbitrary[LegalValue[E, Either[DL, DR], T]]
+  ): Arbitrary[LegalValue[E, DL \/ DR, T]] =
     Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
 
-  implicit def arbIllegalDisjunction[E, DL, DR, T]
-  (implicit a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]): Arbitrary[IllegalValue[E, DL \/ DR, T]] =
+  implicit def arbIllegalDisjunction[E, DL, DR, T](
+    implicit a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]
+  ): Arbitrary[IllegalValue[E, DL \/ DR, T]] =
     Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
 }

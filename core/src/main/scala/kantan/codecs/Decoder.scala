@@ -50,8 +50,6 @@ trait Decoder[E, D, F, T] extends Serializable {
     */
   def unsafeDecode(e: E): D = decode(e).get
 
-
-
   // - Composition -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Creates a new [[Decoder]] instance with a fallback decoder if the current one fails. */
@@ -93,7 +91,7 @@ trait Decoder[E, D, F, T] extends Serializable {
     */
   def collect[DD](f: PartialFunction[D, DD])(implicit t: IsError[F]): Decoder[E, DD, F, T] = emap { d ⇒
     if(f.isDefinedAt(d)) Success(f(d))
-    else                 Result.failure(t.fromMessage(s"Not acceptable: '$d'"))
+    else Result.failure(t.fromMessage(s"Not acceptable: '$d'"))
   }
 
   /** Turns all values that don't match the specified predicates into failures.
@@ -128,6 +126,7 @@ trait Decoder[E, D, F, T] extends Serializable {
   * example. [[DecoderCompanion]] lets such types have a useful companion object without a lot of code duplication.
   */
 trait DecoderCompanion[E, F, T] extends Serializable {
+
   /** Summons an implicit instance of [[Decoder]] if one is found, fails compilation otherwise.
     *
     * This is a slightly faster, less verbose version of `implicitly`.
@@ -148,7 +147,7 @@ trait DecoderCompanion[E, F, T] extends Serializable {
   def fromPartial[D](f: PartialFunction[E, Result[F, D]])(implicit t: IsError[F]): Decoder[E, D, F, T] =
     Decoder.from { e ⇒
       if(f.isDefinedAt(e)) f(e)
-      else                 Result.failure(t.fromMessage(s"Not acceptable: '$e'"))
+      else Result.failure(t.fromMessage(s"Not acceptable: '$e'"))
     }
 
   /** Creates a new [[Decoder]] instance from the specified alternatives.
@@ -156,10 +155,11 @@ trait DecoderCompanion[E, F, T] extends Serializable {
     * When decoding, each of the specified decoders will be attempted. The result will be the first success if found,
     * or the last failure otherwise.
     */
-  @inline def oneOf[D](ds: Decoder[E, D, F, T]*)(implicit i: IsError[F]): Decoder[E, D, F, T] = Decoder.oneOf(ds:_*)
+  @inline def oneOf[D](ds: Decoder[E, D, F, T]*)(implicit i: IsError[F]): Decoder[E, D, F, T] = Decoder.oneOf(ds: _*)
 }
 
 object Decoder {
+
   /** Creates a new [[Decoder]] instance that applies the specified function when decoding. */
   def from[E, D, F, T](f: E ⇒ Result[F, D]): Decoder[E, D, F, T] = new Decoder[E, D, F, T] {
     override def decode(e: E) = f(e)
@@ -179,12 +179,12 @@ object Decoder {
   implicit def optionalDecoder[E: Optional, D, F, T](implicit da: Decoder[E, D, F, T]): Decoder[E, Option[D], F, T] =
     Decoder.from { e ⇒
       if(Optional[E].isEmpty(e)) Result.success(None)
-      else                       da.decode(e).map(Some.apply)
+      else da.decode(e).map(Some.apply)
     }
 
   /** Provides a [[Decoder]] instance for `Either[A, B]`, provided both `A` and `B` have a [[Decoder]] instance. */
-  implicit def eitherDecoder[E, D1, D2, F, T](implicit d1: Decoder[E, D1, F, T], d2: Decoder[E, D2, F, T])
-  : Decoder[E, Either[D1, D2], F, T] =
+  implicit def eitherDecoder[E, D1, D2, F, T](implicit d1: Decoder[E, D1, F, T],
+                                              d2: Decoder[E, D2, F, T]): Decoder[E, Either[D1, D2], F, T] =
     d1.map(Left.apply).orElse(d2.map(Right.apply))
 
   /** Creates a new decoder using all specified values.

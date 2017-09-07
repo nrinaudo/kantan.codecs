@@ -28,20 +28,22 @@ trait LowPriorityScalazInstances {
   implicit def resultEqual[F: Equal, S: Equal]: Equal[Result[F, S]] = Equal.equal {
     case (Failure(f1), Failure(f2)) ⇒ imp[Equal[F]].equal(f1, f2)
     case (Success(s1), Success(s2)) ⇒ imp[Equal[S]].equal(s1, s2)
-    case _ ⇒ false
+    case _                          ⇒ false
   }
 
   implicit def resultSemigroup[F: Semigroup, S: Semigroup]: Semigroup[Result[F, S]] =
     new Semigroup[Result[F, S]] {
       override def append(x: Result[F, S], y: ⇒ Result[F, S]) = x match {
-        case Failure(f1) ⇒ y match {
-          case Failure(f2) ⇒ Result.Failure(imp[Semigroup[F]].append(f1, f2))
-          case Success(_)  ⇒ x
-        }
-        case Success(s1) ⇒ y match {
-          case Failure(f)  ⇒ y
-          case Success(s2) ⇒ Result.Success(imp[Semigroup[S]].append(s1, s2))
-        }
+        case Failure(f1) ⇒
+          y match {
+            case Failure(f2) ⇒ Result.Failure(imp[Semigroup[F]].append(f1, f2))
+            case Success(_)  ⇒ x
+          }
+        case Success(s1) ⇒
+          y match {
+            case Failure(f)  ⇒ y
+            case Success(s2) ⇒ Result.Success(imp[Semigroup[S]].append(s1, s2))
+          }
       }
     }
 }
