@@ -19,12 +19,13 @@ package kantan.codecs.resource
 import imp.imp
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.scalatest.ResultValues
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 @SuppressWarnings(Array("org.wartremover.warts.Var", "org.wartremover.warts.While"))
-class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with ResultValues {
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   case class FailingIterator[A](iterator: Iterator[A], index: Int) {
@@ -305,7 +306,7 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
       val res = ResourceIterator(is: _*).safe(error)(identity)
       closedWhenEmpty(res) should be(true)
-      res.next() should be(Result.Failure(error))
+      res.next().failure.value should be(error)
     }
   }
 
