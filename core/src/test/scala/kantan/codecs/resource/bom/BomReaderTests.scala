@@ -19,12 +19,12 @@ package kantan.codecs.resource.bom
 import java.io.{ByteArrayInputStream, Reader}
 import java.nio.charset.Charset
 import org.scalacheck.Gen
-import org.scalatest.FunSuite
+import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.io.Codec
 
 /** Makes sure `BomReader` reads BOMs as expected. */
-class BomReaderTests extends FunSuite with GeneratorDrivenPropertyChecks {
+class BomReaderTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   def read(str: String, codec: Codec): String = {
     def go(reader: Reader, acc: StringBuilder): String = reader.read() match {
       case -1 ⇒ acc.toString()
@@ -36,38 +36,38 @@ class BomReaderTests extends FunSuite with GeneratorDrivenPropertyChecks {
 
   test("UTF-8 BOMs should be read properly") {
     forAll { str: String ⇒
-      assert(read(str, Codec.UTF8) == str)
+      read(str, Codec.UTF8) should be(str)
     }
   }
 
   test("UTF-16LE BOMs should be read properly") {
     forAll { str: String ⇒
-      assert(read(str, Codec(Charset.forName("UTF-16LE"))) == str)
+      read(str, Codec(Charset.forName("UTF-16LE"))) should be(str)
     }
   }
 
   test("UTF-16BE BOMs should be read properly") {
     forAll { str: String ⇒
-      assert(read(str, Codec(Charset.forName("UTF-16BE"))) == str)
+      read(str, Codec(Charset.forName("UTF-16BE"))) should be(str)
     }
   }
 
   test("UTF-32LE BOMs should be read properly") {
     forAll { str: String ⇒
-      assert(read(str, Codec(Charset.forName("UTF-32LE"))) == str)
+      read(str, Codec(Charset.forName("UTF-32LE"))) should be(str)
     }
   }
 
   test("UTF-32BE BOMs should be read properly") {
     forAll { str: String ⇒
-      assert(read(str, Codec(Charset.forName("UTF-32BE"))) == str)
+      read(str, Codec(Charset.forName("UTF-32BE"))) should be(str)
     }
   }
 
   // Uses Gen.identifier to make sure we only get strings that are actually encodable in ISO-8859-1.
   test("Non-BOM encodings should be read properly") {
     forAll(Gen.identifier) { str: String ⇒
-      assert(read(str, Codec.ISO8859) == str)
+      read(str, Codec.ISO8859) should be(str)
     }
   }
 }
