@@ -6,7 +6,20 @@ startYear in ThisBuild     := Some(2016)
 lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .enablePlugins(UnpublishedPlugin)
-  .aggregate(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws, docs)
+  .aggregate(
+    core,
+    laws,
+    catsLaws,
+    scalazLaws,
+    shapelessLaws,
+    cats,
+    scalaz,
+    shapeless,
+    jodaTime,
+    jodaTimeLaws,
+    docs,
+    scalatest
+  )
   .aggregateIf(java8Supported)(java8, java8Laws)
   .dependsOn(core)
 
@@ -43,14 +56,24 @@ lazy val laws = project
   )
   .enablePlugins(BoilerplatePlugin)
   .enablePlugins(PublishedPlugin)
-  .dependsOn(core)
+  .dependsOn(core, scalatest)
   .settings(
     libraryDependencies ++= Seq(
       "org.scalacheck" %% "scalacheck" % Versions.scalacheck,
-      "org.typelevel"  %% "discipline" % Versions.discipline,
-      "org.scalatest"  %% "scalatest"  % Versions.scalatest % "test"
+      "org.typelevel"  %% "discipline" % Versions.discipline
     )
   )
+
+// - scalatest project ------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val scalatest = project
+  .settings(
+    moduleName := "kantan.codecs-scalatest",
+    name       := "scalatest"
+  )
+  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % Versions.scalatest)
+  .dependsOn(core)
+  .enablePlugins(PublishedPlugin)
 
 // - cats projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
