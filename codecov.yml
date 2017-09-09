@@ -1,5 +1,4 @@
-comment:
-  layout: header, changes, diff
+comment: false
 coverage:
   notify:
     gitter:
