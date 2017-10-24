@@ -23,7 +23,7 @@ import kantan.codecs._
   * This is mostly meant to work in conjunction with [[Error]], and lets code that deals with errors turn them into
   * values of the right error type.
   */
-trait IsError[E] { self ⇒
+trait IsError[E] extends Serializable { self ⇒
 
   /** Creates a new instance of `E` from an exception. */
   def fromThrowable(t: Throwable): E

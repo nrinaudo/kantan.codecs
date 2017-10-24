@@ -7,18 +7,20 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .enablePlugins(UnpublishedPlugin)
   .aggregate(
-    core,
-    laws,
-    catsLaws,
-    scalazLaws,
-    shapelessLaws,
     cats,
-    scalaz,
-    shapeless,
+    catsLaws,
+    core,
+    docs,
     jodaTime,
     jodaTimeLaws,
-    docs,
-    scalatest
+    laws,
+    refined,
+    refinedLaws,
+    scalatest,
+    scalaz,
+    scalazLaws,
+    shapeless,
+    shapelessLaws
   )
   .aggregateIf(java8Supported)(java8, java8Laws)
   .dependsOn(core)
@@ -183,6 +185,32 @@ lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
       "org.scalatest" %% "scalatest"                 % Versions.scalatest % "optional"
     )
   )
+
+// - refined project ---------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val refined = project
+  .settings(
+    moduleName := "kantan.codecs-refined",
+    name       := "refined"
+  )
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core)
+  .settings(
+    libraryDependencies ++= Seq(
+      "eu.timepit"    %% "refined"   % Versions.refined,
+      "org.scalatest" %% "scalatest" % Versions.scalatest % "test"
+    )
+  )
+  .laws("refined-laws")
+
+lazy val refinedLaws = Project(id = "refined-laws", base = file("refined-laws"))
+  .settings(
+    moduleName := "kantan.codecs-refined-laws",
+    name       := "refined-laws"
+  )
+  .settings(libraryDependencies += "eu.timepit" %% "refined-scalacheck" % Versions.refined)
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core, laws, refined)
 
 // - shapeless projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
