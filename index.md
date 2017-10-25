@@ -4,27 +4,27 @@ layout: index
 
 [![Build Status](https://travis-ci.org/nrinaudo/kantan.codecs.svg?branch=master)](https://travis-ci.org/nrinaudo/kantan.codecs)
 [![codecov](https://codecov.io/gh/nrinaudo/kantan.codecs/branch/master/graph/badge.svg)](https://codecov.io/gh/nrinaudo/kantan.codecs)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.codecs_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.codecs_2.11)
+[![Latest version](https://index.scala-lang.org/nrinaudo/kantan.codecs/kantan.codecs/latest.svg)](https://index.scala-lang.org/nrinaudo/kantan.codecs)
 [![Join the chat at https://gitter.im/nrinaudo/kantan.codecs](https://img.shields.io/badge/gitter-join%20chat-52c435.svg)](https://gitter.im/nrinaudo/kantan.codecs)
 
 kantan.codecs is a support library for the various kantan projects.
 
 ## Getting started
 
-kantan.codecs is currently available for Scala 2.10, 2.11 and 2.12.
+kantan.codecs is currently available for Scala 2.11 and 2.12.
 
-The current version is `0.2.1`, which can be added to your project with one or more of the following line(s)
+The current version is `0.2.2-SNAPSHOT`, which can be added to your project with one or more of the following line(s)
 in your SBT build file:
 
 ```scala
 // Core library, included automatically if any other module is imported.
-libraryDependencies += "com.nrinaudo" %% "kantan.codecs" % "0.2.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.codecs" % "0.2.2-SNAPSHOT"
 
 // Provides scalaz type class instances.
-libraryDependencies += "com.nrinaudo" %% "kantan.codecs-scalaz" % "0.2.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.codecs-scalaz" % "0.2.2-SNAPSHOT"
 
 // Provides cats type class instances.
-libraryDependencies += "com.nrinaudo" %% "kantan.codecs-cats" % "0.2.1"
+libraryDependencies += "com.nrinaudo" %% "kantan.codecs-cats" % "0.2.2-SNAPSHOT"
 ```
 
 ## Motivation
