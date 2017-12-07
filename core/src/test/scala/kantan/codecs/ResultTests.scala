@@ -83,7 +83,7 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Match
     forAll { (d: Result[String, Int], f: Int ⇒ Boolean) ⇒
       d match {
         case Success(i) ⇒ d.exists(f) should be(f(i))
-        case Failure(s) ⇒ d.exists(f) should be(false)
+        case Failure(_) ⇒ d.exists(f) should be(false)
       }
     }
   }
@@ -94,7 +94,7 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Match
         case Success(i) ⇒
           if(f(i)) d.ensure(failure)(f) should be(d)
           else d.ensure(failure)(f).failure.value should be(failure)
-        case Failure(s) ⇒ d.ensure(failure)(f) should be(d)
+        case Failure(_) ⇒ d.ensure(failure)(f) should be(d)
       }
     }
   }

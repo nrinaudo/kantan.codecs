@@ -55,7 +55,7 @@ trait ResultValues {
     def value: L =
       result match {
         case Result.Failure(l) ⇒ l
-        case Result.Success(r) ⇒
+        case Result.Success(_) ⇒
           throw new TestFailedException(
             (_: StackDepthException) ⇒ Some(Resources.resultFailureValueNotDefined),
             None,
@@ -71,7 +71,7 @@ trait ResultValues {
     def value: R =
       result match {
         case Result.Success(r) ⇒ r
-        case Result.Failure(l) ⇒
+        case Result.Failure(_) ⇒
           throw new TestFailedException(
             (_: StackDepthException) ⇒ Some(Resources.resultSuccessValueNotDefined),
             None,
