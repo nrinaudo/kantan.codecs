@@ -41,7 +41,7 @@ trait LowPriorityScalazInstances {
           }
         case Success(s1) ⇒
           y match {
-            case Failure(f)  ⇒ y
+            case Failure(_)  ⇒ y
             case Success(s2) ⇒ Result.Success(imp[Semigroup[S]].append(s1, s2))
           }
       }

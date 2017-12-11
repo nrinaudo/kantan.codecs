@@ -179,7 +179,7 @@ trait ArbitraryInstances extends ArbitraryArities {
         BigDecimal(x, scale, mc)
       } catch {
         // Handle the case where scale/precision conflict
-        case ae: java.lang.ArithmeticException ⇒ BigDecimal(x, scale, UNLIMITED)
+        case _: java.lang.ArithmeticException ⇒ BigDecimal(x, scale, UNLIMITED)
       }
     }
     Arbitrary(bdGen)
