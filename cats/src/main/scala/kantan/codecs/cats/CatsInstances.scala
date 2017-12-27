@@ -17,7 +17,7 @@
 package kantan.codecs.cats
 
 import _root_.cats._
-import cats.functor.{Bifunctor, Contravariant}
+import cats.{Bifunctor, Contravariant}
 import kantan.codecs._, Result.{Failure, Success}
 import scala.annotation.tailrec
 
@@ -95,8 +95,27 @@ trait CatsInstances extends LowPriorityCatsInstances {
       override def pure[A](a: A) = Result.success(a)
     }
 
-  implicit def resultBiFunctor: Bifunctor[Result] = new Bifunctor[Result] {
-    override def bimap[A, B, C, D](fab: Result[A, B])(f: A ⇒ C, g: B ⇒ D): Result[C, D] =
-      fab.bimap(f, g)
-  }
+  implicit def resultBiInstances: Bifunctor[Result] with Bitraverse[Result] =
+    new Bifunctor[Result] with Bitraverse[Result] {
+      override def bimap[A, B, C, D](fab: Result[A, B])(f: A ⇒ C, g: B ⇒ D) =
+        fab.bimap(f, g)
+
+      override def bifoldLeft[A, B, C](fab: Result[A, B], c: C)(f: (C, A) ⇒ C, g: (C, B) ⇒ C) = fab match {
+        case Failure(a) ⇒ f(c, a)
+        case Success(b) ⇒ g(c, b)
+      }
+      override def bifoldRight[A, B, C](fab: Result[A, B], c: Eval[C])(f: (A, Eval[C]) ⇒ Eval[C],
+                                                                       g: (B, Eval[C]) ⇒ Eval[C]) =
+        fab match {
+          case Failure(a) ⇒ f(a, c)
+          case Success(b) ⇒ g(b, c)
+        }
+
+      override def bitraverse[G[_]: Applicative, A, B, C, D](fab: Result[A, B])(f: A ⇒ G[C], g: B ⇒ G[D]) =
+        fab match {
+          case Failure(a) ⇒ Applicative[G].map(f(a))(Failure(_))
+          case Success(b) ⇒ Applicative[G].map(g(b))(Success(_))
+        }
+    }
+
 }
