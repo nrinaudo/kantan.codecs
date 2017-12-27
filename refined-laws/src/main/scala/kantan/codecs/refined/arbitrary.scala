@@ -18,16 +18,16 @@ package kantan.codecs.refined.laws.discipline
 
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import eu.timepit.refined.scalacheck._, numeric._
+import eu.timepit.refined.scalacheck._
 import kantan.codecs.laws._
 import kantan.codecs.laws.discipline.arbitrary._
-import org.scalacheck.{Arbitrary, Cogen}
+import org.scalacheck.Arbitrary
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
 
-trait ArbitraryInstances {
-  implicit val arbPositiveInt: Arbitrary[Int Refined Positive] = greaterArbitraryNat
-  implicit val cogenPositiveInt: Cogen[Int Refined Positive]   = refTypeCogen
+trait ArbitraryInstances
+    extends BooleanInstances with CharInstances with GenericInstances with NumericInstances with RefTypeInstances
+    with StringInstances {
 
   implicit val arbLegalPositiveIntString: Arbitrary[LegalString[Int Refined Positive]] =
     arbLegalValue(_.toString)
