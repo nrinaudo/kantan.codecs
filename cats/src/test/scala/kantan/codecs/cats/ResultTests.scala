@@ -17,38 +17,39 @@
 package kantan.codecs.cats
 
 import cats._
-import cats.data.NonEmptyList
 import cats.instances.all._
-import cats.kernel.laws.{GroupLaws, OrderLaws}
-import cats.laws.discipline._, CartesianTests.Isomorphisms
-import cats.laws.discipline.arbitrary._
+import cats.kernel.laws.discipline.{MonoidTests, OrderTests}
+import cats.laws.discipline._
 import kantan.codecs.Result
 import kantan.codecs.laws.discipline.arbitrary._
-import org.scalacheck.{Arbitrary, Cogen}
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline with Matchers {
-  case class NoOrder(value: Int)
 
-  implicit val noOrderCogen: Cogen[NoOrder] = Cogen(_.value.toLong)
+  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Result[String, ?]]
 
-  implicit val noOrderEq: Eq[NoOrder] = new Eq[NoOrder] {
-    override def eqv(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value
-  }
-  implicit val arbNoOrder: Arbitrary[NoOrder] = Arbitrary(Arbitrary.arbitrary[Int].map(NoOrder.apply))
+  checkAll("Result[String, Int]", MonoidTests[Result[String, Int]].monoid)
+  checkAll("Monoid[Result[String, Int]]", SerializableTests.serializable(Monoid[Result[String, Int]]))
 
-  // TODO: not sure why this isn't resolved automatically. Investigate.
-  implicit val test: Isomorphisms[Result[String, ?]] = CartesianTests.Isomorphisms.invariant[Result[String, ?]]
+  checkAll("Result[String, ?]", SemigroupalTests[Result[String, ?]].semigroupal[Int, Int, Int])
+  checkAll("Semigroupal[Result[String, ?]]", SerializableTests.serializable(Semigroupal[Result[String, ?]]))
 
   checkAll("Result[String, ?]", MonadTests[Result[String, ?]].monad[Int, Int, Int])
+  checkAll("Monad[Result[String, ?]]", SerializableTests.serializable(Monad[Result[Int, ?]]))
+
   checkAll("Result[?, ?]", BifunctorTests[Result].bifunctor[Int, Int, Int, Int, Int, Int])
+  checkAll("Bifunctor[Result[?, ?]]", SerializableTests.serializable(Bifunctor[Result[?, ?]]))
+
   checkAll("Result[String, ?]", TraverseTests[Result[String, ?]].traverse[Int, Int, Int, Int, Option, Option])
-  checkAll("Result[Int, String]", OrderLaws[Result[Int, String]].order)
-  checkAll("Result[Int, String]", OrderLaws[Result[NoOrder, String]].eqv)
-  checkAll("Result[String, Int]", GroupLaws[Result[String, Int]].monoid)
-  checkAll("Result[String, NonEmptyList[Int]]", GroupLaws[Result[String, NonEmptyList[Int]]].semigroup)
+  checkAll("Traverse[Result[String, ?]]", SerializableTests.serializable(Traverse[Result[String, ?]]))
+
+  checkAll("Result[Int, String]", OrderTests[Result[Int, String]].order)
+  checkAll("Order[Result[Int, String]]", SerializableTests.serializable(Order[Result[Int, String]]))
+
+  checkAll("Result[?, ?]", BitraverseTests[Result].bitraverse[Option, Int, Int, Int, String, String, String])
+  checkAll("Bitraverse[Result]", SerializableTests.serializable(Bitraverse[Result]))
 
   test("Show should yield the expected result for successes") {
     forAll { i: Int ⇒

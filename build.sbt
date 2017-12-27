@@ -88,7 +88,7 @@ lazy val cats = project
   .dependsOn(core)
   .settings(
     libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats"      % Versions.cats,
+      "org.typelevel" %% "cats-core" % Versions.cats,
       "org.scalatest" %% "scalatest" % Versions.scalatest % "test"
     )
   )
@@ -102,10 +102,7 @@ lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, cats)
   .settings(
-    libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats"      % Versions.cats,
-      "org.typelevel" %% "cats-laws" % Versions.cats
-    )
+    libraryDependencies += "org.typelevel" %% "cats-laws" % Versions.cats
   )
 
 // - joda-time projects ------------------------------------------------------------------------------------------------
