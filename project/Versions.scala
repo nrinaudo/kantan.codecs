@@ -2,6 +2,7 @@ object Versions {
   val cats                = "1.0.0"
   val commonsIo           = "2.6"
   val discipline          = "0.8"
+  val enumeratum          = "1.5.12"
   val imp                 = "0.3.0"
   val jodaConvert         = "1.9.2"
   val joda                = "2.9.9"
