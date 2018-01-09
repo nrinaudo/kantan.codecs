@@ -79,7 +79,7 @@ lazy val scalatest = project
 
 // - cats projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-lazy val cats = project
+lazy val cats = Project(id = "cats", base = file("cats/core"))
   .settings(
     moduleName := "kantan.codecs-cats",
     name       := "cats"
@@ -94,7 +94,7 @@ lazy val cats = project
   )
   .laws("cats-laws")
 
-lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
+lazy val catsLaws = Project(id = "cats-laws", base = file("cats/laws"))
   .settings(
     moduleName := "kantan.codecs-cats-laws",
     name       := "cats-laws"
@@ -107,7 +107,7 @@ lazy val catsLaws = Project(id = "cats-laws", base = file("cats-laws"))
 
 // - joda-time projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
+lazy val jodaTime = Project(id = "joda-time", base = file("joda-time/core"))
   .settings(
     moduleName := "kantan.codecs-joda-time",
     name       := "joda-time"
@@ -123,7 +123,7 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time"))
   )
   .laws("joda-time-laws")
 
-lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-laws"))
+lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time/laws"))
   .settings(
     moduleName := "kantan.codecs-joda-time-laws",
     name       := "joda-time-laws"
@@ -133,7 +133,7 @@ lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time-la
 
 // - java8 projects ----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-lazy val java8 = project
+lazy val java8 = Project(id = "java8", base = file("java8/core"))
   .settings(
     moduleName := "kantan.codecs-java8",
     name       := "java8"
@@ -143,7 +143,7 @@ lazy val java8 = project
   .settings(libraryDependencies += "org.scalatest" %% "scalatest" % Versions.scalatest % "test")
   .laws("java8-laws")
 
-lazy val java8Laws = Project(id = "java8-laws", base = file("java8-laws"))
+lazy val java8Laws = Project(id = "java8-laws", base = file("java8/laws"))
   .settings(
     moduleName := "kantan.codecs-java8-laws",
     name       := "java8-laws"
@@ -153,7 +153,7 @@ lazy val java8Laws = Project(id = "java8-laws", base = file("java8-laws"))
 
 // - scalaz projects ---------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-lazy val scalaz = project
+lazy val scalaz = Project(id = "scalaz", base = file("scalaz/core"))
   .settings(
     moduleName := "kantan.codecs-scalaz",
     name       := "scalaz"
@@ -168,7 +168,7 @@ lazy val scalaz = project
   )
   .laws("scalaz-laws")
 
-lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
+lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz/laws"))
   .settings(
     moduleName := "kantan.codecs-scalaz-laws",
     name       := "scalaz-laws"
@@ -185,7 +185,7 @@ lazy val scalazLaws = Project(id = "scalaz-laws", base = file("scalaz-laws"))
 
 // - refined project ---------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-lazy val refined = project
+lazy val refined = Project(id = "refined", base = file("refined/core"))
   .settings(
     moduleName := "kantan.codecs-refined",
     name       := "refined"
@@ -200,7 +200,7 @@ lazy val refined = project
   )
   .laws("refined-laws")
 
-lazy val refinedLaws = Project(id = "refined-laws", base = file("refined-laws"))
+lazy val refinedLaws = Project(id = "refined-laws", base = file("refined/laws"))
   .settings(
     moduleName := "kantan.codecs-refined-laws",
     name       := "refined-laws"
@@ -211,7 +211,7 @@ lazy val refinedLaws = Project(id = "refined-laws", base = file("refined-laws"))
 
 // - shapeless projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-lazy val shapeless = project
+lazy val shapeless = Project(id = "shapeless", base = file("shapeless/core"))
   .settings(
     moduleName := "kantan.codecs-shapeless",
     name       := "shapeless"
@@ -226,7 +226,7 @@ lazy val shapeless = project
   )
   .laws("shapeless-laws")
 
-lazy val shapelessLaws = Project(id = "shapeless-laws", base = file("shapeless-laws"))
+lazy val shapelessLaws = Project(id = "shapeless-laws", base = file("shapeless/laws"))
   .settings(
     moduleName := "kantan.codecs-shapeless-laws",
     name       := "shapeless-laws"
