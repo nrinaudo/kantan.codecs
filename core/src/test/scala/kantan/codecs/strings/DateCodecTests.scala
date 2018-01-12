@@ -25,17 +25,19 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class DateCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+
   implicit val codec: StringCodec[Date] =
     StringCodec.dateCodec(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.ENGLISH))
 
-  checkAll("StringDecoder[Date]", DecoderTests[String, Date, DecodeError, codecs.type].decoder[Int, Int])
+  checkAll("StringDecoder[Date]", StringDecoderTests[Date].decoder[Int, Int])
   checkAll("StringDecoder[Date]", SerializableTests[StringDecoder[Date]].serializable)
 
-  checkAll("StringEncoder[Date]", EncoderTests[String, Date, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Date]", StringEncoderTests[Date].encoder[Int, Int])
   checkAll("StringEncoder[Date]", SerializableTests[StringEncoder[Date]].serializable)
 
-  checkAll("StringCodec[Date]", CodecTests[String, Date, DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[Date]", StringCodecTests[Date].codec[Int, Int])
 
   checkAll("TaggedDecoder[Date]", DecoderTests[String, Date, DecodeError, tagged.type].decoder[Int, Int])
   checkAll("TaggedEncoder[Date]", EncoderTests[String, Date, tagged.type].encoder[Int, Int])
+
 }

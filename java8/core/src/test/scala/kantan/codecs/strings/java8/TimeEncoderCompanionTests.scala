@@ -19,7 +19,7 @@ package kantan.codecs.strings.java8
 import java.time._
 import kantan.codecs.Encoder
 import kantan.codecs.export.Exported
-import kantan.codecs.laws.discipline.EncoderTests
+import kantan.codecs.laws.discipline.StringEncoderTests
 import kantan.codecs.strings.StringEncoder
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -27,6 +27,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class TimeEncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+
   type TestEncoder[D] = Exported[Encoder[String, D, codec.type]]
 
   object EncoderCompanion extends TimeEncoderCompanion[String, codec.type] {
@@ -40,12 +41,11 @@ class TimeEncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChe
     implicit val localTimeTestEncoder: TestEncoder[LocalTime]           = Exported(defaultLocalTimeEncoder)
   }
 
-  import EncoderCompanion._
+  checkAll("TimeEncoderCompanion[Instant]", StringEncoderTests[Instant].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[ZonedDateTime]", StringEncoderTests[ZonedDateTime].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[OffsetDateTime]", StringEncoderTests[OffsetDateTime].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[LocalDateTime]", StringEncoderTests[LocalDateTime].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[LocalDate]", StringEncoderTests[LocalDate].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[LocalTime]", StringEncoderTests[LocalTime].encoder[Int, Int])
 
-  checkAll("TimeEncoderCompanion[Instant]", EncoderTests[String, Instant, codec.type].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[ZonedDateTime]", EncoderTests[String, ZonedDateTime, codec.type].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[OffsetDateTime]", EncoderTests[String, OffsetDateTime, codec.type].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[LocalDateTime]", EncoderTests[String, LocalDateTime, codec.type].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[LocalDate]", EncoderTests[String, LocalDate, codec.type].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[LocalTime]", EncoderTests[String, LocalTime, codec.type].encoder[Int, Int])
 }

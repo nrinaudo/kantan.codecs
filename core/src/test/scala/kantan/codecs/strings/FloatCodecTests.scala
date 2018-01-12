@@ -24,14 +24,16 @@ import org.typelevel.discipline.scalatest.Discipline
 import tagged._
 
 class FloatCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[Float]", DecoderTests[String, Float, DecodeError, codecs.type].decoder[Int, Int])
+
+  checkAll("StringDecoder[Float]", StringDecoderTests[Float].decoder[Int, Int])
   checkAll("StringDecoder[Float]", SerializableTests[StringDecoder[Float]].serializable)
 
-  checkAll("StringEncoder[Float]", EncoderTests[String, Float, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Float]", StringEncoderTests[Float].encoder[Int, Int])
   checkAll("StringEncoder[Float]", SerializableTests[StringEncoder[Float]].serializable)
 
-  checkAll("StringCodec[Float]", CodecTests[String, Float, DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[Float]", StringCodecTests[Float].codec[Int, Int])
 
   checkAll("TaggedDecoder[Float]", DecoderTests[String, Float, DecodeError, tagged.type].decoder[Int, Int])
   checkAll("TaggedEncoder[Float]", EncoderTests[String, Float, tagged.type].encoder[Int, Int])
+
 }

@@ -24,14 +24,16 @@ import org.typelevel.discipline.scalatest.Discipline
 import tagged._
 
 class BigDecimalCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[BigDecimal]", DecoderTests[String, BigDecimal, DecodeError, codecs.type].decoder[Int, Int])
+
+  checkAll("StringDecoder[BigDecimal]", StringDecoderTests[BigDecimal].decoder[Int, Int])
   checkAll("StringDecoder[BigDecimal]", SerializableTests[StringDecoder[BigDecimal]].serializable)
 
-  checkAll("StringEncoder[BigDecimal]", EncoderTests[String, BigDecimal, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[BigDecimal]", StringEncoderTests[BigDecimal].encoder[Int, Int])
   checkAll("StringEncoder[BigDecimal]", SerializableTests[StringEncoder[BigDecimal]].serializable)
 
-  checkAll("StringCodec[BigDecimal]", CodecTests[String, BigDecimal, DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[BigDecimal]", StringCodecTests[BigDecimal].codec[Int, Int])
 
   checkAll("TaggedDecoder[BigDecimal]", DecoderTests[String, BigDecimal, DecodeError, tagged.type].decoder[Int, Int])
   checkAll("TaggedEncoder[BigDecimal]", EncoderTests[String, BigDecimal, tagged.type].encoder[Int, Int])
+
 }

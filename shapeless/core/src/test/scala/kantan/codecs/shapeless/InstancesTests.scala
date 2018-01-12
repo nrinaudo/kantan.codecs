@@ -16,7 +16,7 @@
 
 package kantan.codecs.shapeless
 
-import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests, SerializableTests}
+import kantan.codecs.laws.discipline._
 import kantan.codecs.shapeless.laws._
 import kantan.codecs.shapeless.laws.discipline.arbitrary._
 import kantan.codecs.strings._
@@ -26,6 +26,7 @@ import org.typelevel.discipline.scalatest.Discipline
 import shapeless._
 
 object Instances {
+
   // - HList / Coproduct instances -------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val cnilDec: StringDecoder[CNil] = cnilDecoder(_ ⇒ DecodeError("Attempting to decode CNil"))
@@ -45,20 +46,17 @@ class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Di
 
   // - Tests -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  checkAll(
-    "StringDecoder[Int Or Boolean]",
-    DecoderTests[String, Int Or Boolean, DecodeError, codecs.type]
-      .decoder[Int, Int]
-  )
+  checkAll("StringDecoder[Int Or Boolean]", StringDecoderTests[Int Or Boolean].decoder[Int, Int])
   checkAll("StringDecoder[Int Or Boolean]", SerializableTests[StringDecoder[Int Or Boolean]].serializable)
 
-  checkAll("StringEncoder[Int Or Boolean]", EncoderTests[String, Int Or Boolean, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Int Or Boolean]", StringEncoderTests[Int Or Boolean].encoder[Int, Int])
   checkAll("StringEncoder[Int Or Boolean]", SerializableTests[StringEncoder[Int Or Boolean]].serializable)
 
-  checkAll("StringCodec[Int Or Boolean]", CodecTests[String, Int Or Boolean, DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[Int Or Boolean]", StringCodecTests[Int Or Boolean].codec[Int, Int])
 
   test("Encoder[?, CNil, ?] should fail") {
     intercept[IllegalStateException] { StringEncoder[CNil].encode(null) }
     ()
   }
+
 }

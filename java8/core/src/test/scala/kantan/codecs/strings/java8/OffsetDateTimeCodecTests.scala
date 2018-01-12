@@ -17,7 +17,7 @@
 package kantan.codecs.strings.java8
 
 import java.time.OffsetDateTime
-import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests, SerializableTests}
+import kantan.codecs.laws.discipline._
 import kantan.codecs.strings._
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -25,14 +25,11 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class OffsetDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll(
-    "StringDecoder[OffsetDateTime]",
-    DecoderTests[String, OffsetDateTime, DecodeError, codecs.type].decoder[Int, Int]
-  )
+  checkAll("StringDecoder[OffsetDateTime]", StringDecoderTests[OffsetDateTime].decoder[Int, Int])
   checkAll("StringDecoder[OffsetDateTime]", SerializableTests[StringEncoder[OffsetDateTime]].serializable)
 
-  checkAll("StringEncoder[OffsetDateTime]", EncoderTests[String, OffsetDateTime, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[OffsetDateTime]", StringEncoderTests[OffsetDateTime].encoder[Int, Int])
   checkAll("StringEncoder[OffsetDateTime]", SerializableTests[StringEncoder[OffsetDateTime]].serializable)
 
-  checkAll("StringCodec[OffsetDateTime]", CodecTests[String, OffsetDateTime, DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[OffsetDateTime]", StringCodecTests[OffsetDateTime].codec[Int, Int])
 }

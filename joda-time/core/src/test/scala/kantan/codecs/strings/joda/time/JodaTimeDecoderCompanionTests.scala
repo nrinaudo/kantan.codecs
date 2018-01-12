@@ -18,7 +18,7 @@ package kantan.codecs.strings.joda.time
 
 import kantan.codecs.Decoder
 import kantan.codecs.export.Exported
-import kantan.codecs.laws.discipline.DecoderTests
+import kantan.codecs.laws.discipline.StringDecoderTests
 import kantan.codecs.strings.{DecodeError, StringDecoder}
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
@@ -27,6 +27,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class JodaTimeDecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+
   type TestDecoder[D] = Exported[Decoder[String, D, DecodeError, codec.type]]
 
   object DecoderCompanion extends JodaTimeDecoderCompanion[String, DecodeError, codec.type] {
@@ -38,22 +39,9 @@ class JodaTimeDecoderCompanionTests extends FunSuite with GeneratorDrivenPropert
     implicit val localTimeTestDecoder: TestDecoder[LocalTime]         = Exported(defaultLocalTimeDecoder)
   }
 
-  import DecoderCompanion._
+  checkAll("JodaTimeDecoderCompanion[DateTime]", StringDecoderTests[DateTime].decoder[Int, Int])
+  checkAll("JodaTimeDecoderCompanion[LocalDateTime]", StringDecoderTests[LocalDateTime].decoder[Int, Int])
+  checkAll("JodaTimeDecoderCompanion[LocalDate]", StringDecoderTests[LocalDate].decoder[Int, Int])
+  checkAll("JodaTimeDecoderCompanion[LocalTime]", StringDecoderTests[LocalTime].decoder[Int, Int])
 
-  checkAll(
-    "JodaTimeDecoderCompanion[DateTime]",
-    DecoderTests[String, DateTime, DecodeError, codec.type].decoder[Int, Int]
-  )
-  checkAll(
-    "JodaTimeDecoderCompanion[LocalDateTime]",
-    DecoderTests[String, LocalDateTime, DecodeError, codec.type].decoder[Int, Int]
-  )
-  checkAll(
-    "JodaTimeDecoderCompanion[LocalDate]",
-    DecoderTests[String, LocalDate, DecodeError, codec.type].decoder[Int, Int]
-  )
-  checkAll(
-    "JodaTimeDecoderCompanion[LocalTime]",
-    DecoderTests[String, LocalTime, DecodeError, codec.type].decoder[Int, Int]
-  )
 }
