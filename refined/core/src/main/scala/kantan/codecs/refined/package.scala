@@ -17,4 +17,4 @@
 package kantan.codecs
 
 /** Provides codecs for [[https://github.com/fthomas/refined refined]] types. */
-package object refined extends RefinedInstances
+package object refined extends DecoderInstances with EncoderInstances
