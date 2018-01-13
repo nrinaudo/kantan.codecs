@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
+package discipline
 
-trait OptionalLaws[A] {
-  def optional: Optional[A]
+import arbitrary._
+import kantan.codecs.strings._
+import org.scalacheck.{Arbitrary, Cogen}
 
-  def emptyUniqueness(a: A): Boolean = a == optional.empty || !optional.isEmpty(a)
-}
+object StringDecoderTests {
 
-object OptionalLaws {
-  implicit def apply[A: Optional]: OptionalLaws[A] = new OptionalLaws[A] {
-    override val optional = Optional[A]
-  }
+  def apply[D: Arbitrary: Cogen](implicit l: StringDecoderLaws[D],
+                                 al: Arbitrary[LegalString[D]]): StringDecoderTests[D] =
+    DecoderTests[String, D, DecodeError, codecs.type]
+
 }

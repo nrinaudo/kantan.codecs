@@ -24,22 +24,14 @@ import org.typelevel.discipline.scalatest.Discipline
 import tagged._
 
 class EitherCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll(
-    "StringDecoder[Either[Int, Boolean]]",
-    DecoderTests[String, Either[Int, Boolean], DecodeError, codecs.type].decoder[Int, Int]
-  )
+
+  checkAll("StringDecoder[Either[Int, Boolean]]", StringDecoderTests[Either[Int, Boolean]].decoder[Int, Int])
   checkAll("StringDecoder[Either[Int, Boolean]]", SerializableTests[StringDecoder[Either[Int, Boolean]]].serializable)
 
-  checkAll(
-    "StringEncoder[Either[Int, Boolean]]",
-    EncoderTests[String, Either[Int, Boolean], codecs.type].encoder[Int, Int]
-  )
+  checkAll("StringEncoder[Either[Int, Boolean]]", StringEncoderTests[Either[Int, Boolean]].encoder[Int, Int])
   checkAll("StringEncoder[Either[Int, Boolean]]", SerializableTests[StringEncoder[Either[Int, Boolean]]].serializable)
 
-  checkAll(
-    "StringCodec[Either[Int, Boolean]]",
-    CodecTests[String, Either[Int, Boolean], DecodeError, codecs.type].codec[Int, Int]
-  )
+  checkAll("StringCodec[Either[Int, Boolean]]", StringCodecTests[Either[Int, Boolean]].codec[Int, Int])
 
   checkAll(
     "TaggedDecoder[Either[Int, Boolean]]",
@@ -49,4 +41,5 @@ class EitherCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with 
     "TaggedEncoder[Either[Int, Boolean]]",
     EncoderTests[String, Either[Int, Boolean], tagged.type].encoder[Int, Int]
   )
+
 }

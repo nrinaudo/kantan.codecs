@@ -19,7 +19,7 @@ package kantan.codecs.strings.java8
 import java.time._
 import kantan.codecs.Decoder
 import kantan.codecs.export.Exported
-import kantan.codecs.laws.discipline.DecoderTests
+import kantan.codecs.laws.discipline.StringDecoderTests
 import kantan.codecs.strings.{DecodeError, StringDecoder}
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -40,27 +40,10 @@ class TimeDecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChe
     implicit val localTimeTestDecoder: TestDecoder[LocalTime]           = Exported(defaultLocalTimeDecoder)
   }
 
-  import DecoderCompanion._
-
-  checkAll("TimeDecoderCompanion[Instant]", DecoderTests[String, Instant, DecodeError, codec.type].decoder[Int, Int])
-  checkAll(
-    "TimeDecoderCompanion[ZonedDateTime]",
-    DecoderTests[String, ZonedDateTime, DecodeError, codec.type].decoder[Int, Int]
-  )
-  checkAll(
-    "TimeDecoderCompanion[OffsetDateTime]",
-    DecoderTests[String, OffsetDateTime, DecodeError, codec.type].decoder[Int, Int]
-  )
-  checkAll(
-    "TimeDecoderCompanion[LocalDateTime]",
-    DecoderTests[String, LocalDateTime, DecodeError, codec.type].decoder[Int, Int]
-  )
-  checkAll(
-    "TimeDecoderCompanion[LocalDate]",
-    DecoderTests[String, LocalDate, DecodeError, codec.type].decoder[Int, Int]
-  )
-  checkAll(
-    "TimeDecoderCompanion[LocalTime]",
-    DecoderTests[String, LocalTime, DecodeError, codec.type].decoder[Int, Int]
-  )
+  checkAll("TimeDecoderCompanion[Instant]", StringDecoderTests[Instant].decoder[Int, Int])
+  checkAll("TimeDecoderCompanion[ZonedDateTime]", StringDecoderTests[ZonedDateTime].decoder[Int, Int])
+  checkAll("TimeDecoderCompanion[OffsetDateTime]", StringDecoderTests[OffsetDateTime].decoder[Int, Int])
+  checkAll("TimeDecoderCompanion[LocalDateTime]", StringDecoderTests[LocalDateTime].decoder[Int, Int])
+  checkAll("TimeDecoderCompanion[LocalDate]", StringDecoderTests[LocalDate].decoder[Int, Int])
+  checkAll("TimeDecoderCompanion[LocalTime]", StringDecoderTests[LocalTime].decoder[Int, Int])
 }

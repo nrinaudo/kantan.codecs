@@ -18,7 +18,7 @@ package kantan.codecs.strings.joda.time
 
 import kantan.codecs.Encoder
 import kantan.codecs.export.Exported
-import kantan.codecs.laws.discipline.EncoderTests
+import kantan.codecs.laws.discipline.StringEncoderTests
 import kantan.codecs.strings.StringEncoder
 import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
@@ -27,6 +27,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class JodaTimeEncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+
   type TestEncoder[D] = Exported[Encoder[String, D, codec.type]]
 
   object EncoderCompanion extends JodaTimeEncoderCompanion[String, codec.type] {
@@ -38,10 +39,9 @@ class JodaTimeEncoderCompanionTests extends FunSuite with GeneratorDrivenPropert
     implicit val localTimeTestEncoder: TestEncoder[LocalTime]         = Exported(defaultLocalTimeEncoder)
   }
 
-  import EncoderCompanion._
+  checkAll("JodaTimeEncoderCompanion[DateTime]", StringEncoderTests[DateTime].encoder[Int, Int])
+  checkAll("JodaTimeEncoderCompanion[LocalDateTime]", StringEncoderTests[LocalDateTime].encoder[Int, Int])
+  checkAll("JodaTimeEncoderCompanion[LocalDate]", StringEncoderTests[LocalDate].encoder[Int, Int])
+  checkAll("JodaTimeEncoderCompanion[LocalTime]", StringEncoderTests[LocalTime].encoder[Int, Int])
 
-  checkAll("JodaTimeEncoderCompanion[DateTime]", EncoderTests[String, DateTime, codec.type].encoder[Int, Int])
-  checkAll("JodaTimeEncoderCompanion[LocalDateTime]", EncoderTests[String, LocalDateTime, codec.type].encoder[Int, Int])
-  checkAll("JodaTimeEncoderCompanion[LocalDate]", EncoderTests[String, LocalDate, codec.type].encoder[Int, Int])
-  checkAll("JodaTimeEncoderCompanion[LocalTime]", EncoderTests[String, LocalTime, codec.type].encoder[Int, Int])
 }

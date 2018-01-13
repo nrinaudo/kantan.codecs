@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs.laws
+package kantan.codecs
+package laws
 
 import java.io._
 import scala.util.Try

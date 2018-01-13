@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs.laws
+package kantan.codecs
+package laws
 
-import kantan.codecs._
 import kantan.codecs.laws.CodecValue.LegalValue
 
 trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, D, T] {

@@ -18,7 +18,7 @@ package kantan.codecs.refined
 
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests, SerializableTests}
+import kantan.codecs.laws.discipline._
 import kantan.codecs.refined.laws.discipline.arbitrary._
 import kantan.codecs.strings._
 import org.scalatest.FunSuite
@@ -26,20 +26,13 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class RefinedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll(
-    "StringDecoder[Int Refined Positive]",
-    DecoderTests[String, Int Refined Positive, DecodeError, codecs.type].decoder[Int, Int]
-  )
+
+  checkAll("StringDecoder[Int Refined Positive]", StringDecoderTests[Int Refined Positive].decoder[Int, Int])
   checkAll("StringDecoder[Int Refined Positive]", SerializableTests[StringEncoder[Int Refined Positive]].serializable)
 
-  checkAll(
-    "StringEncoder[Int Refined Positive]",
-    EncoderTests[String, Int Refined Positive, codecs.type].encoder[Int, Int]
-  )
+  checkAll("StringEncoder[Int Refined Positive]", StringEncoderTests[Int Refined Positive].encoder[Int, Int])
   checkAll("StringEncoder[Int Refined Positive]", SerializableTests[StringEncoder[Int Refined Positive]].serializable)
 
-  checkAll(
-    "StringCodec[Int Refined Positive]",
-    CodecTests[String, Int Refined Positive, DecodeError, codecs.type].codec[Int, Int]
-  )
+  checkAll("StringCodec[Int Refined Positive]", StringCodecTests[Int Refined Positive].codec[Int, Int])
+
 }

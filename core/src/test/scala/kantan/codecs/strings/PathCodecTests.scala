@@ -24,14 +24,16 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class PathCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[Path]", DecoderTests[String, Path, DecodeError, codecs.type].bijectiveDecoder[Int, Int])
+
+  checkAll("StringDecoder[Path]", StringDecoderTests[Path].bijectiveDecoder[Int, Int])
   checkAll("StringDecoder[Path]", SerializableTests[StringDecoder[Path]].serializable)
 
-  checkAll("StringEncoder[Path]", EncoderTests[String, Path, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Path]", StringEncoderTests[Path].encoder[Int, Int])
   checkAll("StringEncoder[Path]", SerializableTests[StringEncoder[Path]].serializable)
 
-  checkAll("StringCodec[Path]", CodecTests[String, Path, DecodeError, codecs.type].bijectiveCodec[Int, Int])
+  checkAll("StringCodec[Path]", StringCodecTests[Path].bijectiveCodec[Int, Int])
 
   checkAll("TaggedDecoder[Path]", DecoderTests[String, Path, DecodeError, tagged.type].bijectiveDecoder[Int, Int])
   checkAll("TaggedEncoder[Path]", EncoderTests[String, Path, tagged.type].encoder[Int, Int])
+
 }

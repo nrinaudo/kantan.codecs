@@ -22,15 +22,17 @@ import org.typelevel.discipline.scalatest.Discipline
 
 // TODO: this is currently disabled because of Java's messed up Pattern.equals implementation.
 class PatternCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline /*{
-  checkAll("StringDecoder[Pattern]", DecoderTests[String, Pattern, DecodeError, codecs.type].bijectiveDecoder[Int, Int])
+
+  checkAll("StringDecoder[Pattern]", StringDecoderTests[Pattern].bijectiveDecoder[Int, Int])
   checkAll("StringDecoder[Pattern]", SerializableTests[StringDecoder[Pattern]].serializable)
 
-  checkAll("StringEncoder[Pattern]", EncoderTests[String, Pattern, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Pattern]", StringEncoderTests[Pattern].encoder[Int, Int])
   checkAll("StringEncoder[Pattern]", SerializableTests[StringEncoder[Pattern]].serializable)
 
-  checkAll("StringCodec[Pattern]", CodecTests[String, Pattern, DecodeError, codecs.type].bijectiveCodec[Int, Int])
+  checkAll("StringCodec[Pattern]", StringCodecTests[Pattern].bijectiveCodec[Int, Int])
 
   checkAll("TaggedDecoder[Pattern]", DecoderTests[String, Pattern, DecodeError, tagged.type].bijectiveDecoder[Int, Int])
   checkAll("TaggedEncoder[Pattern]", EncoderTests[String, Pattern, tagged.type].encoder[Int, Int])
+
 }
  */

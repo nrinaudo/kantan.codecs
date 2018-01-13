@@ -17,7 +17,7 @@
 package kantan.codecs.strings.java8
 
 import java.time.ZonedDateTime
-import kantan.codecs.laws.discipline.{CodecTests, DecoderTests, EncoderTests, SerializableTests}
+import kantan.codecs.laws.discipline._
 import kantan.codecs.strings._
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -25,14 +25,13 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class ZonedDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll(
-    "StringDecoder[ZonedDateTime]",
-    DecoderTests[String, ZonedDateTime, DecodeError, codecs.type].decoder[Int, Int]
-  )
+
+  checkAll("StringDecoder[ZonedDateTime]", StringDecoderTests[ZonedDateTime].decoder[Int, Int])
   checkAll("StringDecoder[ZonedDateTime]", SerializableTests[StringEncoder[ZonedDateTime]].serializable)
 
-  checkAll("StringEncoder[ZonedDateTime]", EncoderTests[String, ZonedDateTime, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[ZonedDateTime]", StringEncoderTests[ZonedDateTime].encoder[Int, Int])
   checkAll("StringEncoder[ZonedDateTime]", SerializableTests[StringEncoder[ZonedDateTime]].serializable)
 
-  checkAll("StringCodec[ZonedDateTime]", CodecTests[String, ZonedDateTime, DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[ZonedDateTime]", StringCodecTests[ZonedDateTime].codec[Int, Int])
+
 }

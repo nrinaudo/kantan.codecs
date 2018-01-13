@@ -21,16 +21,18 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 // TODO: this is currently disabled because of Java's messed up Pattern.equals implementation.
+
 class RegexCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline /*{
-  checkAll("StringDecoder[Regex]", DecoderTests[String, Regex, DecodeError, codecs.type].bijectiveDecoder[Int, Int])
+  checkAll("StringDecoder[Regex]", StringDecoderTests[Regex].bijectiveDecoder[Int, Int])
   checkAll("StringDecoder[Regex]", SerializableTests[StringDecoder[Regex]].serializable)
 
-  checkAll("StringEncoder[Regex]", EncoderTests[String, Regex, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Regex]", StringEncoderTests[Regex].encoder[Int, Int])
   checkAll("StringEncoder[Regex]", SerializableTests[StringEncoder[Regex]].serializable)
 
-  checkAll("StringCodec[Regex]", CodecTests[String, Regex, DecodeError, codecs.type].bijectiveCodec[Int, Int])
+  checkAll("StringCodec[Regex]", StringCodecTests[Regex].bijectiveCodec[Int, Int])
 
   checkAll("TaggedDecoder[Regex]", DecoderTests[String, Regex, DecodeError, tagged.type].bijectiveDecoder[Int, Int])
   checkAll("TaggedEncoder[Regex]", EncoderTests[String, Regex, tagged.type].encoder[Int, Int])
+
 }
  */

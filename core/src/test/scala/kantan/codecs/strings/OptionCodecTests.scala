@@ -24,14 +24,16 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class OptionCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[Option[Int]]", DecoderTests[String, Option[Int], DecodeError, codecs.type].decoder[Int, Int])
+
+  checkAll("StringDecoder[Option[Int]]", StringDecoderTests[Option[Int]].decoder[Int, Int])
   checkAll("StringDecoder[Option[Int]]", SerializableTests[StringDecoder[Option[Int]]].serializable)
 
-  checkAll("StringEncoder[Option[Int]]", EncoderTests[String, Option[Int], codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Option[Int]]", StringEncoderTests[Option[Int]].encoder[Int, Int])
   checkAll("StringEncoder[Option[Int]]", SerializableTests[StringEncoder[Option[Int]]].serializable)
 
-  checkAll("StringCodec[Option[Int]]", CodecTests[String, Option[Int], DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[Option[Int]]", StringCodecTests[Option[Int]].codec[Int, Int])
 
   checkAll("TaggedDecoder[Option[Int]]", DecoderTests[String, Option[Int], DecodeError, tagged.type].decoder[Int, Int])
   checkAll("TaggedEncoder[Option[Int]]", EncoderTests[String, Option[Int], tagged.type].encoder[Int, Int])
+
 }

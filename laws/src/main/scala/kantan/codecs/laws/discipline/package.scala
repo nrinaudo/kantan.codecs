@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
 
-trait OptionalLaws[A] {
-  def optional: Optional[A]
+import kantan.codecs.strings._
 
-  def emptyUniqueness(a: A): Boolean = a == optional.empty || !optional.isEmpty(a)
-}
+package object discipline {
 
-object OptionalLaws {
-  implicit def apply[A: Optional]: OptionalLaws[A] = new OptionalLaws[A] {
-    override val optional = Optional[A]
-  }
+  type StringEncoderTests[A] = EncoderTests[String, A, codecs.type]
+  type StringDecoderTests[A] = DecoderTests[String, A, DecodeError, codecs.type]
+  type StringCodecTests[A]   = CodecTests[String, A, DecodeError, codecs.type]
+
 }

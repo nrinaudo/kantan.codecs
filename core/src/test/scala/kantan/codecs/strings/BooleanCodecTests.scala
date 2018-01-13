@@ -24,14 +24,16 @@ import org.typelevel.discipline.scalatest.Discipline
 import tagged._
 
 class BooleanCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[Boolean]", DecoderTests[String, Boolean, DecodeError, codecs.type].decoder[Int, Int])
+
+  checkAll("StringDecoder[Boolean]", StringDecoderTests[Boolean].decoder[Int, Int])
   checkAll("StringDecoder[Boolean]", SerializableTests[StringDecoder[Boolean]].serializable)
 
-  checkAll("StringEncoder[Boolean]", EncoderTests[String, Boolean, codecs.type].encoder[Int, Int])
+  checkAll("StringEncoder[Boolean]", StringEncoderTests[Boolean].encoder[Int, Int])
   checkAll("StringEncoder[Boolean]", SerializableTests[StringEncoder[Boolean]].serializable)
 
-  checkAll("StringCodec[Boolean]", CodecTests[String, Boolean, DecodeError, codecs.type].codec[Int, Int])
+  checkAll("StringCodec[Boolean]", StringCodecTests[Boolean].codec[Int, Int])
 
   checkAll("TaggedDecoder[Boolean]", DecoderTests[String, Boolean, DecodeError, tagged.type].decoder[Int, Int])
   checkAll("TaggedEncoder[Boolean]", EncoderTests[String, Boolean, tagged.type].encoder[Int, Int])
+
 }

@@ -18,7 +18,7 @@ package kantan.codecs.strings.java8
 
 import java.time._
 import kantan.codecs.Codec
-import kantan.codecs.laws.discipline.CodecTests
+import kantan.codecs.laws.discipline.StringCodecTests
 import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 import org.scalatest.FunSuite
@@ -26,6 +26,7 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
 class TimeCodecCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+
   type TestCodec[D] = Codec[String, D, DecodeError, codec.type]
 
   object CodecCompanion extends TimeCodecCompanion[String, DecodeError, codec.type] {
@@ -40,21 +41,11 @@ class TimeCodecCompanionTests extends FunSuite with GeneratorDrivenPropertyCheck
     implicit val localTimeTestCodec: TestCodec[LocalTime]           = defaultLocalTimeCodec
   }
 
-  import CodecCompanion._
+  checkAll("TimeCodecCompanion[Instant]", StringCodecTests[Instant].codec[Int, Int])
+  checkAll("TimeCodecCompanion[ZonedDateTime]", StringCodecTests[ZonedDateTime].codec[Int, Int])
+  checkAll("TimeCodecCompanion[OffsetDateTime]", StringCodecTests[OffsetDateTime].codec[Int, Int])
+  checkAll("TimeCodecCompanion[LocalDateTime]", StringCodecTests[LocalDateTime].codec[Int, Int])
+  checkAll("TimeCodecCompanion[LocalDate]", StringCodecTests[LocalDate].codec[Int, Int])
+  checkAll("TimeCodecCompanion[LocalTime]", StringCodecTests[LocalTime].codec[Int, Int])
 
-  checkAll("TimeCodecCompanion[Instant]", CodecTests[String, Instant, DecodeError, codec.type].codec[Int, Int])
-  checkAll(
-    "TimeCodecCompanion[ZonedDateTime]",
-    CodecTests[String, ZonedDateTime, DecodeError, codec.type].codec[Int, Int]
-  )
-  checkAll(
-    "TimeCodecCompanion[OffsetDateTime]",
-    CodecTests[String, OffsetDateTime, DecodeError, codec.type].codec[Int, Int]
-  )
-  checkAll(
-    "TimeCodecCompanion[LocalDateTime]",
-    CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int]
-  )
-  checkAll("TimeCodecCompanion[LocalDate]", CodecTests[String, LocalDate, DecodeError, codec.type].codec[Int, Int])
-  checkAll("TimeCodecCompanion[LocalTime]", CodecTests[String, LocalTime, DecodeError, codec.type].codec[Int, Int])
 }
