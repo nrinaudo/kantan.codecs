@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs.scalatest
+package kantan.codecs
+package scalatest
 
-import kantan.codecs.Result
 import org.scalactic._
 import org.scalatest.exceptions.StackDepthException
 import org.scalatest.exceptions.TestFailedException

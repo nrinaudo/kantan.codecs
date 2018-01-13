@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs.resource
+package kantan.codecs
+package resource
 
 import imp.imp
-import kantan.codecs.Result
-import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.scalatest.ResultValues
+import laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import scalatest.ResultValues
 
 @SuppressWarnings(Array("org.wartremover.warts.Var", "org.wartremover.warts.While"))
 class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with ResultValues {

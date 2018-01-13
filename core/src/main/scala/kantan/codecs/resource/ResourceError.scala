@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs.resource
+package kantan.codecs
+package resource
 
 sealed abstract trait ResourceError extends Product with Serializable
 

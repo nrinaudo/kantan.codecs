@@ -16,7 +16,7 @@
 
 package kantan.codecs
 
-import kantan.codecs.export.DerivedEncoder
+import export.DerivedEncoder
 
 /** Type class for types that can be encoded into others.
   *

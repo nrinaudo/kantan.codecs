@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs.scalatest
+package kantan.codecs
+package scalatest
 
-import kantan.codecs._
 import org.scalatest.{FunSuite, Matchers, OptionValues}
 import org.scalatest.exceptions.TestFailedException
 

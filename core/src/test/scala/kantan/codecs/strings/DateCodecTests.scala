@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
 import java.text.SimpleDateFormat
 import java.util.{Date, Locale}
-import kantan.codecs.laws.discipline._
-import kantan.codecs.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class DateCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class DateCodecTests extends DisciplineSuite {
 
   implicit val codec: StringCodec[Date] =
     StringCodec.dateCodec(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.ENGLISH))

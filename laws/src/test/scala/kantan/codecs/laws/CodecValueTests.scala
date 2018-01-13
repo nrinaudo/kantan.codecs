@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs.laws
+package kantan.codecs
+package laws
 
+import CodecValue._
+import discipline.arbitrary._
 import java.util.UUID
-import kantan.codecs.laws.CodecValue._
-import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.strings.{codecs ⇒ scodecs}
 import org.scalacheck.{Arbitrary, Prop}
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try
+import strings.{codecs ⇒ scodecs}
 
 class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   test("mapDecoded should ignore illegal values and modify the encoded part of legal ones.") {

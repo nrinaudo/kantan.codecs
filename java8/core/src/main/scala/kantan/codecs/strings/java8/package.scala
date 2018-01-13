@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
 import java.time._
 import java.time.format.DateTimeFormatter

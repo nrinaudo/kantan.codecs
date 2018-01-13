@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs.scalaz
+package kantan.codecs
+package scalaz
 
-import kantan.codecs.laws.discipline.{CodecTests ⇒ CTests, DecoderTests ⇒ DTests, EncoderTests ⇒ ETests}
-import kantan.codecs.scalaz.laws.discipline.arbitrary._
-import kantan.codecs.strings._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
-import scalaz.\/
-import scalaz.scalacheck.ScalazArbitrary._
+import _root_.scalaz.\/
+import _root_.scalaz.scalacheck.ScalazArbitrary._
+import laws.discipline._, arbitrary._
 
-class DisjunctionCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[Int \\/ Boolean]", DTests[String, Int \/ Boolean, DecodeError, codecs.type].decoder[Int, Int])
-  checkAll("StringEncoder[Int \\/ Boolean]", ETests[String, Int \/ Boolean, codecs.type].encoder[Int, Int])
-  checkAll("StringCodec[Int \\/ Boolean]", CTests[String, Int \/ Boolean, DecodeError, codecs.type].codec[Int, Int])
+class DisjunctionCodecTests extends DisciplineSuite {
+
+  checkAll("StringDecoder[Int \\/ Boolean]", StringDecoderTests[Int \/ Boolean].decoder[Int, Int])
+  checkAll("StringEncoder[Int \\/ Boolean]", StringEncoderTests[Int \/ Boolean].encoder[Int, Int])
+  checkAll("StringCodec[Int \\/ Boolean]", StringCodecTests[Int \/ Boolean].codec[Int, Int])
+
 }

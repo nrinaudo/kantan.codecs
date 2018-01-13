@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.java8
+package kantan.codecs
+package strings
+package java8
 
 import java.time._
 import java.time.format.DateTimeFormatter
-import kantan.codecs.Encoder
-import kantan.codecs.strings.StringEncoder
+import strings.StringEncoder
 
 trait TimeEncoderCompanion[E, T] {
   def encoderFrom[D](d: StringEncoder[D]): Encoder[E, D, T]

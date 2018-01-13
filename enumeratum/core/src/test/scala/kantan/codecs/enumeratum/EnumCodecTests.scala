@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs.enumeratum
+package kantan.codecs
+package enumeratum
 
-import kantan.codecs.enumeratum.laws.discipline.Enumerated
-import kantan.codecs.enumeratum.laws.discipline.arbitrary._
-import kantan.codecs.laws.discipline._
-import kantan.codecs.strings._
-import org.scalatest.FunSuite
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
+import laws.discipline.arbitrary._
+import strings._
 
-class EnumCodecTests extends FunSuite with Discipline {
+class EnumCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[Enumerated]", StringDecoderTests[Enumerated].decoder[Int, Int])
   checkAll("StringDecoder[Enumerated]", SerializableTests[StringDecoder[Enumerated]].serializable)

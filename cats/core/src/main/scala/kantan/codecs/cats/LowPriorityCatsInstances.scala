@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package kantan.codecs.cats
+package kantan.codecs
+package cats
 
-import cats._
+import Result.{Failure, Success}
+import _root_.cats._
 import imp.imp
-import kantan.codecs.Result
-import kantan.codecs.Result.{Failure, Success}
-import kantan.codecs.strings.DecodeError
+import strings.DecodeError
 
 trait LowPriorityCatsInstances {
+
   implicit val stringDecodeErrorEq: Eq[DecodeError] = Eq.fromUniversalEquals[DecodeError]
 
   implicit def resultEq[F: Eq, S: Eq]: Eq[Result[F, S]] = Eq.instance {
@@ -46,4 +47,5 @@ trait LowPriorityCatsInstances {
           }
       }
     }
+
 }

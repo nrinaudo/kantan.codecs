@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs.scalaz.laws.discipline.scalatest
+package kantan.codecs
+package scalaz
+package laws
+package discipline
 
 import org.scalacheck.Properties
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-class ScalazSuite extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class ScalazDisciplineSuite extends FunSuite with GeneratorDrivenPropertyChecks with Discipline with Matchers {
   // The i bit is a dirty hack to work around the fact that some scalaz properties have duplicated identifiers, which
   // causes scalatest to refuse to even consider working.
   @SuppressWarnings(Array("org.wartremover.warts.Var"))

@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs.refined.laws.discipline
+package kantan.codecs
+package refined
+package laws
+package discipline
 
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive

@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.java8
+package kantan.codecs
+package strings
+package java8
 
 import java.time.ZonedDateTime
-import kantan.codecs.laws.discipline._
-import kantan.codecs.strings._
-import kantan.codecs.strings.java8.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class ZonedDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class ZonedDateTimeCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[ZonedDateTime]", StringDecoderTests[ZonedDateTime].decoder[Int, Int])
   checkAll("StringDecoder[ZonedDateTime]", SerializableTests[StringEncoder[ZonedDateTime]].serializable)

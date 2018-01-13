@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs.exported
+package kantan.codecs
+package export
 
-import kantan.codecs._
-import kantan.codecs.export.{DerivedDecoder, DerivedEncoder}
-import kantan.codecs.exported.DerivedCodecTests.{Just, Maybe, None}
-import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
+import DerivedCodecTests.{Just, Maybe, None}
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import strings.{DecodeError, StringDecoder, StringEncoder}
 
 class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   val decode: String ⇒ Result[DecodeError, Maybe[Int]] = s ⇒

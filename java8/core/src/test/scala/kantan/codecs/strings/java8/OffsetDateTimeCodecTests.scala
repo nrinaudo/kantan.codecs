@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.java8
+package kantan.codecs
+package strings
+package java8
 
 import java.time.OffsetDateTime
-import kantan.codecs.laws.discipline._
-import kantan.codecs.strings._
-import kantan.codecs.strings.java8.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class OffsetDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class OffsetDateTimeCodecTests extends DisciplineSuite {
+
   checkAll("StringDecoder[OffsetDateTime]", StringDecoderTests[OffsetDateTime].decoder[Int, Int])
   checkAll("StringDecoder[OffsetDateTime]", SerializableTests[StringEncoder[OffsetDateTime]].serializable)
 
@@ -32,4 +30,5 @@ class OffsetDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChec
   checkAll("StringEncoder[OffsetDateTime]", SerializableTests[StringEncoder[OffsetDateTime]].serializable)
 
   checkAll("StringCodec[OffsetDateTime]", StringCodecTests[OffsetDateTime].codec[Int, Int])
+
 }

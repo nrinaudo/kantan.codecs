@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
 import java.text.DateFormat
 import java.util.Date
-import kantan.codecs.{DecoderCompanion, Result}
 
 /** Provides instance creation and summing methods for [[StringDecoder]].
   *

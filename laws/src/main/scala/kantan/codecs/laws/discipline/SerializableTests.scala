@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs.laws.discipline
+package kantan.codecs
+package laws
+package discipline
 
-import kantan.codecs.laws.SerializableLaws
 import org.scalacheck.Prop
 import org.typelevel.discipline.Laws
 

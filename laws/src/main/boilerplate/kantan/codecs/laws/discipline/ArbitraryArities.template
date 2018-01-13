@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs.laws.discipline
+package kantan.codecs
+package laws
+package discipline
 
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.{Arbitrary, Gen}
 
 trait ArbitraryArities {

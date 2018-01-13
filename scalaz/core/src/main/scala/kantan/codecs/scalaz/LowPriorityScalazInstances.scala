@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs.scalaz
+package kantan.codecs
+package scalaz
 
+import Result.{Failure, Success}
+import _root_.scalaz.{Equal, Semigroup}
 import imp.imp
-import kantan.codecs.Result
-import kantan.codecs.Result.{Failure, Success}
-import kantan.codecs.strings.DecodeError
-import scalaz.{Equal, Semigroup}
+import strings.DecodeError
 
 trait LowPriorityScalazInstances {
   implicit val stringDecodeErrorEqual: Equal[DecodeError] = Equal.equalA[DecodeError]

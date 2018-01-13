@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.joda.time
+package kantan.codecs
+package strings
+package joda
+package time
 
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.strings.codecs
 import org.scalacheck.Arbitrary
 
 object codec {

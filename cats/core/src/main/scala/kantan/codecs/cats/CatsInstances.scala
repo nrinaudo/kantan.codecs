@@ -14,28 +14,32 @@
  * limitations under the License.
  */
 
-package kantan.codecs.cats
+package kantan.codecs
+package cats
 
+import Result.{Failure, Success}
 import _root_.cats._
-import cats.{Bifunctor, Contravariant}
-import kantan.codecs._, Result.{Failure, Success}
 import scala.annotation.tailrec
 
 trait CatsInstances extends LowPriorityCatsInstances {
+
   // - Decoder instances -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+
   implicit def decoderFunctor[E, F, T]: Functor[Decoder[E, ?, F, T]] = new Functor[Decoder[E, ?, F, T]] {
     override def map[A, B](fa: Decoder[E, A, F, T])(f: A ⇒ B) = fa.map(f)
   }
 
   // - Encoder instances -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+
   implicit def encoderContravariant[E, T]: Contravariant[Encoder[E, ?, T]] = new Contravariant[Encoder[E, ?, T]] {
     override def contramap[A, B](fa: Encoder[E, A, T])(f: B ⇒ A) = fa.contramap(f)
   }
 
   // - Result instances ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
+
   implicit def resultOrder[F, S](implicit of: Order[F], os: Order[S]): Order[Result[F, S]] = new Order[Result[F, S]] {
     override def compare(x: Result[F, S], y: Result[F, S]): Int = x match {
       case Failure(f1) ⇒

@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs.cats
+package kantan.codecs
+package cats
 
-import cats.instances.all._
-import cats.laws.discipline.ContravariantTests
-import kantan.codecs.cats.laws.discipline.equality._
-import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.strings.StringEncoder
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import _root_.cats.instances.all._
+import _root_.cats.laws.discipline.ContravariantTests
+import laws.discipline._, arbitrary._, equality._
+import strings.StringEncoder
 
-class EncoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class EncoderTests extends DisciplineSuite {
   checkAll("StringEncoder", ContravariantTests[StringEncoder].contravariant[Int, Int, Int])
 }

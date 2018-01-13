@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
 import java.nio.file.AccessMode
-import kantan.codecs.laws.discipline._
-import kantan.codecs.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class AccessModeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class AccessModeCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[AccessMode]", StringDecoderTests[AccessMode].bijectiveDecoder[Int, Int])
   checkAll("StringDecoder[AccessMode]", SerializableTests[StringDecoder[AccessMode]].serializable)

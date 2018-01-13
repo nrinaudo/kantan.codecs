@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs.export
+package kantan.codecs
+package export
 
 /** Wraps derived type class instances. */
 final case class Exported[A](value: A) extends AnyVal

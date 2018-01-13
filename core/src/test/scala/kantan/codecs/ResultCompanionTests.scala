@@ -16,7 +16,7 @@
 
 package kantan.codecs
 
-import kantan.codecs.laws.discipline.arbitrary._
+import laws.discipline.arbitrary._
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try

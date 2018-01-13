@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.java8
+package kantan.codecs
+package strings
+package java8
 
+import export.Exported
 import java.time._
-import kantan.codecs.Decoder
-import kantan.codecs.export.Exported
-import kantan.codecs.laws.discipline.StringDecoderTests
-import kantan.codecs.strings.{DecodeError, StringDecoder}
-import kantan.codecs.strings.java8.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class TimeDecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class TimeDecoderCompanionTests extends DisciplineSuite {
   type TestDecoder[D] = Exported[Decoder[String, D, DecodeError, codec.type]]
 
   object DecoderCompanion extends TimeDecoderCompanion[String, DecodeError, codec.type] {

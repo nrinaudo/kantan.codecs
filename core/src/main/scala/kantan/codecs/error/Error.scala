@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs.error
+package kantan.codecs
+package error
 
 /** Base class for errors
   *

@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package kantan.codecs.refined
+package kantan.codecs
+package refined
 
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import kantan.codecs.laws.discipline._
-import kantan.codecs.refined.laws.discipline.arbitrary._
-import kantan.codecs.strings._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
+import strings.{StringDecoder, StringEncoder}
 
-class RefinedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class RefinedCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[Int Refined Positive]", StringDecoderTests[Int Refined Positive].decoder[Int, Int])
-  checkAll("StringDecoder[Int Refined Positive]", SerializableTests[StringEncoder[Int Refined Positive]].serializable)
+  checkAll("StringDecoder[Int Refined Positive]", SerializableTests[StringDecoder[Int Refined Positive]].serializable)
 
   checkAll("StringEncoder[Int Refined Positive]", StringEncoderTests[Int Refined Positive].encoder[Int, Int])
   checkAll("StringEncoder[Int Refined Positive]", SerializableTests[StringEncoder[Int Refined Positive]].serializable)

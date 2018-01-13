@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.java8
+package kantan.codecs
+package strings
+package java8
 
 import java.time.LocalDateTime
-import kantan.codecs.laws.discipline._
-import kantan.codecs.strings._
-import kantan.codecs.strings.java8.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class LocalDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class LocalDateTimeCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[LocalDateTime]", StringDecoderTests[LocalDateTime].decoder[Int, Int])
   checkAll("StringDecoder[LocalDateTime]", SerializableTests[StringEncoder[LocalDateTime]].serializable)

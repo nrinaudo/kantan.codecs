@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs.enumeratum
+package kantan.codecs
+package enumeratum
 
 package object values extends DecoderInstances with EncoderInstances

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs.laws.discipline
+package kantan.codecs
+package laws
+package discipline
 
 import org.scalacheck.Arbitrary
 

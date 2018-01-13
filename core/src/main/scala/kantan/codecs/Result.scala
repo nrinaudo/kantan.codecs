@@ -16,7 +16,7 @@
 
 package kantan.codecs
 
-import kantan.codecs.Result.{Failure, Success}
+import Result.{Failure, Success}
 import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable
 import scala.util.Try

@@ -16,8 +16,8 @@
 
 package kantan.codecs
 
-import kantan.codecs.error._
-import kantan.codecs.laws.discipline.arbitrary._
+import error._
+import laws.discipline.arbitrary._
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 

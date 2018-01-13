@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs.laws.discipline
+package kantan.codecs
+package laws
+package discipline
 
+import CodecValue.LegalValue
 import imp._
-import kantan.codecs.laws.CodecValue.LegalValue
-import kantan.codecs.laws.EncoderLaws
 import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop._
 import org.typelevel.discipline.Laws

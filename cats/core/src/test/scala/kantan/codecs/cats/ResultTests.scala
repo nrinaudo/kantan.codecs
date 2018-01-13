@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package kantan.codecs.cats
+package kantan.codecs
+package cats
 
-import cats._
-import cats.instances.all._
-import cats.kernel.laws.discipline.{MonoidTests, OrderTests}
-import cats.laws.discipline._
-import kantan.codecs.Result
-import kantan.codecs.laws.discipline.arbitrary._
-import org.scalatest._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import _root_.cats._, instances.all._
+import _root_.cats.kernel.laws.discipline.{MonoidTests, OrderTests}
+import _root_.cats.laws.discipline._
+import laws.discipline.{SerializableTests ⇒ _, _}
+import laws.discipline.arbitrary._
 
-class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline with Matchers {
+class ResultTests extends DisciplineSuite {
 
   implicit val iso = SemigroupalTests.Isomorphisms.invariant[Result[String, ?]]
 

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs.enumeratum
+package kantan.codecs
+package enumeratum
 
-import enumeratum.{Enum, EnumEntry}
-import kantan.codecs.{Decoder, Encoder, Result}
-import kantan.codecs.error.IsError
+import _root_.enumeratum.{Enum, EnumEntry}
+import error.IsError
 
 /** Defines implicit `Decoder` instances for any enumeratum `Enum` type. */
 trait DecoderInstances {

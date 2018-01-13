@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.java8.laws.discipline
+package kantan.codecs
+package strings
+package java8
+package laws
+package discipline
 
 import java.time._
 import java.time.format.DateTimeFormatter
