@@ -11,6 +11,8 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
     catsLaws,
     core,
     docs,
+    enumeratum,
+    enumeratumLaws,
     jodaTime,
     jodaTimeLaws,
     laws,
@@ -23,7 +25,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
     shapelessLaws
   )
   .aggregateIf(java8Supported)(java8, java8Laws)
-  .dependsOn(core)
+  .dependsOn(cats, core, enumeratum, jodaTime, refined, scalaz, shapeless)
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
@@ -31,8 +33,8 @@ lazy val docs = project
     unidocProjectFilter in (ScalaUnidoc, unidoc) :=
       inAnyProject -- inProjectsIf(!java8Supported)(java8, java8Laws)
   )
-  .dependsOn(core, laws, catsLaws, scalazLaws, shapelessLaws, cats, scalaz, shapeless, jodaTime, jodaTimeLaws)
-  .dependsOnIf(java8Supported)(java8, java8Laws)
+  .dependsOn(cats, core, enumeratum, jodaTime, refined, scalaz, shapeless)
+  .dependsOnIf(java8Supported)(java8)
 
 // - core projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -208,6 +210,31 @@ lazy val refinedLaws = Project(id = "refined-laws", base = file("refined/laws"))
   .settings(libraryDependencies += "eu.timepit" %% "refined-scalacheck" % Versions.refined)
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, refined)
+
+// - enumeratum project ------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val enumeratum = Project(id = "enumeratum", base = file("enumeratum/core"))
+  .settings(
+    moduleName := "kantan.codecs-enumeratum",
+    name       := "enumeratum"
+  )
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core)
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.beachape"  %% "enumeratum" % Versions.enumeratum,
+      "org.scalatest" %% "scalatest"  % Versions.scalatest % "test"
+    )
+  )
+  .laws("enumeratum-laws")
+
+lazy val enumeratumLaws = Project(id = "enumeratum-laws", base = file("enumeratum/laws"))
+  .settings(
+    moduleName := "kantan.codecs-enumeratum-laws",
+    name       := "enumeratum-laws"
+  )
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core, laws, enumeratum)
 
 // - shapeless projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
