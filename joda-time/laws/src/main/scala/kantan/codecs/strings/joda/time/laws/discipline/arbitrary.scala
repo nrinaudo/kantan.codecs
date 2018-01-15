@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.joda.time.laws.discipline
+package kantan.codecs
+package strings
+package joda
+package time
+package laws
+package discipline
 
 import java.util.Date
 import kantan.codecs.laws._

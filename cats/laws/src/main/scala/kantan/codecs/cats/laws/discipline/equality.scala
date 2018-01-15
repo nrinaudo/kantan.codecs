@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs.cats.laws.discipline
+package kantan.codecs
+package cats
+package laws
+package discipline
 
-import cats._
-import kantan.codecs._
-import kantan.codecs.cats._
+import _root_.cats._
 import org.scalacheck.Arbitrary
 
 object equality extends EqInstances

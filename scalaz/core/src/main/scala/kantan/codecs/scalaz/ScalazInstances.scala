@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs.scalaz
+package kantan.codecs
+package scalaz
 
+import Result.{Failure, Success}
 import _root_.scalaz._
 import imp.imp
-import kantan.codecs._, Result.{Failure, Success}
 
 trait ScalazInstances extends LowPriorityScalazInstances {
   // - \/ instances ---------------------------------------------------------------------------------------------------

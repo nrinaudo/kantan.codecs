@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
 import java.net.URL
-import kantan.codecs.laws.discipline._
-import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.strings.tagged._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
+import tagged._
 
-class URLCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class URLCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[URL]", StringDecoderTests[URL].decoder[Int, Int])
   checkAll("StringDecoder[URL]", SerializableTests[StringDecoder[URL]].serializable)

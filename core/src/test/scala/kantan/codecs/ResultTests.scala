@@ -16,13 +16,13 @@
 
 package kantan.codecs
 
+import Result.{Failure, Success}
 import java.util.NoSuchElementException
-import kantan.codecs.Result.{Failure, Success}
-import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.scalatest.ResultValues
+import laws.discipline.arbitrary._
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try
+import scalatest.ResultValues
 
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
 class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with ResultValues {

@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.codecs.scalaz
+package kantan.codecs
+package scalaz
 
-import kantan.codecs.Result
-import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.scalaz.laws.discipline.scalatest.ScalazSuite
+import _root_.scalaz._
+import _root_.scalaz.scalacheck.ScalazArbitrary._
+import _root_.scalaz.scalacheck.ScalazProperties._
+import _root_.scalaz.scalacheck.ScalazProperties.{equal ⇒ equ}
+import _root_.scalaz.std.anyVal._
+import _root_.scalaz.std.string._
+import laws.discipline._, arbitrary._
 import org.scalacheck.Arbitrary
-import org.scalatest.Matchers
-import scalaz._
-import scalaz.scalacheck.ScalazArbitrary._
-import scalaz.scalacheck.ScalazProperties._
-import scalaz.scalacheck.ScalazProperties.{equal ⇒ equ}
-import scalaz.std.anyVal._
-import scalaz.std.string._
 
-class ResultTests extends ScalazSuite with Matchers {
+class ResultTests extends ScalazDisciplineSuite {
   case class NoOrder(value: Int)
   implicit val noOrderEqual: Equal[NoOrder] = new Equal[NoOrder] {
     override def equal(a1: NoOrder, a2: NoOrder): Boolean = a1.value == a2.value

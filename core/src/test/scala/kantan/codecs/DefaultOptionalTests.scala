@@ -16,12 +16,9 @@
 
 package kantan.codecs
 
-import kantan.codecs.laws.discipline.OptionalTests
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
-class DefaultOptionalTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class DefaultOptionalTests extends DisciplineSuite {
   checkAll("Optional[Option[Int]]", OptionalTests[Option[Int]].optional)
   checkAll("Optional[Seq[Int]]", OptionalTests[Seq[Int]].optional)
   checkAll("Optional[String]", OptionalTests[String].optional)

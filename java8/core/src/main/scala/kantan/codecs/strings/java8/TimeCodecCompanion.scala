@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.java8
+package kantan.codecs
+package strings
+package java8
 
 import java.time._
 import java.time.format.DateTimeFormatter
-import kantan.codecs.Codec
 
 trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with TimeEncoderCompanion[E, T] {
   def localTimeCodec(format: String): Codec[E, LocalTime, F, T]              = localTimeCodec(Format(format))

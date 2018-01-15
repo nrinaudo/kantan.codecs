@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs.enumeratum.values
+package kantan.codecs
+package enumeratum
+package values
 
-import enumeratum.values._
-import kantan.codecs.{Decoder, Encoder, Result}
-import kantan.codecs.error.IsError
+import _root_.enumeratum.values._
+import error.IsError
 
 // I would really prefer enumeratumDecoder && enumeratumEncoder to be implicit and to be sufficient, but somehow,
 // through a mechanism that I have yet to work out, I can get an implicit IntEnum[D] but not one of ValueEnum[Int, D],

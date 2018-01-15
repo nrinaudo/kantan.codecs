@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs.resource
+package kantan.codecs
+package resource
 
 import java.io._
 import java.net.{URI, URL}
 import java.nio.file.{Files, Path}
-import kantan.codecs.Result
 import scala.io.Codec
 
 /** Represents a resource that can be opened and worked on.

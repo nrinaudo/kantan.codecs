@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs.shapeless
+package kantan.codecs
+package shapeless
 
-import kantan.codecs.{Decoder, Encoder, Result}
-import kantan.codecs.export.{DerivedDecoder, DerivedEncoder}
-import shapeless.{:+:, CNil, Coproduct, Generic, HList, Inl, Inr, LabelledGeneric, Lazy}
+import _root_.shapeless.{:+:, CNil, Coproduct, Generic, HList, Inl, Inr, LabelledGeneric, Lazy}
+import export.{DerivedDecoder, DerivedEncoder}
 
 /** Provides `Codec` instances for case classes and sum types.
   *

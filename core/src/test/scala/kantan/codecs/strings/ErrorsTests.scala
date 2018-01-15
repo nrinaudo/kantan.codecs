@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
-import kantan.codecs.laws.discipline.arbitrary._
+import laws.discipline.arbitrary._
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 

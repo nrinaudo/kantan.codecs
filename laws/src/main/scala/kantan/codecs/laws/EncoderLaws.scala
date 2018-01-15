@@ -17,7 +17,7 @@
 package kantan.codecs
 package laws
 
-import kantan.codecs.laws.CodecValue.LegalValue
+import CodecValue.LegalValue
 
 trait EncoderLaws[E, D, T] {
   def encoder: Encoder[E, D, T]

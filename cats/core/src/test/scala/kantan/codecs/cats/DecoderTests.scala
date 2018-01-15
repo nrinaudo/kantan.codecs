@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs.cats
+package kantan.codecs
+package cats
 
-import cats.instances.all._
-import cats.laws.discipline.FunctorTests
-import kantan.codecs.cats.laws.discipline.equality._
-import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.strings.StringDecoder
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import _root_.cats.instances.all._
+import _root_.cats.laws.discipline.FunctorTests
+import laws.discipline._, arbitrary._, equality._
+import strings.StringDecoder
 
-class DecoderTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class DecoderTests extends DisciplineSuite {
   checkAll("StringDecoder", FunctorTests[StringDecoder].functor[Int, Int, Int])
 }

@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs.shapeless
+package kantan.codecs
+package shapeless
 
-import kantan.codecs.laws.discipline._
-import kantan.codecs.shapeless.laws._
-import kantan.codecs.shapeless.laws.discipline.arbitrary._
-import kantan.codecs.strings._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
-import shapeless._
+import _root_.shapeless._
+import laws._
+import laws.discipline._, arbitrary._
+import strings._
 
-object Instances {
+object Instances extends DisciplineSuite {
 
   // - HList / Coproduct instances -------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -41,7 +38,7 @@ object Instances {
 }
 
 @SuppressWarnings(Array("org.wartremover.warts.Null"))
-class InstancesTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class InstancesTests extends DisciplineSuite {
   import Instances._
 
   // - Tests -----------------------------------------------------------------------------------------------------------

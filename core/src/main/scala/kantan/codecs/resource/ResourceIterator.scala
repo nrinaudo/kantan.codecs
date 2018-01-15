@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs.resource
+package kantan.codecs
+package resource
 
-import kantan.codecs.Result
 import scala.annotation.tailrec
 import scala.util.Try
 

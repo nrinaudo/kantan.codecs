@@ -16,9 +16,9 @@
 
 package kantan.codecs
 
-import kantan.codecs.Result.Success
-import kantan.codecs.error._
-import kantan.codecs.export.DerivedDecoder
+import Result.Success
+import error._
+import export.DerivedDecoder
 
 /** Type class for types that can be decoded from other types.
   *

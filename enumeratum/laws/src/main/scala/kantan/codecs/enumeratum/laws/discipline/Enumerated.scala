@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs.enumeratum.laws.discipline
+package kantan.codecs
+package enumeratum
+package laws
+package discipline
 
-import enumeratum._
-import enumeratum.values._
+import _root_.enumeratum._
+import _root_.enumeratum.values._
 
 /** Defines a standard `Enum` for tests to use. */
 sealed trait Enumerated extends EnumEntry

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs.resource.bom
+package kantan.codecs
+package resource
+package bom
 
 import java.io._
 import scala.io.Codec

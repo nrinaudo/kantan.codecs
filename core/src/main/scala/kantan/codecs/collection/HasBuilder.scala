@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs.collection
+package kantan.codecs
+package collection
 
 import scala.collection.generic.CanBuildFrom
 import scala.collection.immutable.{Queue, TreeSet}

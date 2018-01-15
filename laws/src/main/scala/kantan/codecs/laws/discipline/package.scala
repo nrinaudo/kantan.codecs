@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs.laws
+package kantan.codecs
+package laws
 
-import kantan.codecs.strings._
+import strings._
 
 package object discipline {
 

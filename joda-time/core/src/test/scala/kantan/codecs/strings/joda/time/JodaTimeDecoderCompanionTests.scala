@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.joda.time
+package kantan.codecs
+package strings
+package joda
+package time
 
-import kantan.codecs.Decoder
-import kantan.codecs.export.Exported
-import kantan.codecs.laws.discipline.StringDecoderTests
-import kantan.codecs.strings.{DecodeError, StringDecoder}
-import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
+import export.Exported
+import laws.discipline._, arbitrary._
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
 
-class JodaTimeDecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class JodaTimeDecoderCompanionTests extends DisciplineSuite {
 
   type TestDecoder[D] = Exported[Decoder[String, D, DecodeError, codec.type]]
 

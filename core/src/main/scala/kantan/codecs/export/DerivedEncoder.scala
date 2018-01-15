@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs.export
-
-import kantan.codecs.Encoder
+package kantan.codecs
+package export
 
 /** Provides construction methods for [[kantan.codecs.export.DerivedEncoder]]. */
 object DerivedEncoder {

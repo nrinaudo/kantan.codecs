@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.joda.time
+package kantan.codecs
+package strings
+package joda
+package time
 
-import kantan.codecs.laws.discipline._
-import kantan.codecs.strings._
-import kantan.codecs.strings.joda.time.laws.discipline.arbitrary._
+import laws.discipline._, arbitrary._
 import org.joda.time.LocalDateTime
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
 
-class LocalDateTimeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class LocalDateTimeCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[LocalDateTime]", StringDecoderTests[LocalDateTime].decoder[Int, Int])
   checkAll("StringDecoder[LocalDateTime]", SerializableTests[StringEncoder[LocalDateTime]].serializable)

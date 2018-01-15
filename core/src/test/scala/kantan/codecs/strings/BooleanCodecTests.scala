@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
-import kantan.codecs.laws.discipline._
-import kantan.codecs.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 import tagged._
 
-class BooleanCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class BooleanCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[Boolean]", StringDecoderTests[Boolean].decoder[Int, Int])
   checkAll("StringDecoder[Boolean]", SerializableTests[StringDecoder[Boolean]].serializable)

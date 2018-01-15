@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
-import kantan.codecs.error._
+import error._
 
 sealed case class DecodeError(message: String) extends Error(message)
 

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
 import java.io.File
 import java.net.{URI, URL}
 import java.nio.file.{Path, Paths}
 import java.util.UUID
 import java.util.regex.Pattern
-import kantan.codecs.Result
 import scala.reflect.ClassTag
 import scala.util.matching.Regex
 

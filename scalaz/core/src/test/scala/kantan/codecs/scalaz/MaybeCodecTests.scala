@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs.scalaz
+package kantan.codecs
+package scalaz
 
-import kantan.codecs.laws.discipline.{CodecTests ⇒ CTests, DecoderTests ⇒ DTests, EncoderTests ⇒ ETests}
-import kantan.codecs.scalaz.laws.discipline.arbitrary._
-import kantan.codecs.strings._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
-import scalaz.Maybe
-import scalaz.scalacheck.ScalazArbitrary._
+import _root_.scalaz.Maybe
+import _root_.scalaz.scalacheck.ScalazArbitrary._
+import laws.discipline._, arbitrary._
 
-class MaybeCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
-  checkAll("StringDecoder[Maybe[Int]]", DTests[String, Maybe[Int], DecodeError, codecs.type].decoder[Int, Int])
-  checkAll("StringEncoder[Maybe[Int]]", ETests[String, Maybe[Int], codecs.type].encoder[Int, Int])
-  checkAll("StringCodec[Maybe[Int]]", CTests[String, Maybe[Int], DecodeError, codecs.type].codec[Int, Int])
+class MaybeCodecTests extends DisciplineSuite {
+
+  checkAll("StringDecoder[Maybe[Int]]", StringDecoderTests[Maybe[Int]].decoder[Int, Int])
+  checkAll("StringEncoder[Maybe[Int]]", StringEncoderTests[Maybe[Int]].encoder[Int, Int])
+  checkAll("StringCodec[Maybe[Int]]", StringCodecTests[Maybe[Int]].codec[Int, Int])
+
 }

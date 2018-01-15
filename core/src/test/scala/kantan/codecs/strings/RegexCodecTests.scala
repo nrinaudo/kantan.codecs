@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._
 
 // TODO: this is currently disabled because of Java's messed up Pattern.equals implementation.
-
-class RegexCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline /*{
+class RegexCodecTests extends DisciplineSuite /*{
   checkAll("StringDecoder[Regex]", StringDecoderTests[Regex].bijectiveDecoder[Int, Int])
   checkAll("StringDecoder[Regex]", SerializableTests[StringDecoder[Regex]].serializable)
 

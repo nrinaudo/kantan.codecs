@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings.joda
+package kantan.codecs
+package strings
+package joda
 
-import kantan.codecs.strings._
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 import org.joda.time.format.{DateTimeFormatter, ISODateTimeFormat}
 

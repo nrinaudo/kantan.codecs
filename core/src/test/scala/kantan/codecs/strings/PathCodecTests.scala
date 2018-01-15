@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs
+package strings
 
 import java.nio.file.Path
-import kantan.codecs.laws.discipline._
-import kantan.codecs.laws.discipline.arbitrary._
-import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import laws.discipline._, arbitrary._
 
-class PathCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Discipline {
+class PathCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[Path]", StringDecoderTests[Path].bijectiveDecoder[Int, Int])
   checkAll("StringDecoder[Path]", SerializableTests[StringDecoder[Path]].serializable)
