@@ -26,7 +26,6 @@ object Instances extends DisciplineSuite {
 
   // - HList / Coproduct instances -------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val cnilDec: StringDecoder[CNil] = cnilDecoder(_ ⇒ DecodeError("Attempting to decode CNil"))
 
   implicit def hlistEncoder[A: StringEncoder]: StringEncoder[A :: HNil] =
     StringEncoder.from {

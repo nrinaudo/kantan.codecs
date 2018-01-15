@@ -18,6 +18,7 @@ package kantan.codecs
 package shapeless
 
 import _root_.shapeless.{:+:, CNil, Coproduct, Generic, HList, Inl, Inr, LabelledGeneric, Lazy}
+import error.IsError
 import export.{DerivedDecoder, DerivedEncoder}
 
 /** Provides `Codec` instances for case classes and sum types.
@@ -88,8 +89,8 @@ trait ShapelessInstances {
 
   // - Coproducts ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def cnilDecoder[E, F, T](f: E ⇒ F): Decoder[E, CNil, F, T] =
-    Decoder.from(f andThen Result.failure)
+  implicit def cnilDecoder[E, F: IsError, T]: Decoder[E, CNil, F, T] =
+    Decoder.from(_ ⇒ Result.failure(IsError[F].fromMessage("Attempting to decode CNil")))
 
   implicit def coproductDecoder[E, H, D <: Coproduct, F, T](implicit dh: Decoder[E, H, F, T],
                                                             dt: Decoder[E, D, F, T]): Decoder[E, H :+: D, F, T] =
