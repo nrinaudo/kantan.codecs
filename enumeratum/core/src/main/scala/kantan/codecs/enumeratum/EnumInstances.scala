@@ -44,7 +44,13 @@ trait DecoderInstances {
 /** Defines implicit `Encoder` instances for any enumeratum `Enum` type. */
 trait EncoderInstances {
 
-  implicit def enumeratumEncoder[E, D <: EnumEntry, T](implicit encoder: Encoder[E, String, T]): Encoder[E, D, T] =
+  // We're adding an `Enum` constraint here because:
+  // - it has a major impact for `ValueEnum`
+  // - I haven't been able to decide whether it was useful here or not, but it certainly can't hurt to reduce the
+  //   implicit search space.
+  implicit def enumeratumEncoder[E, D <: EnumEntry: Enum, T](
+    implicit encoder: Encoder[E, String, T]
+  ): Encoder[E, D, T] =
     encoder.contramap(_.entryName)
 
 }
