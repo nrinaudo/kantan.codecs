@@ -31,6 +31,10 @@ object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] 
     * This method expects the specified decoding function to be able to fail by throwing exceptions. These will be
     * caught and wrapped in [[DecodeError]].
     *
+    * This is typically used in conjunction with [StringDecoder.from], when creating instances for types that are not
+    * isomorphic to `String`.
+    *
+    * @example
     * {{{
     * scala> val decoder = StringDecoder.makeSafe("Int")(_.toInt)
     *
@@ -41,9 +45,6 @@ object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] 
     * res2: kantan.codecs.Result[DecodeError, Int] = Failure(DecodeError: 'foobar' is not a valid Int)
     * }}}
     *
-    * This is typically used in conjunction with [StringDecoder.from], when creating instances for types that are not
-    * isomorphic to `String`.
-    *
     * @param typeName name of the decoded type (used in error messages).
     * @param f decoding function.
     * @tparam D decoded type.
@@ -53,6 +54,7 @@ object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] 
 
   /** Creates a [[StringDecoder]] instance for `java.util.Date`.
     *
+    * @example
     * {{{
     * scala> import java.text.SimpleDateFormat
     *

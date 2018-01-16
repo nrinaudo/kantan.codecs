@@ -47,6 +47,7 @@ object StringCodec {
 
   /** Creates a [[StringCodec]] instance for `java.util.Date`.
     *
+    * @example
     * {{{
     * scala> import java.text.SimpleDateFormat
     * scala> import java.util.Date
