@@ -27,7 +27,7 @@ import org.scalatest.exceptions.TestFailedException
   *  - [[ResultValuable.success success]]
   *  - [[ResultValuable.failure failure]]
   *
-  * This lets you write code such as:
+  * @example
   * {{{
   * // Fails with a useful error message if `result` is a Failure
   * result.success.value should be (1)

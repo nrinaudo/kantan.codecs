@@ -30,6 +30,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for Java enumerations.
     *
+    * @example
     * {{{
     * scala> import java.nio.file.AccessMode
     *
@@ -51,6 +52,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Pattern`.
     *
+    * @example
     * {{{
     * scala> import java.util.regex.Pattern
     *
@@ -68,6 +70,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Regex`.
     *
+    * @example
     * {{{
     * scala> import scala.util.matching.Regex
     *
@@ -85,6 +88,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `BigDecimal`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[BigDecimal].decode("2")
@@ -100,6 +104,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `BigInt`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[BigInt].decode("2")
@@ -115,6 +120,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Boolean`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[Boolean].decode("true")
@@ -130,6 +136,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Char`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[Char].decode("a")
@@ -151,6 +158,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Double`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[Double].decode("2")
@@ -166,6 +174,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Byte`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[Byte].decode("2")
@@ -181,6 +190,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Float`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[Float].decode("2")
@@ -196,6 +206,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Int`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[Int].decode("2")
@@ -211,6 +222,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Long`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[Long].decode("2")
@@ -226,6 +238,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `Short`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[Short].decode("2")
@@ -241,6 +254,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `String`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> StringDecoder[String].decode("foobar")
@@ -256,6 +270,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `java.util.UUID`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> import java.util.UUID
@@ -273,6 +288,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `java.net.URL`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> import java.net.URL
@@ -290,6 +306,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `java.net.URI`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> import java.net.URI
@@ -307,6 +324,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `java.io.File`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> import java.io.File
@@ -324,6 +342,7 @@ object codecs {
 
   /** Defines a [[StringCodec]] instance for `java.nio.file.Path`.
     *
+    * @example
     * {{{
     * // Decoding example
     * scala> import java.nio.file.{Path, Paths}
