@@ -45,7 +45,7 @@ trait ResourceIterable[A] {
   def map[B](f: A ⇒ B): Repr[B]           = onIterator(_.map(f))
   def flatMap[B](f: A ⇒ Repr[B]): Repr[B] = onIterator(_.flatMap(f.andThen(_.iterator)))
 
-  def emap[E, S, B](f: S ⇒ Result[E, B])(implicit ev: A <:< Result[E, S]): Repr[Result[E, B]] =
+  def emap[E, S, B](f: S ⇒ Either[E, B])(implicit ev: A <:< Either[E, S]): Repr[Either[E, B]] =
     onIterator(_.emap(f))
 
   def collect[B](f: PartialFunction[A, B]): Repr[B] = onIterator(_.collect(f))

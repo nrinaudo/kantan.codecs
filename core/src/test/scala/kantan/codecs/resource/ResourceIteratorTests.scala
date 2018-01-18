@@ -18,9 +18,8 @@ package kantan.codecs
 package resource
 
 import imp.imp
-import laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest._
+import org.scalatest._, EitherValues._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 @SuppressWarnings(Array("org.wartremover.warts.Var", "org.wartremover.warts.While"))
@@ -173,8 +172,8 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
   }
 
   test("mapResult should behave as expected") {
-    forAll { (is: List[Result[Boolean, Int]], f: Int ⇒ String) ⇒
-      ResourceIterator(is: _*).mapResult(f).toList should be(is.map(_.map(f)))
+    forAll { (is: List[Either[Boolean, Int]], f: Int ⇒ String) ⇒
+      ResourceIterator(is: _*).mapResult(f).toList should be(is.map(_.right.map(f)))
     }
   }
 
@@ -184,9 +183,9 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
     }
   }
 
-  test("flatMapResult should behave as expected") {
-    forAll { (is: List[Result[Boolean, Int]], f: Int ⇒ Result[Boolean, String]) ⇒
-      ResourceIterator(is: _*).emap(f).toList should be(is.map(_.flatMap(f)))
+  test("emap should behave as expected") {
+    forAll { (is: List[Either[Boolean, Int]], f: Int ⇒ Either[Boolean, String]) ⇒
+      ResourceIterator(is: _*).emap(f).toList should be(is.map(_.right.flatMap(f)))
     }
   }
 
@@ -197,8 +196,8 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
   }
 
   test("filterResult should behave as expected") {
-    forAll { (is: List[Result[Boolean, Int]], f: Int ⇒ Boolean) ⇒
-      ResourceIterator(is: _*).filterResult(f).toList should be(is.filter(_.exists(f)))
+    forAll { (is: List[Either[Boolean, Int]], f: Int ⇒ Boolean) ⇒
+      ResourceIterator(is: _*).filterResult(f).toList should be(is.filter(_.right.exists(f)))
     }
   }
 
@@ -305,7 +304,7 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
       val res = ResourceIterator(is: _*).safe(error)(identity)
       closedWhenEmpty(res) should be(true)
-      res.next() should be(Result.Failure(error))
+      res.next().left.value should be(error)
     }
   }
 
@@ -318,7 +317,7 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
         .safe(new Throwable("eos"))(identity)
 
       while(res.hasNext) {
-        if(res.next().isFailure) res.hasNext should be(false)
+        if(res.next().isLeft) res.hasNext should be(false)
       }
       closed should be(true)
     }

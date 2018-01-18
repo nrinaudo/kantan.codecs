@@ -21,15 +21,3 @@ kantan.codecs tries to unify these types and provide generic laws and tests for 
 duplication and provides a common vocabulary for all kantan libraries.
 
 It really isn't meant to be used directly and is more of a support library for more directly useful ones.
-
-
-## A note on common abstractions
-I use, and plan to keep on using, both [scalaz](https://github.com/scalaz/scalaz) and
-[cats](https://github.com/typelevel/cats), and do not wish to make a final choice between the two. This means that
-kantan.codecs doesn't either, and cannot use the abstractions and data types found in either of them.
-
-This is something I can live with for the most part, except for `\/` or `Xor`. I can't bring myself to work with the
-standard `Either` to encode the result of operations that can fail. This has led to the creation of `Result`, which is
-kind of `\/`, kind of `Xor`, and a (very) little bit its own thing.
-
-Does the world really need a *fourth* disjunction type? Probably not. But I did.

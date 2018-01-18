@@ -39,35 +39,20 @@ object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] 
     * scala> val decoder = StringDecoder.makeSafe("Int")(_.toInt)
     *
     * scala> decoder("1")
-    * res1: kantan.codecs.Result[DecodeError, Int] = Success(1)
+    * res1: Either[DecodeError, Int] = Right(1)
     *
     * scala> decoder("foobar")
-    * res2: kantan.codecs.Result[DecodeError, Int] = Failure(DecodeError: 'foobar' is not a valid Int)
+    * res2: Either[DecodeError, Int] = Left(DecodeError: 'foobar' is not a valid Int)
     * }}}
     *
     * @param typeName name of the decoded type (used in error messages).
     * @param f decoding function.
     * @tparam D decoded type.
     */
-  def makeSafe[D](typeName: String)(f: String ⇒ D): String ⇒ Result[DecodeError, D] =
-    s ⇒ Result.nonFatal(f(s)).leftMap(t ⇒ DecodeError(s"'$s' is not a valid $typeName", t))
+  def makeSafe[D](typeName: String)(f: String ⇒ D): String ⇒ Either[DecodeError, D] =
+    s ⇒ Result.nonFatal(f(s)).left.map(t ⇒ DecodeError(s"'$s' is not a valid $typeName", t))
 
-  /** Creates a [[StringDecoder]] instance for `java.util.Date`.
-    *
-    * @example
-    * {{{
-    * scala> import java.text.SimpleDateFormat
-    *
-    * scala> val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
-    *
-    * scala> implicit val decoder: StringDecoder[java.util.Date] = StringDecoder.dateDecoder(format)
-    *
-    * scala> decoder.decode("2016-01-17T22:03:12.012UTC").map(format.format)
-    * res1: kantan.codecs.Result[DecodeError, String] = Success(2016-01-17T22:03:12.012UTC)
-    * }}}
-    *
-    * @param format format used when parsing date values.
-    */
+  /** Creates a [[StringDecoder]] instance for `java.util.Date`. */
   def dateDecoder(format: DateFormat): StringDecoder[Date] =
     StringDecoder.from(StringDecoder.makeSafe("Date")(s ⇒ format.synchronized(format.parse(s))))
 }

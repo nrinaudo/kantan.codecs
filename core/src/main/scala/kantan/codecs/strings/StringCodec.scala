@@ -35,7 +35,7 @@ object StringCodec {
     * @param g how to encode instances of `D`.
     * @tparam D decoded type.
     */
-  def from[D](f: String ⇒ Result[DecodeError, D])(g: D ⇒ String): StringCodec[D] = Codec.from(f)(g)
+  def from[D](f: String ⇒ Either[DecodeError, D])(g: D ⇒ String): StringCodec[D] = Codec.from(f)(g)
 
   /** Creates a new [[StringCodec]] instance from the specified encoder and decoder.
     *
@@ -45,27 +45,7 @@ object StringCodec {
     */
   def from[D](d: StringDecoder[D], e: StringEncoder[D]): StringCodec[D] = Codec.from(d, e)
 
-  /** Creates a [[StringCodec]] instance for `java.util.Date`.
-    *
-    * @example
-    * {{{
-    * scala> import java.text.SimpleDateFormat
-    * scala> import java.util.Date
-    *
-    * scala> val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
-    *
-    * scala> val codec = StringCodec.dateCodec(format)
-    *
-    * scala> codec.decode("2016-01-17T22:03:12.012UTC").map(format.format)
-    * res1: kantan.codecs.Result[DecodeError, String] = Success(2016-01-17T22:03:12.012UTC)
-    *
-    * // Encoding example
-    * scala> codec.encode(new Date(0))
-    * res2: String = 1970-01-01T00:00:00.000UTC
-    * }}}
-    *
-    * @param format format used when parsing date values.
-    */
+  /** Creates a [[StringCodec]] instance for `java.util.Date`. */
   def dateCodec(format: DateFormat): StringCodec[Date] =
     StringCodec.from(StringDecoder.dateDecoder(format), StringEncoder.dateEncoder(format))
 }

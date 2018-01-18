@@ -17,7 +17,6 @@
 package kantan.codecs
 
 import error._
-import laws.discipline.arbitrary._
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
@@ -27,7 +26,7 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
   implicit val stringIsError: IsError[String] = IsError[Exception].map(_.getMessage)
 
-  type Dec = String ⇒ Result[String, Int]
+  type Dec = String ⇒ Either[String, Int]
 
   test("DecoderCompanion.from should be equivalent to Decoder.from") {
     forAll { (f: Dec, str: String) ⇒

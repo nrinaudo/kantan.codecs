@@ -58,9 +58,9 @@ trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, 
 
   // - Round trip laws -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def roundTripEncoding(d: D): Boolean = decoder.decode(encoder.encode(d)) == Result.success(d)
+  def roundTripEncoding(d: D): Boolean = decoder.decode(encoder.encode(d)) == Right(d)
   def roundTripDecoding(v: LegalValue[E, D, T]): Boolean =
-    decoder.decode(v.encoded).map(encoder.encode) == Result.success(v.encoded)
+    decoder.decode(v.encoded).right.map(encoder.encode) == Right(v.encoded)
 }
 
 object CodecLaws {

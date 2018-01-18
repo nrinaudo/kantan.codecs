@@ -25,11 +25,14 @@ import org.scalacheck.Arbitrary
 object equality extends EqualInstances
 
 trait EqualInstances {
+
   implicit def decoderEqual[E: Arbitrary, D: Equal, F: Equal, T]: Equal[Decoder[E, D, F, T]] =
     new Equal[Decoder[E, D, F, T]] {
       override def equal(a1: Decoder[E, D, F, T], a2: Decoder[E, D, F, T]) =
-        kantan.codecs.laws.discipline.equality.eq(a1.decode, a2.decode) { (d1, d2) ⇒
-          implicitly[Equal[Result[F, D]]].equal(d1, d2)
+        kantan.codecs.laws.discipline.equality.eq(a1.decode, a2.decode) {
+          case (Left(f1), Left(f2))   ⇒ implicitly[Equal[F]].equal(f1, f2)
+          case (Right(d1), Right(d2)) ⇒ implicitly[Equal[D]].equal(d1, d2)
+          case _                      ⇒ false
         }
     }
 
@@ -39,4 +42,5 @@ trait EqualInstances {
         implicitly[Equal[E]].equal(e1, e2)
       }
   }
+
 }

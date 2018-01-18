@@ -33,6 +33,6 @@ object Closeable {
 
   /** Instance for any type that extends `AutoCloseable`. */
   implicit def autoCloseable[A <: AutoCloseable]: Closeable[A] = Closeable.from { c ⇒
-    Result.nonFatal(c.close()).leftMap(ResourceError.CloseError.apply)
+    Result.nonFatal(c.close()).left.map(ResourceError.CloseError.apply)
   }
 }
