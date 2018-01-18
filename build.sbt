@@ -18,7 +18,6 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
     laws,
     refined,
     refinedLaws,
-    scalatest,
     scalaz,
     scalazLaws,
     shapeless,
@@ -60,24 +59,14 @@ lazy val laws = project
   )
   .enablePlugins(BoilerplatePlugin)
   .enablePlugins(PublishedPlugin)
-  .dependsOn(core, scalatest)
+  .dependsOn(core)
   .settings(
     libraryDependencies ++= Seq(
       "org.scalacheck" %% "scalacheck" % Versions.scalacheck,
-      "org.typelevel"  %% "discipline" % Versions.discipline
+      "org.typelevel"  %% "discipline" % Versions.discipline,
+      "org.scalatest"  %% "scalatest"  % Versions.scalatest
     )
   )
-
-// - scalatest project ------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-lazy val scalatest = project
-  .settings(
-    moduleName := "kantan.codecs-scalatest",
-    name       := "scalatest"
-  )
-  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % Versions.scalatest)
-  .dependsOn(core)
-  .enablePlugins(PublishedPlugin)
 
 // - cats projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

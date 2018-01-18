@@ -22,10 +22,9 @@ import laws.discipline.arbitrary._
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try
-import scalatest.ResultValues
 
 @SuppressWarnings(Array("org.wartremover.warts.Throw"))
-class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with ResultValues {
+class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   // - Generic tests ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   test("foreach should not be executed for failures and pass the correct value for successes") {
@@ -93,7 +92,7 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Match
       d match {
         case Success(i) ⇒
           if(f(i)) d.ensure(failure)(f) should be(d)
-          else d.ensure(failure)(f).failure.value should be(failure)
+          else d.ensure(failure)(f) should be(Failure(failure))
         case Failure(_) ⇒ d.ensure(failure)(f) should be(d)
       }
     }
@@ -104,9 +103,9 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Match
       {
         val partial = Function.unlift(f)
         d match {
-          case Success(i) ⇒ d.recover(partial).success.value should be(i)
+          case Success(i) ⇒ d.recover(partial) should be(Success(i))
           case Failure(s) ⇒
-            if(partial.isDefinedAt(s)) d.recover(partial).success.value should be(partial(s))
+            if(partial.isDefinedAt(s)) d.recover(partial) should be(Success(partial(s)))
             else d.recover(partial) should be(d)
         }
       }
@@ -192,25 +191,25 @@ class ResultTests extends FunSuite with GeneratorDrivenPropertyChecks with Match
   // -------------------------------------------------------------------------------------------------------------------
   test("nonFatal should return the expected value when no error occurs") {
     forAll { (i: Int) ⇒
-      Result.nonFatal(i).success.value should be(i)
+      Result.nonFatal(i) should be(Success(i))
     }
   }
 
   test("nonFatal should return the expected failure when an error occurs") {
     forAll { (e: Exception) ⇒
-      Result.nonFatal(throw e).failure.value should be(e)
+      Result.nonFatal(throw e) should be(Failure(e))
     }
   }
 
   test("nonFatalOr should return the expected value when no error occurs") {
     forAll { (s: String, i: Int) ⇒
-      Result.nonFatalOr(s)(i).success.value should be(i)
+      Result.nonFatalOr(s)(i) should be(Success(i))
     }
   }
 
   test("nonFatalOr should return the expected failure when an error occurs") {
     forAll { (s: String, e: Exception) ⇒
-      Result.nonFatalOr(s)(throw e).failure.value should be(s)
+      Result.nonFatalOr(s)(throw e) should be(Failure(s))
     }
   }
 

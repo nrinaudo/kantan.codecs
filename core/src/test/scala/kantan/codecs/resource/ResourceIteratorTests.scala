@@ -22,10 +22,9 @@ import laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import scalatest.ResultValues
 
 @SuppressWarnings(Array("org.wartremover.warts.Var", "org.wartremover.warts.While"))
-class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers with ResultValues {
+class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   case class FailingIterator[A](iterator: Iterator[A], index: Int) {
@@ -306,7 +305,7 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
       val res = ResourceIterator(is: _*).safe(error)(identity)
       closedWhenEmpty(res) should be(true)
-      res.next().failure.value should be(error)
+      res.next() should be(Result.Failure(error))
     }
   }
 
