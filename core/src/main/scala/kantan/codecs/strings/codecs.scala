@@ -36,7 +36,7 @@ object codecs {
     *
     * // Decoding example
     * scala> StringDecoder[AccessMode].decode("READ")
-    * res1: kantan.codecs.Result[DecodeError, AccessMode] = Success(READ)
+    * res1: Either[DecodeError, AccessMode] = Right(READ)
     *
     * // Encoding example
     * scala> StringEncoder[AccessMode].encode(AccessMode.READ)
@@ -58,7 +58,7 @@ object codecs {
     *
     * // Decoding example
     * scala> StringDecoder[Pattern].decode("[a-z]")
-    * res1: kantan.codecs.Result[DecodeError, Pattern] = Success([a-z])
+    * res1: Either[DecodeError, Pattern] = Right([a-z])
     *
     * // Encoding example
     * scala> StringEncoder[Pattern].encode(Pattern.compile("[a-z]"))
@@ -76,7 +76,7 @@ object codecs {
     *
     * // Decoding example
     * scala> StringDecoder[Regex].decode("[a-z]")
-    * res1: kantan.codecs.Result[DecodeError, Regex] = Success([a-z])
+    * res1: Either[DecodeError, Regex] = Right([a-z])
     *
     * // Encoding example
     * scala> StringEncoder[Regex].encode("[a-z]".r)
@@ -92,7 +92,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[BigDecimal].decode("2")
-    * res1: kantan.codecs.Result[DecodeError, BigDecimal] = Success(2)
+    * res1: Either[DecodeError, BigDecimal] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[BigDecimal].encode(BigDecimal(2D))
@@ -108,7 +108,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[BigInt].decode("2")
-    * res1: kantan.codecs.Result[DecodeError, BigInt] = Success(2)
+    * res1: Either[DecodeError, BigInt] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[BigInt].encode(BigInt(2))
@@ -124,7 +124,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Boolean].decode("true")
-    * res1: kantan.codecs.Result[DecodeError, Boolean] = Success(true)
+    * res1: Either[DecodeError, Boolean] = Right(true)
     *
     * // Encoding example
     * scala> StringEncoder[Boolean].encode(true)
@@ -140,7 +140,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Char].decode("a")
-    * res1: kantan.codecs.Result[DecodeError, Char] = Success(a)
+    * res1: Either[DecodeError, Char] = Right(a)
     *
     * // Encoding example
     * scala> StringEncoder[Char].encode('a')
@@ -152,8 +152,8 @@ object codecs {
     // padding. The only issue is if the character is *whitespace* with whitespace padding. This is acknowledged and
     // willfully ignored, at least for the time being.
     val t = if(s.length > 1) s.trim else s
-    if(t.length == 1) Result.success(t.charAt(0))
-    else Result.failure(DecodeError(s"Not a valid Char: '$s'"))
+    if(t.length == 1) Right(t.charAt(0))
+    else Left(DecodeError(s"Not a valid Char: '$s'"))
   }(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Double`.
@@ -162,7 +162,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Double].decode("2")
-    * res1: kantan.codecs.Result[DecodeError, Double] = Success(2.0)
+    * res1: Either[DecodeError, Double] = Right(2.0)
     *
     * // Encoding example
     * scala> StringEncoder[Double].encode(2D)
@@ -178,7 +178,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Byte].decode("2")
-    * res1: kantan.codecs.Result[DecodeError, Byte] = Success(2)
+    * res1: Either[DecodeError, Byte] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[Byte].encode(2)
@@ -194,7 +194,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Float].decode("2")
-    * res1: kantan.codecs.Result[DecodeError, Float] = Success(2.0)
+    * res1: Either[DecodeError, Float] = Right(2.0)
     *
     * // Encoding example
     * scala> StringEncoder[Float].encode(2F)
@@ -210,7 +210,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Int].decode("2")
-    * res1: kantan.codecs.Result[DecodeError, Int] = Success(2)
+    * res1: Either[DecodeError, Int] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[Int].encode(2)
@@ -226,7 +226,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Long].decode("2")
-    * res1: kantan.codecs.Result[DecodeError, Long] = Success(2)
+    * res1: Either[DecodeError, Long] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[Long].encode(2L)
@@ -242,7 +242,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Short].decode("2")
-    * res1: kantan.codecs.Result[DecodeError, Short] = Success(2)
+    * res1: Either[DecodeError, Short] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[Short].encode(2.toShort)
@@ -258,7 +258,7 @@ object codecs {
     * {{{
     * // Decoding example
     * scala> StringDecoder[String].decode("foobar")
-    * res1: kantan.codecs.Result[DecodeError, String] = Success(foobar)
+    * res1: Either[DecodeError, String] = Right(foobar)
     *
     * // Encoding example
     * scala> StringEncoder[String].encode("foobar")
@@ -266,7 +266,7 @@ object codecs {
     * }}}
     */
   implicit val stringStringCodec: StringCodec[String] =
-    StringCodec.from(s ⇒ Result.success(s))(_.toString)
+    StringCodec.from(s ⇒ Right(s))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `java.util.UUID`.
     *
@@ -276,7 +276,7 @@ object codecs {
     * scala> import java.util.UUID
     *
     * scala> StringDecoder[UUID].decode("123e4567-e89b-12d3-a456-426655440000")
-    * res1: kantan.codecs.Result[DecodeError, UUID] = Success(123e4567-e89b-12d3-a456-426655440000)
+    * res1: Either[DecodeError, UUID] = Right(123e4567-e89b-12d3-a456-426655440000)
     *
     * // Encoding example
     * scala> StringEncoder[UUID].encode(UUID.fromString("123e4567-e89b-12d3-a456-426655440000"))
@@ -294,7 +294,7 @@ object codecs {
     * scala> import java.net.URL
     *
     * scala> StringDecoder[URL].decode("http://localhost:8080")
-    * res1: kantan.codecs.Result[DecodeError, URL] = Success(http://localhost:8080)
+    * res1: Either[DecodeError, URL] = Right(http://localhost:8080)
     *
     * // Encoding example
     * scala> StringEncoder[URL].encode(new URL("http://localhost:8080"))
@@ -312,7 +312,7 @@ object codecs {
     * scala> import java.net.URI
     *
     * scala> StringDecoder[URI].decode("http://localhost:8080")
-    * res1: kantan.codecs.Result[DecodeError, URI] = Success(http://localhost:8080)
+    * res1: Either[DecodeError, URI] = Right(http://localhost:8080)
     *
     * // Encoding example
     * scala> StringEncoder[URI].encode(new URI("http://localhost:8080"))
@@ -330,7 +330,7 @@ object codecs {
     * scala> import java.io.File
     *
     * scala> StringDecoder[File].decode("/home/nrinaudo")
-    * res1: kantan.codecs.Result[DecodeError, File] = Success(/home/nrinaudo)
+    * res1: Either[DecodeError, File] = Right(/home/nrinaudo)
     *
     * // Encoding example
     * scala> StringEncoder[File].encode(new File("/home/nrinaudo"))
@@ -348,7 +348,7 @@ object codecs {
     * scala> import java.nio.file.{Path, Paths}
     *
     * scala> StringDecoder[Path].decode("/home/nrinaudo")
-    * res1: kantan.codecs.Result[DecodeError, Path] = Success(/home/nrinaudo)
+    * res1: Either[DecodeError, Path] = Right(/home/nrinaudo)
     *
     * // Encoding example
     * scala> StringEncoder[Path].encode(Paths.get("/home/nrinaudo"))

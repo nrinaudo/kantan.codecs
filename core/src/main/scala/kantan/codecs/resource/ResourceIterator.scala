@@ -284,9 +284,9 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     override def release()  = self.close()
   }
 
-  /** Applies the specified function to the [[Result.Success Success]] case of the underlying [[Result]]. */
-  def mapResult[E, S, B](f: S ⇒ B)(implicit ev: A <:< Result[E, S]): ResourceIterator[Result[E, B]] =
-    map(_.map(f))
+  /** Applies the specified function to the `Right` case of the underlying `Either`. */
+  def mapResult[E, S, B](f: S ⇒ B)(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
+    map(_.right.map(f): Either[E, B])
 
   def flatMap[B](f: A ⇒ ResourceIterator[B]): ResourceIterator[B] = {
     var cur: ResourceIterator[B] = ResourceIterator.empty
@@ -298,18 +298,18 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
   }
 
   @deprecated("Use emap instead", "0.2.2")
-  def flatMapResult[E, S, B](f: S ⇒ Result[E, B])(implicit ev: A <:< Result[E, S]): ResourceIterator[Result[E, B]] =
+  def flatMapResult[E, S, B](f: S ⇒ Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
     emap(f)
 
-  def emap[E, S, B](f: S ⇒ Result[E, B])(implicit ev: A <:< Result[E, S]): ResourceIterator[Result[E, B]] =
-    map(_.flatMap(f))
+  def emap[E, S, B](f: S ⇒ Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
+    map(_.right.flatMap(f))
 
   def filter(p: A ⇒ Boolean): ResourceIterator[A] = collect {
     case a if p(a) ⇒ a
   }
 
-  def filterResult[E, S](p: S ⇒ Boolean)(implicit ev: A <:< Result[E, S]): ResourceIterator[A] =
-    filter(_.exists(p))
+  def filterResult[E, S](p: S ⇒ Boolean)(implicit ev: A <:< Either[E, S]): ResourceIterator[A] =
+    filter(_.right.exists(p))
 
   def withFilter(p: A ⇒ Boolean): ResourceIterator[A] = filter(p)
 
@@ -377,10 +377,10 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     * @param empty error value for when `next` is called on an empty iterator.
     * @param f     used to turn non-fatal exceptions into error types.
     */
-  def safe[F](empty: ⇒ F)(f: Throwable ⇒ F): ResourceIterator[Result[F, A]] = new ResourceIterator[Result[F, A]] {
+  def safe[F](empty: ⇒ F)(f: Throwable ⇒ F): ResourceIterator[Either[F, A]] = new ResourceIterator[Either[F, A]] {
     override def readNext() =
-      if(self.hasNext) Result.nonFatal(self.next()).leftMap(f)
-      else Result.failure(empty)
+      if(self.hasNext) Result.nonFatal(self.next()).left.map(f)
+      else Left(empty)
     override def checkNext = self.hasNext
     override def release() = self.close()
   }

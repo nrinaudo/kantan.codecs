@@ -45,8 +45,8 @@ object IsError {
   /** Summons an implicit instance of `IsError[A]` if one is found in scope, fails compilation otherwise. */
   def apply[A](implicit ev: IsError[A]): IsError[A] = macro imp.summon[IsError[A]]
 
-  /** Evaluates the specified value and wraps it in a [[Result]]. */
-  def result[E: IsError, S](s: ⇒ S): Result[E, S] = Result.nonFatal(s).leftMap(IsError[E].fromThrowable)
+  /** Evaluates the specified value and wraps it in a `Either`. */
+  def result[E: IsError, S](s: ⇒ S): Either[E, S] = Result.nonFatal(s).left.map(IsError[E].fromThrowable)
 
   /** Default instance for `Exception.` */
   implicit val exceptionIsError: IsError[Exception] = new IsError[Exception] {

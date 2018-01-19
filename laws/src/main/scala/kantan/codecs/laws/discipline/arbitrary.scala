@@ -19,7 +19,6 @@ package laws
 package discipline
 
 import CodecValue.{IllegalValue, LegalValue}
-import Result.{Failure, Success}
 import imp.imp
 import java.io._
 import java.net.{URI, URL}
@@ -34,23 +33,6 @@ import strings.{DecodeError, StringDecoder, StringEncoder}
 object arbitrary extends ArbitraryInstances
 
 trait ArbitraryInstances extends ArbitraryArities {
-  // - Arbitrary results -----------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  def success[S: Arbitrary]: Gen[Success[S]] =
-    Arbitrary.arbitrary[S].map(Success.apply)
-  def failure[F: Arbitrary]: Gen[Failure[F]] =
-    Arbitrary.arbitrary[F].map(Failure.apply)
-
-  implicit def arbSuccess[S: Arbitrary]: Arbitrary[Success[S]] = Arbitrary(success)
-  implicit def arbFailure[F: Arbitrary]: Arbitrary[Failure[F]] = Arbitrary(failure)
-
-  implicit def arbResult[F: Arbitrary, S: Arbitrary]: Arbitrary[Result[F, S]] =
-    Arbitrary(
-      Gen.oneOf(
-        success[S]: Gen[Result[F, S]],
-        failure[F]: Gen[Result[F, S]]
-      )
-    )
 
   // - Arbitrary AccessMode --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -102,7 +84,7 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   implicit def arbIllegalValueFromDec[E: Arbitrary, A, T](
     implicit da: Decoder[E, A, _, T]
-  ): Arbitrary[IllegalValue[E, A, T]] = arbIllegalValue(e ⇒ da.decode(e).isFailure)
+  ): Arbitrary[IllegalValue[E, A, T]] = arbIllegalValue(e ⇒ da.decode(e).isLeft)
 
   def arbLegalValue[E, A, T](encode: A ⇒ E)(implicit arbA: Arbitrary[A]): Arbitrary[LegalValue[E, A, T]] = Arbitrary {
     arbA.arbitrary.map(a ⇒ LegalValue(encode(a), a))
@@ -139,7 +121,7 @@ trait ArbitraryInstances extends ArbitraryArities {
     Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(StringEncoder.from))
 
   implicit def arbStringDecoder[A: Arbitrary]: Arbitrary[StringDecoder[A]] =
-    Arbitrary(Arbitrary.arbitrary[String ⇒ Result[DecodeError, A]].map(StringDecoder.from))
+    Arbitrary(Arbitrary.arbitrary[String ⇒ Either[DecodeError, A]].map(StringDecoder.from))
 
   val genPathElement: Gen[String] = for {
     length ← choose(1, 10)
@@ -196,9 +178,6 @@ trait ArbitraryInstances extends ArbitraryArities {
 
   // - Cogen -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def cogenResult[A: Cogen, B: Cogen]: Cogen[Result[A, B]] =
-    implicitly[Cogen[Either[A, B]]].contramap(_.toEither)
-
   implicit val cogenUrl: Cogen[URL]                       = implicitly[Cogen[String]].contramap(_.toString)
   implicit val cogenUri: Cogen[URI]                       = implicitly[Cogen[String]].contramap(_.toString)
   implicit val cogenStringDecodeError: Cogen[DecodeError] = implicitly[Cogen[String]].contramap(_.message)

@@ -17,9 +17,7 @@
 package kantan.codecs
 package scalaz
 
-import Result.{Failure, Success}
 import _root_.scalaz._
-import imp.imp
 
 trait ScalazInstances extends LowPriorityScalazInstances {
   // - \/ instances ---------------------------------------------------------------------------------------------------
@@ -52,66 +50,4 @@ trait ScalazInstances extends LowPriorityScalazInstances {
     override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD ⇒ D) = fa.contramap(f)
   }
 
-  // - Result instances ------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def resultOrder[F: Order, S: Order]: Order[Result[F, S]] =
-    new Order[Result[F, S]] {
-      override def order(x: Result[F, S], y: Result[F, S]): Ordering = x match {
-        case Failure(f1) ⇒
-          y match {
-            case Failure(f2) ⇒ imp[Order[F]].order(f1, f2)
-            case Success(_)  ⇒ Ordering.LT
-          }
-        case Success(s1) ⇒
-          y match {
-            case Failure(_)  ⇒ Ordering.GT
-            case Success(s2) ⇒ imp[Order[S]].order(s1, s2)
-          }
-      }
-    }
-
-  implicit def resultShow[F: Show, S: Show]: Show[Result[F, S]] = Show.shows {
-    case Failure(f) ⇒ s"Failure(${imp[Show[F]].show(f)})"
-    case Success(s) ⇒ s"Success(${imp[Show[S]].show(s)})"
-  }
-
-  implicit def resultMonoid[F: Semigroup, S: Monoid]: Monoid[Result[F, S]] =
-    new Monoid[Result[F, S]] {
-      override def zero = Result.success(imp[Monoid[S]].zero)
-
-      override def append(d1: Result[F, S], d2: ⇒ Result[F, S]) = d1 match {
-        case Failure(f1) ⇒
-          d2 match {
-            case Failure(f2) ⇒ Result.failure(imp[Semigroup[F]].append(f1, f2))
-            case Success(_)  ⇒ d1
-          }
-        case Success(s1) ⇒
-          d2 match {
-            case Failure(_)  ⇒ d2
-            case Success(s2) ⇒ Result.success(imp[Monoid[S]].append(s1, s2))
-          }
-      }
-    }
-
-  implicit def resultInstances[F]: Monad[Result[F, ?]] with Traverse[Result[F, ?]] =
-    new Monad[Result[F, ?]] with Traverse[Result[F, ?]] {
-      override def traverseImpl[G[_], S, SS](d: Result[F, S])(f: S ⇒ G[SS])(implicit ag: Applicative[G]) = d match {
-        case f @ Failure(_) ⇒ ag.pure(f)
-        case Success(s)     ⇒ ag.map(f(s))(Result.success)
-      }
-      override def bind[S, SS](d: Result[F, S])(f: S ⇒ Result[F, SS])   = d.flatMap(f)
-      override def point[S](s: ⇒ S)                                     = Result.success(s)
-      override def map[S, SS](r: Result[F, S])(f: S ⇒ SS)               = r.map(f)
-      override def foldLeft[S, A](r: Result[F, S], z: A)(f: (A, S) ⇒ A) = r.foldLeft(z)(f)
-    }
-
-  implicit def resultBitraverse: Bitraverse[Result] = new Bitraverse[Result] {
-    override def bitraverseImpl[G[_], A, B, C, D](fab: Result[A, B])(f: A ⇒ G[C],
-                                                                     g: B ⇒ G[D])(implicit ag: Applicative[G]) =
-      fab match {
-        case Failure(a) ⇒ Functor[G].map(f(a))(Failure.apply)
-        case Success(b) ⇒ Functor[G].map(g(b))(Success.apply)
-      }
-    override def bimap[A, B, C, D](fab: Result[A, B])(f: A ⇒ C, g: B ⇒ D) = fab.bimap(f, g)
-  }
 }

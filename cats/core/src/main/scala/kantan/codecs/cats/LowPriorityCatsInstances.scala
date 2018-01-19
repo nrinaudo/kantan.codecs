@@ -17,35 +17,11 @@
 package kantan.codecs
 package cats
 
-import Result.{Failure, Success}
 import _root_.cats._
-import imp.imp
 import strings.DecodeError
 
 trait LowPriorityCatsInstances {
 
   implicit val stringDecodeErrorEq: Eq[DecodeError] = Eq.fromUniversalEquals[DecodeError]
-
-  implicit def resultEq[F: Eq, S: Eq]: Eq[Result[F, S]] = Eq.instance {
-    case (Failure(f1), Failure(f2)) ⇒ imp[Eq[F]].eqv(f1, f2)
-    case (Success(s1), Success(s2)) ⇒ imp[Eq[S]].eqv(s1, s2)
-    case _                          ⇒ false
-  }
-
-  implicit def resultSemigroup[F: Semigroup, S: Semigroup]: Semigroup[Result[F, S]] =
-    new Semigroup[Result[F, S]] {
-      override def combine(x: Result[F, S], y: Result[F, S]) = x match {
-        case Failure(f1) ⇒
-          y match {
-            case Failure(f2) ⇒ Result.Failure(imp[Semigroup[F]].combine(f1, f2))
-            case Success(_)  ⇒ x
-          }
-        case Success(s1) ⇒
-          y match {
-            case Failure(_)  ⇒ y
-            case Success(s2) ⇒ Result.Success(imp[Semigroup[S]].combine(s1, s2))
-          }
-      }
-    }
 
 }

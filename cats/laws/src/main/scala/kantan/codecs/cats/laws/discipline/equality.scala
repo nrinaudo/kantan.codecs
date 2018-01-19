@@ -20,15 +20,17 @@ package laws
 package discipline
 
 import _root_.cats._
+import _root_.cats.instances.either._
 import org.scalacheck.Arbitrary
 
 object equality extends EqInstances
 
 trait EqInstances {
+
   implicit def decoderEq[E: Arbitrary, D: Eq, F: Eq, T]: Eq[Decoder[E, D, F, T]] = new Eq[Decoder[E, D, F, T]] {
     override def eqv(a1: Decoder[E, D, F, T], a2: Decoder[E, D, F, T]) =
       kantan.codecs.laws.discipline.equality.eq(a1.decode, a2.decode) { (d1, d2) ⇒
-        implicitly[Eq[Result[F, D]]].eqv(d1, d2)
+        implicitly[Eq[Either[F, D]]].eqv(d1, d2)
       }
   }
 
@@ -38,4 +40,5 @@ trait EqInstances {
         implicitly[Eq[E]].eqv(e1, e2)
       }
   }
+
 }

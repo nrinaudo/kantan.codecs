@@ -19,10 +19,10 @@ package kantan.codecs
 import java.io.{InputStream, OutputStream, Reader, Writer}
 
 package object resource {
-  type OpenResult[A]     = Result[ResourceError.OpenError, A]
-  type CloseResult       = Result[ResourceError.CloseError, Unit]
-  type ProcessResult[A]  = Result[ResourceError.ProcessError, A]
-  type ResourceResult[A] = Result[ResourceError, A]
+  type OpenResult[A]     = Either[ResourceError.OpenError, A]
+  type CloseResult       = Either[ResourceError.CloseError, Unit]
+  type ProcessResult[A]  = Either[ResourceError.ProcessError, A]
+  type ResourceResult[A] = Either[ResourceError, A]
 
   /** [[Resource]] specialised for `java.io.InputStream`. */
   type InputResource[A] = Resource[A, InputStream]

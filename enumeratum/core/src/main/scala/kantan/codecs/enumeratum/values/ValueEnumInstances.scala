@@ -36,10 +36,7 @@ trait DecoderInstances {
     val enumLabel = enum.values.map(_.value).mkString("[", ", ", "]")
 
     decoder.emap { value ⇒
-      Result.fromOption(
-        map.get(value),
-        error.fromMessage(s"'$value' is not in values $enumLabel")
-      )
+      map.get(value).toRight(error.fromMessage(s"'$value' is not in values $enumLabel"))
     }
   }
 

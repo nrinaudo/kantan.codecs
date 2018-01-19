@@ -29,10 +29,7 @@ trait DecoderInstances {
                                                             refType: RefType[R],
                                                             t: IsError[F]): Decoder[E, R[D, P], F, T] =
     decoder.emap { d ⇒
-      refType.refine(d) match {
-        case Left(err)  ⇒ Result.failure(t.fromMessage(s"Not acceptable: '$err'"))
-        case Right(rdp) ⇒ Result.Success(rdp)
-      }
+      refType.refine(d).left.map(err ⇒ t.fromMessage(s"Not acceptable: '$err'"))
     }
 
 }

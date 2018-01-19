@@ -57,14 +57,14 @@ trait ShapelessInstances {
     */
   implicit def caseClassDecoder[E, D, F, T, H <: HList](implicit gen: Generic.Aux[D, H],
                                                         dr: Lazy[Decoder[E, H, F, T]]): DerivedDecoder[E, D, F, T] =
-    DerivedDecoder.from(s ⇒ dr.value.decode(s).map(gen.from))
+    DerivedDecoder.from(s ⇒ dr.value.decode(s).right.map(gen.from))
 
   /** Similar to [[caseClassDecoder]], but working with `LabelledGeneric` rather than just `Generic`. */
   implicit def caseClassDecoderFromLabelled[E, D, F, T, H <: HList](
     implicit generic: LabelledGeneric.Aux[D, H],
     hDecoder: Lazy[Decoder[E, H, F, T]]
   ): DerivedDecoder[E, D, F, T] =
-    DerivedDecoder.from(value ⇒ hDecoder.value.decode(value).map(generic.from))
+    DerivedDecoder.from(value ⇒ hDecoder.value.decode(value).right.map(generic.from))
 
   // - Sum types -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -85,16 +85,16 @@ trait ShapelessInstances {
     */
   implicit def sumTypeDecoder[E, D, F, T, C <: Coproduct](implicit gen: Generic.Aux[D, C],
                                                           dr: Lazy[Decoder[E, C, F, T]]): DerivedDecoder[E, D, F, T] =
-    DerivedDecoder.from(m ⇒ dr.value.decode(m).map(gen.from))
+    DerivedDecoder.from(m ⇒ dr.value.decode(m).right.map(gen.from))
 
   // - Coproducts ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit def cnilDecoder[E, F: IsError, T]: Decoder[E, CNil, F, T] =
-    Decoder.from(_ ⇒ Result.failure(IsError[F].fromMessage("Attempting to decode CNil")))
+    Decoder.from(_ ⇒ Left(IsError[F].fromMessage("Attempting to decode CNil")))
 
   implicit def coproductDecoder[E, H, D <: Coproduct, F, T](implicit dh: Decoder[E, H, F, T],
                                                             dt: Decoder[E, D, F, T]): Decoder[E, H :+: D, F, T] =
-    Decoder.from(e ⇒ dh.decode(e).map(Inl.apply).orElse(dt.decode(e).map(Inr.apply)))
+    Decoder.from(e ⇒ dh.decode(e).right.map(Inl.apply).left.flatMap(_ ⇒ dt.decode(e).right.map(Inr.apply)))
 
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   implicit def cnilEncoder[E, D, T]: Encoder[E, CNil, T] =

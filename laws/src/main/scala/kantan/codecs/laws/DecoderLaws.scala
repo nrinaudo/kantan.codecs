@@ -23,10 +23,10 @@ import org.scalacheck.Prop
 trait DecoderLaws[E, D, F, T] {
   def decoder: Decoder[E, D, F, T]
 
-  private def cmp(result: Result[F, D], cv: CodecValue[E, D, T]): Boolean = (cv, result) match {
-    case (IllegalValue(_), Result.Failure(_))   ⇒ true
-    case (LegalValue(_, d), Result.Success(d2)) ⇒ d == d2
-    case _                                      ⇒ false
+  private def cmp(result: Either[F, D], cv: CodecValue[E, D, T]): Boolean = (cv, result) match {
+    case (IllegalValue(_), Left(_))    ⇒ true
+    case (LegalValue(_, d), Right(d2)) ⇒ d == d2
+    case _                             ⇒ false
   }
 
   // - Simple laws -----------------------------------------------------------------------------------------------------
@@ -61,10 +61,10 @@ trait DecoderLaws[E, D, F, T] {
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def emapIdentity(v: CodecValue[E, D, T]): Boolean =
-    decoder.decode(v.encoded) == decoder.emap(Result.success).decode(v.encoded)
+    decoder.decode(v.encoded) == decoder.emap(Right.apply).decode(v.encoded)
 
-  def emapComposition[A, B](v: CodecValue[E, D, T], f: D ⇒ Result[F, A], g: A ⇒ Result[F, B]): Boolean =
-    decoder.emap(d ⇒ f(d).flatMap(g)).decode(v.encoded) == decoder.emap(f).emap(g).decode(v.encoded)
+  def emapComposition[A, B](v: CodecValue[E, D, T], f: D ⇒ Either[F, A], g: A ⇒ Either[F, B]): Boolean =
+    decoder.emap(d ⇒ f(d).right.flatMap(g)).decode(v.encoded) == decoder.emap(f).emap(g).decode(v.encoded)
 
   // TODO: filter
   // TODO: collect

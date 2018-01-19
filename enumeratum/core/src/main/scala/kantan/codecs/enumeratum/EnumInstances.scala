@@ -32,10 +32,7 @@ trait DecoderInstances {
     val enumLabel = enum.values.map(_.entryName).mkString("[", ", ", "]")
 
     decoder.emap { name ⇒
-      Result.fromOption(
-        map.get(name),
-        error.fromMessage(s"'$name' is not a member of enumeration $enumLabel")
-      )
+      map.get(name).toRight(error.fromMessage(s"'$name' is not a member of enumeration $enumLabel"))
     }
   }
 
