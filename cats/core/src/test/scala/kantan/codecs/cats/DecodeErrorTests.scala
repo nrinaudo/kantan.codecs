@@ -17,11 +17,19 @@
 package kantan.codecs
 package cats
 
-import _root_.cats._
+import _root_.cats.Show
+import _root_.cats.kernel.laws.discipline.EqTests
+import laws.discipline._, arbitrary._
 import strings.DecodeError
 
-trait LowPriorityCatsInstances {
+class DecodeErrorTests extends DisciplineSuite {
 
-  implicit val stringDecodeErrorEq: Eq[DecodeError] = Eq.fromUniversalEquals[DecodeError]
+  checkAll("DecodeError", EqTests[DecodeError].eqv)
+
+  test("Show[DecodeError] should yield a string containing the error message") {
+    forAll { error: DecodeError ⇒
+      Show[DecodeError].show(error) should include(error.message)
+    }
+  }
 
 }

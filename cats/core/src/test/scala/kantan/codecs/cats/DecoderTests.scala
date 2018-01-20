@@ -17,11 +17,25 @@
 package kantan.codecs
 package cats
 
+import _root_.cats.Eq
+import _root_.cats.data.EitherT
 import _root_.cats.instances.all._
-import _root_.cats.laws.discipline.FunctorTests
+import _root_.cats.laws.discipline.{MonadErrorTests, SemigroupKTests}
+import _root_.cats.laws.discipline.SemigroupalTests.Isomorphisms
 import laws.discipline._, arbitrary._, equality._
-import strings.StringDecoder
+import strings.{DecodeError, StringDecoder}
 
 class DecoderTests extends DisciplineSuite {
-  checkAll("StringDecoder", FunctorTests[StringDecoder].functor[Int, Int, Int])
+
+  // For some reason, these are not derived automatically. I *think* it's to do with StringDecoder being a type alias
+  // for a type with many holes, but this is slightly beyond me.
+  implicit val eqEitherT: Eq[EitherT[StringDecoder, DecodeError, Int]] =
+    EitherT.catsDataEqForEitherT[StringDecoder, DecodeError, Int]
+
+  implicit val iso: Isomorphisms[StringDecoder] =
+    Isomorphisms.invariant[StringDecoder]
+
+  checkAll("StringDecoder", SemigroupKTests[StringDecoder].semigroupK[Int])
+  checkAll("StringDecoder", MonadErrorTests[StringDecoder, DecodeError].monadError[Int, Int, Int])
+
 }
