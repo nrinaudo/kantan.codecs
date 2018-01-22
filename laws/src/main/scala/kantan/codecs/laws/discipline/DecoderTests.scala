@@ -75,8 +75,8 @@ object DecoderTests {
       override val laws     = l
       override val arbLegal = al
       override val arbF     = imp[Arbitrary[F]]
-      override val cogenF   = imp[Cogen[F]]
-      override val cogenD   = imp[Cogen[D]]
+      override val cogenF   = Cogen[F]
+      override val cogenD   = Cogen[D]
       override val arbD     = imp[Arbitrary[D]]
       override val arbE     = imp[Arbitrary[E]]
     }
