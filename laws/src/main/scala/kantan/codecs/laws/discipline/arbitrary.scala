@@ -28,7 +28,7 @@ import java.util.regex.Pattern
 import org.scalacheck._, Arbitrary.{arbitrary ⇒ arb}, Gen._
 import scala.util.Try
 import scala.util.matching.Regex
-import strings.{DecodeError, StringDecoder, StringEncoder}
+import strings.DecodeError
 
 object arbitrary extends ArbitraryInstances
 
@@ -105,6 +105,14 @@ trait ArbitraryInstances extends ArbitraryArities {
     }
   }
 
+  // - Codecs ----------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  implicit def arbDecoder[E: Arbitrary: Cogen, D: Arbitrary, F: Arbitrary, T]: Arbitrary[Decoder[E, D, F, T]] =
+    Arbitrary(arb[E ⇒ Either[F, D]].map(Decoder.from))
+
+  implicit def arbEncoder[E: Arbitrary, D: Arbitrary: Cogen, T]: Arbitrary[Encoder[E, D, T]] =
+    Arbitrary(arb[D ⇒ E].map(Encoder.from))
+
   // - String codecs ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val arbStringDecodeError: Arbitrary[DecodeError] = Arbitrary(
@@ -116,12 +124,6 @@ trait ArbitraryInstances extends ArbitraryArities {
       arbException.arbitrary.map(DecodeError.apply)
     )
   )
-
-  implicit def arbStringEncoder[A: Arbitrary: Cogen]: Arbitrary[StringEncoder[A]] =
-    Arbitrary(Arbitrary.arbitrary[A ⇒ String].map(StringEncoder.from))
-
-  implicit def arbStringDecoder[A: Arbitrary]: Arbitrary[StringDecoder[A]] =
-    Arbitrary(Arbitrary.arbitrary[String ⇒ Either[DecodeError, A]].map(StringDecoder.from))
 
   val genPathElement: Gen[String] = for {
     length ← choose(1, 10)
