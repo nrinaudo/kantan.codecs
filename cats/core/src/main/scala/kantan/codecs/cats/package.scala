@@ -16,4 +16,4 @@
 
 package kantan.codecs
 
-package object cats extends CatsInstances
+package object cats extends CommonInstances with DecoderInstances with EncoderInstances

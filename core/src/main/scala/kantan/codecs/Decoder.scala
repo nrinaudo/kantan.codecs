@@ -78,6 +78,10 @@ trait Decoder[E, D, F, T] extends Serializable {
       else Left(f)
     })
 
+  def handleErrorWith(f: F ⇒ Decoder[E, D, F, T]): Decoder[E, D, F, T] = Decoder.from { s ⇒
+    decode(s).left.flatMap(error ⇒ f(error).decode(s))
+  }
+
   /** Creates a new [[Decoder]] instance by transforming successful results with the specified function.
     *
     * This differs from [[emap]] in that the transformation function cannot fail.
@@ -126,6 +130,21 @@ trait Decoder[E, D, F, T] extends Serializable {
     */
   @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
   def tag[TT]: Decoder[E, D, F, TT] = this.asInstanceOf[Decoder[E, D, F, TT]]
+
+  @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
+  def flatMap[DD](f: D ⇒ Decoder[E, DD, F, T]): Decoder[E, DD, F, T] = Decoder.from { s ⇒
+    decode(s) match {
+      case Right(d)    ⇒ f(d).decode(s)
+      case l @ Left(_) ⇒ l.asInstanceOf[Either[F, DD]]
+    }
+  }
+
+  def product[DD](decoder: Decoder[E, DD, F, T]): Decoder[E, (D, DD), F, T] = Decoder.from { s ⇒
+    for {
+      d  ← decode(s).right
+      dd ← decoder.decode(s).right
+    } yield (d, dd)
+  }
 }
 
 /** Provides methods commonly declared by companion objects for specialised decoder types.
