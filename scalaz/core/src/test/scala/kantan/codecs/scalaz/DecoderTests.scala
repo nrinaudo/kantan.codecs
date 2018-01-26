@@ -20,8 +20,9 @@ package scalaz
 import _root_.scalaz.scalacheck.ScalazProperties._
 import _root_.scalaz.std.anyVal._
 import laws.discipline._, arbitrary._, equality._
-import strings.StringDecoder
+import strings._
 
 class DecoderTests extends ScalazDisciplineSuite {
-  checkAll("StringDecoder", functor.laws[StringDecoder])
+  checkAll("StringDecoder", monadError.laws[StringDecoder, DecodeError])
+  checkAll("StringDecoder", plus.laws[StringDecoder])
 }

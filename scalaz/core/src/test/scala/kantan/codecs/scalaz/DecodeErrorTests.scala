@@ -17,11 +17,19 @@
 package kantan.codecs
 package scalaz
 
-import _root_.scalaz.Equal
+import _root_.scalaz.Show
+import _root_.scalaz.scalacheck.ScalazProperties.{equal ⇒ equ}
+import laws.discipline._, arbitrary._
 import strings.DecodeError
 
-trait LowPriorityScalazInstances {
+class DecodeErrorTests extends ScalazDisciplineSuite {
 
-  implicit val stringDecodeErrorEqual: Equal[DecodeError] = Equal.equalA[DecodeError]
+  checkAll("DecodeError", equ.laws[DecodeError])
+
+  test("Show[DecodeError] should yield a string containing the error message") {
+    forAll { error: DecodeError ⇒
+      Show[DecodeError].shows(error) should include(error.message)
+    }
+  }
 
 }
