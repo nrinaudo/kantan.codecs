@@ -16,6 +16,8 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
     jodaTime,
     jodaTimeLaws,
     laws,
+    libra,
+    libraLaws,
     refined,
     refinedLaws,
     scalaz,
@@ -24,7 +26,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
     shapelessLaws
   )
   .aggregateIf(java8Supported)(java8, java8Laws)
-  .dependsOn(cats, core, enumeratum, jodaTime, refined, scalaz, shapeless)
+  .dependsOn(cats, core, enumeratum, jodaTime, libra, refined, scalaz, shapeless)
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
@@ -32,7 +34,7 @@ lazy val docs = project
     unidocProjectFilter in (ScalaUnidoc, unidoc) :=
       inAnyProject -- inProjectsIf(!java8Supported)(java8, java8Laws)
   )
-  .dependsOn(cats, core, enumeratum, jodaTime, refined, scalaz, shapeless)
+  .dependsOn(cats, core, enumeratum, jodaTime, libra, refined, scalaz, shapeless)
   .dependsOnIf(java8Supported)(java8)
 
 // - core projects -----------------------------------------------------------------------------------------------------
@@ -224,6 +226,31 @@ lazy val enumeratumLaws = Project(id = "enumeratum-laws", base = file("enumeratu
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, enumeratum)
+
+// - libra projects ------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+lazy val libra = Project(id = "libra", base = file("libra/core"))
+  .settings(
+    moduleName := "kantan.codecs-libra",
+    name       := "libra"
+  )
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core)
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.github.to-ithaca" %% "libra"     % Versions.libra,
+      "org.scalatest"        %% "scalatest" % Versions.scalatest % "test"
+    )
+  )
+  .laws("libra-laws")
+
+lazy val libraLaws = Project(id = "libra-laws", base = file("libra/laws"))
+  .settings(
+    moduleName := "kantan.codecs-libra-laws",
+    name       := "libra-laws"
+  )
+  .enablePlugins(PublishedPlugin)
+  .dependsOn(core, laws, libra)
 
 // - shapeless projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
