@@ -16,4 +16,4 @@
 
 package kantan.codecs
 
-package object scalaz extends ScalazInstances
+package object scalaz extends DecoderInstances with EncoderInstances with CommonInstances

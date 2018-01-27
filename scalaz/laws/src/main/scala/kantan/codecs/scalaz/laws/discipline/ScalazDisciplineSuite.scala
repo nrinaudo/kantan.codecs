@@ -20,11 +20,8 @@ package laws
 package discipline
 
 import org.scalacheck.Properties
-import org.scalatest.{FunSuite, Matchers}
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
 
-class ScalazDisciplineSuite extends FunSuite with GeneratorDrivenPropertyChecks with Discipline with Matchers {
+class ScalazDisciplineSuite extends DisciplineSuite {
   // The i bit is a dirty hack to work around the fact that some scalaz properties have duplicated identifiers, which
   // causes scalatest to refuse to even consider working.
   @SuppressWarnings(Array("org.wartremover.warts.Var"))

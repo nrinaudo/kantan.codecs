@@ -18,36 +18,57 @@ package kantan.codecs
 package scalaz
 
 import _root_.scalaz._
+import strings._
 
-trait ScalazInstances extends LowPriorityScalazInstances {
-  // - \/ instances ---------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
+trait DecoderInstances {
+
+  implicit final def decoderInstances[E, F, T]: MonadError[Decoder[E, ?, F, T], F] with Plus[Decoder[E, ?, F, T]] =
+    new MonadError[Decoder[E, ?, F, T], F] with Plus[Decoder[E, ?, F, T]] {
+
+      override def point[A](a: ⇒ A) = Decoder.from(_ ⇒ Right(a))
+
+      override def bind[A, B](fa: Decoder[E, A, F, T])(f: A ⇒ Decoder[E, B, F, T]) = fa.flatMap(f)
+
+      override def handleError[A](fa: Decoder[E, A, F, T])(f: F ⇒ Decoder[E, A, F, T]) = fa.handleErrorWith(f)
+
+      override def raiseError[A](e: F) = Decoder.from(_ ⇒ Left(e))
+
+      override def plus[A](a: Decoder[E, A, F, T], b: ⇒ Decoder[E, A, F, T]) = a.orElse(b)
+
+    }
+}
+
+trait EncoderInstances {
+
+  implicit def encoderContravariant[E, T]: Contravariant[Encoder[E, ?, T]] = new Contravariant[Encoder[E, ?, T]] {
+    override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD ⇒ D) = fa.contramap(f)
+  }
+
+}
+
+trait CommonInstances {
+
+  implicit def isErrorShow[E <: error.Error]: Show[E] = Show.show(_.toString)
+
   implicit def disjunctionDecoder[E, DA, DB, F, T](
-    implicit da: Decoder[E, Either[DA, DB], F, T]
+    implicit da: Decoder[E, DA, F, T],
+    db: Decoder[E, DB, F, T]
   ): Decoder[E, DA \/ DB, F, T] =
-    da.map(\/.fromEither)
+    da.map(-\/.apply).orElse(db.map(\/-.apply))
 
-  implicit def disjunctionEncoder[E, DA, DB, T](implicit ea: Encoder[E, Either[DA, DB], T]): Encoder[E, DA \/ DB, T] =
-    ea.contramap(_.toEither)
+  implicit def disjunctionEncoder[E, DA, DB, T](implicit ea: Encoder[E, DA, T],
+                                                eb: Encoder[E, DB, T]): Encoder[E, DA \/ DB, T] =
+    Encoder.from {
+      case -\/(a) ⇒ ea.encode(a)
+      case \/-(b) ⇒ eb.encode(b)
+    }
 
-  // - Maybe instances -------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
   implicit def maybeDecoder[E, D, F, T](implicit da: Decoder[E, Option[D], F, T]): Decoder[E, Maybe[D], F, T] =
     da.map(Maybe.fromOption)
 
   implicit def maybeEncoder[E, D, T](implicit ea: Encoder[E, Option[D], T]): Encoder[E, Maybe[D], T] =
     ea.contramap(_.toOption)
 
-  // - Decoder instances -----------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def decoderFunctor[E, F, T]: Functor[Decoder[E, ?, F, T]] = new Functor[Decoder[E, ?, F, T]] {
-    override def map[D, DD](fa: Decoder[E, D, F, T])(f: D ⇒ DD) = fa.map(f)
-  }
-
-  // - Encoder instances -----------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  implicit def encoderContravariant[E, T]: Contravariant[Encoder[E, ?, T]] = new Contravariant[Encoder[E, ?, T]] {
-    override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD ⇒ D) = fa.contramap(f)
-  }
+  implicit val stringDecodeErrorEqual: Equal[DecodeError] = Equal.equalA[DecodeError]
 
 }
