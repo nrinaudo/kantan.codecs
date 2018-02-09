@@ -15,7 +15,6 @@ scala:
 jdk:
   - oraclejdk8
   - openjdk8
-  - oraclejdk9
 script:
   - sbt ++$TRAVIS_SCALA_VERSION validate
 before_install:
