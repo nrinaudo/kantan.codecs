@@ -9,7 +9,7 @@ object Versions {
   val jodaConvert          = "1.9.2"
   val joda                 = "2.9.9"
   val libra                = "0.3.0"
-  val refined              = "0.8.6"
+  val refined              = "0.8.7"
   val scalacheck           = "1.13.5"
   val scalacheckShapeless  = "1.1.7"
   val scalatest            = "3.0.5"
