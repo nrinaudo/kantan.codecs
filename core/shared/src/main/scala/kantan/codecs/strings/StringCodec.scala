@@ -24,22 +24,4 @@ package strings
   *
   * Default instances are defined in [[codecs]].
   */
-object StringCodec extends PlatformSpecificCodecs {
-
-  /** Creates a new [[StringCodec]] instance from the specified decoding and encoding functions.
-    *
-    * @param f how to decode to instances of `D`.
-    * @param g how to encode instances of `D`.
-    * @tparam D decoded type.
-    */
-  def from[D](f: String ⇒ Either[DecodeError, D])(g: D ⇒ String): StringCodec[D] = Codec.from(f)(g)
-
-  /** Creates a new [[StringCodec]] instance from the specified encoder and decoder.
-    *
-    * @param d how to decode to instances of `D`.
-    * @param e how to encode instances of `D`.
-    * @tparam D decoded type.
-    */
-  def from[D](d: StringDecoder[D], e: StringEncoder[D]): StringCodec[D] = Codec.from(d, e)
-
-}
+object StringCodec extends CodecCompanion[String, DecodeError, codecs.type] with PlatformSpecificCodecs
