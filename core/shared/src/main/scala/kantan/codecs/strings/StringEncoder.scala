@@ -17,11 +17,4 @@
 package kantan.codecs
 package strings
 
-object StringEncoder extends PlatformSpecificEncoders {
-
-  /** Summons an implicit instance of `StringEncoder[D]` if one can be found, fails compilation otherwise. */
-  def apply[D](implicit ev: StringEncoder[D]): StringEncoder[D] = macro imp.summon[StringEncoder[D]]
-
-  def from[D](f: D ⇒ String): StringEncoder[D] = Encoder.from(f)
-
-}
+object StringEncoder extends EncoderCompanion[String, codecs.type] with PlatformSpecificEncoders
