@@ -20,12 +20,28 @@ package laws
 package discipline
 
 import _root_.scalaz.{\/, Maybe}
+import _root_.scalaz.scalacheck.{ScalazArbitrary ⇒ SA}
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Cogen}
 
 object arbitrary extends ArbitraryInstances
 
 trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstances {
+
+  // - "Proxy" instances -----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  // These instances are already provided by scalaz, but need specific imports. We want all arbitraries to be available
+  // here, so we just proxy the original instances.
+
+  implicit def arbDisjunction[A: Arbitrary, B: Arbitrary]: Arbitrary[A \/ B] = SA.DisjunctionArbitrary
+  implicit def cogenDisjunction[A: Cogen, B: Cogen]: Cogen[A \/ B]           = SA.cogenDisjunction
+
+  implicit def arbMaybe[A: Arbitrary]: Arbitrary[Maybe[A]] = SA.Arbitrary_Maybe[A]
+  implicit def cogenMaybe[A: Cogen]: Cogen[Maybe[A]]       = SA.cogenMaybe[A]
+
+  // - CodecValue instances --------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+
   implicit def arbLegalMaybe[E, D, T](
     implicit al: Arbitrary[LegalValue[E, Option[D], T]]
   ): Arbitrary[LegalValue[E, Maybe[D], T]] =
@@ -45,4 +61,5 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
     implicit a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]
   ): Arbitrary[IllegalValue[E, DL \/ DR, T]] =
     Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
+
 }

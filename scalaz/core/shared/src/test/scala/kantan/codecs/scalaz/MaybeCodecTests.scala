@@ -18,7 +18,6 @@ package kantan.codecs
 package scalaz
 
 import _root_.scalaz.Maybe
-import _root_.scalaz.scalacheck.ScalazArbitrary._
 import laws.discipline._, arbitrary._
 
 class MaybeCodecTests extends DisciplineSuite {
