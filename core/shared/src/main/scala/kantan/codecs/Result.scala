@@ -16,6 +16,7 @@
 
 package kantan.codecs
 
+import error.IsError
 import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable
 import scala.util.Try
@@ -70,6 +71,13 @@ object ResultCompanion {
 
     /** Turns the specified `Try` into a result. */
     @inline def fromTry[S](t: Try[S]): Either[F, S] = Result.fromTry(t).left.map(fromThrowable)
+
+  }
+
+  /** Similar to [[WithDefault]], but uses [[IsError]] to deal with error cases. */
+  abstract class WithError[F: IsError] extends WithDefault[F] {
+
+    override def fromThrowable(t: Throwable) = IsError[F].fromThrowable(t)
 
   }
 
