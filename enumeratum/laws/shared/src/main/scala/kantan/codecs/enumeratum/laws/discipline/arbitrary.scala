@@ -21,19 +21,16 @@ package discipline
 
 import _root_.enumeratum.values._
 import kantan.codecs.laws._, CodecValue._
-import org.scalacheck.{Arbitrary, Cogen, Gen}, Arbitrary.{arbitrary ⇒ arb}
+import org.scalacheck.{Arbitrary, Gen}, Arbitrary.{arbitrary ⇒ arb}
 import strings._
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
 
-trait ArbitraryInstances {
+trait ArbitraryInstances
+    extends _root_.enumeratum.ScalacheckInstances with _root_.enumeratum.values.ScalacheckInstances {
 
   // - Enumerated instances --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-
-  implicit val arbEnumerated: Arbitrary[Enumerated] = Arbitrary(Gen.oneOf(Enumerated.values))
-
-  implicit val cogenEnumerated: Cogen[Enumerated] = Cogen[String].contramap(_.entryName)
 
   implicit val arbLegalEnumerated: Arbitrary[LegalString[Enumerated]] =
     Arbitrary(Gen.oneOf(Enumerated.values.map(v ⇒ LegalValue[String, Enumerated, codecs.type](v.entryName, v))))
@@ -43,13 +40,8 @@ trait ArbitraryInstances {
     Arbitrary(arb[String].suchThat(s ⇒ !legal.contains(s)).map(s ⇒ IllegalValue(s)))
   }
 
-  // - Generic EnumeratedValue instances -------------------------------------------------------------------------------
+  // - EnumeratedValue instances ---------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-
-  def arbEnumeratedValue[V, A <: ValueEnumEntry[V]](enum: ValueEnum[V, A]): Arbitrary[A] =
-    Arbitrary(Gen.oneOf(enum.values))
-
-  def cogenEnumeratedValue[V: Cogen, A <: ValueEnumEntry[V]]: Cogen[A] = Cogen[V].contramap(_.value)
 
   def arbLegalEnumeratedValue[V: StringEncoder, A <: ValueEnumEntry[V]](
     enum: ValueEnum[V, A]
@@ -69,25 +61,11 @@ trait ArbitraryInstances {
     }
   }
 
-  // - EnumeratedInt instances -----------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-
-  implicit val arbEnumeratedInt: Arbitrary[EnumeratedInt] = arbEnumeratedValue(EnumeratedInt)
-
-  implicit val cogenEnumeratedInt: Cogen[EnumeratedInt] = cogenEnumeratedValue[Int, EnumeratedInt]
-
   implicit val arbLegalEnumeratedInt: Arbitrary[LegalString[EnumeratedInt]] =
     arbLegalEnumeratedValue(EnumeratedInt)
 
   implicit val arbIllegalEnumeratedInt: Arbitrary[IllegalString[EnumeratedInt]] =
     arbIllegalEnumeratedValue(EnumeratedInt)
-
-  // - EnumeratedLong instances ----------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-
-  implicit val arbEnumeratedLong: Arbitrary[EnumeratedLong] = arbEnumeratedValue(EnumeratedLong)
-
-  implicit val cogenEnumeratedLong: Cogen[EnumeratedLong] = cogenEnumeratedValue[Long, EnumeratedLong]
 
   implicit val arbLegalEnumeratedLong: Arbitrary[LegalString[EnumeratedLong]] =
     arbLegalEnumeratedValue(EnumeratedLong)
@@ -95,25 +73,11 @@ trait ArbitraryInstances {
   implicit val arbIllegalEnumeratedLong: Arbitrary[IllegalString[EnumeratedLong]] =
     arbIllegalEnumeratedValue(EnumeratedLong)
 
-  // - EnumeratedShort instances ---------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-
-  implicit val arbEnumeratedShort: Arbitrary[EnumeratedShort] = arbEnumeratedValue(EnumeratedShort)
-
-  implicit val cogenEnumeratedShort: Cogen[EnumeratedShort] = cogenEnumeratedValue[Short, EnumeratedShort]
-
   implicit val arbLegalEnumeratedShort: Arbitrary[LegalString[EnumeratedShort]] =
     arbLegalEnumeratedValue(EnumeratedShort)
 
   implicit val arbIllegalEnumeratedShort: Arbitrary[IllegalString[EnumeratedShort]] =
     arbIllegalEnumeratedValue(EnumeratedShort)
-
-  // - EnumeratedString instances --------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-
-  implicit val arbEnumeratedString: Arbitrary[EnumeratedString] = arbEnumeratedValue(EnumeratedString)
-
-  implicit val cogenEnumeratedString: Cogen[EnumeratedString] = cogenEnumeratedValue[String, EnumeratedString]
 
   implicit val arbLegalEnumeratedString: Arbitrary[LegalString[EnumeratedString]] =
     arbLegalEnumeratedValue(EnumeratedString)
@@ -121,25 +85,11 @@ trait ArbitraryInstances {
   implicit val arbIllegalEnumeratedString: Arbitrary[IllegalString[EnumeratedString]] =
     arbIllegalEnumeratedValue(EnumeratedString)
 
-  // - EnumeratedByte instances ----------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-
-  implicit val arbEnumeratedByte: Arbitrary[EnumeratedByte] = arbEnumeratedValue(EnumeratedByte)
-
-  implicit val cogenEnumeratedByte: Cogen[EnumeratedByte] = cogenEnumeratedValue[Byte, EnumeratedByte]
-
   implicit val arbLegalEnumeratedByte: Arbitrary[LegalString[EnumeratedByte]] =
     arbLegalEnumeratedValue(EnumeratedByte)
 
   implicit val arbIllegalEnumeratedByte: Arbitrary[IllegalString[EnumeratedByte]] =
     arbIllegalEnumeratedValue(EnumeratedByte)
-
-  // - EnumeratedChar instances ----------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-
-  implicit val arbEnumeratedChar: Arbitrary[EnumeratedChar] = arbEnumeratedValue(EnumeratedChar)
-
-  implicit val cogenEnumeratedChar: Cogen[EnumeratedChar] = cogenEnumeratedValue[Char, EnumeratedChar]
 
   implicit val arbLegalEnumeratedChar: Arbitrary[LegalString[EnumeratedChar]] =
     arbLegalEnumeratedValue(EnumeratedChar)

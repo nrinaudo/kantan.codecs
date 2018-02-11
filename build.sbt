@@ -246,6 +246,7 @@ lazy val enumeratumJS  = enumeratum.js
 lazy val enumeratumLaws = kantanCrossProject("enumeratum-laws")
   .in(file("enumeratum/laws"))
   .settings(moduleName := "kantan.codecs-enumeratum-laws")
+  .settings(libraryDependencies += "com.beachape" %%% "enumeratum-scalacheck" % Versions.enumeratumScalacheck)
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, enumeratum)
 
