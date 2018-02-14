@@ -16,29 +16,33 @@
 
 package kantan.codecs
 package strings
-package joda
-package time
+package joda.time
 
 import export.Exported
-import laws.discipline._, arbitrary._
+import joda.time.laws.discipline._
+import joda.time.laws.discipline.arbitrary._
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 
 class JodaTimeEncoderCompanionTests extends DisciplineSuite {
 
-  type TestEncoder[D] = Exported[Encoder[String, D, codec.type]]
+  type TestEncoder[A] = Exported[Encoder[String, A, codec.type]]
 
   object EncoderCompanion extends JodaTimeEncoderCompanion[String, codec.type] {
+
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
 
-    implicit val dateTimeTestEncoder: TestEncoder[DateTime]           = Exported(defaultDateTimeEncoder)
-    implicit val localDateTimeTestEncoder: TestEncoder[LocalDateTime] = Exported(defaultLocalDateTimeEncoder)
-    implicit val localDateTestEncoder: TestEncoder[LocalDate]         = Exported(defaultLocalDateEncoder)
-    implicit val localTimeTestEncoder: TestEncoder[LocalTime]         = Exported(defaultLocalTimeEncoder)
+    implicit val defaultDateTimeTestEncoder: TestEncoder[DateTime]           = Exported(defaultDateTimeEncoder)
+    implicit val defaultLocalDateTimeTestEncoder: TestEncoder[LocalDateTime] = Exported(defaultLocalDateTimeEncoder)
+    implicit val defaultLocalTimeTestEncoder: TestEncoder[LocalTime]         = Exported(defaultLocalTimeEncoder)
+    implicit val defaultLocalDateTestEncoder: TestEncoder[LocalDate]         = Exported(defaultLocalDateEncoder)
+
   }
 
-  checkAll("JodaTimeEncoderCompanion[DateTime]", StringEncoderTests[DateTime].encoder[Int, Int])
-  checkAll("JodaTimeEncoderCompanion[LocalDateTime]", StringEncoderTests[LocalDateTime].encoder[Int, Int])
-  checkAll("JodaTimeEncoderCompanion[LocalDate]", StringEncoderTests[LocalDate].encoder[Int, Int])
-  checkAll("JodaTimeEncoderCompanion[LocalTime]", StringEncoderTests[LocalTime].encoder[Int, Int])
+  import EncoderCompanion._
+
+  checkAll("JodaTimeEncoderCompanion[DateTime]", EncoderTests[String, DateTime, codec.type].encoder[Int, Int])
+  checkAll("JodaTimeEncoderCompanion[LocalDateTime]", EncoderTests[String, LocalDateTime, codec.type].encoder[Int, Int])
+  checkAll("JodaTimeEncoderCompanion[LocalDate]", EncoderTests[String, LocalDate, codec.type].encoder[Int, Int])
+  checkAll("JodaTimeEncoderCompanion[LocalTime]", EncoderTests[String, LocalTime, codec.type].encoder[Int, Int])
 
 }

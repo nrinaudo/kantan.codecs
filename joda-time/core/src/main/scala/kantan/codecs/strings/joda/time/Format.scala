@@ -20,7 +20,7 @@ package joda
 package time
 
 import org.joda.time._
-import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
+import org.joda.time.format._
 
 trait Format {
   def formatter: DateTimeFormatter
@@ -35,6 +35,7 @@ trait Format {
 }
 
 object Format {
+
   def apply(fmt: ⇒ DateTimeFormatter): Format = new Format with Serializable {
     @transient override lazy val formatter = fmt
   }
@@ -47,4 +48,22 @@ object Format {
     format.formatter
     format
   }
+
+  val defaultDateTimeFormat: Format = Format(ISODateTimeFormat.dateTime())
+
+  val defaultLocalDateTimeFormat: Format = Format(
+    new DateTimeFormatter(
+      ISODateTimeFormat.dateTime().getPrinter,
+      ISODateTimeFormat.localDateOptionalTimeParser().getParser
+    )
+  )
+
+  val defaultLocalDateFormat: Format = Format(
+    new DateTimeFormatter(ISODateTimeFormat.date().getPrinter, ISODateTimeFormat.localDateParser().getParser)
+  )
+
+  val defaultLocalTimeFormat: Format = Format(
+    new DateTimeFormatter(ISODateTimeFormat.time().getPrinter, ISODateTimeFormat.localTimeParser().getParser)
+  )
+
 }

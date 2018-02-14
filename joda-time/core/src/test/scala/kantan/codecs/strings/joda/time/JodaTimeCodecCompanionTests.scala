@@ -14,26 +14,35 @@
  * limitations under the License.
  */
 
-package kantan
-package codecs
+package kantan.codecs
 package strings
-package joda
-package time
+package joda.time
 
-import laws.discipline._, arbitrary._
+import export.Exported
+import joda.time.laws.discipline._
+import joda.time.laws.discipline.arbitrary._
 import org.joda.time.{DateTime, LocalDate, LocalDateTime, LocalTime}
 
 class JodaTimeCodecCompanionTests extends DisciplineSuite {
-  type TestCodec[D] = Codec[String, D, DecodeError, codec.type]
+
+  type TestDecoder[A] = Exported[Decoder[String, A, DecodeError, codec.type]]
+  type TestEncoder[A] = Exported[Encoder[String, A, codec.type]]
 
   object CodecCompanion extends JodaTimeCodecCompanion[String, DecodeError, codec.type] {
+
     override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
 
-    implicit val dateTimeTestCodec: TestCodec[DateTime]           = defaultDateTimeCodec
-    implicit val localDateTimeTestCodec: TestCodec[LocalDateTime] = defaultLocalDateTimeCodec
-    implicit val localDateTestCodec: TestCodec[LocalDate]         = defaultLocalDateCodec
-    implicit val localTimeTestCodec: TestCodec[LocalTime]         = defaultLocalTimeCodec
+    implicit val defaultDateTimeTestDecoder: TestDecoder[DateTime]           = Exported(defaultDateTimeDecoder)
+    implicit val defaultLocalDateTimeTestDecoder: TestDecoder[LocalDateTime] = Exported(defaultLocalDateTimeDecoder)
+    implicit val defaultLocalTimeTestDecoder: TestDecoder[LocalTime]         = Exported(defaultLocalTimeDecoder)
+    implicit val defaultLocalDateTestDecoder: TestDecoder[LocalDate]         = Exported(defaultLocalDateDecoder)
+
+    implicit val defaultDateTimeTestEncoder: TestEncoder[DateTime]           = Exported(defaultDateTimeEncoder)
+    implicit val defaultLocalDateTimeTestEncoder: TestEncoder[LocalDateTime] = Exported(defaultLocalDateTimeEncoder)
+    implicit val defaultLocalTimeTestEncoder: TestEncoder[LocalTime]         = Exported(defaultLocalTimeEncoder)
+    implicit val defaultLocalDateTestEncoder: TestEncoder[LocalDate]         = Exported(defaultLocalDateEncoder)
+
   }
 
   import CodecCompanion._
@@ -45,4 +54,5 @@ class JodaTimeCodecCompanionTests extends DisciplineSuite {
   )
   checkAll("JodaTimeCodecCompanion[LocalDate]", CodecTests[String, LocalDate, DecodeError, codec.type].codec[Int, Int])
   checkAll("JodaTimeCodecCompanion[LocalTime]", CodecTests[String, LocalTime, DecodeError, codec.type].codec[Int, Int])
+
 }

@@ -16,8 +16,7 @@
 
 package kantan.codecs
 package strings
-package joda
-package time
+package joda.time
 
 import laws.discipline._, arbitrary._
 import org.joda.time.LocalDateTime
