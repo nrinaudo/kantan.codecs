@@ -18,23 +18,32 @@ package kantan.codecs
 package strings
 package java8
 
+import export.Exported
 import java.time._
 import laws.discipline._, arbitrary._
 
 class TimeCodecCompanionTests extends DisciplineSuite {
 
-  type TestCodec[D] = Codec[String, D, DecodeError, codec.type]
+  type TestDecoder[A] = Exported[Decoder[String, A, DecodeError, codec.type]]
+  type TestEncoder[A] = Exported[Encoder[String, A, codec.type]]
 
   object CodecCompanion extends TimeCodecCompanion[String, DecodeError, codec.type] {
     override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
 
-    implicit val instantTestCodec: TestCodec[Instant]               = defaultInstantCodec
-    implicit val zonedDateTimeTestCodec: TestCodec[ZonedDateTime]   = defaultZonedDateTimeCodec
-    implicit val offsetDateTimeTestCodec: TestCodec[OffsetDateTime] = defaultOffsetDateTimeCodec
-    implicit val localDateTimeTestCodec: TestCodec[LocalDateTime]   = defaultLocalDateTimeCodec
-    implicit val localDateTestCodec: TestCodec[LocalDate]           = defaultLocalDateCodec
-    implicit val localTimeTestCodec: TestCodec[LocalTime]           = defaultLocalTimeCodec
+    implicit val instantTestEncoder: TestEncoder[Instant]               = Exported(defaultInstantEncoder)
+    implicit val zonedDateTimeTestEncoder: TestEncoder[ZonedDateTime]   = Exported(defaultZonedDateTimeEncoder)
+    implicit val offsetDateTimeTestEncoder: TestEncoder[OffsetDateTime] = Exported(defaultOffsetDateTimeEncoder)
+    implicit val localDateTimeTestEncoder: TestEncoder[LocalDateTime]   = Exported(defaultLocalDateTimeEncoder)
+    implicit val localDateTestEncoder: TestEncoder[LocalDate]           = Exported(defaultLocalDateEncoder)
+    implicit val localTimeTestEncoder: TestEncoder[LocalTime]           = Exported(defaultLocalTimeEncoder)
+
+    implicit val instantTestDecoder: TestDecoder[Instant]               = Exported(defaultInstantDecoder)
+    implicit val zonedDateTimeTestDecoder: TestDecoder[ZonedDateTime]   = Exported(defaultZonedDateTimeDecoder)
+    implicit val offsetDateTimeTestDecoder: TestDecoder[OffsetDateTime] = Exported(defaultOffsetDateTimeDecoder)
+    implicit val localDateTimeTestDecoder: TestDecoder[LocalDateTime]   = Exported(defaultLocalDateTimeDecoder)
+    implicit val localDateTestDecoder: TestDecoder[LocalDate]           = Exported(defaultLocalDateDecoder)
+    implicit val localTimeTestDecoder: TestDecoder[LocalTime]           = Exported(defaultLocalTimeDecoder)
   }
 
   checkAll("TimeCodecCompanion[Instant]", StringCodecTests[Instant].codec[Int, Int])

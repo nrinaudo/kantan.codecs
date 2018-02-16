@@ -23,6 +23,7 @@ import java.time._
 import laws.discipline._, arbitrary._
 
 class TimeDecoderCompanionTests extends DisciplineSuite {
+
   type TestDecoder[D] = Exported[Decoder[String, D, DecodeError, codec.type]]
 
   object DecoderCompanion extends TimeDecoderCompanion[String, DecodeError, codec.type] {

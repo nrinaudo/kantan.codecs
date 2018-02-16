@@ -48,4 +48,11 @@ object Format {
     format.formatter
     format
   }
+
+  val defaultInstantFormat: Format        = Format(DateTimeFormatter.ISO_INSTANT)
+  val defaultLocalDateTimeFormat: Format  = Format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+  val defaultZonedDateTimeFormat: Format  = Format(DateTimeFormatter.ISO_ZONED_DATE_TIME)
+  val defaultOffsetDateTimeFormat: Format = Format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+  val defaultLocalDateFormat: Format      = Format(DateTimeFormatter.ISO_LOCAL_DATE)
+  val defaultLocalTimeFormat: Format      = Format(DateTimeFormatter.ISO_LOCAL_TIME)
 }

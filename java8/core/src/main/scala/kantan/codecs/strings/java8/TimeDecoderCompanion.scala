@@ -22,43 +22,91 @@ import java.time._
 import java.time.format.DateTimeFormatter
 import strings.StringDecoder
 
+/** Provides useful methods for a java8 time decoder companions.
+  *
+  * Usage note: when declaring default implicit instances, be sure to wrap them in an [[export.Exported]]. Otherwise,
+  * custom instances and default ones are very likely to conflict.
+  */
 trait TimeDecoderCompanion[E, F, T] {
+
   def decoderFrom[D](d: StringDecoder[D]): Decoder[E, D, F, T]
 
-  def localTimeDecoder(format: String): Decoder[E, LocalTime, F, T]              = localTimeDecoder(Format(format))
-  def localTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
-  def localTimeDecoder(format: Format): Decoder[E, LocalTime, F, T]              = decoderFrom(localTimeStringDecoder(format))
-  def defaultLocalTimeDecoder: Decoder[E, LocalTime, F, T]                       = localTimeDecoder(defaultLocalTimeFormat)
+  // - LocalTime -------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
-  def localDateDecoder(format: String): Decoder[E, LocalDate, F, T]              = localDateDecoder(Format(format))
+  def localTimeDecoder(format: String): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
+
+  def localTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
+
+  def localTimeDecoder(format: Format): Decoder[E, LocalTime, F, T] =
+    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("LocalTime")(s ⇒ format.parseLocalTime(s))))
+
+  def defaultLocalTimeDecoder: Decoder[E, LocalTime, F, T] = localTimeDecoder(Format.defaultLocalTimeFormat)
+
+  // - LocalDate -------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+
+  def localDateDecoder(format: String): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
+
   def localDateDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
-  def localDateDecoder(format: Format): Decoder[E, LocalDate, F, T]              = decoderFrom(localDateStringCodec(format))
-  def defaultLocalDateDecoder: Decoder[E, LocalDate, F, T]                       = localDateDecoder(defaultLocalDateFormat)
+
+  def localDateDecoder(format: Format): Decoder[E, LocalDate, F, T] =
+    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("LocalDate")(s ⇒ format.parseLocalDate(s))))
+
+  def defaultLocalDateDecoder: Decoder[E, LocalDate, F, T] = localDateDecoder(Format.defaultLocalDateFormat)
+
+  // - LocalDateTime ---------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   def localDateTimeDecoder(format: String): Decoder[E, LocalDateTime, F, T] = localDateTimeDecoder(Format(format))
+
   def localDateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDateTime, F, T] =
     localDateTimeDecoder(Format(format))
+
   def localDateTimeDecoder(format: Format): Decoder[E, LocalDateTime, F, T] =
-    decoderFrom(localDateTimeStringCodec(format))
-  def defaultLocalDateTimeDecoder: Decoder[E, LocalDateTime, F, T] = localDateTimeDecoder(defaultLocalDateTimeFormat)
+    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("LocalDateTime")(s ⇒ format.parseLocalDateTime(s))))
+
+  def defaultLocalDateTimeDecoder: Decoder[E, LocalDateTime, F, T] =
+    localDateTimeDecoder(Format.defaultLocalDateTimeFormat)
+
+  // - OffsetDateTime --------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   def offsetDateTimeDecoder(format: String): Decoder[E, OffsetDateTime, F, T] = offsetDateTimeDecoder(Format(format))
+
   def offsetDateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, OffsetDateTime, F, T] =
     offsetDateTimeDecoder(Format(format))
+
   def offsetDateTimeDecoder(format: Format): Decoder[E, OffsetDateTime, F, T] =
-    decoderFrom(offsetDateTimeStringCodec(format))
+    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("OffsetDateTime")(s ⇒ format.parseOffsetDateTime(s))))
+
   def defaultOffsetDateTimeDecoder: Decoder[E, OffsetDateTime, F, T] =
-    offsetDateTimeDecoder(defaultOffsetDateTimeFormat)
+    offsetDateTimeDecoder(Format.defaultOffsetDateTimeFormat)
+
+  // - ZonedDateTime ---------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   def zonedDateTimeDecoder(format: String): Decoder[E, ZonedDateTime, F, T] = zonedDateTimeDecoder(Format(format))
+
   def zonedDateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, ZonedDateTime, F, T] =
     zonedDateTimeDecoder(Format(format))
-  def zonedDateTimeDecoder(format: Format): Decoder[E, ZonedDateTime, F, T] =
-    decoderFrom(zonedDateTimeStringCodec(format))
-  def defaultZonedDateTimeDecoder: Decoder[E, ZonedDateTime, F, T] = zonedDateTimeDecoder(defaultZonedDateTimeFormat)
 
-  def instantDecoder(format: String): Decoder[E, Instant, F, T]              = instantDecoder(Format(format))
+  def zonedDateTimeDecoder(format: Format): Decoder[E, ZonedDateTime, F, T] =
+    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("ZonedDateTime")(s ⇒ format.parseZonedDateTime(s))))
+
+  def defaultZonedDateTimeDecoder: Decoder[E, ZonedDateTime, F, T] =
+    zonedDateTimeDecoder(Format.defaultZonedDateTimeFormat)
+
+  // - Instant ---------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+
+  def instantDecoder(format: String): Decoder[E, Instant, F, T] = instantDecoder(Format(format))
+
   def instantDecoder(format: ⇒ DateTimeFormatter): Decoder[E, Instant, F, T] = instantDecoder(Format(format))
-  def instantDecoder(format: Format): Decoder[E, Instant, F, T]              = decoderFrom(instantStringCodec(format))
-  def defaultInstantDecoder: Decoder[E, Instant, F, T]                       = instantDecoder(defaultInstantFormat)
+
+  def instantDecoder(format: Format): Decoder[E, Instant, F, T] =
+    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("Instant")(s ⇒ format.parseInstant(s))))
+
+  def defaultInstantDecoder: Decoder[E, Instant, F, T] = instantDecoder(Format.defaultInstantFormat)
+
 }

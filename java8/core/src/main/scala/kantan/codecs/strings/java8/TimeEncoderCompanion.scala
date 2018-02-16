@@ -22,45 +22,89 @@ import java.time._
 import java.time.format.DateTimeFormatter
 import strings.StringEncoder
 
+/** Provides useful methods for a java8 time encoder companions.
+  *
+  * Usage note: when declaring default implicit instances, be sure to wrap them in an [[export.Exported]]. Otherwise,
+  * custom instances and default ones are very likely to conflict.
+  */
 trait TimeEncoderCompanion[E, T] {
+
   def encoderFrom[D](d: StringEncoder[D]): Encoder[E, D, T]
 
-  def localTimeEncoder(format: String): Encoder[E, LocalTime, T]              = localTimeEncoder(Format(format))
-  def localTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
-  def localTimeEncoder(format: Format): Encoder[E, LocalTime, T]              = encoderFrom(localTimeStringEncoder(format))
-  def defaultLocalTimeEncoder: Encoder[E, LocalTime, T]                       = localTimeEncoder(defaultLocalTimeFormat)
+  // - LocalTime -------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
-  def localDateEncoder(format: String): Encoder[E, LocalDate, T]              = localDateEncoder(Format(format))
+  def localTimeEncoder(format: String): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
+
+  def localTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
+
+  def localTimeEncoder(format: Format): Encoder[E, LocalTime, T] = encoderFrom(StringEncoder.from(format.format))
+
+  def defaultLocalTimeEncoder: Encoder[E, LocalTime, T] = localTimeEncoder(Format.defaultLocalTimeFormat)
+
+  // - LocalDate -------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+
+  def localDateEncoder(format: String): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
+
   def localDateEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
-  def localDateEncoder(format: Format): Encoder[E, LocalDate, T]              = encoderFrom(localDateStringEncoder(format))
-  def defaultLocalDateEncoder: Encoder[E, LocalDate, T]                       = localDateEncoder(defaultLocalDateFormat)
+
+  def localDateEncoder(format: Format): Encoder[E, LocalDate, T] = encoderFrom(StringEncoder.from(format.format))
+
+  def defaultLocalDateEncoder: Encoder[E, LocalDate, T] = localDateEncoder(Format.defaultLocalDateFormat)
+
+  // - LocalDateTime ---------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   def localDateTimeEncoder(format: String): Encoder[E, LocalDateTime, T] = localDateTimeEncoder(Format(format))
+
   def localDateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDateTime, T] =
     localDateTimeEncoder(Format(format))
-  def localDateTimeEncoder(format: Format): Encoder[E, LocalDateTime, T] = encoderFrom(localDateTimeStringCodec(format))
+
+  def localDateTimeEncoder(format: Format): Encoder[E, LocalDateTime, T] =
+    encoderFrom(StringEncoder.from(format.format))
+
   def defaultLocalDateTimeEncoder: Encoder[E, LocalDateTime, T] =
-    localDateTimeEncoder(defaultLocalDateTimeFormat)
+    localDateTimeEncoder(Format.defaultLocalDateTimeFormat)
+
+  // - OffsetDateTime --------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   def offsetDateTimeEncoder(format: String): Encoder[E, OffsetDateTime, T] = offsetDateTimeEncoder(Format(format))
+
   def offsetDateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, OffsetDateTime, T] =
     offsetDateTimeEncoder(Format(format))
+
   def offsetDateTimeEncoder(format: Format): Encoder[E, OffsetDateTime, T] =
-    encoderFrom(offsetDateTimeStringCodec(format))
+    encoderFrom(StringEncoder.from(format.format))
+
   def defaultOffsetDateTimeEncoder: Encoder[E, OffsetDateTime, T] =
-    offsetDateTimeEncoder(defaultOffsetDateTimeFormat)
+    offsetDateTimeEncoder(Format.defaultOffsetDateTimeFormat)
+
+  // - ZonedDateTime ---------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   def zonedDateTimeEncoder(format: String): Encoder[E, ZonedDateTime, T] = zonedDateTimeEncoder(Format(format))
+
   def zonedDateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, ZonedDateTime, T] =
     zonedDateTimeEncoder(Format(format))
-  def zonedDateTimeEncoder(format: Format): Encoder[E, ZonedDateTime, T] =
-    encoderFrom(zonedDateTimeStringCodec(format))
-  def defaultZonedDateTimeEncoder: Encoder[E, ZonedDateTime, T] =
-    zonedDateTimeEncoder(defaultZonedDateTimeFormat)
 
-  def instantEncoder(format: String): Encoder[E, Instant, T]              = instantEncoder(Format(format))
+  def zonedDateTimeEncoder(format: Format): Encoder[E, ZonedDateTime, T] =
+    encoderFrom(StringEncoder.from(format.format))
+
+  def defaultZonedDateTimeEncoder: Encoder[E, ZonedDateTime, T] =
+    zonedDateTimeEncoder(Format.defaultZonedDateTimeFormat)
+
+  // - Instant ---------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+
+  def instantEncoder(format: String): Encoder[E, Instant, T] = instantEncoder(Format(format))
+
   def instantEncoder(format: ⇒ DateTimeFormatter): Encoder[E, Instant, T] = instantEncoder(Format(format))
+
   def instantEncoder(format: Format): Encoder[E, Instant, T] =
-    encoderFrom(instantStringCodec(format))
-  def defaultInstantEncoder: Encoder[E, Instant, T] = instantEncoder(defaultInstantFormat)
+    encoderFrom(StringEncoder.from(format.format))
+
+  def defaultInstantEncoder: Encoder[E, Instant, T] = instantEncoder(Format.defaultInstantFormat)
+
 }
