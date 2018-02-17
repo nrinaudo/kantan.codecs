@@ -27,6 +27,7 @@ class TimeEncoderCompanionTests extends DisciplineSuite {
   type TestEncoder[D] = Exported[Encoder[String, D, codec.type]]
 
   object EncoderCompanion extends TimeEncoderCompanion[String, codec.type] {
+
     override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
 
     implicit val instantTestEncoder: TestEncoder[Instant]               = Exported(defaultInstantEncoder)
@@ -35,13 +36,16 @@ class TimeEncoderCompanionTests extends DisciplineSuite {
     implicit val localDateTimeTestEncoder: TestEncoder[LocalDateTime]   = Exported(defaultLocalDateTimeEncoder)
     implicit val localDateTestEncoder: TestEncoder[LocalDate]           = Exported(defaultLocalDateEncoder)
     implicit val localTimeTestEncoder: TestEncoder[LocalTime]           = Exported(defaultLocalTimeEncoder)
+
   }
 
-  checkAll("TimeEncoderCompanion[Instant]", StringEncoderTests[Instant].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[ZonedDateTime]", StringEncoderTests[ZonedDateTime].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[OffsetDateTime]", StringEncoderTests[OffsetDateTime].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[LocalDateTime]", StringEncoderTests[LocalDateTime].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[LocalDate]", StringEncoderTests[LocalDate].encoder[Int, Int])
-  checkAll("TimeEncoderCompanion[LocalTime]", StringEncoderTests[LocalTime].encoder[Int, Int])
+  import EncoderCompanion._
+
+  checkAll("TimeEncoderCompanion[Instant]", EncoderTests[String, Instant, codec.type].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[ZonedDateTime]", EncoderTests[String, ZonedDateTime, codec.type].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[OffsetDateTime]", EncoderTests[String, OffsetDateTime, codec.type].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[LocalDateTime]", EncoderTests[String, LocalDateTime, codec.type].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[LocalDate]", EncoderTests[String, LocalDate, codec.type].encoder[Int, Int])
+  checkAll("TimeEncoderCompanion[LocalTime]", EncoderTests[String, LocalTime, codec.type].encoder[Int, Int])
 
 }
