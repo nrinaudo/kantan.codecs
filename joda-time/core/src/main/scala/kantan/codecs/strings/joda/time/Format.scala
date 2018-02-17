@@ -16,14 +16,18 @@
 
 package kantan.codecs
 package strings
-package joda
-package time
+package joda.time
 
 import org.joda.time._
 import org.joda.time.format._
 
-trait Format {
-  def formatter: DateTimeFormatter
+/** `Serializable` wrapper around `DateTimeFormatter`.
+  *
+  * The main purpose of this is to make joda-time codecs `Serializable` and thus usable with frameworks like spark.
+  */
+sealed trait Format {
+
+  protected def formatter: DateTimeFormatter
 
   def parseDateTime(str: String): DateTime           = formatter.parseDateTime(str)
   def parseLocalDateTime(str: String): LocalDateTime = formatter.parseLocalDateTime(str)
@@ -32,6 +36,7 @@ trait Format {
 
   def format(instant: ReadableInstant): String = formatter.print(instant)
   def format(instant: ReadablePartial): String = formatter.print(instant)
+
 }
 
 object Format {
@@ -49,8 +54,39 @@ object Format {
     format
   }
 
+  /** Default `DateTime` format.
+    *
+    * @example
+    * {{{
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultDateTimeFormat
+    *      |   .format(new DateTime(2000, 1, 1, 12, 0, 0, DateTimeZone.UTC))
+    * res1: String = 2000-01-01T12:00:00.000Z
+    *
+    * scala> Format.defaultDateTimeFormat
+    *      |   .parseDateTime("2000-01-01T12:00:00.000Z")
+    *      |   .withZone(DateTimeZone.UTC)
+    * res2: DateTime = 2000-01-01T12:00:00.000Z
+    * }}}
+    */
   val defaultDateTimeFormat: Format = Format(ISODateTimeFormat.dateTime())
 
+  /** Default `LocalDateTime` format.
+    *
+    * @example
+    * {{{
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultLocalDateTimeFormat
+    *      |   .format(new LocalDateTime(2000, 1, 1, 12, 0, 0))
+    * res1: String = 2000-01-01T12:00:00.000
+    *
+    * scala> Format.defaultLocalDateTimeFormat
+    *      |   .parseLocalDateTime("2000-01-01T12:00:00.000")
+    * res2: LocalDateTime = 2000-01-01T12:00:00.000
+    * }}}
+    */
   val defaultLocalDateTimeFormat: Format = Format(
     new DateTimeFormatter(
       ISODateTimeFormat.dateTime().getPrinter,
@@ -58,10 +94,40 @@ object Format {
     )
   )
 
+  /** Default `LocalDate` format.
+    *
+    * @example
+    * {{{
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultLocalDateFormat
+    *      |   .format(new LocalDate(2000, 1, 1))
+    * res1: String = 2000-01-01
+    *
+    * scala> Format.defaultLocalDateFormat
+    *      |   .parseLocalDate("2000-01-01")
+    * res2: LocalDate = 2000-01-01
+    * }}}
+    */
   val defaultLocalDateFormat: Format = Format(
     new DateTimeFormatter(ISODateTimeFormat.date().getPrinter, ISODateTimeFormat.localDateParser().getParser)
   )
 
+  /** Default `LocalTime` format.
+    *
+    * @example
+    * {{{
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultLocalTimeFormat
+    *      |   .format(new LocalTime(12, 0, 0))
+    * res1: String = 12:00:00.000
+    *
+    * scala> Format.defaultLocalTimeFormat
+    *      |   .parseLocalTime("12:00:00.000")
+    * res2: LocalTime = 12:00:00.000
+    * }}}
+    */
   val defaultLocalTimeFormat: Format = Format(
     new DateTimeFormatter(ISODateTimeFormat.time().getPrinter, ISODateTimeFormat.localTimeParser().getParser)
   )
