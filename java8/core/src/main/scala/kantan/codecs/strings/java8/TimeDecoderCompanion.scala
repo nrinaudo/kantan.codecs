@@ -87,7 +87,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def localTimeDecoder(format: Format): Decoder[E, LocalTime, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("LocalTime")(s ⇒ format.parseLocalTime(s))))
+    decoderFrom(StringDecoder.from(format.parseLocalTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultLocalTimeFormat default format]].
     *
@@ -163,7 +163,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def localDateDecoder(format: Format): Decoder[E, LocalDate, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("LocalDate")(s ⇒ format.parseLocalDate(s))))
+    decoderFrom(StringDecoder.from(format.parseLocalDate))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultLocalDateFormat default format]].
     *
@@ -240,7 +240,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def localDateTimeDecoder(format: Format): Decoder[E, LocalDateTime, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("LocalDateTime")(s ⇒ format.parseLocalDateTime(s))))
+    decoderFrom(StringDecoder.from(format.parseLocalDateTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultLocalDateTimeFormat default format]].
     *
@@ -318,7 +318,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def offsetDateTimeDecoder(format: Format): Decoder[E, OffsetDateTime, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("OffsetDateTime")(s ⇒ format.parseOffsetDateTime(s))))
+    decoderFrom(StringDecoder.from(format.parseOffsetDateTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultOffsetDateTimeFormat default format]].
     *
@@ -396,7 +396,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def zonedDateTimeDecoder(format: Format): Decoder[E, ZonedDateTime, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("ZonedDateTime")(s ⇒ format.parseZonedDateTime(s))))
+    decoderFrom(StringDecoder.from(format.parseZonedDateTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultZonedDateTimeFormat default format]].
     *
@@ -455,7 +455,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def instantDecoder(format: Format): Decoder[E, Instant, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("Instant")(s ⇒ format.parseInstant(s))))
+    decoderFrom(StringDecoder.from(format.parseInstant))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultInstantFormat default format]].
     *
