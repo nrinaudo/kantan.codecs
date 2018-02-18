@@ -86,7 +86,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def dateTimeDecoder(format: Format): Decoder[E, DateTime, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("DateTime")(format.parseDateTime)))
+    decoderFrom(StringDecoder.from(format.parseDateTime))
 
   // TODO:  re-enable the type annotation on res1 when support for scala 2.11 is dropped
   /** Creates a [[Decoder]] instance using the [[Format.defaultDateTimeFormat default format]].
@@ -164,7 +164,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def localDateTimeDecoder(format: Format): Decoder[E, LocalDateTime, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("LocaleDateTime")(format.parseLocalDateTime)))
+    decoderFrom(StringDecoder.from(format.parseLocalDateTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultLocalDateTimeFormat default format]].
     *
@@ -241,7 +241,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def localDateDecoder(format: Format): Decoder[E, LocalDate, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("LocaleDate")(format.parseLocalDate)))
+    decoderFrom(StringDecoder.from(format.parseLocalDate))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultLocalDateFormat default format]].
     *
@@ -317,7 +317,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     * }}}
     */
   def localTimeDecoder(format: Format): Decoder[E, LocalTime, F, T] =
-    decoderFrom(StringDecoder.from(StringDecoder.makeSafe("LocaleTime")(format.parseLocalTime)))
+    decoderFrom(StringDecoder.from(format.parseLocalTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultLocalTimeFormat default format]].
     *

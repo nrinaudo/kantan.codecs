@@ -27,18 +27,104 @@ import org.joda.time.format._
   */
 sealed trait Format {
 
+  /** Internal joda formatter.
+    *
+    * This is protected to prevent anyone from calling it directly - doing so instantly turns the calling class
+    * non-serializable, which rather defeats the purpose of [[Format]].
+    */
   protected def formatter: DateTimeFormatter
 
-  def parseDateTime(str: String): DateTime           = formatter.parseDateTime(str)
-  def parseLocalDateTime(str: String): LocalDateTime = formatter.parseLocalDateTime(str)
-  def parseLocalTime(str: String): LocalTime         = formatter.parseLocalTime(str)
-  def parseLocalDate(str: String): LocalDate         = formatter.parseLocalDate(str)
+  // TODO:  re-enable the type annotation on res1 when support for scala 2.11 is dropped
+  /** Attempts to parse the specified string as a `DateTime`.
+    *
+    * @example
+    * {{{
+    * scala> import kantan.codecs.strings._
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultDateTimeFormat
+    *      |   .parseDateTime("2000-01-01T12:00:00.000Z")
+    *      |   .right.map(_.withZone(DateTimeZone.UTC))
+    * res1 = Right(2000-01-01T12:00:00.000Z)
+    * }}}
+    */
+  def parseDateTime(str: String): Either[DecodeError, DateTime] =
+    StringDecoder.makeSafe("DateTime")(formatter.parseDateTime)(str)
 
+  /** Attempts to parse the specified string as a `LocalDateTime`.
+    *
+    * @example
+    * {{{
+    * scala> import kantan.codecs.strings._
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultLocalDateTimeFormat
+    *      |   .parseLocalDateTime("2000-01-01T12:00:00.000")
+    * res1: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00:00.000)
+    * }}}
+    */
+  def parseLocalDateTime(str: String): Either[DecodeError, LocalDateTime] =
+    StringDecoder.makeSafe("LocalDateTime")(formatter.parseLocalDateTime)(str)
+
+  /** Attempts to parse the specified string as a `LocalTime`.
+    *
+    * @example
+    * {{{
+    * scala> import kantan.codecs.strings._
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultLocalTimeFormat
+    *      |   .parseLocalTime("12:00:00.000")
+    * res1: Either[DecodeError, LocalTime] = Right(12:00:00.000)
+    * }}}
+    */
+  def parseLocalTime(str: String): Either[DecodeError, LocalTime] =
+    StringDecoder.makeSafe("LocalTime")(formatter.parseLocalTime)(str)
+
+  /** Attempts to parse the specified string as a `LocalDate`.
+    *
+    * @example
+    * {{{
+    * scala> import kantan.codecs.strings._
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultLocalDateFormat
+    *      |   .parseLocalDate("2000-01-01")
+    * res2: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * }}}
+    */
+  def parseLocalDate(str: String): Either[DecodeError, LocalDate] =
+    StringDecoder.makeSafe("LocalDate")(formatter.parseLocalDate)(str)
+
+  /** Formats the specified `ReadableInstant` as a string.
+    *
+    * @example
+    * {{{
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultLocalDateTimeFormat
+    *      |   .format(new LocalDateTime(2000, 1, 1, 12, 0, 0))
+    * res1: String = 2000-01-01T12:00:00.000
+    * }}}
+    */
   def format(instant: ReadableInstant): String = formatter.print(instant)
+
+  /** Formats the specified `ReadablePartial` as a string.
+    *
+    * @example
+    * {{{
+    * scala> import org.joda.time._
+    *
+    * scala> Format.defaultLocalTimeFormat
+    *      |   .format(new LocalTime(12, 0, 0))
+    * res1: String = 12:00:00.000
+    * }}}
+    */
   def format(instant: ReadablePartial): String = formatter.print(instant)
 
 }
 
+/** Provides instance creation methods and default values for [[Format]]. */
 object Format {
 
   def apply(fmt: ⇒ DateTimeFormatter): Format = new Format with Serializable {
@@ -54,10 +140,12 @@ object Format {
     format
   }
 
+  // TODO:  re-enable the type annotation on res1 when support for scala 2.11 is dropped
   /** Default `DateTime` format.
     *
     * @example
     * {{{
+    * scala> import kantan.codecs.strings._
     * scala> import org.joda.time._
     *
     * scala> Format.defaultDateTimeFormat
@@ -66,8 +154,8 @@ object Format {
     *
     * scala> Format.defaultDateTimeFormat
     *      |   .parseDateTime("2000-01-01T12:00:00.000Z")
-    *      |   .withZone(DateTimeZone.UTC)
-    * res2: DateTime = 2000-01-01T12:00:00.000Z
+    *      |   .right.map(_.withZone(DateTimeZone.UTC))
+    * res2 = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */
   val defaultDateTimeFormat: Format = Format(ISODateTimeFormat.dateTime())
@@ -76,6 +164,7 @@ object Format {
     *
     * @example
     * {{{
+    * scala> import kantan.codecs.strings._
     * scala> import org.joda.time._
     *
     * scala> Format.defaultLocalDateTimeFormat
@@ -84,7 +173,7 @@ object Format {
     *
     * scala> Format.defaultLocalDateTimeFormat
     *      |   .parseLocalDateTime("2000-01-01T12:00:00.000")
-    * res2: LocalDateTime = 2000-01-01T12:00:00.000
+    * res2: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00:00.000)
     * }}}
     */
   val defaultLocalDateTimeFormat: Format = Format(
@@ -98,6 +187,7 @@ object Format {
     *
     * @example
     * {{{
+    * scala> import kantan.codecs.strings._
     * scala> import org.joda.time._
     *
     * scala> Format.defaultLocalDateFormat
@@ -106,7 +196,7 @@ object Format {
     *
     * scala> Format.defaultLocalDateFormat
     *      |   .parseLocalDate("2000-01-01")
-    * res2: LocalDate = 2000-01-01
+    * res2: Either[DecodeError, LocalDate] = Right(2000-01-01)
     * }}}
     */
   val defaultLocalDateFormat: Format = Format(
@@ -117,6 +207,7 @@ object Format {
     *
     * @example
     * {{{
+    * scala> import kantan.codecs.strings._
     * scala> import org.joda.time._
     *
     * scala> Format.defaultLocalTimeFormat
@@ -125,7 +216,7 @@ object Format {
     *
     * scala> Format.defaultLocalTimeFormat
     *      |   .parseLocalTime("12:00:00.000")
-    * res2: LocalTime = 12:00:00.000
+    * res2: Either[DecodeError, LocalTime] = Right(12:00:00.000)
     * }}}
     */
   val defaultLocalTimeFormat: Format = Format(
