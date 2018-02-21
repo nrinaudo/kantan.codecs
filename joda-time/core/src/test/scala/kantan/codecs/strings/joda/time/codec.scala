@@ -16,8 +16,7 @@
 
 package kantan.codecs
 package strings
-package joda
-package time
+package joda.time
 
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.Arbitrary

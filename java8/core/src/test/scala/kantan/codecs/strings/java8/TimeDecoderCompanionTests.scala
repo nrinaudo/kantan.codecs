@@ -23,9 +23,11 @@ import java.time._
 import laws.discipline._, arbitrary._
 
 class TimeDecoderCompanionTests extends DisciplineSuite {
+
   type TestDecoder[D] = Exported[Decoder[String, D, DecodeError, codec.type]]
 
   object DecoderCompanion extends TimeDecoderCompanion[String, DecodeError, codec.type] {
+
     override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
 
     implicit val instantTestDecoder: TestDecoder[Instant]               = Exported(defaultInstantDecoder)
@@ -34,12 +36,31 @@ class TimeDecoderCompanionTests extends DisciplineSuite {
     implicit val localDateTimeTestDecoder: TestDecoder[LocalDateTime]   = Exported(defaultLocalDateTimeDecoder)
     implicit val localDateTestDecoder: TestDecoder[LocalDate]           = Exported(defaultLocalDateDecoder)
     implicit val localTimeTestDecoder: TestDecoder[LocalTime]           = Exported(defaultLocalTimeDecoder)
+
   }
 
-  checkAll("TimeDecoderCompanion[Instant]", StringDecoderTests[Instant].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[ZonedDateTime]", StringDecoderTests[ZonedDateTime].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[OffsetDateTime]", StringDecoderTests[OffsetDateTime].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[LocalDateTime]", StringDecoderTests[LocalDateTime].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[LocalDate]", StringDecoderTests[LocalDate].decoder[Int, Int])
-  checkAll("TimeDecoderCompanion[LocalTime]", StringDecoderTests[LocalTime].decoder[Int, Int])
+  import DecoderCompanion._
+
+  checkAll("TimeDecoderCompanion[Instant]", DecoderTests[String, Instant, DecodeError, codec.type].decoder[Int, Int])
+  checkAll(
+    "TimeDecoderCompanion[ZonedDateTime]",
+    DecoderTests[String, ZonedDateTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[OffsetDateTime]",
+    DecoderTests[String, OffsetDateTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[LocalDateTime]",
+    DecoderTests[String, LocalDateTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[LocalDate]",
+    DecoderTests[String, LocalDate, DecodeError, codec.type].decoder[Int, Int]
+  )
+  checkAll(
+    "TimeDecoderCompanion[LocalTime]",
+    DecoderTests[String, LocalTime, DecodeError, codec.type].decoder[Int, Int]
+  )
+
 }

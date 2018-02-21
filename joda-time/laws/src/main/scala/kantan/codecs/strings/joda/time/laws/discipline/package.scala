@@ -16,8 +16,7 @@
 
 package kantan.codecs
 package strings
-package joda
-package time
+package joda.time
 package laws
 
 package object discipline extends kantan.codecs.laws.discipline.DisciplinePackage
