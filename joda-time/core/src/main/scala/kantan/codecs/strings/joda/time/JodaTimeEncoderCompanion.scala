@@ -38,24 +38,6 @@ trait JodaTimeEncoderCompanion[E, T] {
     *
     * @example
     * {{{
-    * scala> import org.joda.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends JodaTimeEncoderCompanion[String, codecs.type] {
-    *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
-    *      | }
-    *
-    * scala> Foo.dateTimeEncoder("yyyy-MM-DD'T'HH:mm:ss.SSSzz")
-    *      |   .encode(new DateTime(2000, 1, 1, 12, 0, 0, DateTimeZone.UTC))
-    * res1: String = 2000-01-01T12:00:00.000UTC
-    * }}}
-    */
-  def dateTimeEncoder(format: String): Encoder[E, DateTime, T] = dateTimeEncoder(Format(format))
-
-  /** Creates an [[Encoder]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
     * scala> import org.joda.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -113,24 +95,6 @@ trait JodaTimeEncoderCompanion[E, T] {
     *
     * @example
     * {{{
-    * scala> import org.joda.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends JodaTimeEncoderCompanion[String, codecs.type] {
-    *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
-    *      | }
-    *
-    * scala> Foo.localDateTimeEncoder("yyyy-MM-DD'T'HH:mm:ss.SSS")
-    *      |   .encode(new LocalDateTime(2000, 1, 1, 12, 0, 0))
-    * res1: String = 2000-01-01T12:00:00.000
-    * }}}
-    */
-  def localDateTimeEncoder(format: String): Encoder[E, LocalDateTime, T] = localDateTimeEncoder(Format(format))
-
-  /** Creates an [[Encoder]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
     * scala> import org.joda.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -157,7 +121,7 @@ trait JodaTimeEncoderCompanion[E, T] {
     *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
     *      | }
     *
-    * scala> Foo.localDateTimeEncoder(Format("yyyy-MM-DD'T'HH:mm:ss.SSS"))
+    * scala> Foo.localDateTimeEncoder(fmt"yyyy-MM-DD'T'HH:mm:ss.SSS")
     *      |   .encode(new LocalDateTime(2000, 1, 1, 12, 0, 0))
     * res1: String = 2000-01-01T12:00:00.000
     * }}}
@@ -191,24 +155,6 @@ trait JodaTimeEncoderCompanion[E, T] {
     *
     * @example
     * {{{
-    * scala> import org.joda.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends JodaTimeEncoderCompanion[String, codecs.type] {
-    *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
-    *      | }
-    *
-    * scala> Foo.localDateEncoder("yyyy-MM-DD")
-    *      |   .encode(new LocalDate(2000, 1, 1))
-    * res1: String = 2000-01-01
-    * }}}
-    */
-  def localDateEncoder(format: String): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
-
-  /** Creates an [[Encoder]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
     * scala> import org.joda.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -234,7 +180,7 @@ trait JodaTimeEncoderCompanion[E, T] {
     *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
     *      | }
     *
-    * scala> Foo.localDateEncoder(Format("yyyy-MM-DD"))
+    * scala> Foo.localDateEncoder(fmt"yyyy-MM-DD")
     *      |   .encode(new LocalDate(2000, 1, 1))
     * res1: String = 2000-01-01
     * }}}
@@ -266,24 +212,6 @@ trait JodaTimeEncoderCompanion[E, T] {
     *
     * @example
     * {{{
-    * scala> import org.joda.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends JodaTimeEncoderCompanion[String, codecs.type] {
-    *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
-    *      | }
-    *
-    * scala> Foo.localTimeEncoder("HH:mm:ss.SSS")
-    *      |   .encode(new LocalTime(12, 0, 0, 0))
-    * res1: String = 12:00:00.000
-    * }}}
-    */
-  def localTimeEncoder(format: String): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
-
-  /** Creates an [[Encoder]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
     * scala> import org.joda.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -309,7 +237,7 @@ trait JodaTimeEncoderCompanion[E, T] {
     *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
     *      | }
     *
-    * scala> Foo.localTimeEncoder(Format("HH:mm:ss.SSS"))
+    * scala> Foo.localTimeEncoder(fmt"HH:mm:ss.SSS")
     *      |   .encode(new LocalTime(12, 0, 0, 0))
     * res1: String = 12:00:00.000
     * }}}

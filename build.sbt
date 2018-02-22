@@ -128,9 +128,10 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time/core"))
   .dependsOn(coreJVM)
   .settings(
     libraryDependencies ++= Seq(
-      "joda-time"     % "joda-time"    % Versions.joda,
-      "org.joda"      % "joda-convert" % Versions.jodaConvert,
-      "org.scalatest" %% "scalatest"   % Versions.scalatest % "test"
+      "com.propensive" %% "contextual"  % Versions.contextual,
+      "joda-time"      % "joda-time"    % Versions.joda,
+      "org.joda"       % "joda-convert" % Versions.jodaConvert,
+      "org.scalatest"  %% "scalatest"   % Versions.scalatest % "test"
     )
   )
   .laws("joda-time-laws")

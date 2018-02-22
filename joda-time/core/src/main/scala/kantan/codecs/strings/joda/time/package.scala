@@ -21,7 +21,7 @@ package joda
 import export.Exported
 import org.joda.time._
 
-package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] {
+package object time extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] with ToFormatLiteral {
 
   override def encoderFrom[D](d: StringEncoder[D]) = d
   override def decoderFrom[D](d: StringDecoder[D]) = d

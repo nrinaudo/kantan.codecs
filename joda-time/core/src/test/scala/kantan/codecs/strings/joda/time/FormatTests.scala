@@ -20,20 +20,26 @@ package strings
 package joda
 package time
 
+import kantan.codecs.laws.SerializableLaws
 import laws.discipline._, arbitrary._
 import org.joda.time._
 import org.joda.time.format.DateTimeFormat
 import org.scalatest.EitherValues._
 
-sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends DisciplineSuite {
+class FormatTests extends DisciplineSuite {
 
-  checkAll(s"Format[$label]", SerializableTests(kantan.codecs.laws.SerializableLaws(f("MM, yyyy"))).serializable)
+  checkAll("Format (from literal)", SerializableTests(SerializableLaws(fmt"MM, yyyy")).serializable)
+
+  checkAll(
+    "Format (from formatter)",
+    SerializableTests(SerializableLaws(Format(DateTimeFormat.forPattern("MM, yyyy")))).serializable
+  )
 
   test("Format should yield the same results as the corresponding DateTimeFormatter for LocalDateTime") {
 
     val formatStr = "yyyy-MM-dd'T'HH:mm:ss"
 
-    val format    = f(formatStr)
+    val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormat.forPattern(formatStr)
 
     forAll { d: LocalDateTime ⇒
@@ -48,7 +54,7 @@ sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends D
 
     val formatStr = "yyyy-MM-dd'T'HH:mm:ss"
 
-    val format    = f(formatStr)
+    val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormat.forPattern(formatStr)
 
     forAll { d: DateTime ⇒
@@ -62,7 +68,7 @@ sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends D
 
     val formatStr = "HH:mm:ss"
 
-    val format    = f(formatStr)
+    val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormat.forPattern(formatStr)
 
     forAll { d: LocalTime ⇒
@@ -77,7 +83,7 @@ sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends D
 
     val formatStr = "yyyy-MM-dd"
 
-    val format    = f(formatStr)
+    val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormat.forPattern(formatStr)
 
     forAll { d: LocalDate ⇒
@@ -88,6 +94,3 @@ sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends D
   }
 
 }
-
-class StringFormatTests            extends FormatTests("String", Format.apply)
-class DateTimeFormatterFormatTests extends FormatTests("DateTimeFormatter", s ⇒ Format(DateTimeFormat.forPattern(s)))
