@@ -153,7 +153,12 @@ lazy val java8 = Project(id = "java8", base = file("java8/core"))
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(coreJVM)
-  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % Versions.scalatest % "test")
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.propensive" %% "contextual" % Versions.contextual,
+      "org.scalatest"  %% "scalatest"  % Versions.scalatest % "test"
+    )
+  )
   .laws("java8-laws")
 
 lazy val java8Laws = Project(id = "java8-laws", base = file("java8/laws"))

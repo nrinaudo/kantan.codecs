@@ -38,24 +38,6 @@ trait TimeDecoderCompanion[E, F, T] {
     *
     * @example
     * {{{
-    * scala> import java.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends TimeDecoderCompanion[String, DecodeError, codecs.type] {
-    *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
-    *      | }
-    *
-    * scala> Foo.localTimeDecoder("HH:mm:ss.SSS")
-    *      |   .decode("12:00:00.000")
-    * res1: Either[DecodeError, LocalTime] = Right(12:00)
-    * }}}
-    */
-  def localTimeDecoder(format: String): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
-
-  /** Creates a [[Decoder]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -81,7 +63,7 @@ trait TimeDecoderCompanion[E, F, T] {
     *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
     *      | }
     *
-    * scala> Foo.localTimeDecoder(Format("HH:mm:ss.SSS"))
+    * scala> Foo.localTimeDecoder(fmt"HH:mm:ss.SSS")
     *      |   .decode("12:00:00.000")
     * res1: Either[DecodeError, LocalTime] = Right(12:00)
     * }}}
@@ -114,24 +96,6 @@ trait TimeDecoderCompanion[E, F, T] {
     *
     * @example
     * {{{
-    * scala> import java.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends TimeDecoderCompanion[String, DecodeError, codecs.type] {
-    *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
-    *      | }
-    *
-    * scala> Foo.localDateDecoder("yyyy-MM-DD")
-    *      |   .decode("2000-01-01")
-    * res1: Either[DecodeError, LocalDate] = Right(2000-01-01)
-    * }}}
-    */
-  def localDateDecoder(format: String): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
-
-  /** Creates a [[Decoder]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -157,7 +121,7 @@ trait TimeDecoderCompanion[E, F, T] {
     *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
     *      | }
     *
-    * scala> Foo.localDateDecoder(Format("yyyy-MM-DD"))
+    * scala> Foo.localDateDecoder(fmt"yyyy-MM-DD")
     *      |   .decode("2000-01-01")
     * res1: Either[DecodeError, LocalDate] = Right(2000-01-01)
     * }}}
@@ -190,24 +154,6 @@ trait TimeDecoderCompanion[E, F, T] {
     *
     * @example
     * {{{
-    * scala> import java.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends TimeDecoderCompanion[String, DecodeError, codecs.type] {
-    *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
-    *      | }
-    *
-    * scala> Foo.localDateTimeDecoder("yyyy-MM-DD'T'HH:mm:ss.SSS")
-    *      |   .decode("2000-01-01T12:00:00.000")
-    * res1: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00)
-    * }}}
-    */
-  def localDateTimeDecoder(format: String): Decoder[E, LocalDateTime, F, T] = localDateTimeDecoder(Format(format))
-
-  /** Creates a [[Decoder]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -234,7 +180,7 @@ trait TimeDecoderCompanion[E, F, T] {
     *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
     *      | }
     *
-    * scala> Foo.localDateTimeDecoder(Format("yyyy-MM-DD'T'HH:mm:ss.SSS"))
+    * scala> Foo.localDateTimeDecoder(fmt"yyyy-MM-DD'T'HH:mm:ss.SSS")
     *      |   .decode("2000-01-01T12:00:00.000")
     * res1: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
@@ -268,24 +214,6 @@ trait TimeDecoderCompanion[E, F, T] {
     *
     * @example
     * {{{
-    * scala> import java.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends TimeDecoderCompanion[String, DecodeError, codecs.type] {
-    *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
-    *      | }
-    *
-    * scala> Foo.offsetDateTimeDecoder("yyyy-MM-DD'T'HH:mm:ss.SSSXX")
-    *      |   .decode("2000-01-01T12:00:00.000Z")
-    * res1: Either[DecodeError, OffsetDateTime] = Right(2000-01-01T12:00Z)
-    * }}}
-    */
-  def offsetDateTimeDecoder(format: String): Decoder[E, OffsetDateTime, F, T] = offsetDateTimeDecoder(Format(format))
-
-  /** Creates a [[Decoder]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -312,7 +240,7 @@ trait TimeDecoderCompanion[E, F, T] {
     *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
     *      | }
     *
-    * scala> Foo.offsetDateTimeDecoder(Format("yyyy-MM-DD'T'HH:mm:ss.SSSXX"))
+    * scala> Foo.offsetDateTimeDecoder(fmt"yyyy-MM-DD'T'HH:mm:ss.SSSXX")
     *      |   .decode("2000-01-01T12:00:00.000Z")
     * res1: Either[DecodeError, OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
@@ -346,24 +274,6 @@ trait TimeDecoderCompanion[E, F, T] {
     *
     * @example
     * {{{
-    * scala> import java.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends TimeDecoderCompanion[String, DecodeError, codecs.type] {
-    *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
-    *      | }
-    *
-    * scala> Foo.zonedDateTimeDecoder("yyyy-MM-DD'T'HH:mm:ss.SSSzz")
-    *      |   .decode("2000-01-01T12:00:00.000Z")
-    * res1: Either[DecodeError, ZonedDateTime] = Right(2000-01-01T12:00Z)
-    * }}}
-    */
-  def zonedDateTimeDecoder(format: String): Decoder[E, ZonedDateTime, F, T] = zonedDateTimeDecoder(Format(format))
-
-  /** Creates a [[Decoder]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -390,7 +300,7 @@ trait TimeDecoderCompanion[E, F, T] {
     *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
     *      | }
     *
-    * scala> Foo.zonedDateTimeDecoder(Format("yyyy-MM-DD'T'HH:mm:ss.SSSzz"))
+    * scala> Foo.zonedDateTimeDecoder(fmt"yyyy-MM-DD'T'HH:mm:ss.SSSzz")
     *      |   .decode("2000-01-01T12:00:00.000Z")
     * res1: Either[DecodeError, ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
