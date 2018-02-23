@@ -131,14 +131,23 @@ object Format {
     @transient override lazy val formatter = fmt
   }
 
-  def apply(str: String): Format = {
-    val format: Format = new Format with Serializable {
-      val pattern: String                    = str
-      @transient override lazy val formatter = DateTimeFormat.forPattern(pattern)
+  /** Attempts to create a new [[Format]] from the given pattern.
+    *
+    * Syntax for pattern strings can be found
+    * [[http://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html here]].
+    */
+  def from(pattern: String): Either[String, Format] =
+    try {
+
+      val format = Format(DateTimeFormat.forPattern(pattern))
+
+      // Forces evaluation of the format to catch invalid patterns.
+      format.formatter
+      Right(format)
+
+    } catch {
+      case _: Exception ⇒ Left(s"Invalid pattern: '$pattern'")
     }
-    format.formatter
-    format
-  }
 
   // TODO:  re-enable the type annotation on res1 when support for scala 2.11 is dropped
   /** Default `DateTime` format.

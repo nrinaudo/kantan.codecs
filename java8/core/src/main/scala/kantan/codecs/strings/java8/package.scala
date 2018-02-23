@@ -20,7 +20,7 @@ package strings
 import export.Exported
 import java.time._
 
-package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type] {
+package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type] with ToFormatLiteral {
 
   override def encoderFrom[D](d: StringEncoder[D]) = d
   override def decoderFrom[D](d: StringDecoder[D]) = d

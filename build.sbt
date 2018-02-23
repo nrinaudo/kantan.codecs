@@ -128,9 +128,10 @@ lazy val jodaTime = Project(id = "joda-time", base = file("joda-time/core"))
   .dependsOn(coreJVM)
   .settings(
     libraryDependencies ++= Seq(
-      "joda-time"     % "joda-time"    % Versions.joda,
-      "org.joda"      % "joda-convert" % Versions.jodaConvert,
-      "org.scalatest" %% "scalatest"   % Versions.scalatest % "test"
+      "com.propensive" %% "contextual"  % Versions.contextual,
+      "joda-time"      % "joda-time"    % Versions.joda,
+      "org.joda"       % "joda-convert" % Versions.jodaConvert,
+      "org.scalatest"  %% "scalatest"   % Versions.scalatest % "test"
     )
   )
   .laws("joda-time-laws")
@@ -152,7 +153,12 @@ lazy val java8 = Project(id = "java8", base = file("java8/core"))
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(coreJVM)
-  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % Versions.scalatest % "test")
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.propensive" %% "contextual" % Versions.contextual,
+      "org.scalatest"  %% "scalatest"  % Versions.scalatest % "test"
+    )
+  )
   .laws("java8-laws")
 
 lazy val java8Laws = Project(id = "java8-laws", base = file("java8/laws"))

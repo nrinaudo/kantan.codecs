@@ -31,29 +31,6 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
   // - DateTime --------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
 
-  /** Creates a [[Codec]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
-    * scala> import org.joda.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] {
-    *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
-    *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
-    *      | }
-    *
-    * scala> val codec = Foo.dateTimeCodec("yyyy-MM-DD'T'HH:mm:ss.SSSzz")
-    *
-    * scala> val encoded = codec.encode(new DateTime(2000, 1, 1, 12, 0, 0, DateTimeZone.UTC))
-    * res1: String = 2000-01-01T12:00:00.000UTC
-    *
-    * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, DateTime] = Right(2000-01-01T12:00:00.000Z)
-    * }}}
-    */
-  def dateTimeCodec(format: String): Codec[E, DateTime, F, T] = dateTimeCodec(Format(format))
-
   // TODO:  re-enable the type annotation on res2 when support for scala 2.11 is dropped
   /** Creates a [[Codec]] instance that uses the specified format.
     *
@@ -90,7 +67,7 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
     *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
     *      | }
     *
-    * scala> val codec = Foo.dateTimeCodec(Format("yyyy-MM-DD'T'HH:mm:ss.SSSzz"))
+    * scala> val codec = Foo.dateTimeCodec(fmt"yyyy-MM-DD'T'HH:mm:ss.SSSzz")
     *
     * scala> val encoded = codec.encode(new DateTime(2000, 1, 1, 12, 0, 0, DateTimeZone.UTC))
     * res1: String = 2000-01-01T12:00:00.000UTC
@@ -104,30 +81,6 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
 
   // - LocalDateTime ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-
-  /** Creates a [[Codec]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
-    * scala> import org.joda.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] {
-    *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
-    *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
-    *      | }
-    *
-    * scala> val codec = Foo.localDateTimeCodec("yyyy-MM-DD'T'HH:mm:ss.SSS")
-    *
-    * scala> val encoded = codec.encode(new LocalDateTime(2000, 1, 1, 12, 0, 0))
-    * res1: String = 2000-01-01T12:00:00.000
-    *
-    * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00:00.000)
-    * }}}
-    */
-  def localDateTimeCodec[D](format: String): Codec[E, LocalDateTime, F, T] =
-    localDateTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
     *
@@ -168,7 +121,7 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
     *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
     *      | }
     *
-    * scala> val codec = Foo.localDateTimeCodec(Format("yyyy-MM-DD'T'HH:mm:ss.SSS"))
+    * scala> val codec = Foo.localDateTimeCodec(fmt"yyyy-MM-DD'T'HH:mm:ss.SSS")
     *
     * scala> val encoded = codec.encode(new LocalDateTime(2000, 1, 1, 12, 0, 0))
     * res1: String = 2000-01-01T12:00:00.000
@@ -182,29 +135,6 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
 
   // - LocalDate -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-
-  /** Creates a [[Codec]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
-    * scala> import org.joda.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] {
-    *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
-    *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
-    *      | }
-    *
-    * scala> val codec = Foo.localDateCodec("yyyy-MM-DD")
-    *
-    * scala> val encoded = codec.encode(new LocalDate(2000, 1, 1))
-    * res1: String = 2000-01-01
-    *
-    * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, LocalDate] = Right(2000-01-01)
-    * }}}
-    */
-  def localDateCodec[D](format: String): Codec[E, LocalDate, F, T] = localDateCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
     *
@@ -244,7 +174,7 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
     *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
     *      | }
     *
-    * scala> val codec = Foo.localDateCodec(Format("yyyy-MM-DD"))
+    * scala> val codec = Foo.localDateCodec(fmt"yyyy-MM-DD")
     *
     * scala> val encoded = codec.encode(new LocalDate(2000, 1, 1))
     * res1: String = 2000-01-01
@@ -258,29 +188,6 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
 
   // - LocalTime -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-
-  /** Creates a [[Codec]] instance that uses the specified format.
-    *
-    * @example
-    * {{{
-    * scala> import org.joda.time._
-    * scala> import kantan.codecs.strings._
-    *
-    * scala> object Foo extends JodaTimeCodecCompanion[String, DecodeError, codecs.type] {
-    *      |   override def decoderFrom[D](d: StringDecoder[D]) = d
-    *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
-    *      | }
-    *
-    * scala> val codec = Foo.localTimeCodec("HH:mm:ss.SSS")
-    *
-    * scala> val encoded = codec.encode(new LocalTime(12, 0, 0))
-    * res1: String = 12:00:00.000
-    *
-    * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, LocalTime] = Right(12:00:00.000)
-    * }}}
-    */
-  def localTimeCodec[D](format: String): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
     *
@@ -320,7 +227,7 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
     *      |   override def encoderFrom[D](e: StringEncoder[D]) = e
     *      | }
     *
-    * scala> val codec = Foo.localTimeCodec(Format("HH:mm:ss.SSS"))
+    * scala> val codec = Foo.localTimeCodec(fmt"HH:mm:ss.SSS")
     *
     * scala> val encoded = codec.encode(new LocalTime(12, 0, 0))
     * res1: String = 12:00:00.000

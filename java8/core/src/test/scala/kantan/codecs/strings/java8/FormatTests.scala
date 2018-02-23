@@ -21,18 +21,23 @@ package java8
 
 import java.time._
 import java.time.format.DateTimeFormatter
+import kantan.codecs.laws.SerializableLaws
 import laws.discipline._, arbitrary._
 import org.scalatest.EitherValues._
 
-sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends DisciplineSuite {
+class FormatTests extends DisciplineSuite {
 
-  checkAll(s"Format[$label]", SerializableTests(kantan.codecs.laws.SerializableLaws(f("yyyyMM"))).serializable)
+  checkAll("Format (from literal)", SerializableTests(SerializableLaws(fmt"yyyyMM")).serializable)
+  checkAll(
+    "Format (from DateTimeFormatter)",
+    SerializableTests(SerializableLaws(Format(DateTimeFormatter.ofPattern("yyyyMM")))).serializable
+  )
 
   test("Format should yield the same results as the corresponding DateTimeFormatter for LocalDateTime") {
 
     val formatStr = "yyyy-MM-dd'T'HH:mm:ss"
 
-    val format    = f(formatStr)
+    val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
     forAll { d: LocalDateTime ⇒
@@ -47,7 +52,7 @@ sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends D
 
     val formatStr = "yyyy-MM-dd'T'HH:mm:ssxx"
 
-    val format    = f(formatStr)
+    val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
     forAll { d: ZonedDateTime ⇒
@@ -61,7 +66,7 @@ sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends D
 
     val formatStr = "HH:mm:ss"
 
-    val format    = f(formatStr)
+    val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
     forAll { d: LocalTime ⇒
@@ -76,7 +81,7 @@ sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends D
 
     val formatStr = "yyyy-MM-dd"
 
-    val format    = f(formatStr)
+    val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
     forAll { d: LocalDate ⇒
@@ -90,7 +95,7 @@ sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends D
 
     val formatStr = "yyyy-MM-dd'T'HH:mm:ssxx"
 
-    val format    = f(formatStr)
+    val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
     forAll { d: ZonedDateTime ⇒
@@ -105,6 +110,3 @@ sealed abstract class FormatTests(label: String, f: String ⇒ Format) extends D
   // in a pattern.
 
 }
-
-class StringFormatTests            extends FormatTests("String", Format.apply)
-class DateTimeFormatterFormatTests extends FormatTests("DateTimeFormatter", s ⇒ Format(DateTimeFormatter.ofPattern(s)))

@@ -146,14 +146,23 @@ object Format {
     @transient override lazy val formatter = fmt
   }
 
-  def apply(str: String): Format = {
-    val format: Format = new Format with Serializable {
-      val pattern: String                    = str
-      @transient override lazy val formatter = DateTimeFormatter.ofPattern(pattern)
+  /** Attempts to create a new [[Format]] from the given pattern.
+    *
+    * Syntax for pattern strings can be found
+    * [[https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html here]].
+    */
+  def from(pattern: String): Either[String, Format] =
+    try {
+
+      val format = Format(DateTimeFormatter.ofPattern(pattern))
+
+      // Forces evaluation of the format to catch invalid patterns.
+      format.formatter
+      Right(format)
+
+    } catch {
+      case _: Exception ⇒ Left(s"Invalid pattern: '$pattern'")
     }
-    format.formatter
-    format
-  }
 
   /** Default `Instant` format.
     *
