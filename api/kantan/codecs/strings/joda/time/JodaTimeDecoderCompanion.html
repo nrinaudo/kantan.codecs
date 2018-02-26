@@ -169,21 +169,33 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs.strings.joda.time">time</a></dd></dl></div>
     </li><li class="current-entities indented5">
-                        <a class="object" href="Format$.html" title=""></a>
-                        <a class="trait" href="Format.html" title=""></a>
-                        <a href="Format.html" title="">Format</a>
+                        <a class="object" href="Format$.html" title="Provides instance creation methods and default values for Format."></a>
+                        <a class="trait" href="Format.html" title="Serializable wrapper around DateTimeFormatter."></a>
+                        <a href="Format.html" title="Serializable wrapper around DateTimeFormatter.">Format</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="JodaTimeCodecCompanion.html" title=""></a>
-                        <a href="JodaTimeCodecCompanion.html" title="">JodaTimeCodecCompanion</a>
+                        <a class="class" href="ToFormatLiteral$FormatStringContext.html" title=""></a>
+                        <a href="ToFormatLiteral$FormatStringContext.html" title="">FormatStringContext</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="" title=""></a>
-                        <a href="" title="">JodaTimeDecoderCompanion</a>
+                        <a class="object" href="FormatVerifier$.html" title=""></a>
+                        <a href="FormatVerifier$.html" title="">FormatVerifier</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="JodaTimeEncoderCompanion.html" title=""></a>
-                        <a href="JodaTimeEncoderCompanion.html" title="">JodaTimeEncoderCompanion</a>
+                        <a class="trait" href="JodaTimeCodecCompanion.html" title="Provides useful methods for a joda-time codec companions."></a>
+                        <a href="JodaTimeCodecCompanion.html" title="Provides useful methods for a joda-time codec companions.">JodaTimeCodecCompanion</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="trait" href="" title="Provides useful methods for a joda-time decoder companions."></a>
+                        <a href="" title="Provides useful methods for a joda-time decoder companions.">JodaTimeDecoderCompanion</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="trait" href="JodaTimeEncoderCompanion.html" title="Provides useful methods for a joda-time encoder companions."></a>
+                        <a href="JodaTimeEncoderCompanion.html" title="Provides useful methods for a joda-time encoder companions.">JodaTimeEncoderCompanion</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="trait" href="ToFormatLiteral.html" title=""></a>
+                        <a href="ToFormatLiteral.html" title="">ToFormatLiteral</a>
                       </li>
               </ul>
             </div>
@@ -212,7 +224,9 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/joda-time/src/main/scala/kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.scala" target="_blank">JodaTimeDecoderCompanion.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful methods for a joda-time decoder companions.</p><p>Usage note: when declaring default implicit instances, be sure to wrap them in an <a href="../../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">export.Exported</a>. Otherwise,
+custom instances and default ones are very likely to conflict.
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/joda-time/core/src/main/scala/kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.scala" target="_blank">JodaTimeDecoderCompanion.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -381,7 +395,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#dateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#dateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="dateTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeDecoder(Format):Decoder[E,DateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#dateTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]" title="Permalink">
@@ -396,8 +410,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">dateTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#dateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.dateTimeDecoder(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSSzz"</span>)
+     | .decode(<span class="lit">"2000-01-01T12:00:00.000UTC"</span>)
+res1: Either[DecodeError, DateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>Z)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#dateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="dateTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeDecoder(⇒DateTimeFormatter):Decoder[E,DateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#dateTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]" title="Permalink">
@@ -412,24 +438,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">dateTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#dateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="dateTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]"></a><a id="dateTimeDecoder(String):Decoder[E,DateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#dateTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">dateTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
-      </span>
-      
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.dateTimeDecoder(ISODateTimeFormat.dateTime().withZone(DateTimeZone.UTC))
+     | .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, DateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>Z)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultDateTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]"></a><a id="defaultDateTimeDecoder:Decoder[E,DateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#defaultDateTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.DateTime,F,T]" title="Permalink">
@@ -444,8 +466,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultDateTimeDecoder</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.DateTime">DateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultDateTimeFormat:kantan.codecs.strings.joda.time.Format" class="extmbr" name="kantan.codecs.strings.joda.time.Format#defaultDateTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultDateTimeFormat:kantan.codecs.strings.joda.time.Format" class="extmbr" name="kantan.codecs.strings.joda.time.Format#defaultDateTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultDateTimeDecoder
+     | .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+     | .right.map(_.withZone(DateTimeZone.UTC))
+res1 = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>Z)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultLocalDateDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]"></a><a id="defaultLocalDateDecoder:Decoder[E,LocalDate,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#defaultLocalDateDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]" title="Permalink">
@@ -460,8 +494,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultLocalDateDecoder</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalDateFormat:kantan.codecs.strings.joda.time.Format" class="extmbr" name="kantan.codecs.strings.joda.time.Format#defaultLocalDateFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalDateFormat:kantan.codecs.strings.joda.time.Format" class="extmbr" name="kantan.codecs.strings.joda.time.Format#defaultLocalDateFormat">default format</a>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultLocalDateDecoder
+     | .decode(<span class="lit">"2000-01-01"</span>)
+res1: Either[DecodeError, LocalDate] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultLocalDateTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]"></a><a id="defaultLocalDateTimeDecoder:Decoder[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#defaultLocalDateTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
@@ -476,8 +522,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultLocalDateTimeDecoder</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalDateTimeFormat:kantan.codecs.strings.joda.time.Format" class="extmbr" name="kantan.codecs.strings.joda.time.Format#defaultLocalDateTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalDateTimeFormat:kantan.codecs.strings.joda.time.Format" class="extmbr" name="kantan.codecs.strings.joda.time.Format#defaultLocalDateTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultLocalDateTimeDecoder
+     | .decode(<span class="lit">"2000-01-01T12:00:00.000"</span>)
+res1: Either[DecodeError, LocalDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#defaultLocalTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultLocalTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]"></a><a id="defaultLocalTimeDecoder:Decoder[E,LocalTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#defaultLocalTimeDecoder:kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]" title="Permalink">
@@ -492,7 +550,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultLocalTimeDecoder</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalTimeFormat:kantan.codecs.strings.joda.time.Format" class="extmbr" name="kantan.codecs.strings.joda.time.Format#defaultLocalTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalTimeFormat:kantan.codecs.strings.joda.time.Format" class="extmbr" name="kantan.codecs.strings.joda.time.Format#defaultLocalTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultLocalTimeDecoder
+     | .decode(<span class="lit">"12:00:00.000"</span>)
+res1: Either[DecodeError, LocalTime] = Right(<span class="num">12</span>:<span class="num">00</span>:<span class="num">00.000</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -601,7 +671,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateDecoder(Format):Decoder[E,LocalDate,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#localDateDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]" title="Permalink">
@@ -616,8 +686,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localDateDecoder(fmt<span class="lit">"yyyy-MM-DD"</span>)
+     | .decode(<span class="lit">"2000-01-01"</span>)
+res1: Either[DecodeError, LocalDate] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateDecoder(⇒DateTimeFormatter):Decoder[E,LocalDate,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#localDateDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]" title="Permalink">
@@ -632,24 +714,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="localDateDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]"></a><a id="localDateDecoder(String):Decoder[E,LocalDate,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#localDateDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalDate,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
-      </span>
-      
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localDateDecoder(ISODateTimeFormat.localDateParser())
+     | .decode(<span class="lit">"2000-01-01"</span>)
+res1: Either[DecodeError, LocalDate] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(Format):Decoder[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#localDateTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
@@ -664,8 +742,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localDateTimeDecoder(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSS"</span>)
+     | .decode(<span class="lit">"2000-01-01T12:00:00.000"</span>)
+res1: Either[DecodeError, LocalDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(⇒DateTimeFormatter):Decoder[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#localDateTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
@@ -680,24 +770,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="localDateTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(String):Decoder[E,LocalDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#localDateTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
-      </span>
-      
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localDateTimeDecoder(ISODateTimeFormat.localDateOptionalTimeParser())
+     | .decode(<span class="lit">"2000-01-01T12:00:00.000"</span>)
+res1: Either[DecodeError, LocalDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeDecoder(Format):Decoder[E,LocalTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#localTimeDecoder(format:kantan.codecs.strings.joda.time.Format):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]" title="Permalink">
@@ -712,8 +798,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.joda.time.Format">Format</a></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localTimeDecoder(fmt<span class="lit">"HH:mm:ss.SSS"</span>)
+     | .decode(<span class="lit">"12:00:00.000"</span>)
+res1: Either[DecodeError, LocalTime] = Right(<span class="num">12</span>:<span class="num">00</span>:<span class="num">00.000</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeDecoder(⇒DateTimeFormatter):Decoder[E,LocalTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#localTimeDecoder(format:=&gt;org.joda.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]" title="Permalink">
@@ -728,23 +826,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="org.joda.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="localTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]"></a><a id="localTimeDecoder(String):Decoder[E,LocalTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../../kantan/codecs/strings/joda/time/JodaTimeDecoderCompanion.html#localTimeDecoder(format:String):kantan.codecs.Decoder[E,org.joda.time.LocalTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.E">E</span>, <span class="extype" name="org.joda.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.joda.time.JodaTimeDecoderCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> org.joda.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> JodaTimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localTimeDecoder(ISODateTimeFormat.localTimeParser())
+     | .decode(<span class="lit">"12:00:00.000"</span>)
+res1: Either[DecodeError, LocalTime] = Right(<span class="num">12</span>:<span class="num">00</span>:<span class="num">00.000</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">

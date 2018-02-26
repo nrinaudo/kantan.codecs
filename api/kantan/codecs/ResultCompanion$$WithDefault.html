@@ -128,6 +128,10 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
                         <span class="separator"></span>
                         <a class="trait" href="" title="Provides companion object methods for result types that have a sane default error type."></a>
                         <a href="" title="Provides companion object methods for result types that have a sane default error type.">WithDefault</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="ResultCompanion$$WithError.html" title="Similar to WithDefault, but uses IsError to deal with error cases."></a>
+                        <a href="ResultCompanion$$WithError.html" title="Similar to WithDefault, but uses IsError to deal with error cases.">WithError</a>
                       </li>
               </ul>
             </div>
@@ -157,12 +161,17 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides companion object methods for result types that have a sane default error type.</p><p>This default error type is materialised by <a href="#fromThrowable(t:Throwable):F" class="extmbr" name="kantan.codecs.ResultCompanion.WithDefault#fromThrowable">fromThrowable</a>.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/Result.scala" target="_blank">Result.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/shared/src/main/scala/kantan/codecs/Result.scala" target="_blank">Result.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
           <div class="superTypes hiddenContent"><a href="ResultCompanion$$Simple.html" class="extype" name="kantan.codecs.ResultCompanion.Simple">Simple</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>], <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
-        </div></div>
+        </div><div class="toggleContainer block">
+            <span class="toggle">
+              Known Subclasses
+            </span>
+            <div class="subClasses hiddenContent"><a href="ResultCompanion$$WithError.html" class="extype" name="kantan.codecs.ResultCompanion.WithError">WithError</a></div>
+          </div></div>
         
 
       <div id="mbrsel">
@@ -282,9 +291,9 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.WithDefault#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="apply[S](s:=&gt;S):kantan.codecs.Result[F,S]"></a><a id="apply[S](⇒S):Result[F,S]"></a>
+      <a id="apply[S](s:=&gt;S):Either[F,S]"></a><a id="apply[S](⇒S):Either[F,S]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#apply[S](s:=&gt;S):kantan.codecs.Result[F,S]" title="Permalink">
+      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#apply[S](s:=&gt;S):Either[F,S]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -293,7 +302,7 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: ⇒ <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.apply.S">S</span></span>)</span><span class="result">: <a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.apply.S">S</span>]</span>
+        <span class="name">apply</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: ⇒ <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.apply.S">S</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.apply.S">S</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Attempts to evaluate the specified expression.</p><div class="fullcomment"><div class="comment cmt"><p>Attempts to evaluate the specified expression.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
@@ -373,9 +382,9 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.Simple#failure" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="failure(f:F):kantan.codecs.Result[F,Nothing]"></a><a id="failure(F):Result[F,Nothing]"></a>
+      <a id="failure(f:F):Either[F,Nothing]"></a><a id="failure(F):Either[F,Nothing]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#failure(f:F):kantan.codecs.Result[F,Nothing]" title="Permalink">
+      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#failure(f:F):Either[F,Nothing]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -384,7 +393,7 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">failure</span><span class="params">(<span name="f">f: <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span></span>)</span><span class="result">: <a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Nothing" class="extype" name="scala.collection.immutable.List">Nothing</a>]</span>
+        <span class="name">failure</span><span class="params">(<span name="f">f: <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Nothing" class="extype" name="scala.collection.immutable.List">Nothing</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Turns the specified value into a failure.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified value into a failure.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ResultCompanion$$Simple.html" class="extype" name="kantan.codecs.ResultCompanion.Simple">Simple</a></dd><dt>Annotations</dt><dd>
@@ -413,48 +422,10 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.ResultCompanion.Simple#fromEither" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fromEither[S](e:Either[F,S]):kantan.codecs.Result[F,S]"></a><a id="fromEither[S](Either[F,S]):Result[F,S]"></a>
-      <span class="permalink">
-      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#fromEither[S](e:Either[F,S]):kantan.codecs.Result[F,S]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">fromEither</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="e">e: <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.fromEither.S">S</span>]</span>)</span><span class="result">: <a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.fromEither.S">S</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Turns the specified <code>Either</code> into a result.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified <code>Either</code> into a result.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ResultCompanion$$Simple.html" class="extype" name="kantan.codecs.ResultCompanion.Simple">Simple</a></dd><dt>Annotations</dt><dd>
-                <span class="name">@inline</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="kantan.codecs.ResultCompanion.Simple#fromOption" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fromOption[S](o:Option[S],f:=&gt;F):kantan.codecs.Result[F,S]"></a><a id="fromOption[S](Option[S],⇒F):Result[F,S]"></a>
-      <span class="permalink">
-      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#fromOption[S](o:Option[S],f:=&gt;F):kantan.codecs.Result[F,S]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">fromOption</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="o">o: <a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.fromOption.S">S</span>]</span>, <span name="f">f: ⇒ <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span></span>)</span><span class="result">: <a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.fromOption.S">S</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Turns the specified <code>Option</code> into a result.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified <code>Option</code> into a result.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ResultCompanion$$Simple.html" class="extype" name="kantan.codecs.ResultCompanion.Simple">Simple</a></dd><dt>Annotations</dt><dd>
-                <span class="name">@inline</span><span class="args">()</span>
-              
-        </dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.WithDefault#fromTry" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fromTry[S](t:scala.util.Try[S]):kantan.codecs.Result[F,S]"></a><a id="fromTry[S](Try[S]):Result[F,S]"></a>
+      <a id="fromTry[S](t:scala.util.Try[S]):Either[F,S]"></a><a id="fromTry[S](Try[S]):Either[F,S]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#fromTry[S](t:scala.util.Try[S]):kantan.codecs.Result[F,S]" title="Permalink">
+      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#fromTry[S](t:scala.util.Try[S]):Either[F,S]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -463,7 +434,7 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromTry</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="t">t: <a href="http://www.scala-lang.org/api/2.12.4/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.fromTry.S">S</span>]</span>)</span><span class="result">: <a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.fromTry.S">S</span>]</span>
+        <span class="name">fromTry</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="t">t: <a href="http://www.scala-lang.org/api/2.12.4/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.fromTry.S">S</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.fromTry.S">S</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Turns the specified <code>Try</code> into a result.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified <code>Try</code> into a result.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
@@ -579,9 +550,9 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
               
         </dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.Simple#sequence" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="sequence[S,M[X]&lt;:TraversableOnce[X]](rs:M[kantan.codecs.Result[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[kantan.codecs.Result[F,S]],S,M[S]]):kantan.codecs.Result[F,M[S]]"></a><a id="sequence[S,M[X]&lt;:TraversableOnce[X]](M[Result[F,S]])(CanBuildFrom[M[Result[F,S]],S,M[S]]):Result[F,M[S]]"></a>
+      <a id="sequence[S,M[X]&lt;:TraversableOnce[X]](rs:M[Either[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[Either[F,S]],S,M[S]]):Either[F,M[S]]"></a><a id="sequence[S,M[X]&lt;:TraversableOnce[X]](M[Either[F,S]])(CanBuildFrom[M[Either[F,S]],S,M[S]]):Either[F,M[S]]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#sequence[S,M[X]&lt;:TraversableOnce[X]](rs:M[kantan.codecs.Result[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[kantan.codecs.Result[F,S]],S,M[S]]):kantan.codecs.Result[F,M[S]]" title="Permalink">
+      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#sequence[S,M[X]&lt;:TraversableOnce[X]](rs:M[Either[F,S]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[Either[F,S]],S,M[S]]):Either[F,M[S]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -590,7 +561,7 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">sequence</span><span class="tparams">[<span name="S">S</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M.X">X</span>]</span>]</span><span class="params">(<span name="rs">rs: <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/generic/CanBuildFrom.html#scala.collection.generic.CanBuildFrom" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]], <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>)</span><span class="result">: <a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>
+        <span class="name">sequence</span><span class="tparams">[<span name="S">S</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M.X">X</span>]</span>]</span><span class="params">(<span name="rs">rs: <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/generic/CanBuildFrom.html#scala.collection.generic.CanBuildFrom" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]], <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.M">M</span>[<span class="extype" name="kantan.codecs.ResultCompanion.Simple.sequence.S">S</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Turns a collection of results into a result of a collection.</p><div class="fullcomment"><div class="comment cmt"><p>Turns a collection of results into a result of a collection.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ResultCompanion$$Simple.html" class="extype" name="kantan.codecs.ResultCompanion.Simple">Simple</a></dd><dt>Annotations</dt><dd>
@@ -598,9 +569,9 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
               
         </dd></dl></div>
     </li><li name="kantan.codecs.ResultCompanion.Simple#success" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="success[S](s:S):kantan.codecs.Result[F,S]"></a><a id="success[S](S):Result[F,S]"></a>
+      <a id="success[S](s:S):Either[F,S]"></a><a id="success[S](S):Either[F,S]"></a>
       <span class="permalink">
-      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#success[S](s:S):kantan.codecs.Result[F,S]" title="Permalink">
+      <a href="../../kantan/codecs/ResultCompanion$$WithDefault.html#success[S](s:S):Either[F,S]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -609,7 +580,7 @@ such as <code>DecodeResult</code> in kantan.csv. Users are likely to expect good
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">success</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: <span class="extype" name="kantan.codecs.ResultCompanion.Simple.success.S">S</span></span>)</span><span class="result">: <a href="Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.success.S">S</span>]</span>
+        <span class="name">success</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: <span class="extype" name="kantan.codecs.ResultCompanion.Simple.success.S">S</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="kantan.codecs.ResultCompanion.WithDefault.F">F</span>, <span class="extype" name="kantan.codecs.ResultCompanion.Simple.success.S">S</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Turns the specified value into a success.</p><div class="fullcomment"><div class="comment cmt"><p>Turns the specified value into a success.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ResultCompanion$$Simple.html" class="extype" name="kantan.codecs.ResultCompanion.Simple">Simple</a></dd><dt>Annotations</dt><dd>

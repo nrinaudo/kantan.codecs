@@ -154,20 +154,32 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs.strings.java8">java8</a></dd></dl></div>
     </li><li class="current-entities indented4">
                         <a class="object" href="Format$.html" title=""></a>
-                        <a class="trait" href="" title=""></a>
-                        <a href="" title="">Format</a>
+                        <a class="trait" href="" title="Serializable wrapper around DateTimeFormatter."></a>
+                        <a href="" title="Serializable wrapper around DateTimeFormatter.">Format</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="TimeCodecCompanion.html" title=""></a>
-                        <a href="TimeCodecCompanion.html" title="">TimeCodecCompanion</a>
+                        <a class="class" href="ToFormatLiteral$FormatStringContext.html" title=""></a>
+                        <a href="ToFormatLiteral$FormatStringContext.html" title="">FormatStringContext</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="TimeDecoderCompanion.html" title=""></a>
-                        <a href="TimeDecoderCompanion.html" title="">TimeDecoderCompanion</a>
+                        <a class="object" href="FormatVerifier$.html" title=""></a>
+                        <a href="FormatVerifier$.html" title="">FormatVerifier</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="TimeEncoderCompanion.html" title=""></a>
-                        <a href="TimeEncoderCompanion.html" title="">TimeEncoderCompanion</a>
+                        <a class="trait" href="TimeCodecCompanion.html" title="Provides useful methods for a java8 time codec companions."></a>
+                        <a href="TimeCodecCompanion.html" title="Provides useful methods for a java8 time codec companions.">TimeCodecCompanion</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="TimeDecoderCompanion.html" title="Provides useful methods for a java8 time decoder companions."></a>
+                        <a href="TimeDecoderCompanion.html" title="Provides useful methods for a java8 time decoder companions.">TimeDecoderCompanion</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="TimeEncoderCompanion.html" title="Provides useful methods for a java8 time encoder companions."></a>
+                        <a href="TimeEncoderCompanion.html" title="Provides useful methods for a java8 time encoder companions.">TimeEncoderCompanion</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="ToFormatLiteral.html" title=""></a>
+                        <a href="ToFormatLiteral.html" title="">ToFormatLiteral</a>
                       </li>
               </ul>
             </div>
@@ -189,7 +201,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">sealed </span>
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
@@ -198,7 +210,8 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/java8/src/main/scala/kantan/codecs/strings/java8/Format.scala" target="_blank">Format.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p><code>Serializable</code> wrapper around <code>DateTimeFormatter</code>.</p><p>The main purpose of this is to make joda-time codecs <code>Serializable</code> and thus usable with frameworks like spark.
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/java8/core/src/main/scala/kantan/codecs/strings/java8/Format.scala" target="_blank">Format.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -252,7 +265,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
 
         <div class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="kantan.codecs.strings.java8.Format#formatter" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="kantan.codecs.strings.java8.Format#formatter" visbl="prt" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="formatter:java.time.format.DateTimeFormatter"></a><a id="formatter:DateTimeFormatter"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/Format.html#formatter:java.time.format.DateTimeFormatter" title="Permalink">
@@ -267,7 +280,9 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">formatter</span><span class="result">: <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Internal date/time formatter.</p><div class="fullcomment"><div class="comment cmt"><p>Internal date/time formatter.</p><p>This is protected to prevent anyone from calling it directly - doing so instantly turns the calling class
+non-serializable, which rather defeats the purpose of <a href="" class="extype" name="kantan.codecs.strings.java8.Format">Format</a>.
+</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li></ol>
             </div>
 
@@ -416,7 +431,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.Format#format" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.java8.Format#format" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="format(temporal:java.time.temporal.TemporalAccessor):String"></a><a id="format(TemporalAccessor):String"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/Format.html#format(temporal:java.time.temporal.TemporalAccessor):String" title="Permalink">
@@ -431,7 +446,14 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">format</span><span class="params">(<span name="temporal">temporal: <span class="extype" name="java.time.temporal.TemporalAccessor">TemporalAccessor</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Formats the specified <code>TemporalAccessor</code> as a string.</p><div class="fullcomment"><div class="comment cmt"><p>Formats the specified <code>TemporalAccessor</code> as a string.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+
+scala&gt; Format.defaultZonedDateTimeFormat
+     |   .format(ZonedDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -540,10 +562,10 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.Format#parseInstant" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="parseInstant(str:String):java.time.Instant"></a><a id="parseInstant(String):Instant"></a>
+    </li><li name="kantan.codecs.strings.java8.Format#parseInstant" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="parseInstant(str:String):Either[kantan.codecs.strings.DecodeError,java.time.Instant]"></a><a id="parseInstant(String):Either[DecodeError,Instant]"></a>
       <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseInstant(str:String):java.time.Instant" title="Permalink">
+      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseInstant(str:String):Either[kantan.codecs.strings.DecodeError,java.time.Instant]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -552,14 +574,22 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">parseInstant</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.time.Instant">Instant</span></span>
+        <span class="name">parseInstant</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="../DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="java.time.Instant">Instant</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.Format#parseLocalDate" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="parseLocalDate(str:String):java.time.LocalDate"></a><a id="parseLocalDate(String):LocalDate"></a>
+      <p class="shortcomment cmt">Attempts to parse the specified string as an <code>Instant</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Attempts to parse the specified string as an <code>Instant</code>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; Format.defaultInstantFormat
+     |   .parseInstant(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, Instant] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.Format#parseLocalDate" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="parseLocalDate(str:String):Either[kantan.codecs.strings.DecodeError,java.time.LocalDate]"></a><a id="parseLocalDate(String):Either[DecodeError,LocalDate]"></a>
       <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseLocalDate(str:String):java.time.LocalDate" title="Permalink">
+      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseLocalDate(str:String):Either[kantan.codecs.strings.DecodeError,java.time.LocalDate]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -568,14 +598,22 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">parseLocalDate</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.time.LocalDate">LocalDate</span></span>
+        <span class="name">parseLocalDate</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="../DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="java.time.LocalDate">LocalDate</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.Format#parseLocalDateTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="parseLocalDateTime(str:String):java.time.LocalDateTime"></a><a id="parseLocalDateTime(String):LocalDateTime"></a>
+      <p class="shortcomment cmt">Attempts to parse the specified string as a <code>LocalDate</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Attempts to parse the specified string as a <code>LocalDate</code>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; Format.defaultLocalDateFormat
+     |   .parseLocalDate(<span class="lit">"2000-01-01"</span>)
+res2: Either[DecodeError, LocalDate] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.Format#parseLocalDateTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="parseLocalDateTime(str:String):Either[kantan.codecs.strings.DecodeError,java.time.LocalDateTime]"></a><a id="parseLocalDateTime(String):Either[DecodeError,LocalDateTime]"></a>
       <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseLocalDateTime(str:String):java.time.LocalDateTime" title="Permalink">
+      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseLocalDateTime(str:String):Either[kantan.codecs.strings.DecodeError,java.time.LocalDateTime]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -584,14 +622,22 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">parseLocalDateTime</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span></span>
+        <span class="name">parseLocalDateTime</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="../DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.Format#parseLocalTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="parseLocalTime(str:String):java.time.LocalTime"></a><a id="parseLocalTime(String):LocalTime"></a>
+      <p class="shortcomment cmt">Attempts to parse the specified string as a <code>LocalDateTime</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Attempts to parse the specified string as a <code>LocalDateTime</code>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; Format.defaultLocalDateTimeFormat
+     |   .parseLocalDateTime(<span class="lit">"2000-01-01T12:00:00.000"</span>)
+res2: Either[DecodeError, LocalDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.Format#parseLocalTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="parseLocalTime(str:String):Either[kantan.codecs.strings.DecodeError,java.time.LocalTime]"></a><a id="parseLocalTime(String):Either[DecodeError,LocalTime]"></a>
       <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseLocalTime(str:String):java.time.LocalTime" title="Permalink">
+      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseLocalTime(str:String):Either[kantan.codecs.strings.DecodeError,java.time.LocalTime]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -600,14 +646,22 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">parseLocalTime</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.time.LocalTime">LocalTime</span></span>
+        <span class="name">parseLocalTime</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="../DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="java.time.LocalTime">LocalTime</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.Format#parseOffsetDateTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="parseOffsetDateTime(str:String):java.time.OffsetDateTime"></a><a id="parseOffsetDateTime(String):OffsetDateTime"></a>
+      <p class="shortcomment cmt">Attempts to parse the specified string as a <code>LocalDateTime</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Attempts to parse the specified string as a <code>LocalDateTime</code>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; Format.defaultLocalTimeFormat
+     |   .parseLocalTime(<span class="lit">"12:00:00.000"</span>)
+res1: Either[DecodeError, LocalTime] = Right(<span class="num">12</span>:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.Format#parseOffsetDateTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="parseOffsetDateTime(str:String):Either[kantan.codecs.strings.DecodeError,java.time.OffsetDateTime]"></a><a id="parseOffsetDateTime(String):Either[DecodeError,OffsetDateTime]"></a>
       <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseOffsetDateTime(str:String):java.time.OffsetDateTime" title="Permalink">
+      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseOffsetDateTime(str:String):Either[kantan.codecs.strings.DecodeError,java.time.OffsetDateTime]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -616,14 +670,22 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">parseOffsetDateTime</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span></span>
+        <span class="name">parseOffsetDateTime</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="../DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.Format#parseZonedDateTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="parseZonedDateTime(str:String):java.time.ZonedDateTime"></a><a id="parseZonedDateTime(String):ZonedDateTime"></a>
+      <p class="shortcomment cmt">Attempts to parse the specified string as a <code>LocalDate</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Attempts to parse the specified string as a <code>LocalDate</code>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; Format.defaultOffsetDateTimeFormat
+     |   .parseOffsetDateTime(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, OffsetDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.Format#parseZonedDateTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="parseZonedDateTime(str:String):Either[kantan.codecs.strings.DecodeError,java.time.ZonedDateTime]"></a><a id="parseZonedDateTime(String):Either[DecodeError,ZonedDateTime]"></a>
       <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseZonedDateTime(str:String):java.time.ZonedDateTime" title="Permalink">
+      <a href="../../../../kantan/codecs/strings/java8/Format.html#parseZonedDateTime(str:String):Either[kantan.codecs.strings.DecodeError,java.time.ZonedDateTime]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -632,10 +694,18 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">parseZonedDateTime</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span></span>
+        <span class="name">parseZonedDateTime</span><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="../DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Attempts to parse the specified string as a <code>ZonedDateTime</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Attempts to parse the specified string as a <code>ZonedDateTime</code>.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; Format.defaultZonedDateTimeFormat
+     |   .parseZonedDateTime(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, ZonedDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">

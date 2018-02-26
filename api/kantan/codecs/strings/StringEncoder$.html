@@ -158,6 +158,22 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                         <a href="DecodeError.html" title="">DecodeError</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCodecs.html" title="JVM-specific codecs."></a>
+                        <a href="PlatformSpecificCodecs.html" title="JVM-specific codecs.">PlatformSpecificCodecs</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificDecoders.html" title="JVM-specific decoders."></a>
+                        <a href="PlatformSpecificDecoders.html" title="JVM-specific decoders.">PlatformSpecificDecoders</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificEncoders.html" title="JVM-specific encoders."></a>
+                        <a href="PlatformSpecificEncoders.html" title="JVM-specific encoders.">PlatformSpecificEncoders</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificInstances.html" title="JVM-specific codec instances."></a>
+                        <a href="PlatformSpecificInstances.html" title="JVM-specific codec instances.">PlatformSpecificInstances</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="object" href="StringCodec$.html" title="Provides instance creation methods."></a>
                         <a href="StringCodec$.html" title="Provides instance creation methods.">StringCodec</a>
                       </li><li class="current-entities indented3">
@@ -195,16 +211,16 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">StringEncoder</span>
+        <span class="name">StringEncoder</span><span class="result"> extends <a href="../EncoderCompanion.html" class="extype" name="kantan.codecs.EncoderCompanion">EncoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type] with <a href="PlatformSpecificEncoders.html" class="extype" name="kantan.codecs.strings.PlatformSpecificEncoders">PlatformSpecificEncoders</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/strings/StringEncoder.scala" target="_blank">StringEncoder.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/shared/src/main/scala/kantan/codecs/strings/StringEncoder.scala" target="_blank">StringEncoder.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="PlatformSpecificEncoders.html" class="extype" name="kantan.codecs.strings.PlatformSpecificEncoders">PlatformSpecificEncoders</a>, <a href="../EncoderCompanion.html" class="extype" name="kantan.codecs.EncoderCompanion">EncoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type], <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
         </div></div>
         
 
@@ -230,7 +246,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.codecs.strings.StringEncoder"><span>StringEncoder</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.codecs.strings.StringEncoder"><span>StringEncoder</span></li><li class="in" name="kantan.codecs.strings.PlatformSpecificEncoders"><span>PlatformSpecificEncoders</span></li><li class="in" name="kantan.codecs.EncoderCompanion"><span>EncoderCompanion</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -305,10 +321,10 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.codecs.strings.StringEncoder#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply[D](implicitev:kantan.codecs.strings.StringEncoder[D]):kantan.codecs.strings.StringEncoder[D]"></a><a id="apply[D](StringEncoder[D]):StringEncoder[D]"></a>
+    </li><li name="kantan.codecs.EncoderCompanion#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply[D](implicitev:kantan.codecs.Encoder[E,D,T]):kantan.codecs.Encoder[E,D,T]"></a><a id="apply[D](Encoder[String,D,codecs.type]):Encoder[String,D,codecs.type]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/strings/StringEncoder$.html#apply[D](implicitev:kantan.codecs.strings.StringEncoder[D]):kantan.codecs.strings.StringEncoder[D]" title="Permalink">
+      <a href="../../../kantan/codecs/strings/StringEncoder$.html#apply[D](implicitev:kantan.codecs.Encoder[E,D,T]):kantan.codecs.Encoder[E,D,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -317,10 +333,11 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a>[<span class="extype" name="kantan.codecs.strings.StringEncoder.apply.D">D</span>]</span>)</span><span class="result">: <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a>[<span class="extype" name="kantan.codecs.strings.StringEncoder.apply.D">D</span>]</span>
+        <span class="name">apply</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.EncoderCompanion.apply.D">D</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>)</span><span class="result">: <a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.EncoderCompanion.apply.D">D</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       
-      <p class="shortcomment cmt">Summons an implicit instance of <code>StringEncoder[D]</code> if one can be found, fails compilation otherwise.</p>
+      <p class="shortcomment cmt">Summons an implicit instance of <a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> if one is found, fails compilation otherwise.</p><div class="fullcomment"><div class="comment cmt"><p>Summons an implicit instance of <a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> if one is found, fails compilation otherwise.</p><p>This is a slightly faster, less verbose version of <code>implicitly</code>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../EncoderCompanion.html" class="extype" name="kantan.codecs.EncoderCompanion">EncoderCompanion</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -361,7 +378,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.StringEncoder#dateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.PlatformSpecificEncoders#dateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="dateEncoder(format:java.text.DateFormat):kantan.codecs.strings.StringEncoder[java.util.Date]"></a><a id="dateEncoder(DateFormat):StringEncoder[Date]"></a>
       <span class="permalink">
       <a href="../../../kantan/codecs/strings/StringEncoder$.html#dateEncoder(format:java.text.DateFormat):kantan.codecs.strings.StringEncoder[java.util.Date]" title="Permalink">
@@ -376,7 +393,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">dateEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="java.text.DateFormat">DateFormat</span></span>)</span><span class="result">: <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a>[<span class="extype" name="java.util.Date">Date</span>]</span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PlatformSpecificEncoders.html" class="extype" name="kantan.codecs.strings.PlatformSpecificEncoders">PlatformSpecificEncoders</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -431,10 +448,10 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.StringEncoder#from" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="from[D](f:D=&gt;String):kantan.codecs.strings.StringEncoder[D]"></a><a id="from[D]((D)⇒String):StringEncoder[D]"></a>
+    </li><li name="kantan.codecs.EncoderCompanion#from" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="from[D](f:D=&gt;E):kantan.codecs.Encoder[E,D,T]"></a><a id="from[D]((D)⇒String):Encoder[String,D,codecs.type]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/strings/StringEncoder$.html#from[D](f:D=&gt;String):kantan.codecs.strings.StringEncoder[D]" title="Permalink">
+      <a href="../../../kantan/codecs/strings/StringEncoder$.html#from[D](f:D=&gt;E):kantan.codecs.Encoder[E,D,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -443,10 +460,13 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.strings.StringEncoder.from.D">D</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a>[<span class="extype" name="kantan.codecs.strings.StringEncoder.from.D">D</span>]</span>
+        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.EncoderCompanion.from.D">D</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.EncoderCompanion.from.D">D</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Creates a new instance of <a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> from the specified function.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new instance of <a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> from the specified function.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../EncoderCompanion.html" class="extype" name="kantan.codecs.EncoderCompanion">EncoderCompanion</a></dd><dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -665,7 +685,11 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="kantan.codecs.strings.PlatformSpecificEncoders">
+              <h3>Inherited from <a href="PlatformSpecificEncoders.html" class="extype" name="kantan.codecs.strings.PlatformSpecificEncoders">PlatformSpecificEncoders</a></h3>
+            </div><div class="parent" name="kantan.codecs.EncoderCompanion">
+              <h3>Inherited from <a href="../EncoderCompanion.html" class="extype" name="kantan.codecs.EncoderCompanion">EncoderCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>

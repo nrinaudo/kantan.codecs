@@ -151,6 +151,10 @@
                         <a href="OutputResource$.html" title="Provides instance summoning methods for OutputResource.">OutputResource</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificInstances.html" title="JVM specific instances of Resource."></a>
+                        <a href="PlatformSpecificInstances.html" title="JVM specific instances of Resource.">PlatformSpecificInstances</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="object" href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource."></a>
                         <a href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource.">ReaderResource</a>
                       </li><li class="current-entities indented3">
@@ -206,7 +210,7 @@
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a resource that can be opened and worked on.</p><p>The purpose of this trait is to abstract over the notion of &quot;things that can be opened&quot;, such as files, URLs...
 Default instances are provided for <code>java.io</code> types - <code>java.io.File</code>, for example, has instances for both
 opening it for reading and for writing.
-</p></div><dl class="paramcmts block"><dt class="tparam">I</dt><dd class="cmt"><p>type of the resource itself (eg <code>java.io.File</code>).</p></dd><dt class="tparam">R</dt><dd class="cmt"><p>type of the opened resource (eg <code>java.io.InputStream</code>)</p></dd></dl><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/resource/Resource.scala" target="_blank">Resource.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="tparam">I</dt><dd class="cmt"><p>type of the resource itself (eg <code>java.io.File</code>).</p></dd><dt class="tparam">R</dt><dd class="cmt"><p>type of the opened resource (eg <code>java.io.InputStream</code>)</p></dd></dl><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</dd><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/shared/src/main/scala/kantan/codecs/resource/Resource.scala" target="_blank">Resource.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -272,7 +276,7 @@ opening it for reading and for writing.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">open</span><span class="params">(<span name="input">input: <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="result">: <a href="index.html#OpenResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
+        <span class="name">open</span><span class="params">(<span name="input">input: <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="result">: <a href="index.html#OpenResult[A]=Either[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Opens the specified resource.</p>
@@ -386,10 +390,10 @@ opening it for reading and for writing.
       </span>
       
       
-    </li><li name="kantan.codecs.resource.Resource#contramapResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="contramapResult[II](f:II=&gt;kantan.codecs.resource.OpenResult[I]):kantan.codecs.resource.Resource[II,R]"></a><a id="contramapResult[II]((II)⇒OpenResult[I]):Resource[II,R]"></a>
+    </li><li name="kantan.codecs.resource.Resource#econtramap" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="econtramap[II](f:II=&gt;kantan.codecs.resource.OpenResult[I]):kantan.codecs.resource.Resource[II,R]"></a><a id="econtramap[II]((II)⇒OpenResult[I]):Resource[II,R]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/resource/Resource.html#contramapResult[II](f:II=&gt;kantan.codecs.resource.OpenResult[I]):kantan.codecs.resource.Resource[II,R]" title="Permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#econtramap[II](f:II=&gt;kantan.codecs.resource.OpenResult[I]):kantan.codecs.resource.Resource[II,R]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -398,7 +402,23 @@ opening it for reading and for writing.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">contramapResult</span><span class="tparams">[<span name="II">II</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.II">II</span>) ⇒ <a href="index.html#OpenResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.II">II</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
+        <span class="name">econtramap</span><span class="tparams">[<span name="II">II</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.econtramap.II">II</span>) ⇒ <a href="index.html#OpenResult[A]=Either[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.econtramap.II">II</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
+      </span>
+      
+      
+    </li><li name="kantan.codecs.resource.Resource#emap" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="emap[RR](f:R=&gt;kantan.codecs.resource.OpenResult[RR]):kantan.codecs.resource.Resource[I,RR]"></a><a id="emap[RR]((R)⇒OpenResult[RR]):Resource[I,RR]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#emap[RR](f:R=&gt;kantan.codecs.resource.OpenResult[RR]):kantan.codecs.resource.Resource[I,RR]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">emap</span><span class="tparams">[<span name="RR">RR</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <a href="index.html#OpenResult[A]=Either[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.emap.RR">RR</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.emap.RR">RR</span>]</span>
       </span>
       
       
@@ -523,22 +543,6 @@ opening it for reading and for writing.
       </span>
       <span class="symbol">
         <span class="name">map</span><span class="tparams">[<span name="RR">RR</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <span class="extype" name="kantan.codecs.resource.Resource.map.RR">RR</span></span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.map.RR">RR</span>]</span>
-      </span>
-      
-      
-    </li><li name="kantan.codecs.resource.Resource#mapResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="mapResult[RR](f:R=&gt;kantan.codecs.resource.OpenResult[RR]):kantan.codecs.resource.Resource[I,RR]"></a><a id="mapResult[RR]((R)⇒OpenResult[RR]):Resource[I,RR]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/resource/Resource.html#mapResult[RR](f:R=&gt;kantan.codecs.resource.OpenResult[RR]):kantan.codecs.resource.Resource[I,RR]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">mapResult</span><span class="tparams">[<span name="RR">RR</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <a href="index.html#OpenResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.mapResult.RR">RR</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.mapResult.RR">RR</span>]</span>
       </span>
       
       
@@ -708,11 +712,11 @@ opening it for reading and for writing.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">withResource</span><span class="tparams">[<span name="O">O</span>]</span><span class="params">(<span name="input">input: <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <a href="index.html#ProcessResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.ProcessError,A]" class="extmbr" name="kantan.codecs.resource.ProcessResult">ProcessResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.withResource.O">O</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="c">c: <a href="Closeable.html" class="extype" name="kantan.codecs.resource.Closeable">Closeable</a>[<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>)</span><span class="result">: <a href="index.html#ResourceResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError,A]" class="extmbr" name="kantan.codecs.resource.ResourceResult">ResourceResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.withResource.O">O</span>]</span>
+        <span class="name">withResource</span><span class="tparams">[<span name="O">O</span>]</span><span class="params">(<span name="input">input: <span class="extype" name="kantan.codecs.resource.Resource.I">I</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <a href="index.html#ProcessResult[A]=Either[kantan.codecs.resource.ResourceError.ProcessError,A]" class="extmbr" name="kantan.codecs.resource.ProcessResult">ProcessResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.withResource.O">O</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="c">c: <a href="Closeable.html" class="extype" name="kantan.codecs.resource.Closeable">Closeable</a>[<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>)</span><span class="result">: <a href="index.html#ResourceResult[A]=Either[kantan.codecs.resource.ResourceError,A]" class="extmbr" name="kantan.codecs.resource.ResourceResult">ResourceResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.withResource.O">O</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Opens the specified resource and applies the specified function to its content.</p><div class="fullcomment"><div class="comment cmt"><p>Opens the specified resource and applies the specified function to its content.</p><p>The resource will be closed regardless of whether <code>f</code> fails. Note that <code>f</code> is expected to be safe - it cannot
-throw but should instead wrap all errors in a <a href="index.html#ProcessResult[A]=kantan.codecs.Result[kantan.codecs.resource.ResourceError.ProcessError,A]" class="extmbr" name="kantan.codecs.resource.ProcessResult">ProcessResult</a>.
+throw but should instead wrap all errors in a <a href="index.html#ProcessResult[A]=Either[kantan.codecs.resource.ResourceError.ProcessError,A]" class="extmbr" name="kantan.codecs.resource.ProcessResult">ProcessResult</a>.
 </p></div></div>
     </li>
               </ol>
@@ -720,7 +724,48 @@ throw but should instead wrap all errors in a <a href="index.html#ProcessResult[
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="kantan.codecs.resource.Resource#contramapResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="contramapResult[II](f:II=&gt;kantan.codecs.resource.OpenResult[I]):kantan.codecs.resource.Resource[II,R]"></a><a id="contramapResult[II]((II)⇒OpenResult[I]):Resource[II,R]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#contramapResult[II](f:II=&gt;kantan.codecs.resource.OpenResult[I]):kantan.codecs.resource.Resource[II,R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.3.1) Use econtramap instead">contramapResult</span><span class="tparams">[<span name="II">II</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.II">II</span>) ⇒ <a href="index.html#OpenResult[A]=Either[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.contramapResult.II">II</span>, <span class="extype" name="kantan.codecs.resource.Resource.R">R</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.3.1)</i> Use econtramap instead</p></dd></dl></div>
+    </li><li name="kantan.codecs.resource.Resource#mapResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="mapResult[RR](f:R=&gt;kantan.codecs.resource.OpenResult[RR]):kantan.codecs.resource.Resource[I,RR]"></a><a id="mapResult[RR]((R)⇒OpenResult[RR]):Resource[I,RR]"></a>
+      <span class="permalink">
+      <a href="../../../kantan/codecs/resource/Resource.html#mapResult[RR](f:R=&gt;kantan.codecs.resource.OpenResult[RR]):kantan.codecs.resource.Resource[I,RR]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 0.3.1) Use emap instead">mapResult</span><span class="tparams">[<span name="RR">RR</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.resource.Resource.R">R</span>) ⇒ <a href="index.html#OpenResult[A]=Either[kantan.codecs.resource.ResourceError.OpenError,A]" class="extmbr" name="kantan.codecs.resource.OpenResult">OpenResult</a>[<span class="extype" name="kantan.codecs.resource.Resource.mapResult.RR">RR</span>]</span>)</span><span class="result">: <a href="" class="extype" name="kantan.codecs.resource.Resource">Resource</a>[<span class="extype" name="kantan.codecs.resource.Resource.I">I</span>, <span class="extype" name="kantan.codecs.resource.Resource.mapResult.RR">RR</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.3.1)</i> Use emap instead</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">

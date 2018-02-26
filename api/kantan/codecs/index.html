@@ -133,6 +133,22 @@
       </span>
       
       
+    </li><li name="kantan.codecs.enumeratum" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="enumeratum"></a><a id="enumeratum:enumeratum"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#enumeratum" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="enumeratum/index.html"><span class="name">enumeratum</span></a>
+      </span>
+      
+      
     </li><li name="kantan.codecs.error" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="error"></a><a id="error:error"></a>
       <span class="permalink">
@@ -186,6 +202,22 @@ if no other, more specific instance is found.
       </span>
       
       
+    </li><li name="kantan.codecs.libra" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="libra"></a><a id="libra:libra"></a>
+      <span class="permalink">
+      <a href="../../kantan/codecs/index.html#libra" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Provides codecs for https://to-ithaca.github.io/libra/ types." href="libra/index.html"><span class="name">libra</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Provides codecs for <a href="https://to-ithaca.github.io/libra/" target="_blank">https://to-ithaca.github.io/libra/</a> types.</p>
     </li><li name="kantan.codecs.refined" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="refined"></a><a id="refined:refined"></a>
       <span class="permalink">
@@ -215,22 +247,6 @@ if no other, more specific instance is found.
       </span>
       <span class="symbol">
         <a title="" href="resource/index.html"><span class="name">resource</span></a>
-      </span>
-      
-      
-    </li><li name="kantan.codecs.scalatest" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="scalatest"></a><a id="scalatest:scalatest"></a>
-      <span class="permalink">
-      <a href="../../kantan/codecs/index.html#scalatest" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="scalatest/index.html"><span class="name">scalatest</span></a>
       </span>
       
       
@@ -314,9 +330,9 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                         <a class="trait" href="Optional.html" title="Type class that represents data types that have an &quot;empty&quot; value."></a>
                         <a href="Optional.html" title="Type class that represents data types that have an &quot;empty&quot; value.">Optional</a>
                       </li><li class="current-entities indented2">
+                        <span class="separator"></span>
                         <a class="object" href="Result$.html" title=""></a>
-                        <a class="class" href="Result.html" title="Represents the result of a decode operation"></a>
-                        <a href="Result.html" title="Represents the result of a decode operation">Result</a>
+                        <a href="Result$.html" title="">Result</a>
                       </li><li class="current-entities indented2">
                         <span class="separator"></span>
                         <a class="object" href="ResultCompanion$.html" title="Provides trait that result companion object can extend."></a>
@@ -507,23 +523,6 @@ example. <a href="DecoderCompanion.html" class="extype" name="kantan.codecs.Deco
       <p class="shortcomment cmt">Type class that represents data types that have an &quot;empty&quot; value.</p><div class="fullcomment"><div class="comment cmt"><p>Type class that represents data types that have an &quot;empty&quot; value.</p><p>The purpose of this type class is to allow automatic derivation of <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> for decoded types that might not
 have a value - <code>Option</code>, <code>List</code>...</p><p>In theory, there should rarely be a need to interact directly with this type class, and one is usually better
 served by obtaining the <a href="Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance for <code>Option</code> and mapping on it.</p></div></div>
-    </li><li name="kantan.codecs.Result" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="Result[+F,+S]extendsProductwithSerializable"></a><a id="Result[+F,+S]:Result[F,S]"></a>
-      <span class="permalink">
-      <a href="../../kantan/codecs/index.html#Result[+F,+S]extendsProductwithSerializable" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">sealed abstract </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a title="Represents the result of a decode operation" href="Result.html"><span class="name">Result</span></a><span class="tparams">[<span name="F">+F</span>, <span name="S">+S</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Represents the result of a decode operation</p><div class="fullcomment"><div class="comment cmt"><p>Represents the result of a decode operation</p><p>This is very similar to <code>Either</code>, with a few more bells and whistles and a more specific type. It's also much
-more convenient to use in for-comprehensions, as it has proper <a href="Result.html#map[SS](f:S=&gt;SS):kantan.codecs.Result[F,SS]" class="extmbr" name="kantan.codecs.Result#map">map</a> and <a href="Result.html#flatMap[FF&gt;:F,SS](f:S=&gt;kantan.codecs.Result[FF,SS]):kantan.codecs.Result[FF,SS]" class="extmbr" name="kantan.codecs.Result#flatMap">flatMap</a> methods.</p></div></div>
     </li></ol>
             </div>
 
@@ -608,7 +607,7 @@ more convenient to use in for-comprehensions, as it has proper <a href="Result.h
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Result$.html"><span class="name">Result</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="Result$.html"><span class="name">Result</span></a>
       </span>
       
       

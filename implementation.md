@@ -28,13 +28,13 @@ object DecodeError {
 }
 ```
 
-[`Decoder`] instances will be specialised on that error type: they will return instances of `Result[DecodeError, A]`.
-It's good form to "hide" [`Result`] as much as possible though, and a type alias should be declared:
+[`Decoder`] instances will be specialised on that error type: they will return instances of `Either[DecodeError, A]`.
+It's good form to "hide" `Either` as much as possible though, and a type alias should be declared:
 
 ```scala
 import kantan.codecs._
 
-type DecodeResult[A] = Result[DecodeError, A]
+type DecodeResult[A] = Either[DecodeError, A]
 ```
 
 Additionally, a singleton object for the specialised result type should be created to provide instance creation
@@ -42,9 +42,9 @@ methods:
 
 ```scala
 object DecodeResult {
-  def apply[A](a: => A): DecodeResult[A] = Result.nonFatal(a).leftMap(TypeError.apply)
-  def success[A](a: A): DecodeResult[A] = Result.success(a)
-  def outOfBounds(index: Int): DecodeResult[Nothing] = Result.failure(OutOfBounds(index))
+  def apply[A](a: => A): DecodeResult[A] = Result.nonFatal(a).left.map(TypeError.apply)
+  def success[A](a: A): DecodeResult[A] = Right(a)
+  def outOfBounds(index: Int): DecodeResult[Nothing] = Left(OutOfBounds(index))
 }
 ```
 
@@ -144,7 +144,7 @@ In order to write default instances for `Option`, one might be tempted to write:
 ```scala
 def optionCodec[A](implicit ca: CellCodec[A]): CellCodec[Option[A]] = CellCodec.from { s =>
   if(s.isEmpty) DecodeResult.success(Option.empty[A])
-  else          ca.decode(s).map(Some.apply)
+  else          ca.decode(s).right.map(Some.apply)
 } { _.map(ca.encode).getOrElse("") }
 ```
 
@@ -166,7 +166,4 @@ simpler but unsafe `string`.
 [`Encoder`]:{{ site.baseurl }}/api/#kantan.codecs.Encoder
 [`Codec`]:{{ site.baseurl }}/api/#kantan.codecs.Codec
 [`Throwable`]:https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html
-[`Result`]:{{ site.baseurl }}/api/#kantan.codecs.Result
-[`Success`]:{{ site.baseurl }}/api/#kantan.codecs.Result$$Success
-[`Failure`]:{{ site.baseurl }}/api/#kantan.codecs.Result$$Failure
 [`copy`]:{{ site.baseurl }}/api/#kantan.codecs.Decoder@copy[DD](f:E=>kantan.codecs.Result[F,DD]):R[DD]

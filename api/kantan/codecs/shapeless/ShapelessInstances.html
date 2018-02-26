@@ -169,7 +169,7 @@
 kantan.regex) focus on providing instances for <code>HList</code> and <code>Coproduct</code>. Once such instances exist, this package
 will take care of the transformation from and to case classes and sum types.</p><p>Additionally, instances derived that way will be inserted with a sane precedence in the implicit resolution
 mechanism. This means, for example, that they will not override bespoke <code>Option</code> or <code>Either</code> instances.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/shapeless/src/main/scala/kantan/codecs/shapeless/ShapelessInstances.scala" target="_blank">ShapelessInstances.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/shapeless/core/shared/src/main/scala/kantan/codecs/shapeless/ShapelessInstances.scala" target="_blank">ShapelessInstances.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -384,18 +384,18 @@ there.
               
         </dd></dl></div>
     </li><li name="kantan.codecs.shapeless.ShapelessInstances#cnilDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="cnilDecoder[E,F,T](f:E=&gt;F):kantan.codecs.Decoder[E,shapeless.CNil,F,T]"></a><a id="cnilDecoder[E,F,T]((E)⇒F):Decoder[E,CNil,F,T]"></a>
+      <a id="cnilDecoder[E,F,T](implicitevidence$1:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,shapeless.CNil,F,T]"></a><a id="cnilDecoder[E,F,T](IsError[F]):Decoder[E,CNil,F,T]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/shapeless/ShapelessInstances.html#cnilDecoder[E,F,T](f:E=&gt;F):kantan.codecs.Decoder[E,shapeless.CNil,F,T]" title="Permalink">
+      <a href="../../../kantan/codecs/shapeless/ShapelessInstances.html#cnilDecoder[E,F,T](implicitevidence$1:kantan.codecs.error.IsError[F]):kantan.codecs.Decoder[E,shapeless.CNil,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">cnilDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.E">E</span>) ⇒ <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span></span>)</span><span class="result">: <a href="../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.E">E</span>, <span class="extype" name="shapeless.CNil">CNil</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.T">T</span>]</span>
+        <span class="name">cnilDecoder</span><span class="tparams">[<span name="E">E</span>, <span name="F">F</span>, <span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../error/IsError.html" class="extype" name="kantan.codecs.error.IsError">IsError</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span>]</span>)</span><span class="result">: <a href="../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.E">E</span>, <span class="extype" name="shapeless.CNil">CNil</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.F">F</span>, <span class="extype" name="kantan.codecs.shapeless.ShapelessInstances.cnilDecoder.T">T</span>]</span>
       </span>
       
       

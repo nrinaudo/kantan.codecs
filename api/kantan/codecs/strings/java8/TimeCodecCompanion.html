@@ -154,20 +154,32 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs.strings.java8">java8</a></dd></dl></div>
     </li><li class="current-entities indented4">
                         <a class="object" href="Format$.html" title=""></a>
-                        <a class="trait" href="Format.html" title=""></a>
-                        <a href="Format.html" title="">Format</a>
+                        <a class="trait" href="Format.html" title="Serializable wrapper around DateTimeFormatter."></a>
+                        <a href="Format.html" title="Serializable wrapper around DateTimeFormatter.">Format</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="" title=""></a>
-                        <a href="" title="">TimeCodecCompanion</a>
+                        <a class="class" href="ToFormatLiteral$FormatStringContext.html" title=""></a>
+                        <a href="ToFormatLiteral$FormatStringContext.html" title="">FormatStringContext</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="TimeDecoderCompanion.html" title=""></a>
-                        <a href="TimeDecoderCompanion.html" title="">TimeDecoderCompanion</a>
+                        <a class="object" href="FormatVerifier$.html" title=""></a>
+                        <a href="FormatVerifier$.html" title="">FormatVerifier</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="TimeEncoderCompanion.html" title=""></a>
-                        <a href="TimeEncoderCompanion.html" title="">TimeEncoderCompanion</a>
+                        <a class="trait" href="" title="Provides useful methods for a java8 time codec companions."></a>
+                        <a href="" title="Provides useful methods for a java8 time codec companions.">TimeCodecCompanion</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="TimeDecoderCompanion.html" title="Provides useful methods for a java8 time decoder companions."></a>
+                        <a href="TimeDecoderCompanion.html" title="Provides useful methods for a java8 time decoder companions.">TimeDecoderCompanion</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="TimeEncoderCompanion.html" title="Provides useful methods for a java8 time encoder companions."></a>
+                        <a href="TimeEncoderCompanion.html" title="Provides useful methods for a java8 time encoder companions.">TimeEncoderCompanion</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="ToFormatLiteral.html" title=""></a>
+                        <a href="ToFormatLiteral.html" title="">ToFormatLiteral</a>
                       </li>
               </ul>
             </div>
@@ -196,7 +208,9 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/java8/src/main/scala/kantan/codecs/strings/java8/TimeCodecCompanion.scala" target="_blank">TimeCodecCompanion.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides useful methods for a java8 time codec companions.</p><p>Usage note: when declaring default implicit instances, be sure to wrap them in an <a href="../../export/Exported.html" class="extype" name="kantan.codecs.export.Exported">export.Exported</a>. Otherwise,
+custom instances and default ones are very likely to conflict.
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/java8/core/src/main/scala/kantan/codecs/strings/java8/TimeCodecCompanion.scala" target="_blank">TimeCodecCompanion.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -376,22 +390,6 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#defaultInstantCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="defaultInstantCodec:kantan.codecs.Codec[E,java.time.Instant,F,T]"></a><a id="defaultInstantCodec:Codec[E,Instant,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#defaultInstantCodec:kantan.codecs.Codec[E,java.time.Instant,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">defaultInstantCodec</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#defaultInstantDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultInstantDecoder:kantan.codecs.Decoder[E,java.time.Instant,F,T]"></a><a id="defaultInstantDecoder:Decoder[E,Instant,F,T]"></a>
       <span class="permalink">
@@ -407,7 +405,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultInstantDecoder</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultInstantFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultInstantFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultInstantFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultInstantFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultInstantDecoder
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, Instant] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#defaultInstantEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultInstantEncoder:kantan.codecs.Encoder[E,java.time.Instant,T]"></a><a id="defaultInstantEncoder:Encoder[E,Instant,T]"></a>
       <span class="permalink">
@@ -423,23 +433,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultInstantEncoder</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#defaultLocalDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="defaultLocalDateCodec:kantan.codecs.Codec[E,java.time.LocalDate,F,T]"></a><a id="defaultLocalDateCodec:Codec[E,LocalDate,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#defaultLocalDateCodec:kantan.codecs.Codec[E,java.time.LocalDate,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">defaultLocalDateCodec</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultInstantFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultInstantFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultInstantFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultInstantFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.defaultInstantEncoder
+     |   .encode(Instant.parse(<span class="lit">"2000-01-01T12:00:00.000Z"</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#defaultLocalDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultLocalDateDecoder:kantan.codecs.Decoder[E,java.time.LocalDate,F,T]"></a><a id="defaultLocalDateDecoder:Decoder[E,LocalDate,F,T]"></a>
       <span class="permalink">
@@ -455,7 +461,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultLocalDateDecoder</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalDateFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalDateFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalDateFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalDateFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultLocalDateDecoder
+     |   .decode(<span class="lit">"2000-01-01"</span>)
+res1: Either[DecodeError, LocalDate] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#defaultLocalDateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultLocalDateEncoder:kantan.codecs.Encoder[E,java.time.LocalDate,T]"></a><a id="defaultLocalDateEncoder:Encoder[E,LocalDate,T]"></a>
       <span class="permalink">
@@ -471,23 +489,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultLocalDateEncoder</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#defaultLocalDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="defaultLocalDateTimeCodec:kantan.codecs.Codec[E,java.time.LocalDateTime,F,T]"></a><a id="defaultLocalDateTimeCodec:Codec[E,LocalDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#defaultLocalDateTimeCodec:kantan.codecs.Codec[E,java.time.LocalDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">defaultLocalDateTimeCodec</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultLocalDateFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalDateFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultLocalDateFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalDateFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.defaultLocalDateEncoder
+     |   .encode(LocalDate.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span></pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#defaultLocalDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultLocalDateTimeDecoder:kantan.codecs.Decoder[E,java.time.LocalDateTime,F,T]"></a><a id="defaultLocalDateTimeDecoder:Decoder[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
@@ -503,7 +517,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultLocalDateTimeDecoder</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalDateTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalDateTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultLocalDateTimeDecoder
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000"</span>)
+res1: Either[DecodeError, LocalDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#defaultLocalDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultLocalDateTimeEncoder:kantan.codecs.Encoder[E,java.time.LocalDateTime,T]"></a><a id="defaultLocalDateTimeEncoder:Encoder[E,LocalDateTime,T]"></a>
       <span class="permalink">
@@ -519,23 +545,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultLocalDateTimeEncoder</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#defaultLocalTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="defaultLocalTimeCodec:kantan.codecs.Codec[E,java.time.LocalTime,F,T]"></a><a id="defaultLocalTimeCodec:Codec[E,LocalTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#defaultLocalTimeCodec:kantan.codecs.Codec[E,java.time.LocalTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">defaultLocalTimeCodec</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultLocalDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalDateTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultLocalDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalDateTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.defaultLocalDateTimeEncoder
+     |   .encode(LocalDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span></pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#defaultLocalTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultLocalTimeDecoder:kantan.codecs.Decoder[E,java.time.LocalTime,F,T]"></a><a id="defaultLocalTimeDecoder:Decoder[E,LocalTime,F,T]"></a>
       <span class="permalink">
@@ -551,7 +573,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultLocalTimeDecoder</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultLocalTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultLocalTimeDecoder
+     |   .decode(<span class="lit">"12:00:00.000"</span>)
+res1: Either[DecodeError, LocalTime] = Right(<span class="num">12</span>:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#defaultLocalTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultLocalTimeEncoder:kantan.codecs.Encoder[E,java.time.LocalTime,T]"></a><a id="defaultLocalTimeEncoder:Encoder[E,LocalTime,T]"></a>
       <span class="permalink">
@@ -567,23 +601,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultLocalTimeEncoder</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#defaultOffsetDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="defaultOffsetDateTimeCodec:kantan.codecs.Codec[E,java.time.OffsetDateTime,F,T]"></a><a id="defaultOffsetDateTimeCodec:Codec[E,OffsetDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#defaultOffsetDateTimeCodec:kantan.codecs.Codec[E,java.time.OffsetDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">defaultOffsetDateTimeCodec</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultLocalTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultLocalTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultLocalTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.defaultLocalTimeEncoder
+     |   .encode(LocalTime.of(<span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">12</span>:<span class="num">00</span>:<span class="num">00</span></pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#defaultOffsetDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultOffsetDateTimeDecoder:kantan.codecs.Decoder[E,java.time.OffsetDateTime,F,T]"></a><a id="defaultOffsetDateTimeDecoder:Decoder[E,OffsetDateTime,F,T]"></a>
       <span class="permalink">
@@ -599,7 +629,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultOffsetDateTimeDecoder</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultOffsetDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultOffsetDateTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultOffsetDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultOffsetDateTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultOffsetDateTimeDecoder
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, OffsetDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#defaultOffsetDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultOffsetDateTimeEncoder:kantan.codecs.Encoder[E,java.time.OffsetDateTime,T]"></a><a id="defaultOffsetDateTimeEncoder:Encoder[E,OffsetDateTime,T]"></a>
       <span class="permalink">
@@ -615,23 +657,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultOffsetDateTimeEncoder</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#defaultZonedDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="defaultZonedDateTimeCodec:kantan.codecs.Codec[E,java.time.ZonedDateTime,F,T]"></a><a id="defaultZonedDateTimeCodec:Codec[E,ZonedDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#defaultZonedDateTimeCodec:kantan.codecs.Codec[E,java.time.ZonedDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">defaultZonedDateTimeCodec</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultOffsetDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultOffsetDateTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultOffsetDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultOffsetDateTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.defaultOffsetDateTimeEncoder
+     |   .encode(OffsetDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#defaultZonedDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultZonedDateTimeDecoder:kantan.codecs.Decoder[E,java.time.ZonedDateTime,F,T]"></a><a id="defaultZonedDateTimeDecoder:Decoder[E,ZonedDateTime,F,T]"></a>
       <span class="permalink">
@@ -647,7 +685,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultZonedDateTimeDecoder</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultZonedDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultZonedDateTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance using the <a href="Format$.html#defaultZonedDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultZonedDateTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.defaultZonedDateTimeDecoder
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, ZonedDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#defaultZonedDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="defaultZonedDateTimeEncoder:kantan.codecs.Encoder[E,java.time.ZonedDateTime,T]"></a><a id="defaultZonedDateTimeEncoder:Encoder[E,ZonedDateTime,T]"></a>
       <span class="permalink">
@@ -663,7 +713,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">defaultZonedDateTimeEncoder</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultZonedDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultZonedDateTimeFormat">default format</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance using the <a href="Format$.html#defaultZonedDateTimeFormat:kantan.codecs.strings.java8.Format" class="extmbr" name="kantan.codecs.strings.java8.Format#defaultZonedDateTimeFormat">default format</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.defaultZonedDateTimeEncoder
+     |   .encode(ZonedDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -756,7 +818,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#instantCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#instantCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="instantCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.Instant,F,T]"></a><a id="instantCodec(Format):Codec[E,Instant,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#instantCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.Instant,F,T]" title="Permalink">
@@ -771,8 +833,25 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">instantCodec</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#instantCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.instantCodec(Format(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC)))
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(Instant.parse(<span class="lit">"2000-01-01T12:00:00.000Z"</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, Instant] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#instantCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="instantCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.Instant,F,T]"></a><a id="instantCodec(⇒DateTimeFormatter):Codec[E,Instant,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#instantCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.Instant,F,T]" title="Permalink">
@@ -787,23 +866,24 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">instantCodec</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#instantCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="instantCodec(format:String):kantan.codecs.Codec[E,java.time.Instant,F,T]"></a><a id="instantCodec(String):Codec[E,Instant,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#instantCodec(format:String):kantan.codecs.Codec[E,java.time.Instant,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">instantCodec</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.instantCodec(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC))
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(Instant.parse(<span class="lit">"2000-01-01T12:00:00.000Z"</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, Instant] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#instantDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="instantDecoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Decoder[E,java.time.Instant,F,T]"></a><a id="instantDecoder(Format):Decoder[E,Instant,F,T]"></a>
       <span class="permalink">
@@ -819,7 +899,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">instantDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.instantDecoder(Format(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC)))
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, Instant] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#instantDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="instantDecoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,java.time.Instant,F,T]"></a><a id="instantDecoder(⇒DateTimeFormatter):Decoder[E,Instant,F,T]"></a>
       <span class="permalink">
@@ -835,23 +927,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">instantDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#instantDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="instantDecoder(format:String):kantan.codecs.Decoder[E,java.time.Instant,F,T]"></a><a id="instantDecoder(String):Decoder[E,Instant,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#instantDecoder(format:String):kantan.codecs.Decoder[E,java.time.Instant,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">instantDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.instantDecoder(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC))
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, Instant] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#instantEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="instantEncoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Encoder[E,java.time.Instant,T]"></a><a id="instantEncoder(Format):Encoder[E,Instant,T]"></a>
       <span class="permalink">
@@ -867,7 +955,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">instantEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.instantEncoder(Format(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC)))
+     |   .encode(Instant.parse(<span class="lit">"2000-01-01T12:00:00.000Z"</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#instantEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="instantEncoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,java.time.Instant,T]"></a><a id="instantEncoder(⇒DateTimeFormatter):Encoder[E,Instant,T]"></a>
       <span class="permalink">
@@ -883,23 +983,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">instantEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#instantEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="instantEncoder(format:String):kantan.codecs.Encoder[E,java.time.Instant,T]"></a><a id="instantEncoder(String):Encoder[E,Instant,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#instantEncoder(format:String):kantan.codecs.Encoder[E,java.time.Instant,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">instantEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.Instant">Instant</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.instantEncoder(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC))
+     |   .encode(Instant.parse(<span class="lit">"2000-01-01T12:00:00.000Z"</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -916,7 +1012,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.LocalDate,F,T]"></a><a id="localDateCodec(Format):Codec[E,LocalDate,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.LocalDate,F,T]" title="Permalink">
@@ -931,8 +1027,25 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateCodec</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.localDateCodec(fmt<span class="lit">"yyyy-MM-DD"</span>)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(LocalDate.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, LocalDate] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.LocalDate,F,T]"></a><a id="localDateCodec(⇒DateTimeFormatter):Codec[E,LocalDate,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.LocalDate,F,T]" title="Permalink">
@@ -947,23 +1060,24 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateCodec</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="localDateCodec(format:String):kantan.codecs.Codec[E,java.time.LocalDate,F,T]"></a><a id="localDateCodec(String):Codec[E,LocalDate,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateCodec(format:String):kantan.codecs.Codec[E,java.time.LocalDate,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localDateCodec</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.localDateCodec(DateTimeFormatter.ISO_LOCAL_DATE)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(LocalDate.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, LocalDate] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateDecoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Decoder[E,java.time.LocalDate,F,T]"></a><a id="localDateDecoder(Format):Decoder[E,LocalDate,F,T]"></a>
       <span class="permalink">
@@ -979,7 +1093,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localDateDecoder(fmt<span class="lit">"yyyy-MM-DD"</span>)
+     |   .decode(<span class="lit">"2000-01-01"</span>)
+res1: Either[DecodeError, LocalDate] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateDecoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,java.time.LocalDate,F,T]"></a><a id="localDateDecoder(⇒DateTimeFormatter):Decoder[E,LocalDate,F,T]"></a>
       <span class="permalink">
@@ -995,23 +1121,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#localDateDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localDateDecoder(format:String):kantan.codecs.Decoder[E,java.time.LocalDate,F,T]"></a><a id="localDateDecoder(String):Decoder[E,LocalDate,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateDecoder(format:String):kantan.codecs.Decoder[E,java.time.LocalDate,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localDateDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localDateDecoder(DateTimeFormatter.ISO_LOCAL_DATE)
+     |   .decode(<span class="lit">"2000-01-01"</span>)
+res1: Either[DecodeError, LocalDate] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#localDateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateEncoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Encoder[E,java.time.LocalDate,T]"></a><a id="localDateEncoder(Format):Encoder[E,LocalDate,T]"></a>
       <span class="permalink">
@@ -1027,7 +1149,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.localDateEncoder(fmt<span class="lit">"yyyy-MM-DD"</span>)
+     |   .encode(LocalDate.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span></pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#localDateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateEncoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,java.time.LocalDate,T]"></a><a id="localDateEncoder(⇒DateTimeFormatter):Encoder[E,LocalDate,T]"></a>
       <span class="permalink">
@@ -1043,24 +1177,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#localDateEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localDateEncoder(format:String):kantan.codecs.Encoder[E,java.time.LocalDate,T]"></a><a id="localDateEncoder(String):Encoder[E,LocalDate,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateEncoder(format:String):kantan.codecs.Encoder[E,java.time.LocalDate,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localDateEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDate">LocalDate</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.localDateEncoder(DateTimeFormatter.ISO_LOCAL_DATE)
+     |   .encode(LocalDate.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span></pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateTimeCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.LocalDateTime,F,T]"></a><a id="localDateTimeCodec(Format):Codec[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateTimeCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.LocalDateTime,F,T]" title="Permalink">
@@ -1075,8 +1205,25 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateTimeCodec</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.localDateTimeCodec(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSS"</span>)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(LocalDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, LocalDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateTimeCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.LocalDateTime,F,T]"></a><a id="localDateTimeCodec(⇒DateTimeFormatter):Codec[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateTimeCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.LocalDateTime,F,T]" title="Permalink">
@@ -1091,23 +1238,24 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateTimeCodec</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="localDateTimeCodec(format:String):kantan.codecs.Codec[E,java.time.LocalDateTime,F,T]"></a><a id="localDateTimeCodec(String):Codec[E,LocalDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateTimeCodec(format:String):kantan.codecs.Codec[E,java.time.LocalDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localDateTimeCodec</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.localDateTimeCodec(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(LocalDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, LocalDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateTimeDecoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Decoder[E,java.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(Format):Decoder[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
@@ -1123,7 +1271,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localDateTimeDecoder(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSS"</span>)
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000"</span>)
+res1: Either[DecodeError, LocalDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateTimeDecoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,java.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(⇒DateTimeFormatter):Decoder[E,LocalDateTime,F,T]"></a>
       <span class="permalink">
@@ -1139,23 +1299,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#localDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localDateTimeDecoder(format:String):kantan.codecs.Decoder[E,java.time.LocalDateTime,F,T]"></a><a id="localDateTimeDecoder(String):Decoder[E,LocalDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateTimeDecoder(format:String):kantan.codecs.Decoder[E,java.time.LocalDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localDateTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localDateTimeDecoder(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000"</span>)
+res1: Either[DecodeError, LocalDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#localDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateTimeEncoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Encoder[E,java.time.LocalDateTime,T]"></a><a id="localDateTimeEncoder(Format):Encoder[E,LocalDateTime,T]"></a>
       <span class="permalink">
@@ -1171,7 +1327,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateTimeEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.localDateTimeEncoder(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSS"</span>)
+     |   .encode(LocalDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span></pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#localDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localDateTimeEncoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,java.time.LocalDateTime,T]"></a><a id="localDateTimeEncoder(⇒DateTimeFormatter):Encoder[E,LocalDateTime,T]"></a>
       <span class="permalink">
@@ -1187,24 +1355,20 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localDateTimeEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#localDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localDateTimeEncoder(format:String):kantan.codecs.Encoder[E,java.time.LocalDateTime,T]"></a><a id="localDateTimeEncoder(String):Encoder[E,LocalDateTime,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localDateTimeEncoder(format:String):kantan.codecs.Encoder[E,java.time.LocalDateTime,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localDateTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalDateTime">LocalDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.localDateTimeEncoder(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+     |   .encode(LocalDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span></pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localTimeCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.LocalTime,F,T]"></a><a id="localTimeCodec(Format):Codec[E,LocalTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localTimeCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.LocalTime,F,T]" title="Permalink">
@@ -1219,8 +1383,25 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localTimeCodec</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.localTimeCodec(fmt<span class="lit">"HH:mm:ss.SSS"</span>)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(LocalTime.of(<span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">12</span>:<span class="num">00</span>:<span class="num">00.000</span>
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, LocalTime] = Right(<span class="num">12</span>:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localTimeCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.LocalTime,F,T]"></a><a id="localTimeCodec(⇒DateTimeFormatter):Codec[E,LocalTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localTimeCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.LocalTime,F,T]" title="Permalink">
@@ -1235,23 +1416,24 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localTimeCodec</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#localTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="localTimeCodec(format:String):kantan.codecs.Codec[E,java.time.LocalTime,F,T]"></a><a id="localTimeCodec(String):Codec[E,LocalTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localTimeCodec(format:String):kantan.codecs.Codec[E,java.time.LocalTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localTimeCodec</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.localTimeCodec(DateTimeFormatter.ISO_LOCAL_TIME)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(LocalTime.of(<span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">12</span>:<span class="num">00</span>:<span class="num">00.000</span>
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, LocalTime] = Right(<span class="num">12</span>:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localTimeDecoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Decoder[E,java.time.LocalTime,F,T]"></a><a id="localTimeDecoder(Format):Decoder[E,LocalTime,F,T]"></a>
       <span class="permalink">
@@ -1267,7 +1449,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localTimeDecoder(fmt<span class="lit">"HH:mm:ss.SSS"</span>)
+     |   .decode(<span class="lit">"12:00:00.000"</span>)
+res1: Either[DecodeError, LocalTime] = Right(<span class="num">12</span>:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localTimeDecoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,java.time.LocalTime,F,T]"></a><a id="localTimeDecoder(⇒DateTimeFormatter):Decoder[E,LocalTime,F,T]"></a>
       <span class="permalink">
@@ -1283,23 +1477,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#localTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localTimeDecoder(format:String):kantan.codecs.Decoder[E,java.time.LocalTime,F,T]"></a><a id="localTimeDecoder(String):Decoder[E,LocalTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localTimeDecoder(format:String):kantan.codecs.Decoder[E,java.time.LocalTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.localTimeDecoder(DateTimeFormatter.ISO_LOCAL_TIME)
+     |   .decode(<span class="lit">"12:00:00.000"</span>)
+res1: Either[DecodeError, LocalTime] = Right(<span class="num">12</span>:<span class="num">00</span>)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#localTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localTimeEncoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Encoder[E,java.time.LocalTime,T]"></a><a id="localTimeEncoder(Format):Encoder[E,LocalTime,T]"></a>
       <span class="permalink">
@@ -1315,7 +1505,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localTimeEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.localTimeEncoder(fmt<span class="lit">"HH:mm:ss.SSS"</span>)
+     |   .encode(LocalTime.of(<span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">12</span>:<span class="num">00</span>:<span class="num">00.000</span></pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#localTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="localTimeEncoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,java.time.LocalTime,T]"></a><a id="localTimeEncoder(⇒DateTimeFormatter):Encoder[E,LocalTime,T]"></a>
       <span class="permalink">
@@ -1331,23 +1533,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">localTimeEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#localTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="localTimeEncoder(format:String):kantan.codecs.Encoder[E,java.time.LocalTime,T]"></a><a id="localTimeEncoder(String):Encoder[E,LocalTime,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#localTimeEncoder(format:String):kantan.codecs.Encoder[E,java.time.LocalTime,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">localTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.LocalTime">LocalTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.localTimeEncoder(DateTimeFormatter.ISO_LOCAL_TIME)
+     |   .encode(LocalTime.of(<span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>))
+res1: <span class="std">String</span> = <span class="num">12</span>:<span class="num">00</span>:<span class="num">00</span></pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -1402,7 +1600,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#offsetDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#offsetDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="offsetDateTimeCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.OffsetDateTime,F,T]"></a><a id="offsetDateTimeCodec(Format):Codec[E,OffsetDateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#offsetDateTimeCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.OffsetDateTime,F,T]" title="Permalink">
@@ -1417,8 +1615,25 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">offsetDateTimeCodec</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#offsetDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.offsetDateTimeCodec(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSSXX"</span>)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(OffsetDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>Z
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, OffsetDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#offsetDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="offsetDateTimeCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.OffsetDateTime,F,T]"></a><a id="offsetDateTimeCodec(⇒DateTimeFormatter):Codec[E,OffsetDateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#offsetDateTimeCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.OffsetDateTime,F,T]" title="Permalink">
@@ -1433,23 +1648,24 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">offsetDateTimeCodec</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#offsetDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="offsetDateTimeCodec(format:String):kantan.codecs.Codec[E,java.time.OffsetDateTime,F,T]"></a><a id="offsetDateTimeCodec(String):Codec[E,OffsetDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#offsetDateTimeCodec(format:String):kantan.codecs.Codec[E,java.time.OffsetDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">offsetDateTimeCodec</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.offsetDateTimeCodec(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(OffsetDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>Z
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, OffsetDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#offsetDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="offsetDateTimeDecoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Decoder[E,java.time.OffsetDateTime,F,T]"></a><a id="offsetDateTimeDecoder(Format):Decoder[E,OffsetDateTime,F,T]"></a>
       <span class="permalink">
@@ -1465,7 +1681,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">offsetDateTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.offsetDateTimeDecoder(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSSXX"</span>)
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, OffsetDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#offsetDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="offsetDateTimeDecoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,java.time.OffsetDateTime,F,T]"></a><a id="offsetDateTimeDecoder(⇒DateTimeFormatter):Decoder[E,OffsetDateTime,F,T]"></a>
       <span class="permalink">
@@ -1481,23 +1709,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">offsetDateTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#offsetDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="offsetDateTimeDecoder(format:String):kantan.codecs.Decoder[E,java.time.OffsetDateTime,F,T]"></a><a id="offsetDateTimeDecoder(String):Decoder[E,OffsetDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#offsetDateTimeDecoder(format:String):kantan.codecs.Decoder[E,java.time.OffsetDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">offsetDateTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.offsetDateTimeDecoder(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, OffsetDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#offsetDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="offsetDateTimeEncoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Encoder[E,java.time.OffsetDateTime,T]"></a><a id="offsetDateTimeEncoder(Format):Encoder[E,OffsetDateTime,T]"></a>
       <span class="permalink">
@@ -1513,7 +1737,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">offsetDateTimeEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.offsetDateTimeEncoder(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSSXX"</span>)
+     |   .encode(OffsetDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>Z</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#offsetDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="offsetDateTimeEncoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,java.time.OffsetDateTime,T]"></a><a id="offsetDateTimeEncoder(⇒DateTimeFormatter):Encoder[E,OffsetDateTime,T]"></a>
       <span class="permalink">
@@ -1529,23 +1765,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">offsetDateTimeEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#offsetDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="offsetDateTimeEncoder(format:String):kantan.codecs.Encoder[E,java.time.OffsetDateTime,T]"></a><a id="offsetDateTimeEncoder(String):Encoder[E,OffsetDateTime,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#offsetDateTimeEncoder(format:String):kantan.codecs.Encoder[E,java.time.OffsetDateTime,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">offsetDateTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.offsetDateTimeEncoder(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+     |   .encode(OffsetDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -1646,7 +1878,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#zonedDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#zonedDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="zonedDateTimeCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.ZonedDateTime,F,T]"></a><a id="zonedDateTimeCodec(Format):Codec[E,ZonedDateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#zonedDateTimeCodec(format:kantan.codecs.strings.java8.Format):kantan.codecs.Codec[E,java.time.ZonedDateTime,F,T]" title="Permalink">
@@ -1661,8 +1893,25 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">zonedDateTimeCodec</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#zonedDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.zonedDateTimeCodec(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSSzz"</span>)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(ZonedDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>Z
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, ZonedDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#zonedDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="zonedDateTimeCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.ZonedDateTime,F,T]"></a><a id="zonedDateTimeCodec(⇒DateTimeFormatter):Codec[E,ZonedDateTime,F,T]"></a>
       <span class="permalink">
       <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#zonedDateTimeCodec(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Codec[E,java.time.ZonedDateTime,F,T]" title="Permalink">
@@ -1677,23 +1926,24 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">zonedDateTimeCodec</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="kantan.codecs.strings.java8.TimeCodecCompanion#zonedDateTimeCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="zonedDateTimeCodec(format:String):kantan.codecs.Codec[E,java.time.ZonedDateTime,F,T]"></a><a id="zonedDateTimeCodec(String):Codec[E,ZonedDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#zonedDateTimeCodec(format:String):kantan.codecs.Codec[E,java.time.ZonedDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">zonedDateTimeCodec</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeCodecCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; <span class="kw">val</span> codec = Foo.zonedDateTimeCodec(DateTimeFormatter.ISO_ZONED_DATE_TIME)
+
+scala&gt; <span class="kw">val</span> encoded = codec.encode(ZonedDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>Z
+
+scala&gt; codec.decode(encoded)
+res2: Either[DecodeError, ZonedDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#zonedDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="zonedDateTimeDecoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Decoder[E,java.time.ZonedDateTime,F,T]"></a><a id="zonedDateTimeDecoder(Format):Decoder[E,ZonedDateTime,F,T]"></a>
       <span class="permalink">
@@ -1709,7 +1959,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">zonedDateTimeDecoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.zonedDateTimeDecoder(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSSzz"</span>)
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, ZonedDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#zonedDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="zonedDateTimeDecoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Decoder[E,java.time.ZonedDateTime,F,T]"></a><a id="zonedDateTimeDecoder(⇒DateTimeFormatter):Decoder[E,ZonedDateTime,F,T]"></a>
       <span class="permalink">
@@ -1725,23 +1987,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">zonedDateTimeDecoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeDecoderCompanion#zonedDateTimeDecoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="zonedDateTimeDecoder(format:String):kantan.codecs.Decoder[E,java.time.ZonedDateTime,F,T]"></a><a id="zonedDateTimeDecoder(String):Decoder[E,ZonedDateTime,F,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#zonedDateTimeDecoder(format:String):kantan.codecs.Decoder[E,java.time.ZonedDateTime,F,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">zonedDateTimeDecoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.F">F</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="../../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeDecoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeDecoderCompanion">TimeDecoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeDecoderCompanion[<span class="std">String</span>, DecodeError, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> decoderFrom[D](d: StringDecoder[D]) = d
+     | }
+
+scala&gt; Foo.zonedDateTimeDecoder(DateTimeFormatter.ISO_ZONED_DATE_TIME)
+     |   .decode(<span class="lit">"2000-01-01T12:00:00.000Z"</span>)
+res1: Either[DecodeError, ZonedDateTime] = Right(<span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>Z)</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#zonedDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="zonedDateTimeEncoder(format:kantan.codecs.strings.java8.Format):kantan.codecs.Encoder[E,java.time.ZonedDateTime,T]"></a><a id="zonedDateTimeEncoder(Format):Encoder[E,ZonedDateTime,T]"></a>
       <span class="permalink">
@@ -1757,7 +2015,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">zonedDateTimeEncoder</span><span class="params">(<span name="format">format: <a href="Format.html" class="extype" name="kantan.codecs.strings.java8.Format">Format</a></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.zonedDateTimeEncoder(fmt<span class="lit">"yyyy-MM-DD'T'HH:mm:ss.SSSzz"</span>)
+     |   .encode(ZonedDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00.000</span>Z</pre></li></ol>
+            </div></dl></div>
     </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#zonedDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="zonedDateTimeEncoder(format:=&gt;java.time.format.DateTimeFormatter):kantan.codecs.Encoder[E,java.time.ZonedDateTime,T]"></a><a id="zonedDateTimeEncoder(⇒DateTimeFormatter):Encoder[E,ZonedDateTime,T]"></a>
       <span class="permalink">
@@ -1773,23 +2043,19 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="name">zonedDateTimeEncoder</span><span class="params">(<span name="format">format: ⇒ <span class="extype" name="java.time.format.DateTimeFormatter">DateTimeFormatter</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8.TimeEncoderCompanion#zonedDateTimeEncoder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="zonedDateTimeEncoder(format:String):kantan.codecs.Encoder[E,java.time.ZonedDateTime,T]"></a><a id="zonedDateTimeEncoder(String):Encoder[E,ZonedDateTime,T]"></a>
-      <span class="permalink">
-      <a href="../../../../kantan/codecs/strings/java8/TimeCodecCompanion.html#zonedDateTimeEncoder(format:String):kantan.codecs.Encoder[E,java.time.ZonedDateTime,T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">zonedDateTimeEncoder</span><span class="params">(<span name="format">format: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.E">E</span>, <span class="extype" name="java.time.ZonedDateTime">ZonedDateTime</span>, <span class="extype" name="kantan.codecs.strings.java8.TimeCodecCompanion.T">T</span>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.</p><div class="fullcomment"><div class="comment cmt"><p>Creates an <a href="../../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a> instance that uses the specified format.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="TimeEncoderCompanion.html" class="extype" name="kantan.codecs.strings.java8.TimeEncoderCompanion">TimeEncoderCompanion</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.time._, format._
+scala&gt; <span class="kw">import</span> kantan.codecs.strings._
+
+scala&gt; <span class="kw">object</span> Foo <span class="kw">extends</span> TimeEncoderCompanion[<span class="std">String</span>, codecs.<span class="kw">type</span>] {
+     |   <span class="kw">override</span> <span class="kw">def</span> encoderFrom[D](e: StringEncoder[D]) = e
+     | }
+
+scala&gt; Foo.zonedDateTimeEncoder(DateTimeFormatter.ISO_ZONED_DATE_TIME)
+     |   .encode(ZonedDateTime.of(<span class="num">2000</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">12</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, ZoneOffset.UTC))
+res1: <span class="std">String</span> = <span class="num">2000</span>-<span class="num">01</span>-<span class="num">01</span>T12:<span class="num">00</span>:<span class="num">00</span>Z</pre></li></ol>
+            </div></dl></div>
     </li>
               </ol>
             </div>

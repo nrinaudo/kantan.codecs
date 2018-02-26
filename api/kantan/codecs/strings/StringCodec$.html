@@ -158,6 +158,22 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                         <a href="DecodeError.html" title="">DecodeError</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificCodecs.html" title="JVM-specific codecs."></a>
+                        <a href="PlatformSpecificCodecs.html" title="JVM-specific codecs.">PlatformSpecificCodecs</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificDecoders.html" title="JVM-specific decoders."></a>
+                        <a href="PlatformSpecificDecoders.html" title="JVM-specific decoders.">PlatformSpecificDecoders</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificEncoders.html" title="JVM-specific encoders."></a>
+                        <a href="PlatformSpecificEncoders.html" title="JVM-specific encoders.">PlatformSpecificEncoders</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificInstances.html" title="JVM-specific codec instances."></a>
+                        <a href="PlatformSpecificInstances.html" title="JVM-specific codec instances.">PlatformSpecificInstances</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="object" href="" title="Provides instance creation methods."></a>
                         <a href="" title="Provides instance creation methods.">StringCodec</a>
                       </li><li class="current-entities indented3">
@@ -195,18 +211,18 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">StringCodec</span>
+        <span class="name">StringCodec</span><span class="result"> extends <a href="../CodecCompanion.html" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type] with <a href="PlatformSpecificCodecs.html" class="extype" name="kantan.codecs.strings.PlatformSpecificCodecs">PlatformSpecificCodecs</a></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides instance creation methods.</p><p>No instance summoning method is provided - this is by design. Developers should never work with codecs, but with
 instances of <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a> and <a href="index.html#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a> instead. Codecs are merely meant as a declaration convenience.</p><p>Default instances are defined in <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/strings/StringCodec.scala" target="_blank">StringCodec.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/shared/src/main/scala/kantan/codecs/strings/StringCodec.scala" target="_blank">StringCodec.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="PlatformSpecificCodecs.html" class="extype" name="kantan.codecs.strings.PlatformSpecificCodecs">PlatformSpecificCodecs</a>, <a href="../CodecCompanion.html" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type], <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
         </div></div>
         
 
@@ -232,7 +248,7 @@ instances of <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="kantan.codecs.strings.StringCodec"><span>StringCodec</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="kantan.codecs.strings.StringCodec"><span>StringCodec</span></li><li class="in" name="kantan.codecs.strings.PlatformSpecificCodecs"><span>PlatformSpecificCodecs</span></li><li class="in" name="kantan.codecs.CodecCompanion"><span>CodecCompanion</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -347,7 +363,7 @@ instances of <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.StringCodec#dateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="kantan.codecs.strings.PlatformSpecificCodecs#dateCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="dateCodec(format:java.text.DateFormat):kantan.codecs.strings.StringCodec[java.util.Date]"></a><a id="dateCodec(DateFormat):StringCodec[Date]"></a>
       <span class="permalink">
       <a href="../../../kantan/codecs/strings/StringCodec$.html#dateCodec(format:java.text.DateFormat):kantan.codecs.strings.StringCodec[java.util.Date]" title="Permalink">
@@ -362,19 +378,7 @@ instances of <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A
         <span class="name">dateCodec</span><span class="params">(<span name="format">format: <span class="extype" name="java.text.DateFormat">DateFormat</span></span>)</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="java.util.Date">Date</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Creates a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.util.Date</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.util.Date</code>.</p><pre>scala&gt; <span class="kw">import</span> java.text.SimpleDateFormat
-scala&gt; <span class="kw">import</span> java.util.Date
-
-scala&gt; <span class="kw">val</span> format = <span class="kw">new</span> SimpleDateFormat(<span class="lit">"yyyy-MM-dd'T'HH:mm:ss.SSSz"</span>)
-
-scala&gt; <span class="kw">val</span> codec = StringCodec.dateCodec(format)
-
-scala&gt; codec.decode(<span class="lit">"2016-01-17T22:03:12.012UTC"</span>).map(format.format)
-res1: kantan.codecs.Result[DecodeError, <span class="std">String</span>] = Success(<span class="num">2016</span>-<span class="num">01</span>-<span class="num">17</span>T22:<span class="num">03</span>:<span class="num">12.012</span>UTC)
-
-<span class="cmt">// Encoding example</span>
-scala&gt; codec.encode(<span class="kw">new</span> Date(<span class="num">0</span>))
-res2: <span class="std">String</span> = <span class="num">1970</span>-<span class="num">01</span>-<span class="num">01</span>T00:<span class="num">00</span>:<span class="num">00.000</span>UTC</pre></div><dl class="paramcmts block"><dt class="param">format</dt><dd class="cmt"><p>format used when parsing date values.</p></dd></dl></div>
+      <p class="shortcomment cmt">Creates a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.util.Date</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.util.Date</code>.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PlatformSpecificCodecs.html" class="extype" name="kantan.codecs.strings.PlatformSpecificCodecs">PlatformSpecificCodecs</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -429,10 +433,10 @@ res2: <span class="std">String</span> = <span class="num">1970</span>-<span clas
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="kantan.codecs.strings.StringCodec#from" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="from[D](d:kantan.codecs.strings.StringDecoder[D],e:kantan.codecs.strings.StringEncoder[D]):kantan.codecs.strings.StringCodec[D]"></a><a id="from[D](StringDecoder[D],StringEncoder[D]):StringCodec[D]"></a>
+    </li><li name="kantan.codecs.CodecCompanion#from" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="from[D](d:kantan.codecs.Decoder[E,D,F,T],e:kantan.codecs.Encoder[E,D,T]):kantan.codecs.Codec[E,D,F,T]"></a><a id="from[D](Decoder[String,D,DecodeError,codecs.type],Encoder[String,D,codecs.type]):Codec[String,D,DecodeError,codecs.type]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/strings/StringCodec$.html#from[D](d:kantan.codecs.strings.StringDecoder[D],e:kantan.codecs.strings.StringEncoder[D]):kantan.codecs.strings.StringCodec[D]" title="Permalink">
+      <a href="../../../kantan/codecs/strings/StringCodec$.html#from[D](d:kantan.codecs.Decoder[E,D,F,T],e:kantan.codecs.Encoder[E,D,T]):kantan.codecs.Codec[E,D,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -441,15 +445,17 @@ res2: <span class="std">String</span> = <span class="num">1970</span>-<span clas
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="d">d: <a href="index.html#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a>[<span class="extype" name="kantan.codecs.strings.StringCodec.from.D">D</span>]</span>, <span name="e">e: <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a>[<span class="extype" name="kantan.codecs.strings.StringCodec.from.D">D</span>]</span>)</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="kantan.codecs.strings.StringCodec.from.D">D</span>]</span>
+        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="d">d: <a href="../Decoder.html" class="extype" name="kantan.codecs.Decoder">Decoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>, <span name="e">e: <a href="../Encoder.html" class="extype" name="kantan.codecs.Encoder">Encoder</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>)</span><span class="result">: <a href="../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       
-      <p class="shortcomment cmt">Creates a new <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance from the specified encoder and decoder.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance from the specified encoder and decoder.
-</p></div><dl class="paramcmts block"><dt class="tparam">D</dt><dd class="cmt"><p>decoded type.</p></dd><dt class="param">d</dt><dd class="cmt"><p>how to decode to instances of <code>D</code>.</p></dd><dt class="param">e</dt><dd class="cmt"><p>how to encode instances of <code>D</code>.</p></dd></dl></div>
-    </li><li name="kantan.codecs.strings.StringCodec#from" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="from[D](f:String=&gt;kantan.codecs.Result[kantan.codecs.strings.DecodeError,D])(g:D=&gt;String):kantan.codecs.strings.StringCodec[D]"></a><a id="from[D]((String)⇒Result[DecodeError,D])((D)⇒String):StringCodec[D]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../CodecCompanion.html" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a></dd><dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="kantan.codecs.CodecCompanion#from" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="from[D](f:E=&gt;Either[F,D])(g:D=&gt;E):kantan.codecs.Codec[E,D,F,T]"></a><a id="from[D]((String)⇒Either[DecodeError,D])((D)⇒String):Codec[String,D,DecodeError,codecs.type]"></a>
       <span class="permalink">
-      <a href="../../../kantan/codecs/strings/StringCodec$.html#from[D](f:String=&gt;kantan.codecs.Result[kantan.codecs.strings.DecodeError,D])(g:D=&gt;String):kantan.codecs.strings.StringCodec[D]" title="Permalink">
+      <a href="../../../kantan/codecs/strings/StringCodec$.html#from[D](f:E=&gt;Either[F,D])(g:D=&gt;E):kantan.codecs.Codec[E,D,F,T]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -458,11 +464,13 @@ res2: <span class="std">String</span> = <span class="num">1970</span>-<span clas
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Predef.String">String</span>) ⇒ <a href="../Result.html" class="extype" name="kantan.codecs.Result">Result</a>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.strings.StringCodec.from.D">D</span>]</span>)</span><span class="params">(<span name="g">g: (<span class="extype" name="kantan.codecs.strings.StringCodec.from.D">D</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="kantan.codecs.strings.StringCodec.from.D">D</span>]</span>
+        <span class="name">from</span><span class="tparams">[<span name="D">D</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Predef.String">String</span>) ⇒ <span class="extype" name="scala.Either">Either</span>[<a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>]</span>)</span><span class="params">(<span name="g">g: (<span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="../Codec.html" class="extype" name="kantan.codecs.Codec">Codec</a>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="kantan.codecs.CodecCompanion.from.D">D</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</span>
       </span>
       
-      <p class="shortcomment cmt">Creates a new <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance from the specified decoding and encoding functions.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance from the specified decoding and encoding functions.
-</p></div><dl class="paramcmts block"><dt class="tparam">D</dt><dd class="cmt"><p>decoded type.</p></dd><dt class="param">f</dt><dd class="cmt"><p>how to decode to instances of <code>D</code>.</p></dd><dt class="param">g</dt><dd class="cmt"><p>how to encode instances of <code>D</code>.</p></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../CodecCompanion.html" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a></dd><dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -681,7 +689,11 @@ res2: <span class="std">String</span> = <span class="num">1970</span>-<span clas
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="kantan.codecs.strings.PlatformSpecificCodecs">
+              <h3>Inherited from <a href="PlatformSpecificCodecs.html" class="extype" name="kantan.codecs.strings.PlatformSpecificCodecs">PlatformSpecificCodecs</a></h3>
+            </div><div class="parent" name="kantan.codecs.CodecCompanion">
+              <h3>Inherited from <a href="../CodecCompanion.html" class="extype" name="kantan.codecs.CodecCompanion">CodecCompanion</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="DecodeError.html" class="extype" name="kantan.codecs.strings.DecodeError">DecodeError</a>, <a href="codecs$.html" class="extype" name="kantan.codecs.strings.codecs">codecs</a>.type]</h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>

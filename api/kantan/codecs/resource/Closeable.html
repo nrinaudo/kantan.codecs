@@ -151,6 +151,10 @@
                         <a href="OutputResource$.html" title="Provides instance summoning methods for OutputResource.">OutputResource</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="trait" href="PlatformSpecificInstances.html" title="JVM specific instances of Resource."></a>
+                        <a href="PlatformSpecificInstances.html" title="JVM specific instances of Resource.">PlatformSpecificInstances</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="object" href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource."></a>
                         <a href="ReaderResource$.html" title="Provides instance summoning methods for ReaderResource.">ReaderResource</a>
                       </li><li class="current-entities indented3">
@@ -203,7 +207,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Type class for all types that can be closed.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/src/main/scala/kantan/codecs/resource/Closeable.scala" target="_blank">Closeable.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Type class for all types that can be closed.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/shared/src/main/scala/kantan/codecs/resource/Closeable.scala" target="_blank">Closeable.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -269,7 +273,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">close</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.codecs.resource.Closeable.A">A</span></span>)</span><span class="result">: <a href="index.html#CloseResult=kantan.codecs.Result[kantan.codecs.resource.ResourceError.CloseError,Unit]" class="extmbr" name="kantan.codecs.resource.CloseResult">CloseResult</a></span>
+        <span class="name">close</span><span class="params">(<span name="a">a: <span class="extype" name="kantan.codecs.resource.Closeable.A">A</span></span>)</span><span class="result">: <a href="index.html#CloseResult=Either[kantan.codecs.resource.ResourceError.CloseError,Unit]" class="extmbr" name="kantan.codecs.resource.CloseResult">CloseResult</a></span>
       </span>
       
       <p class="shortcomment cmt">Closes the specified value.</p>
