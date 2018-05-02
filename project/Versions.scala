@@ -3,7 +3,7 @@ object Versions {
   val commonsIo            = "2.6"
   val contextual           = "1.1.0"
   val discipline           = "0.8"
-  val enumeratum           = "1.5.12"
+  val enumeratum           = "1.5.13"
   val enumeratumScalacheck = "1.5.13"
   val imp                  = "0.3.0"
   val jodaConvert          = "1.9.2"
