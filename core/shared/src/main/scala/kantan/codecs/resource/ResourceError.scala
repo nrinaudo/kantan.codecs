@@ -17,42 +17,26 @@
 package kantan.codecs
 package resource
 
-sealed abstract trait ResourceError extends Product with Serializable
+import error._
+
+/** Errors that can occur while working with a [[Resource]]. */
+sealed abstract class ResourceError(message: String) extends Error(message)
 
 object ResourceError {
-  sealed case class OpenError(message: String) extends Exception with ResourceError {
-    override val getMessage = message
-  }
 
-  object OpenError {
-    def apply(msg: String, t: Throwable): OpenError = new OpenError(msg) {
-      override val getCause = t
-    }
+  /** Errors that occur specifically while opening resources. */
+  final case class OpenError(message: String) extends ResourceError(message)
 
-    def apply(t: Throwable): OpenError = OpenError(Option(t.getMessage).getOrElse("Open error"), t)
-  }
+  object OpenError extends ErrorCompanion("an unspecified error occurred while opening a resource")(new OpenError(_))
 
-  sealed case class ProcessError(message: String) extends Exception with ResourceError {
-    override val getMessage = message
-  }
+  /** Errors that occur specifically while processing resources. */
+  final case class ProcessError(message: String) extends ResourceError(message)
 
-  object ProcessError {
-    def apply(msg: String, t: Throwable): ProcessError = new ProcessError(msg) {
-      override val getCause = t
-    }
+  object ProcessError
+      extends ErrorCompanion("an unspecified error occurred while processing a resource")(new ProcessError(_))
 
-    def apply(t: Throwable): ProcessError = ProcessError(Option(t.getMessage).getOrElse("Process error"), t)
-  }
+  /** Errors that occur specifically while closing resources. */
+  final case class CloseError(message: String) extends ResourceError(message)
 
-  sealed case class CloseError(message: String) extends Exception with ResourceError {
-    override val getMessage = message
-  }
-
-  object CloseError {
-    def apply(msg: String, t: Throwable): CloseError = new CloseError(msg) {
-      override val getCause = t
-    }
-
-    def apply(t: Throwable): CloseError = CloseError(Option(t.getMessage).getOrElse("Close error"), t)
-  }
+  object CloseError extends ErrorCompanion("an unspecified error occurred while closing a resource")(new CloseError(_))
 }
