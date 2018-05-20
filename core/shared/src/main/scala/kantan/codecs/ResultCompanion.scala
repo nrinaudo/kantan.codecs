@@ -19,7 +19,8 @@ package kantan.codecs
 import error.IsError
 import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
+import scala.util.control.NonFatal
 
 /** Provides trait that result companion object can extend.
   *
@@ -28,6 +29,13 @@ import scala.util.Try
   * `DecodeResult`'s companion object, which can be achieved by extending [[kantan.codecs.ResultCompanion.WithDefault]].
   */
 object ResultCompanion {
+
+  /** Basically `Try(s).toEither.left.map(f)`, but that's not available on Scala 2.11... */
+  def nonFatal[E, S](f: Throwable ⇒ E)(s: ⇒ S): Either[E, S] =
+    try Right(s)
+    catch {
+      case NonFatal(e) ⇒ Left(f(e))
+    }
 
   /** Provides companion object methods for result types that do not have a sane default error type.
     *
@@ -67,10 +75,13 @@ object ResultCompanion {
     protected def fromThrowable(t: Throwable): F
 
     /** Attempts to evaluate the specified expression. */
-    @inline def apply[S](s: ⇒ S): Either[F, S] = Result.nonFatal(s).left.map(fromThrowable)
+    @inline def apply[S](s: ⇒ S): Either[F, S] = nonFatal(fromThrowable _)(s)
 
     /** Turns the specified `Try` into a result. */
-    @inline def fromTry[S](t: Try[S]): Either[F, S] = Result.fromTry(t).left.map(fromThrowable)
+    @inline def fromTry[S](t: Try[S]): Either[F, S] = t match {
+      case Success(s) ⇒ Right(s)
+      case Failure(e) ⇒ Left(fromThrowable(e))
+    }
 
   }
 
@@ -79,20 +90,6 @@ object ResultCompanion {
 
     override def fromThrowable(t: Throwable) = IsError[F].fromThrowable(t)
 
-  }
-
-}
-
-object Result {
-
-  def nonFatal[S](s: ⇒ S): Either[Throwable, S] =
-    try { Right(s) } catch { case scala.util.control.NonFatal(t) ⇒ Left(t) }
-
-  def nonFatalOr[F, S](f: ⇒ F)(s: ⇒ S): Either[F, S] = nonFatal(s).left.map(_ ⇒ f)
-
-  def fromTry[S](t: Try[S]): Either[Throwable, S] = t match {
-    case scala.util.Success(s) ⇒ Right(s)
-    case scala.util.Failure(f) ⇒ Left(f)
   }
 
 }

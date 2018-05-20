@@ -33,6 +33,9 @@ trait IsError[E] extends Serializable { self ⇒
   /** Creates a new instance of `E` from an error message and exception. */
   def from(msg: String, t: Throwable): E
 
+  /** Safely evaluates the specified argument, wrapping errors in a `E`. */
+  def safe[A](a: ⇒ A): Either[E, A] = ResultCompanion.nonFatal(fromThrowable)(a)
+
   def map[EE](f: E ⇒ EE): IsError[EE] = new IsError[EE] {
     override def fromThrowable(t: Throwable)     = f(self.fromThrowable(t))
     override def fromMessage(msg: String)        = f(self.fromMessage(msg))
@@ -44,9 +47,6 @@ object IsError {
 
   /** Summons an implicit instance of `IsError[A]` if one is found in scope, fails compilation otherwise. */
   def apply[A](implicit ev: IsError[A]): IsError[A] = macro imp.summon[IsError[A]]
-
-  /** Evaluates the specified value and wraps it in a `Either`. */
-  def result[E: IsError, S](s: ⇒ S): Either[E, S] = Result.nonFatal(s).left.map(IsError[E].fromThrowable)
 
   /** Default instance for `Exception.` */
   implicit val exceptionIsError: IsError[Exception] = new IsError[Exception] {

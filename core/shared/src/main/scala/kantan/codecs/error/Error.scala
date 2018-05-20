@@ -41,6 +41,9 @@ abstract class ErrorCompanion[T <: Error](defaultMsg: String)(f: String ⇒ T) e
     override def fromThrowable(cause: Throwable): T = from(Option(cause.getMessage).getOrElse(defaultMsg), cause)
   }
 
+  /** Attempts to evaluate the specified argument, wrapping errors in a `T`. */
+  def safe[A](a: ⇒ A): Either[T, A] = isError.safe(a)
+
   def apply(msg: String, cause: Throwable): T = isError.from(msg, cause)
   def apply(cause: Throwable): T              = isError.fromThrowable(cause)
   def apply(msg: String): T                   = isError.fromMessage(msg)

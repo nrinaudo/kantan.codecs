@@ -196,9 +196,8 @@ object Decoder {
     *
     * The specified function is assumed to throw, and errors will be dealt with properly.
     */
-  def fromUnsafe[E, D, F: IsError, T](f: E ⇒ D): Decoder[E, D, F, T] = Decoder.from { e ⇒
-    IsError.result(f(e))
-  }
+  def fromUnsafe[E, D, F: IsError, T](f: E ⇒ D): Decoder[E, D, F, T] =
+    Decoder.from(e ⇒ IsError[F].safe(f(e)))
 
   implicit def decoderFromExported[E, D, F, T](implicit da: DerivedDecoder[E, D, F, T]): Decoder[E, D, F, T] =
     da.value
