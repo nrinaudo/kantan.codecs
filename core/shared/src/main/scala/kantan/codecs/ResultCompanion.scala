@@ -85,7 +85,7 @@ object ResultCompanion {
 
   }
 
-  /** Similar to [[WithDefault]], but uses [[IsError]] to deal with error cases. */
+  /** Similar to [[WithDefault]], but uses [[error.IsError IsError]] to deal with error cases. */
   abstract class WithError[F: IsError] extends WithDefault[F] {
 
     override def fromThrowable(t: Throwable) = IsError[F].fromThrowable(t)
