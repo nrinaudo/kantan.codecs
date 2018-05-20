@@ -44,10 +44,10 @@ sealed trait Format {
     *
     * scala> Format.defaultInstantFormat
     *      |   .parseInstant("2000-01-01T12:00:00.000Z")
-    * res1: Either[DecodeError, Instant] = Right(2000-01-01T12:00:00Z)
+    * res1: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
-  def parseInstant(str: String): Either[DecodeError, Instant] =
+  def parseInstant(str: String): StringResult[Instant] =
     StringDecoder.makeSafe("Instant")(s ⇒ Instant.from(formatter.parse(s)))(str)
 
   /** Attempts to parse the specified string as a `LocalDateTime`.
@@ -59,10 +59,10 @@ sealed trait Format {
     *
     * scala> Format.defaultLocalDateTimeFormat
     *      |   .parseLocalDateTime("2000-01-01T12:00:00.000")
-    * res2: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00)
+    * res2: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
     */
-  def parseLocalDateTime(str: String): Either[DecodeError, LocalDateTime] =
+  def parseLocalDateTime(str: String): StringResult[LocalDateTime] =
     StringDecoder.makeSafe("LocalDateTime")(s ⇒ LocalDateTime.parse(s, formatter))(str)
 
   /** Attempts to parse the specified string as a `ZonedDateTime`.
@@ -74,10 +74,10 @@ sealed trait Format {
     *
     * scala> Format.defaultZonedDateTimeFormat
     *      |   .parseZonedDateTime("2000-01-01T12:00:00.000Z")
-    * res1: Either[DecodeError, ZonedDateTime] = Right(2000-01-01T12:00Z)
+    * res1: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def parseZonedDateTime(str: String): Either[DecodeError, ZonedDateTime] =
+  def parseZonedDateTime(str: String): StringResult[ZonedDateTime] =
     StringDecoder.makeSafe("ZonedDateTime")(s ⇒ ZonedDateTime.parse(s, formatter))(str)
 
   /** Attempts to parse the specified string as a `LocalDateTime`.
@@ -89,10 +89,10 @@ sealed trait Format {
     *
     * scala> Format.defaultLocalTimeFormat
     *      |   .parseLocalTime("12:00:00.000")
-    * res1: Either[DecodeError, LocalTime] = Right(12:00)
+    * res1: StringResult[LocalTime] = Right(12:00)
     * }}}
     */
-  def parseLocalTime(str: String): Either[DecodeError, LocalTime] =
+  def parseLocalTime(str: String): StringResult[LocalTime] =
     StringDecoder.makeSafe("LocalTime")(s ⇒ LocalTime.parse(s, formatter))(str)
 
   /** Attempts to parse the specified string as a `LocalDate`.
@@ -104,10 +104,10 @@ sealed trait Format {
     *
     * scala> Format.defaultLocalDateFormat
     *      |   .parseLocalDate("2000-01-01")
-    * res2: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * res2: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
-  def parseLocalDate(str: String): Either[DecodeError, LocalDate] =
+  def parseLocalDate(str: String): StringResult[LocalDate] =
     StringDecoder.makeSafe("LocalDate")(s ⇒ LocalDate.parse(s, formatter))(str)
 
   /** Attempts to parse the specified string as a `LocalDate`.
@@ -119,10 +119,10 @@ sealed trait Format {
     *
     * scala> Format.defaultOffsetDateTimeFormat
     *      |   .parseOffsetDateTime("2000-01-01T12:00:00.000Z")
-    * res1: Either[DecodeError, OffsetDateTime] = Right(2000-01-01T12:00Z)
+    * res1: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def parseOffsetDateTime(str: String): Either[DecodeError, OffsetDateTime] =
+  def parseOffsetDateTime(str: String): StringResult[OffsetDateTime] =
     StringDecoder.makeSafe("OffsetDateTime")(s ⇒ OffsetDateTime.parse(s, formatter))(str)
 
   /** Formats the specified `TemporalAccessor` as a string.
@@ -177,7 +177,7 @@ object Format {
     *
     * scala> Format.defaultInstantFormat
     *      |   .parseInstant("2000-01-01T12:00:00.000Z")
-    * res2: Either[DecodeError, Instant] = Right(2000-01-01T12:00:00Z)
+    * res2: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
   val defaultInstantFormat: Format = Format(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC))
@@ -195,7 +195,7 @@ object Format {
     *
     * scala> Format.defaultLocalDateTimeFormat
     *      |   .parseLocalDateTime("2000-01-01T12:00:00.000")
-    * res2: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00)
+    * res2: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
     */
   val defaultLocalDateTimeFormat: Format = Format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
@@ -213,7 +213,7 @@ object Format {
     *
     * scala> Format.defaultZonedDateTimeFormat
     *      |   .parseZonedDateTime("2000-01-01T12:00:00.000Z")
-    * res2: Either[DecodeError, ZonedDateTime] = Right(2000-01-01T12:00Z)
+    * res2: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
   val defaultZonedDateTimeFormat: Format = Format(DateTimeFormatter.ISO_ZONED_DATE_TIME)
@@ -231,7 +231,7 @@ object Format {
     *
     * scala> Format.defaultOffsetDateTimeFormat
     *      |   .parseOffsetDateTime("2000-01-01T12:00:00.000Z")
-    * res2: Either[DecodeError, OffsetDateTime] = Right(2000-01-01T12:00Z)
+    * res2: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
   val defaultOffsetDateTimeFormat: Format = Format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
@@ -249,7 +249,7 @@ object Format {
     *
     * scala> Format.defaultLocalDateFormat
     *      |   .parseLocalDate("2000-01-01")
-    * res2: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * res2: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
   val defaultLocalDateFormat: Format = Format(DateTimeFormatter.ISO_LOCAL_DATE)
@@ -267,7 +267,7 @@ object Format {
     *
     * scala> Format.defaultLocalTimeFormat
     *      |   .parseLocalTime("12:00:00.000")
-    * res2: Either[DecodeError, LocalTime] = Right(12:00)
+    * res2: StringResult[LocalTime] = Right(12:00)
     * }}}
     */
   val defaultLocalTimeFormat: Format = Format(DateTimeFormatter.ISO_LOCAL_TIME)

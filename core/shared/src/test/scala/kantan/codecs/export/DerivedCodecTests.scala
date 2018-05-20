@@ -20,12 +20,12 @@ package export
 import DerivedCodecTests.{Just, Maybe, None}
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import strings.{DecodeError, StringDecoder, StringEncoder}
+import strings.{DecodeError, StringDecoder, StringEncoder, StringResult}
 
 class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
-  val decode: String ⇒ Either[DecodeError, Maybe[Int]] = s ⇒
+  val decode: String ⇒ StringResult[Maybe[Int]] = s ⇒
     if(s.trim.isEmpty) Right(None)
-    else Result.nonFatalOr(DecodeError(s"Not a valid Int: '$s'"))(Just(s.toInt))
+    else StringResult(Just(s.toInt))
 
   val encode: Maybe[Int] ⇒ String = _ match {
     case Just(i) ⇒ i.toString

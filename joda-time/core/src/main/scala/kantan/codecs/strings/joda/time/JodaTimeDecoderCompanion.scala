@@ -46,7 +46,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.dateTimeDecoder(ISODateTimeFormat.dateTime().withZone(DateTimeZone.UTC))
     *      | .decode("2000-01-01T12:00:00.000Z")
-    * res1: Either[DecodeError, DateTime] = Right(2000-01-01T12:00:00.000Z)
+    * res1: StringResult[DateTime] = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */
   def dateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, DateTime, F, T] = dateTimeDecoder(Format(format))
@@ -64,7 +64,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.dateTimeDecoder(fmt"yyyy-MM-DD'T'HH:mm:ss.SSSzz")
     *      | .decode("2000-01-01T12:00:00.000UTC")
-    * res1: Either[DecodeError, DateTime] = Right(2000-01-01T12:00:00.000Z)
+    * res1: StringResult[DateTime] = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */
   def dateTimeDecoder(format: Format): Decoder[E, DateTime, F, T] =
@@ -105,7 +105,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.localDateTimeDecoder(ISODateTimeFormat.localDateOptionalTimeParser())
     *      | .decode("2000-01-01T12:00:00.000")
-    * res1: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00:00.000)
+    * res1: StringResult[LocalDateTime] = Right(2000-01-01T12:00:00.000)
     * }}}
     */
   def localDateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDateTime, F, T] =
@@ -124,7 +124,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.localDateTimeDecoder(fmt"yyyy-MM-DD'T'HH:mm:ss.SSS")
     *      | .decode("2000-01-01T12:00:00.000")
-    * res1: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00:00.000)
+    * res1: StringResult[LocalDateTime] = Right(2000-01-01T12:00:00.000)
     * }}}
     */
   def localDateTimeDecoder(format: Format): Decoder[E, LocalDateTime, F, T] =
@@ -143,7 +143,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.defaultLocalDateTimeDecoder
     *      | .decode("2000-01-01T12:00:00.000")
-    * res1: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00:00.000)
+    * res1: StringResult[LocalDateTime] = Right(2000-01-01T12:00:00.000)
     * }}}
     */
   def defaultLocalDateTimeDecoder: Decoder[E, LocalDateTime, F, T] =
@@ -165,7 +165,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.localDateDecoder(ISODateTimeFormat.localDateParser())
     *      | .decode("2000-01-01")
-    * res1: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * res1: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
   def localDateDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
@@ -183,7 +183,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.localDateDecoder(fmt"yyyy-MM-DD")
     *      | .decode("2000-01-01")
-    * res1: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * res1: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
   def localDateDecoder(format: Format): Decoder[E, LocalDate, F, T] =
@@ -202,7 +202,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.defaultLocalDateDecoder
     *      | .decode("2000-01-01")
-    * res1: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * res1: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
   def defaultLocalDateDecoder: Decoder[E, LocalDate, F, T] = localDateDecoder(Format.defaultLocalDateFormat)
@@ -223,7 +223,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.localTimeDecoder(ISODateTimeFormat.localTimeParser())
     *      | .decode("12:00:00.000")
-    * res1: Either[DecodeError, LocalTime] = Right(12:00:00.000)
+    * res1: StringResult[LocalTime] = Right(12:00:00.000)
     * }}}
     */
   def localTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
@@ -241,7 +241,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.localTimeDecoder(fmt"HH:mm:ss.SSS")
     *      | .decode("12:00:00.000")
-    * res1: Either[DecodeError, LocalTime] = Right(12:00:00.000)
+    * res1: StringResult[LocalTime] = Right(12:00:00.000)
     * }}}
     */
   def localTimeDecoder(format: Format): Decoder[E, LocalTime, F, T] =
@@ -260,7 +260,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.defaultLocalTimeDecoder
     *      | .decode("12:00:00.000")
-    * res1: Either[DecodeError, LocalTime] = Right(12:00:00.000)
+    * res1: StringResult[LocalTime] = Right(12:00:00.000)
     * }}}
     */
   def defaultLocalTimeDecoder: Decoder[E, LocalTime, F, T] = localTimeDecoder(Format.defaultLocalTimeFormat)

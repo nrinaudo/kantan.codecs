@@ -48,7 +48,7 @@ sealed trait Format {
     * res1 = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */
-  def parseDateTime(str: String): Either[DecodeError, DateTime] =
+  def parseDateTime(str: String): StringResult[DateTime] =
     StringDecoder.makeSafe("DateTime")(formatter.parseDateTime)(str)
 
   /** Attempts to parse the specified string as a `LocalDateTime`.
@@ -60,10 +60,10 @@ sealed trait Format {
     *
     * scala> Format.defaultLocalDateTimeFormat
     *      |   .parseLocalDateTime("2000-01-01T12:00:00.000")
-    * res1: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00:00.000)
+    * res1: StringResult[LocalDateTime] = Right(2000-01-01T12:00:00.000)
     * }}}
     */
-  def parseLocalDateTime(str: String): Either[DecodeError, LocalDateTime] =
+  def parseLocalDateTime(str: String): StringResult[LocalDateTime] =
     StringDecoder.makeSafe("LocalDateTime")(formatter.parseLocalDateTime)(str)
 
   /** Attempts to parse the specified string as a `LocalTime`.
@@ -75,10 +75,10 @@ sealed trait Format {
     *
     * scala> Format.defaultLocalTimeFormat
     *      |   .parseLocalTime("12:00:00.000")
-    * res1: Either[DecodeError, LocalTime] = Right(12:00:00.000)
+    * res1: StringResult[LocalTime] = Right(12:00:00.000)
     * }}}
     */
-  def parseLocalTime(str: String): Either[DecodeError, LocalTime] =
+  def parseLocalTime(str: String): StringResult[LocalTime] =
     StringDecoder.makeSafe("LocalTime")(formatter.parseLocalTime)(str)
 
   /** Attempts to parse the specified string as a `LocalDate`.
@@ -90,10 +90,10 @@ sealed trait Format {
     *
     * scala> Format.defaultLocalDateFormat
     *      |   .parseLocalDate("2000-01-01")
-    * res2: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * res2: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
-  def parseLocalDate(str: String): Either[DecodeError, LocalDate] =
+  def parseLocalDate(str: String): StringResult[LocalDate] =
     StringDecoder.makeSafe("LocalDate")(formatter.parseLocalDate)(str)
 
   /** Formats the specified `ReadableInstant` as a string.
@@ -182,7 +182,7 @@ object Format {
     *
     * scala> Format.defaultLocalDateTimeFormat
     *      |   .parseLocalDateTime("2000-01-01T12:00:00.000")
-    * res2: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00:00.000)
+    * res2: StringResult[LocalDateTime] = Right(2000-01-01T12:00:00.000)
     * }}}
     */
   val defaultLocalDateTimeFormat: Format = Format(
@@ -205,7 +205,7 @@ object Format {
     *
     * scala> Format.defaultLocalDateFormat
     *      |   .parseLocalDate("2000-01-01")
-    * res2: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * res2: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
   val defaultLocalDateFormat: Format = Format(
@@ -225,7 +225,7 @@ object Format {
     *
     * scala> Format.defaultLocalTimeFormat
     *      |   .parseLocalTime("12:00:00.000")
-    * res2: Either[DecodeError, LocalTime] = Right(12:00:00.000)
+    * res2: StringResult[LocalTime] = Right(12:00:00.000)
     * }}}
     */
   val defaultLocalTimeFormat: Format = Format(
