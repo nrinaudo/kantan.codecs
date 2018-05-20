@@ -24,13 +24,11 @@ import java.nio.file.{Files, Path}
 /** JVM specific instances of [[Resource]]. */
 trait PlatformSpecificInstances {
 
-  private def open[A](a: ⇒ A): OpenResult[A] = Result.nonFatal(a).left.map(ResourceError.OpenError.apply)
-
   implicit val pathInputResource: InputResource[Path] =
-    InputResource[InputStream].econtramap(p ⇒ open(Files.newInputStream(p)))
+    InputResource[InputStream].econtramap(p ⇒ OpenResult(Files.newInputStream(p)))
 
   implicit val pathOutputResource: OutputResource[Path] =
-    OutputResource[OutputStream].econtramap(p ⇒ open(Files.newOutputStream(p)))
+    OutputResource[OutputStream].econtramap(p ⇒ OpenResult(Files.newOutputStream(p)))
 
   implicit val fileInputResource: InputResource[File] = InputResource[Path].contramap(_.toPath)
 
@@ -40,7 +38,7 @@ trait PlatformSpecificInstances {
     ReaderResource[Reader].contramap(cs ⇒ new CharArrayReader(cs))
 
   implicit val urlInputResource: InputResource[URL] =
-    InputResource[InputStream].econtramap(u ⇒ open(u.openStream()))
+    InputResource[InputStream].econtramap(u ⇒ OpenResult(u.openStream()))
 
   implicit val uriInputResource: InputResource[URI] = InputResource[URL].contramap(_.toURL)
 
