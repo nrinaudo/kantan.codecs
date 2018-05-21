@@ -49,7 +49,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 12:00:00.000
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, LocalTime] = Right(12:00)
+    * res2: StringResult[LocalTime] = Right(12:00)
     * }}}
     */
   def localTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
@@ -72,7 +72,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 12:00:00.000
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, LocalTime] = Right(12:00)
+    * res2: StringResult[LocalTime] = Right(12:00)
     * }}}
     */
   def localTimeCodec(format: Format): Codec[E, LocalTime, F, T] =
@@ -99,7 +99,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01T12:00:00.000
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00)
+    * res2: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
     */
   def localDateTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, LocalDateTime, F, T] =
@@ -123,7 +123,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01T12:00:00.000
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, LocalDateTime] = Right(2000-01-01T12:00)
+    * res2: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
     */
   def localDateTimeCodec(format: Format): Codec[E, LocalDateTime, F, T] =
@@ -150,7 +150,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * res2: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
   def localDateCodec(format: ⇒ DateTimeFormatter): Codec[E, LocalDate, F, T] =
@@ -174,7 +174,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, LocalDate] = Right(2000-01-01)
+    * res2: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
   def localDateCodec(format: Format): Codec[E, LocalDate, F, T] =
@@ -201,7 +201,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01T12:00:00Z
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, Instant] = Right(2000-01-01T12:00:00Z)
+    * res2: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
   def instantCodec(format: ⇒ DateTimeFormatter): Codec[E, Instant, F, T] =
@@ -225,7 +225,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01T12:00:00Z
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, Instant] = Right(2000-01-01T12:00:00Z)
+    * res2: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
   def instantCodec(format: Format): Codec[E, Instant, F, T] =
@@ -252,7 +252,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01T12:00:00.000Z
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, ZonedDateTime] = Right(2000-01-01T12:00Z)
+    * res2: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
   def zonedDateTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, ZonedDateTime, F, T] =
@@ -276,7 +276,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01T12:00:00.000Z
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, ZonedDateTime] = Right(2000-01-01T12:00Z)
+    * res2: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
   def zonedDateTimeCodec(format: Format): Codec[E, ZonedDateTime, F, T] =
@@ -303,7 +303,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01T12:00:00.000Z
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, OffsetDateTime] = Right(2000-01-01T12:00Z)
+    * res2: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
   def offsetDateTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, OffsetDateTime, F, T] =
@@ -327,7 +327,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res1: String = 2000-01-01T12:00:00.000Z
     *
     * scala> codec.decode(encoded)
-    * res2: Either[DecodeError, OffsetDateTime] = Right(2000-01-01T12:00Z)
+    * res2: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
   def offsetDateTimeCodec(format: Format): Codec[E, OffsetDateTime, F, T] =

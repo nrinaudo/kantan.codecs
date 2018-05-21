@@ -26,6 +26,9 @@ package kantan.codecs
   */
 package object strings {
 
+  /** Type of values values returned when attempting to decode a `String`. */
+  type StringResult[A] = Either[DecodeError, A]
+
   /** [[Encoder]] for strings.
     *
     * Default instances can be found in [[codecs]].

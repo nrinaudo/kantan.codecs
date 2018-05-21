@@ -34,7 +34,7 @@ trait PlatformSpecificInstances {
     * scala> import java.net.URL
     *
     * scala> StringDecoder[URL].decode("http://localhost:8080")
-    * res1: Either[DecodeError, URL] = Right(http://localhost:8080)
+    * res1: StringResult[URL] = Right(http://localhost:8080)
     *
     * // Encoding example
     * scala> StringEncoder[URL].encode(new URL("http://localhost:8080"))
@@ -52,7 +52,7 @@ trait PlatformSpecificInstances {
     * scala> import java.net.URI
     *
     * scala> StringDecoder[URI].decode("http://localhost:8080")
-    * res1: Either[DecodeError, URI] = Right(http://localhost:8080)
+    * res1: StringResult[URI] = Right(http://localhost:8080)
     *
     * // Encoding example
     * scala> StringEncoder[URI].encode(new URI("http://localhost:8080"))
@@ -70,7 +70,7 @@ trait PlatformSpecificInstances {
     * scala> import java.io.File
     *
     * scala> StringDecoder[File].decode("/home/nrinaudo")
-    * res1: Either[DecodeError, File] = Right(/home/nrinaudo)
+    * res1: StringResult[File] = Right(/home/nrinaudo)
     *
     * // Encoding example
     * scala> StringEncoder[File].encode(new File("/home/nrinaudo"))
@@ -88,7 +88,7 @@ trait PlatformSpecificInstances {
     * scala> import java.nio.file.{Path, Paths}
     *
     * scala> StringDecoder[Path].decode("/home/nrinaudo")
-    * res1: Either[DecodeError, Path] = Right(/home/nrinaudo)
+    * res1: StringResult[Path] = Right(/home/nrinaudo)
     *
     * // Encoding example
     * scala> StringEncoder[Path].encode(Paths.get("/home/nrinaudo"))

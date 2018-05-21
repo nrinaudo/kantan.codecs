@@ -36,17 +36,17 @@ object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] 
     * scala> val decoder = StringDecoder.makeSafe("Int")(_.toInt)
     *
     * scala> decoder("1")
-    * res1: Either[DecodeError, Int] = Right(1)
+    * res1: StringResult[Int] = Right(1)
     *
     * scala> decoder("foobar")
-    * res2: Either[DecodeError, Int] = Left(DecodeError: 'foobar' is not a valid Int)
+    * res2: StringResult[Int] = Left(DecodeError: 'foobar' is not a valid Int)
     * }}}
     *
     * @param typeName name of the decoded type (used in error messages).
     * @param f decoding function.
     * @tparam D decoded type.
     */
-  def makeSafe[D](typeName: String)(f: String ⇒ D): String ⇒ Either[DecodeError, D] =
-    s ⇒ Result.nonFatal(f(s)).left.map(t ⇒ DecodeError(s"'$s' is not a valid $typeName", t))
+  def makeSafe[D](typeName: String)(f: String ⇒ D): String ⇒ StringResult[D] =
+    s ⇒ StringResult(f(s)).left.map(t ⇒ DecodeError(s"'$s' is not a valid $typeName", t))
 
 }

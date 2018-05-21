@@ -33,7 +33,7 @@ object codecs extends PlatformSpecificInstances {
     *
     * // Decoding example
     * scala> StringDecoder[AccessMode].decode("READ")
-    * res1: Either[DecodeError, AccessMode] = Right(READ)
+    * res1: StringResult[AccessMode] = Right(READ)
     *
     * // Encoding example
     * scala> StringEncoder[AccessMode].encode(AccessMode.READ)
@@ -55,7 +55,7 @@ object codecs extends PlatformSpecificInstances {
     *
     * // Decoding example
     * scala> StringDecoder[Pattern].decode("[a-z]")
-    * res1: Either[DecodeError, Pattern] = Right([a-z])
+    * res1: StringResult[Pattern] = Right([a-z])
     *
     * // Encoding example
     * scala> StringEncoder[Pattern].encode(Pattern.compile("[a-z]"))
@@ -73,7 +73,7 @@ object codecs extends PlatformSpecificInstances {
     *
     * // Decoding example
     * scala> StringDecoder[Regex].decode("[a-z]")
-    * res1: Either[DecodeError, Regex] = Right([a-z])
+    * res1: StringResult[Regex] = Right([a-z])
     *
     * // Encoding example
     * scala> StringEncoder[Regex].encode("[a-z]".r)
@@ -89,7 +89,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[BigDecimal].decode("2")
-    * res1: Either[DecodeError, BigDecimal] = Right(2)
+    * res1: StringResult[BigDecimal] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[BigDecimal].encode(BigDecimal(2D))
@@ -105,7 +105,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[BigInt].decode("2")
-    * res1: Either[DecodeError, BigInt] = Right(2)
+    * res1: StringResult[BigInt] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[BigInt].encode(BigInt(2))
@@ -121,7 +121,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Boolean].decode("true")
-    * res1: Either[DecodeError, Boolean] = Right(true)
+    * res1: StringResult[Boolean] = Right(true)
     *
     * // Encoding example
     * scala> StringEncoder[Boolean].encode(true)
@@ -137,7 +137,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Char].decode("a")
-    * res1: Either[DecodeError, Char] = Right(a)
+    * res1: StringResult[Char] = Right(a)
     *
     * // Encoding example
     * scala> StringEncoder[Char].encode('a')
@@ -159,7 +159,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Double].decode("2")
-    * res1: Either[DecodeError, Double] = Right(2.0)
+    * res1: StringResult[Double] = Right(2.0)
     *
     * // Encoding example
     * scala> StringEncoder[Double].encode(2D)
@@ -175,7 +175,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Byte].decode("2")
-    * res1: Either[DecodeError, Byte] = Right(2)
+    * res1: StringResult[Byte] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[Byte].encode(2)
@@ -191,7 +191,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Float].decode("2")
-    * res1: Either[DecodeError, Float] = Right(2.0)
+    * res1: StringResult[Float] = Right(2.0)
     *
     * // Encoding example
     * scala> StringEncoder[Float].encode(2F)
@@ -207,7 +207,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Int].decode("2")
-    * res1: Either[DecodeError, Int] = Right(2)
+    * res1: StringResult[Int] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[Int].encode(2)
@@ -223,7 +223,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Long].decode("2")
-    * res1: Either[DecodeError, Long] = Right(2)
+    * res1: StringResult[Long] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[Long].encode(2L)
@@ -239,7 +239,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[Short].decode("2")
-    * res1: Either[DecodeError, Short] = Right(2)
+    * res1: StringResult[Short] = Right(2)
     *
     * // Encoding example
     * scala> StringEncoder[Short].encode(2.toShort)
@@ -255,7 +255,7 @@ object codecs extends PlatformSpecificInstances {
     * {{{
     * // Decoding example
     * scala> StringDecoder[String].decode("foobar")
-    * res1: Either[DecodeError, String] = Right(foobar)
+    * res1: StringResult[String] = Right(foobar)
     *
     * // Encoding example
     * scala> StringEncoder[String].encode("foobar")
@@ -273,7 +273,7 @@ object codecs extends PlatformSpecificInstances {
     * scala> import java.util.UUID
     *
     * scala> StringDecoder[UUID].decode("123e4567-e89b-12d3-a456-426655440000")
-    * res1: Either[DecodeError, UUID] = Right(123e4567-e89b-12d3-a456-426655440000)
+    * res1: StringResult[UUID] = Right(123e4567-e89b-12d3-a456-426655440000)
     *
     * // Encoding example
     * scala> StringEncoder[UUID].encode(UUID.fromString("123e4567-e89b-12d3-a456-426655440000"))
