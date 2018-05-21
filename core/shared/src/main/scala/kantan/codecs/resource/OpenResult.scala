@@ -17,22 +17,4 @@
 package kantan.codecs
 package resource
 
-/** Type class for all types that can be closed. */
-trait Closeable[A] {
-
-  /** Closes the specified value. */
-  def close(a: A): CloseResult
-}
-
-object Closeable {
-  def apply[A](implicit ev: Closeable[A]): Closeable[A] = macro imp.summon[Closeable[A]]
-
-  def from[A](f: A ⇒ CloseResult): Closeable[A] = new Closeable[A] {
-    override def close(a: A) = f(a)
-  }
-
-  /** Instance for any type that extends `AutoCloseable`. */
-  implicit def autoCloseable[A <: AutoCloseable]: Closeable[A] = Closeable.from { c ⇒
-    CloseResult(c.close())
-  }
-}
+object OpenResult extends ResultCompanion.WithError[ResourceError.OpenError]
