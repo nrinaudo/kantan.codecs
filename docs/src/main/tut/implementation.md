@@ -42,7 +42,7 @@ methods:
 
 ```tut:silent
 object DecodeResult {
-  def apply[A](a: => A): DecodeResult[A] = Result.nonFatal(a).left.map(TypeError.apply)
+  def apply[A](a: => A): DecodeResult[A] = ResultCompanion.nonFatal(TypeError.apply)(a)
   def success[A](a: A): DecodeResult[A] = Right(a)
   def outOfBounds(index: Int): DecodeResult[Nothing] = Left(OutOfBounds(index))
 }

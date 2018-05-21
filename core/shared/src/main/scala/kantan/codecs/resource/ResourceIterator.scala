@@ -379,7 +379,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     */
   def safe[F](empty: ⇒ F)(f: Throwable ⇒ F): ResourceIterator[Either[F, A]] = new ResourceIterator[Either[F, A]] {
     override def readNext() =
-      if(self.hasNext) Result.nonFatal(self.next()).left.map(f)
+      if(self.hasNext) ResultCompanion.nonFatal(f)(self.next())
       else Left(empty)
     override def checkNext = self.hasNext
     override def release() = self.close()

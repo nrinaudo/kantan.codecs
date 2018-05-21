@@ -22,9 +22,8 @@ import ResourceError.CloseError
 object CloseResult {
   val success: CloseResult                    = Right(())
   def failure(error: CloseError): CloseResult = Left(error)
-  def apply[U](c: ⇒ U): CloseResult =
-    Result.nonFatal {
-      c
-      ()
-    }.left.map(CloseError.apply)
+  def apply[U](c: ⇒ U): CloseResult = CloseError.safe {
+    c
+    ()
+  }
 }
