@@ -4,7 +4,7 @@ object Versions {
   val contextual           = "1.1.0"
   val discipline           = "0.9.0"
   val enumeratum           = "1.5.13"
-  val enumeratumScalacheck = "1.5.13"
+  val enumeratumScalacheck = "1.5.15"
   val imp                  = "0.3.0"
   val jodaConvert          = "1.9.2"
   val joda                 = "2.9.9"
@@ -13,6 +13,6 @@ object Versions {
   val scalacheck           = "1.13.5"
   val scalacheckShapeless  = "1.1.8"
   val scalatest            = "3.0.5"
-  val scalaz               = "7.2.22"
+  val scalaz               = "7.2.23"
   val shapeless            = "2.3.3"
 }
