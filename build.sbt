@@ -224,7 +224,7 @@ lazy val refinedJS  = refined.js
 lazy val refinedLaws = kantanCrossProject("refined-laws")
   .in(file("refined/laws"))
   .settings(moduleName := "kantan.codecs-refined-laws")
-  .settings(libraryDependencies += "eu.timepit" %%% "refined-scalacheck" % Versions.refined)
+  .settings(libraryDependencies += "eu.timepit" %%% "refined-scalacheck_1.13" % Versions.refined)
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, refined)
 
