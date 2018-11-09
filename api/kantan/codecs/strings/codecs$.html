@@ -186,6 +186,10 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
                         <a href="StringEncoder$.html" title="">StringEncoder</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="object" href="StringResult$.html" title=""></a>
+                        <a href="StringResult$.html" title="">StringResult</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="object" href="" title="Defines default instances for StringEncoder and StringDecoder."></a>
                         <a href="" title="Defines default instances for StringEncoder and StringDecoder.">codecs</a>
                       </li>
@@ -220,7 +224,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -285,7 +289,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -301,7 +305,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -317,7 +321,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -356,7 +360,7 @@ of encoding to or decoding from a CSV cell to string codecs.</p><p>Default insta
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[BigDecimal].decode(<span class="lit">"2"</span>)
-res1: Either[DecodeError, BigDecimal] = Right(<span class="num">2</span>)
+res1: StringResult[BigDecimal] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[BigDecimal].encode(BigDecimal(<span class="num">2</span>D))
@@ -381,7 +385,7 @@ res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li><
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[BigInt].decode(<span class="lit">"2"</span>)
-res1: Either[DecodeError, BigInt] = Right(<span class="num">2</span>)
+res1: StringResult[BigInt] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[BigInt].encode(BigInt(<span class="num">2</span>))
@@ -399,14 +403,14 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">booleanStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
+        <span class="name">booleanStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Boolean</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Boolean</code>.
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Boolean</span>].decode(<span class="lit">"true"</span>)
-res1: Either[DecodeError, <span class="std">Boolean</span>] = Right(<span class="kw">true</span>)
+res1: StringResult[<span class="std">Boolean</span>] = Right(<span class="kw">true</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Boolean</span>].encode(<span class="kw">true</span>)
@@ -424,14 +428,14 @@ res2: <span class="std">String</span> = <span class="kw">true</span></pre></li><
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">byteStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>
+        <span class="name">byteStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Byte</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Byte</code>.
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Byte</span>].decode(<span class="lit">"2"</span>)
-res1: Either[DecodeError, <span class="std">Byte</span>] = Right(<span class="num">2</span>)
+res1: StringResult[<span class="std">Byte</span>] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Byte</span>].encode(<span class="num">2</span>)
@@ -449,14 +453,14 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">charStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>
+        <span class="name">charStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Char</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Char</code>.
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Char</span>].decode(<span class="lit">"a"</span>)
-res1: Either[DecodeError, <span class="std">Char</span>] = Right(a)
+res1: StringResult[<span class="std">Char</span>] = Right(a)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Char</span>].encode(<span class="lit">'a'</span>)
@@ -474,7 +478,7 @@ res2: <span class="std">String</span> = a</pre></li></ol>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -498,14 +502,14 @@ res2: <span class="std">String</span> = a</pre></li></ol>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">doubleStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>
+        <span class="name">doubleStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Double</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Double</code>.
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Double</span>].decode(<span class="lit">"2"</span>)
-res1: Either[DecodeError, <span class="std">Double</span>] = Right(<span class="num">2.0</span>)
+res1: StringResult[<span class="std">Double</span>] = Right(<span class="num">2.0</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Double</span>].encode(<span class="num">2</span>D)
@@ -523,7 +527,7 @@ res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li><
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -539,7 +543,7 @@ res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li><
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -564,7 +568,7 @@ res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li><
 scala&gt; <span class="kw">import</span> java.io.File
 
 scala&gt; StringDecoder[File].decode(<span class="lit">"/home/nrinaudo"</span>)
-res1: Either[DecodeError, File] = Right(/home/nrinaudo)
+res1: StringResult[File] = Right(/home/nrinaudo)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[File].encode(<span class="kw">new</span> File(<span class="lit">"/home/nrinaudo"</span>))
@@ -582,7 +586,7 @@ res2: <span class="std">String</span> = /home/nrinaudo</pre></li></ol>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -604,14 +608,14 @@ res2: <span class="std">String</span> = /home/nrinaudo</pre></li></ol>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">floatStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Float.html#scala.Float" class="extype" name="scala.Float">Float</a>]</span>
+        <span class="name">floatStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Float.html#scala.Float" class="extype" name="scala.Float">Float</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Float</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Float</code>.
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Float</span>].decode(<span class="lit">"2"</span>)
-res1: Either[DecodeError, <span class="std">Float</span>] = Right(<span class="num">2.0</span>)
+res1: StringResult[<span class="std">Float</span>] = Right(<span class="num">2.0</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Float</span>].encode(<span class="num">2</span>F)
@@ -648,7 +652,7 @@ res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li><
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
@@ -667,14 +671,14 @@ res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li><
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">intStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
+        <span class="name">intStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Int</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Int</code>.
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Int</span>].decode(<span class="lit">"2"</span>)
-res1: Either[DecodeError, <span class="std">Int</span>] = Right(<span class="num">2</span>)
+res1: StringResult[<span class="std">Int</span>] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Int</span>].encode(<span class="num">2</span>)
@@ -692,7 +696,7 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -708,7 +712,7 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">javaEnumStringCodec</span><span class="tparams">[<span name="T">T &lt;: <span class="extype" name="java.lang.Enum">Enum</span>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="tag">tag: <a href="http://www.scala-lang.org/api/2.12.4/scala/reflect/ClassTag.html#scala.reflect.ClassTag" class="extype" name="scala.reflect.ClassTag">ClassTag</a>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>)</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>
+        <span class="name">javaEnumStringCodec</span><span class="tparams">[<span name="T">T &lt;: <span class="extype" name="java.lang.Enum">Enum</span>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="tag">tag: <a href="http://www.scala-lang.org/api/2.12.7/scala/reflect/ClassTag.html#scala.reflect.ClassTag" class="extype" name="scala.reflect.ClassTag">ClassTag</a>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>)</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for Java enumerations.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for Java enumerations.
@@ -720,7 +724,7 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
 
 <span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[AccessMode].decode(<span class="lit">"READ"</span>)
-res1: Either[DecodeError, AccessMode] = Right(READ)
+res1: StringResult[AccessMode] = Right(READ)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[AccessMode].encode(AccessMode.READ)
@@ -738,14 +742,14 @@ res2: <span class="std">String</span> = READ</pre></li></ol>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">longStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
+        <span class="name">longStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Long</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Long</code>.
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Long</span>].decode(<span class="lit">"2"</span>)
-res1: Either[DecodeError, <span class="std">Long</span>] = Right(<span class="num">2</span>)
+res1: StringResult[<span class="std">Long</span>] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Long</span>].encode(<span class="num">2</span>L)
@@ -763,7 +767,7 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -779,7 +783,7 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -798,7 +802,7 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -829,7 +833,7 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
 scala&gt; <span class="kw">import</span> java.nio.file.{Path, Paths}
 
 scala&gt; StringDecoder[Path].decode(<span class="lit">"/home/nrinaudo"</span>)
-res1: Either[DecodeError, Path] = Right(/home/nrinaudo)
+res1: StringResult[Path] = Right(/home/nrinaudo)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[Path].encode(Paths.get(<span class="lit">"/home/nrinaudo"</span>))
@@ -856,7 +860,7 @@ res2: <span class="std">String</span> = /home/nrinaudo</pre></li></ol>
 
 <span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[Pattern].decode(<span class="lit">"[a-z]"</span>)
-res1: Either[DecodeError, Pattern] = Right([a-z])
+res1: StringResult[Pattern] = Right([a-z])
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[Pattern].encode(Pattern.compile(<span class="lit">"[a-z]"</span>))
@@ -874,7 +878,7 @@ res2: <span class="std">String</span> = [a-z]</pre></li></ol>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">regexStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/util/matching/Regex.html#scala.util.matching.Regex" class="extype" name="scala.util.matching.Regex">Regex</a>]</span>
+        <span class="name">regexStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/util/matching/Regex.html#scala.util.matching.Regex" class="extype" name="scala.util.matching.Regex">Regex</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Regex</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Regex</code>.
@@ -883,7 +887,7 @@ res2: <span class="std">String</span> = [a-z]</pre></li></ol>
 
 <span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[Regex].decode(<span class="lit">"[a-z]"</span>)
-res1: Either[DecodeError, Regex] = Right([a-z])
+res1: StringResult[Regex] = Right([a-z])
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[Regex].encode(<span class="lit">"[a-z]"</span>.r)
@@ -901,14 +905,14 @@ res2: <span class="std">String</span> = [a-z]</pre></li></ol>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">shortStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Short.html#scala.Short" class="extype" name="scala.Short">Short</a>]</span>
+        <span class="name">shortStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Short.html#scala.Short" class="extype" name="scala.Short">Short</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Short</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Short</code>.
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Short</span>].decode(<span class="lit">"2"</span>)
-res1: Either[DecodeError, <span class="std">Short</span>] = Right(<span class="num">2</span>)
+res1: StringResult[<span class="std">Short</span>] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Short</span>].encode(<span class="num">2.</span>toShort)
@@ -933,7 +937,7 @@ res2: <span class="std">String</span> = <span class="num">2</span></pre></li></o
 </p></div><dl class="attributes block"> <div class="block">Example:
                <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">String</span>].decode(<span class="lit">"foobar"</span>)
-res1: Either[DecodeError, <span class="std">String</span>] = Right(foobar)
+res1: StringResult[<span class="std">String</span>] = Right(foobar)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">String</span>].encode(<span class="lit">"foobar"</span>)
@@ -992,7 +996,7 @@ res2: <span class="std">String</span> = foobar</pre></li></ol>
 scala&gt; <span class="kw">import</span> java.net.URI
 
 scala&gt; StringDecoder[URI].decode(<span class="lit">"http://localhost:8080"</span>)
-res1: Either[DecodeError, URI] = Right(http:<span class="cmt">//localhost:8080)</span>
+res1: StringResult[URI] = Right(http:<span class="cmt">//localhost:8080)</span>
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[URI].encode(<span class="kw">new</span> URI(<span class="lit">"http://localhost:8080"</span>))
@@ -1019,7 +1023,7 @@ res2: <span class="std">String</span> = http:<span class="cmt">//localhost:8080<
 scala&gt; <span class="kw">import</span> java.net.URL
 
 scala&gt; StringDecoder[URL].decode(<span class="lit">"http://localhost:8080"</span>)
-res1: Either[DecodeError, URL] = Right(http:<span class="cmt">//localhost:8080)</span>
+res1: StringResult[URL] = Right(http:<span class="cmt">//localhost:8080)</span>
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[URL].encode(<span class="kw">new</span> URL(<span class="lit">"http://localhost:8080"</span>))
@@ -1046,7 +1050,7 @@ res2: <span class="std">String</span> = http:<span class="cmt">//localhost:8080<
 scala&gt; <span class="kw">import</span> java.util.UUID
 
 scala&gt; StringDecoder[UUID].decode(<span class="lit">"123e4567-e89b-12d3-a456-426655440000"</span>)
-res1: Either[DecodeError, UUID] = Right(<span class="num">123</span>e4567-e89b-<span class="num">12</span>d3-a456-<span class="num">426655440000</span>)
+res1: StringResult[UUID] = Right(<span class="num">123</span>e4567-e89b-<span class="num">12</span>d3-a456-<span class="num">426655440000</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[UUID].encode(UUID.fromString(<span class="lit">"123e4567-e89b-12d3-a456-426655440000"</span>))
@@ -1064,7 +1068,7 @@ res2: <span class="std">String</span> = <span class="num">123</span>e4567-e89b-<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1086,7 +1090,7 @@ res2: <span class="std">String</span> = <span class="num">123</span>e4567-e89b-<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1108,7 +1112,7 @@ res2: <span class="std">String</span> = <span class="num">123</span>e4567-e89b-<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1133,9 +1137,9 @@ res2: <span class="std">String</span> = <span class="num">123</span>e4567-e89b-<
         <div class="parent" name="kantan.codecs.strings.PlatformSpecificInstances">
               <h3>Inherited from <a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>
