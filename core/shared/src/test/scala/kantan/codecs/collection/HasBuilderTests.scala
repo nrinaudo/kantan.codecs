@@ -19,13 +19,13 @@ package collection
 
 import org.scalacheck.Arbitrary
 import org.scalatest._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.collection.immutable.{Queue, TreeSet}
 
 /** Tests for basic [[Hasbuilder]] features. */
 abstract class HasBuilderTests[F[_], A](label: String, iterate: F[A] ⇒ Iterator[A])(implicit arb: Arbitrary[F[A]],
                                                                                     hb: HasBuilder[F, A])
-    extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+    extends FunSuite with ScalaCheckDrivenPropertyChecks with Matchers {
 
   test(s"HasBuilder[$label] should create the expected collection") {
     forAll { fa: F[A] ⇒

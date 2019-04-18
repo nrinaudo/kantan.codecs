@@ -22,11 +22,11 @@ import java.io.{ByteArrayInputStream, Reader}
 import java.nio.charset.Charset
 import org.scalacheck.Gen
 import org.scalatest._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.io.Codec
 
 /** Makes sure `BomReader` reads BOMs as expected. */
-class BomReaderTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class BomReaderTests extends FunSuite with ScalaCheckDrivenPropertyChecks with Matchers {
   def read(str: String, codec: Codec): String = {
     def go(reader: Reader, acc: StringBuilder): String = reader.read() match {
       case -1 ⇒ acc.toString()

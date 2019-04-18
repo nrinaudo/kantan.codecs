@@ -17,9 +17,9 @@
 package kantan.codecs
 
 import org.scalatest._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class EncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class EncoderCompanionTests extends FunSuite with ScalaCheckDrivenPropertyChecks with Matchers {
   object codec
   object Companion extends EncoderCompanion[String, codec.type]
 

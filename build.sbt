@@ -195,7 +195,7 @@ lazy val scalazLaws = kantanCrossProject("scalaz-laws")
   .settings(
     libraryDependencies ++= Seq(
       "org.scalaz"    %%% "scalaz-core"               % Versions.scalaz,
-      "org.scalaz"    %%% "scalaz-scalacheck-binding" % (Versions.scalaz + "-scalacheck-1.13"),
+      "org.scalaz"    %%% "scalaz-scalacheck-binding" % (Versions.scalaz + "-scalacheck-1.14"),
       "org.scalatest" %%% "scalatest"                 % Versions.scalatest % "optional"
     )
   )
@@ -224,7 +224,7 @@ lazy val refinedJS  = refined.js
 lazy val refinedLaws = kantanCrossProject("refined-laws")
   .in(file("refined/laws"))
   .settings(moduleName := "kantan.codecs-refined-laws")
-  .settings(libraryDependencies += "eu.timepit" %%% "refined-scalacheck_1.13" % Versions.refined)
+  .settings(libraryDependencies += "eu.timepit" %%% "refined-scalacheck" % Versions.refined)
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, refined)
 
@@ -306,7 +306,7 @@ lazy val shapelessLaws = kantanCrossProject("shapeless-laws")
   .in(file("shapeless/laws"))
   .settings(moduleName := "kantan.codecs-shapeless-laws")
   .settings(
-    libraryDependencies += "com.github.alexarchambault" %%% "scalacheck-shapeless_1.13" % Versions.scalacheckShapeless
+    libraryDependencies += "com.github.alexarchambault" %%% "scalacheck-shapeless_1.14" % Versions.scalacheckShapeless
   )
   .enablePlugins(PublishedPlugin)
   .dependsOn(core, laws, shapeless)

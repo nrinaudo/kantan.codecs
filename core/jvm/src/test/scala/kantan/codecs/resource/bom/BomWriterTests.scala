@@ -23,11 +23,11 @@ import java.nio.charset.Charset
 import org.apache.commons.io.{ByteOrderMark ⇒ BOM}
 import org.apache.commons.io.input.BOMInputStream
 import org.scalatest._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.io.Codec
 
 /** Makes sure `BomWriter` writes BOMs as expected. */
-class BomWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class BomWriterTests extends FunSuite with ScalaCheckDrivenPropertyChecks with Matchers {
   def write(str: String, codec: Codec): BOM =
     new BOMInputStream(
       new ByteArrayInputStream(InMemoryBomWriter.write(str, codec)),

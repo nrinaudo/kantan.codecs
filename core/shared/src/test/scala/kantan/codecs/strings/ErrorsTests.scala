@@ -19,9 +19,9 @@ package strings
 
 import laws.discipline.arbitrary._
 import org.scalatest._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class ErrorsTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class ErrorsTests extends FunSuite with ScalaCheckDrivenPropertyChecks with Matchers {
   test("DecodeErrors should be equal if the underlying exceptions are the same") {
     forAll { (e1: DecodeError, e2: Exception) ⇒
       (e1, e2) match {

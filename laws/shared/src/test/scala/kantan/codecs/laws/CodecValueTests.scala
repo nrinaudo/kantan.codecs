@@ -22,11 +22,11 @@ import discipline.arbitrary._
 import java.util.UUID
 import org.scalacheck.{Arbitrary, Prop}
 import org.scalatest._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.util.Try
 import strings.{codecs ⇒ scodecs}
 
-class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class CodecValueTests extends FunSuite with ScalaCheckDrivenPropertyChecks with Matchers {
   test("mapDecoded should ignore illegal values and modify the encoded part of legal ones.") {
     forAll { (v: StringValue[Int], f: Int ⇒ Float) ⇒
       v match {

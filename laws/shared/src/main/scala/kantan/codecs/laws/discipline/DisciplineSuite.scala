@@ -19,7 +19,7 @@ package laws
 package discipline
 
 import org.scalatest.{FunSuite, Matchers}
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-trait DisciplineSuite extends FunSuite with GeneratorDrivenPropertyChecks with Discipline with Matchers
+trait DisciplineSuite extends FunSuite with ScalaCheckDrivenPropertyChecks with Discipline with Matchers

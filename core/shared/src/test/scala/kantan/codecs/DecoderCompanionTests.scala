@@ -18,9 +18,9 @@ package kantan.codecs
 
 import error._
 import org.scalatest._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class DecoderCompanionTests extends FunSuite with ScalaCheckDrivenPropertyChecks with Matchers {
   object codec
   object Companion extends DecoderCompanion[String, String, codec.type]
 

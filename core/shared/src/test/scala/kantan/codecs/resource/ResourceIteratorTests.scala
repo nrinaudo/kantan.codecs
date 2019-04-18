@@ -20,10 +20,10 @@ package resource
 import imp.imp
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest._, EitherValues._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
 @SuppressWarnings(Array("org.wartremover.warts.Var", "org.wartremover.warts.While"))
-class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class ResourceIteratorTests extends FunSuite with ScalaCheckDrivenPropertyChecks with Matchers {
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   case class FailingIterator[A](iterator: Iterator[A], index: Int) {
