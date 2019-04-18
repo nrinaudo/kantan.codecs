@@ -1,5 +1,5 @@
 object Versions {
-  val cats                 = "1.4.0"
+  val cats                 = "1.6.0"
   val commonsIo            = "2.6"
   val contextual           = "1.1.0"
   val discipline           = "0.11.1"
