@@ -22,15 +22,15 @@ import CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.{Arbitrary, Gen}
 
 trait ArbitraryArities {
-  [#def genLegalWith1[[#E1#], [#D1#], EE, DD, T](decoded: ([#D1#]) ⇒ DD)(encoded: ([#E1#]) ⇒ EE)(implicit [#arb1: Arbitrary[LegalValue[E1, D1, T]]#]): Gen[LegalValue[EE, DD, T]] =
+  [#def genLegalWith1[[#E1#], [#D1#], EE, DD, T](decoded: ([#D1#]) => DD)(encoded: ([#E1#]) => EE)(implicit [#arb1: Arbitrary[LegalValue[E1, D1, T]]#]): Gen[LegalValue[EE, DD, T]] =
     for {
-      [#l1 ← arb1.arbitrary#
+      [#l1 <- arb1.arbitrary#
       ]
     } yield LegalValue(encoded([#l1.encoded#]), decoded([#l1.decoded#]))
 
-  def genIllegalWith1[[#E1#], [#D1#], EE, DD, T](encoded: ([#E1#]) ⇒ EE)(implicit [#arb1: Arbitrary[IllegalValue[E1, D1, T]]#]): Gen[IllegalValue[EE, DD, T]] =
+  def genIllegalWith1[[#E1#], [#D1#], EE, DD, T](encoded: ([#E1#]) => EE)(implicit [#arb1: Arbitrary[IllegalValue[E1, D1, T]]#]): Gen[IllegalValue[EE, DD, T]] =
     for {
-      [#l1 ← arb1.arbitrary#
+      [#l1 <- arb1.arbitrary#
       ]
     } yield IllegalValue(encoded([#l1.encoded#]))#
 
@@ -38,10 +38,10 @@ trait ArbitraryArities {
 
 
   [#def genLegalTuple1[[#E1#], [#D1#], T](implicit [#arbD1: Arbitrary[LegalValue[E1, D1, T]]#]): Gen[LegalValue[Tuple1[[#E1#]], Tuple1[[#D1#]], T]] =
-    genLegalWith1(([#d1: D1#]) ⇒ Tuple1([#d1#]))(([#e1: E1#]) ⇒ Tuple1([#e1#]))
+    genLegalWith1(([#d1: D1#]) => Tuple1([#d1#]))(([#e1: E1#]) => Tuple1([#e1#]))
 
   def genIllegalTuple1[[#E1#], [#D1#], T](implicit [#arbD1: Arbitrary[IllegalValue[E1, D1, T]]#]): Gen[IllegalValue[Tuple1[[#E1#]], Tuple1[[#D1#]], T]] =
-    genIllegalWith1(([#e1: E1#]) ⇒ Tuple1([#e1#]))([#arbD1#])#
+    genIllegalWith1(([#e1: E1#]) => Tuple1([#e1#]))([#arbD1#])#
 
   ]
 }

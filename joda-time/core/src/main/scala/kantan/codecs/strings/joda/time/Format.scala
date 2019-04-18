@@ -44,7 +44,7 @@ sealed trait Format {
     *
     * scala> Format.defaultDateTimeFormat
     *      |   .parseDateTime("2000-01-01T12:00:00.000Z")
-    *      |   .right.map(_.withZone(DateTimeZone.UTC))
+    *      |   .map(_.withZone(DateTimeZone.UTC))
     * res1 = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */
@@ -163,7 +163,7 @@ object Format {
     *
     * scala> Format.defaultDateTimeFormat
     *      |   .parseDateTime("2000-01-01T12:00:00.000Z")
-    *      |   .right.map(_.withZone(DateTimeZone.UTC))
+    *      |   .map(_.withZone(DateTimeZone.UTC))
     * res2 = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */

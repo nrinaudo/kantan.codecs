@@ -27,6 +27,8 @@ import error.IsError
 
 /** Defines implicit `Decoder` instances for any enumeratum `ValueEnum` type. */
 trait DecoderInstances {
+
+  @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
   def enumeratumDecoder[V, E, D <: ValueEnumEntry[V], F, T](
     implicit enum: ValueEnum[V, D],
     decoder: Decoder[E, V, F, T],

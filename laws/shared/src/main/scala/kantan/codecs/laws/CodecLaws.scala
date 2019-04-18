@@ -60,7 +60,7 @@ trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, 
   // -------------------------------------------------------------------------------------------------------------------
   def roundTripEncoding(d: D): Boolean = decoder.decode(encoder.encode(d)) == Right(d)
   def roundTripDecoding(v: LegalValue[E, D, T]): Boolean =
-    decoder.decode(v.encoded).right.map(encoder.encode) == Right(v.encoded)
+    decoder.decode(v.encoded).map(encoder.encode) == Right(v.encoded)
 }
 
 object CodecLaws {

@@ -83,7 +83,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     *
     * scala> Foo.defaultDateTimeDecoder
     *      | .decode("2000-01-01T12:00:00.000Z")
-    *      | .right.map(_.withZone(DateTimeZone.UTC))
+    *      | .map(_.withZone(DateTimeZone.UTC))
     * res1 = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */

@@ -15,7 +15,7 @@ Errors should be represented as sum types, and usually provide one alternative t
 
 For example:
 
-```tut:silent
+```scala mdoc:silent
 sealed abstract class DecodeError extends Product with Serializable
 final case class TypeError(cause: Throwable) extends DecodeError
 final case class OutOfBounds(index: Int) extends DecodeError
@@ -31,7 +31,7 @@ object DecodeError {
 [`Decoder`] instances will be specialised on that error type: they will return instances of `Either[DecodeError, A]`.
 It's good form to "hide" `Either` as much as possible though, and a type alias should be declared:
 
-```tut:silent
+```scala mdoc:silent
 import kantan.codecs._
 
 type DecodeResult[A] = Either[DecodeError, A]
@@ -40,7 +40,7 @@ type DecodeResult[A] = Either[DecodeError, A]
 Additionally, a singleton object for the specialised result type should be created to provide instance creation
 methods:
 
-```tut:silent
+```scala mdoc:silent
 object DecodeResult {
   def apply[A](a: => A): DecodeResult[A] = ResultCompanion.nonFatal(TypeError.apply)(a)
   def success[A](a: A): DecodeResult[A] = Right(a)
@@ -54,7 +54,7 @@ object DecodeResult {
 [`Encoder`], [`Decoder`] and [`Codec`] require a tag type - a phantom type use to disambiguate between implementations
 that work with the same encoded type. This is traditionally a singleton object called `codecs`.
 
-```tut:silent
+```scala mdoc:silent
  // We'll need to redefine that later to add default instances.
 object codecs
 ```
@@ -63,7 +63,7 @@ object codecs
 
 Specialised types should be declared as type aliases:
 
-```tut:silent
+```scala mdoc:silent
 type CellDecoder[A] = Decoder[String, A, DecodeError, codecs.type]
 type CellEncoder[A] = Encoder[String, A, codecs.type]
 type CellCodec[A] = Codec[String, A, DecodeError, codecs.type]
@@ -71,7 +71,7 @@ type CellCodec[A] = Codec[String, A, DecodeError, codecs.type]
 
 Each specialised type should have a singleton object, used to declare creation and summoning methods:
 
-```tut:silent
+```scala mdoc:silent
 object CellDecoder {
   def apply[A](implicit da: CellDecoder[A]): CellDecoder[A] = da
   def from[A](f: String => DecodeResult[A]): CellDecoder[A] = Decoder.from(f)
@@ -91,7 +91,7 @@ object CellCodec {
 ### Default instances
 [`Decoder`] and [`Encoder`] implementations should have accompanying "instances" trait containing all default instances.
 
-```tut:silent
+```scala mdoc:silent
 trait CellDecoderInstances {
   val stringDecoder: CellDecoder[String] = CellDecoder.from(DecodeResult.success)
   // ...
@@ -105,7 +105,7 @@ trait CellEncoderInstances {
 
 [`Codec`] implementations should have an accompanying "instances" trait that extends the previously defined ones:
 
-```tut:silent
+```scala mdoc:silent
 trait CellCodecInstances extends CellDecoderInstances with CellEncoderInstances
 ```
 
@@ -122,17 +122,13 @@ object codecs extends CellCodecInstances
 Decoding from strings is a fairly common requirement, regardless of the underlying format. Default codecs are provided
 for these, and can be adapted trivially:
 
-```tut:silent
+```scala mdoc:silent
 import kantan.codecs.strings.{StringEncoder, StringDecoder}
 
-trait CellDecoderInstances {
-  def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
-    da.leftMap(DecodeError.typeError).tag[codecs.type]
-}
+def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
+  da.leftMap(DecodeError.typeError).tag[codecs.type]
 
-trait CellEncoderInstances {
-  def fromStringEncoder[A](implicit ea: StringEncoder[A]): CellEncoder[A] = ea.tag[codecs.type]
-}
+def fromStringEncoder[A](implicit ea: StringEncoder[A]): CellEncoder[A] = ea.tag[codecs.type]
 ```
 
 ### Difference between primitive types and first-order types
@@ -141,10 +137,10 @@ it's safe to provide a [`Codec`] for the former, but usually not for the later.
 
 In order to write default instances for `Option`, one might be tempted to write:
 
-```tut:silent
+```scala mdoc:silent
 def optionCodec[A](implicit ca: CellCodec[A]): CellCodec[Option[A]] = CellCodec.from { s =>
   if(s.isEmpty) DecodeResult.success(Option.empty[A])
-  else          ca.decode(s).right.map(Some.apply)
+  else          ca.decode(s).map(Some.apply)
 } { _.map(ca.encode).getOrElse("") }
 ```
 

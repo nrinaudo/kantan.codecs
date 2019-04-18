@@ -49,7 +49,7 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
     * scala> val encoded = codec.encode(new DateTime(2000, 1, 1, 12, 0, 0, DateTimeZone.UTC))
     * res1: String = 2000-01-01T12:00:00.000UTC
     *
-    * scala> codec.decode(encoded).right.map(_.withZone(DateTimeZone.UTC))
+    * scala> codec.decode(encoded).map(_.withZone(DateTimeZone.UTC))
     * res2 = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */

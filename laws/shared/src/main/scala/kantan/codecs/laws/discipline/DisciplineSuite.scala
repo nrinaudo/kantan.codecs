@@ -18,8 +18,9 @@ package kantan.codecs
 package laws
 package discipline
 
-import org.scalatest.{FunSuite, Matchers}
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.typelevel.discipline.scalatest.Discipline
 
-trait DisciplineSuite extends FunSuite with GeneratorDrivenPropertyChecks with Discipline with Matchers
+trait DisciplineSuite extends AnyFunSuite with ScalaCheckPropertyChecks with Discipline with Matchers
