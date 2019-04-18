@@ -11,7 +11,7 @@ object Versions {
   val libra                = "0.5.0"
   val refined              = "0.9.5"
   val scalacheck           = "1.14.0"
-  val scalacheckShapeless  = "1.1.8"
+  val scalacheckShapeless  = "1.2.1"
   val scalatest            = "3.0.7"
   val scalaz               = "7.2.27"
   val shapeless            = "2.3.3"
