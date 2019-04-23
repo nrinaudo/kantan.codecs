@@ -4,7 +4,7 @@ object Versions {
   val contextual           = "1.1.0"
   val discipline           = "0.9.0"
   val enumeratum           = "1.5.13"
-  val enumeratumScalacheck = "1.5.15"
+  val enumeratumScalacheck = "1.5.16"
   val imp                  = "0.3.0"
   val jodaConvert          = "1.9.2"
   val joda                 = "2.10.1"
