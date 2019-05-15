@@ -22,7 +22,7 @@ package error
   * This is mostly meant to work in conjunction with [[Error]], and lets code that deals with errors turn them into
   * values of the right error type.
   */
-trait IsError[E] extends Serializable { self ⇒
+trait IsError[E] extends Serializable { self =>
 
   /** Creates a new instance of `E` from an exception. */
   def fromThrowable(t: Throwable): E
@@ -34,9 +34,9 @@ trait IsError[E] extends Serializable { self ⇒
   def from(msg: String, t: Throwable): E
 
   /** Safely evaluates the specified argument, wrapping errors in a `E`. */
-  def safe[A](a: ⇒ A): Either[E, A] = ResultCompanion.nonFatal(fromThrowable)(a)
+  def safe[A](a: => A): Either[E, A] = ResultCompanion.nonFatal(fromThrowable)(a)
 
-  def map[EE](f: E ⇒ EE): IsError[EE] = new IsError[EE] {
+  def map[EE](f: E => EE): IsError[EE] = new IsError[EE] {
     override def fromThrowable(t: Throwable)     = f(self.fromThrowable(t))
     override def fromMessage(msg: String)        = f(self.fromMessage(msg))
     override def from(msg: String, t: Throwable) = f(self.from(msg, t))

@@ -27,15 +27,17 @@ import error.IsError
 
 /** Defines implicit `Decoder` instances for any enumeratum `ValueEnum` type. */
 trait DecoderInstances {
-  def enumeratumDecoder[V, E, D <: ValueEnumEntry[V], F, T](implicit enum: ValueEnum[V, D],
-                                                            decoder: Decoder[E, V, F, T],
-                                                            error: IsError[F]): Decoder[E, D, F, T] = {
+  def enumeratumDecoder[V, E, D <: ValueEnumEntry[V], F, T](
+    implicit enum: ValueEnum[V, D],
+    decoder: Decoder[E, V, F, T],
+    error: IsError[F]
+  ): Decoder[E, D, F, T] = {
     // ValueEnum is not serializable. The following is to make sure that the generated Decoder doesn't embark a
     // non-serializable value and becomes non-serializable itself.
     val map       = enum.valuesToEntriesMap
     val enumLabel = enum.values.map(_.value).mkString("[", ", ", "]")
 
-    decoder.emap { value ⇒
+    decoder.emap { value =>
       map.get(value).toRight(error.fromMessage(s"'$value' is not in values $enumLabel"))
     }
   }

@@ -18,7 +18,7 @@ package kantan.codecs
 package scalaz
 
 import _root_.scalaz.Show
-import _root_.scalaz.scalacheck.ScalazProperties.{equal ⇒ equ}
+import _root_.scalaz.scalacheck.ScalazProperties.{equal => equ}
 import laws.discipline._, arbitrary._
 import strings.DecodeError
 
@@ -27,7 +27,7 @@ class DecodeErrorTests extends ScalazDisciplineSuite {
   checkAll("DecodeError", equ.laws[DecodeError])
 
   test("Show[DecodeError] should yield a string containing the error message") {
-    forAll { error: DecodeError ⇒
+    forAll { error: DecodeError =>
       Show[DecodeError].shows(error) should include(error.message)
     }
   }

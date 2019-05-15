@@ -46,7 +46,7 @@ object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] 
     * @param f decoding function.
     * @tparam D decoded type.
     */
-  def makeSafe[D](typeName: String)(f: String ⇒ D): String ⇒ StringResult[D] =
-    s ⇒ StringResult(f(s)).left.map(t ⇒ DecodeError(s"'$s' is not a valid $typeName", t))
+  def makeSafe[D](typeName: String)(f: String => D): String => StringResult[D] =
+    s => StringResult(f(s)).left.map(t => DecodeError(s"'$s' is not a valid $typeName", t))
 
 }

@@ -33,18 +33,18 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
     new DefaultRuleSet(
       "round trip",
       Some(encoder[A, B]),
-      "round trip (encoding)"              → forAll(laws.roundTripEncoding _),
-      "round trip (decoding)"              → forAll(laws.roundTripDecoding _),
-      "leftMap identity(encoding)"         → forAll(laws.leftMapIdentityEncoding _),
-      "leftMap composition(decoding)"      → forAll(laws.leftMapCompositionEncoding[A, B] _),
-      "imap identity (encoding)"           → forAll(laws.imapIdentityEncoding _),
-      "imap identity (decoding)"           → forAll(laws.imapIdentityDecoding _),
-      "imap composition (encoding)"        → forAll(laws.imapCompositionEncoding[A, B] _),
-      "imap composition (decoding)"        → forAll(laws.imapCompositionDecoding[A, B] _),
-      "imapEncoded identity (encoding)"    → forAll(laws.imapEncodedIdentityEncoding _),
-      "imapEncoded identity (decoding)"    → forAll(laws.imapEncodedIdentityDecoding _),
-      "imapEncoded composition (encoding)" → forAll(laws.imapEncodedCompositionEncoding[A, B] _),
-      "imapEncoded composition(decoding)"  → forAll(laws.imapEncodedCompositionDecoding[A, B] _)
+      "round trip (encoding)"              -> forAll(laws.roundTripEncoding _),
+      "round trip (decoding)"              -> forAll(laws.roundTripDecoding _),
+      "leftMap identity(encoding)"         -> forAll(laws.leftMapIdentityEncoding _),
+      "leftMap composition(decoding)"      -> forAll(laws.leftMapCompositionEncoding[A, B] _),
+      "imap identity (encoding)"           -> forAll(laws.imapIdentityEncoding _),
+      "imap identity (decoding)"           -> forAll(laws.imapIdentityDecoding _),
+      "imap composition (encoding)"        -> forAll(laws.imapCompositionEncoding[A, B] _),
+      "imap composition (decoding)"        -> forAll(laws.imapCompositionDecoding[A, B] _),
+      "imapEncoded identity (encoding)"    -> forAll(laws.imapEncodedIdentityEncoding _),
+      "imapEncoded identity (decoding)"    -> forAll(laws.imapEncodedIdentityDecoding _),
+      "imapEncoded composition (encoding)" -> forAll(laws.imapEncodedCompositionEncoding[A, B] _),
+      "imapEncoded composition(decoding)"  -> forAll(laws.imapEncodedCompositionDecoding[A, B] _)
     )
 
   def bijectiveCodec[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet = new RuleSet {

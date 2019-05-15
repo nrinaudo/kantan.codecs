@@ -22,6 +22,6 @@ import contextual._
 
 object FormatVerifier extends Verifier[Format] {
 
-  override def check(string: String): Either[(Int, String), Format] = Format.from(string).left.map(err ⇒ (0, err))
+  override def check(string: String): Either[(Int, String), Format] = Format.from(string).left.map(err => (0, err))
 
 }

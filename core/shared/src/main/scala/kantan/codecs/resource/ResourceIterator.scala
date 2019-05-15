@@ -45,7 +45,7 @@ import scala.util.Try
     "org.wartremover.warts.Null"
   )
 )
-trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { self ⇒
+trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { self =>
   // - Abstract methods ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Reads the next element in the underlying resource
@@ -93,8 +93,10 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     // close then, which would end up ignoring calls to `withClose`.
     if(isClosed) false
     else {
-      if(try { checkNext } catch {
-           case scala.util.control.NonFatal(e) ⇒
+      if(try {
+           checkNext
+         } catch {
+           case scala.util.control.NonFatal(e) =>
              lastError = Some(e)
              close()
              true
@@ -106,16 +108,16 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     }
 
   final def next(): A = lastError match {
-    case Some(e) ⇒
+    case Some(e) =>
       lastError = None
       throw e
-    case _ ⇒
+    case _ =>
       try {
         val n = readNext()
         hasNext
         n
       } catch {
-        case e: Throwable ⇒
+        case e: Throwable =>
           close()
           throw e
       }
@@ -156,7 +158,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     *
     * No element will be consumed until the next [[next]] call.
     */
-  def dropWhile(p: A ⇒ Boolean): ResourceIterator[A] =
+  def dropWhile(p: A => Boolean): ResourceIterator[A] =
     if(isEmpty) this
     else
       new ResourceIterator[A] {
@@ -211,13 +213,13 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
   }
 
   /** Considers this resource to be empty as soon as an element is found that doesn't verify `p`. */
-  def takeWhile(p: A ⇒ Boolean): ResourceIterator[A] =
+  def takeWhile(p: A => Boolean): ResourceIterator[A] =
     if(isEmpty) this
     else
       new ResourceIterator[A] {
         var first         = true // Whether we've started reading from the resource.
-        var n: A          = _ // Latest value read from the resource.
-        var hasN: Boolean = _ // Whether or not n verifies p.
+        var n: A          = _    // Latest value read from the resource.
+        var hasN: Boolean = _    // Whether or not n verifies p.
 
         def takeNext(): Unit = {
           n = self.next()
@@ -278,17 +280,17 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
 
   // - Monadic operations ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def map[B](f: A ⇒ B): ResourceIterator[B] = new ResourceIterator[B] {
+  def map[B](f: A => B): ResourceIterator[B] = new ResourceIterator[B] {
     override def checkNext  = self.hasNext
     override def readNext() = f(self.next())
     override def release()  = self.close()
   }
 
   /** Applies the specified function to the `Right` case of the underlying `Either`. */
-  def mapResult[E, S, B](f: S ⇒ B)(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
+  def mapResult[E, S, B](f: S => B)(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
     map(_.right.map(f): Either[E, B])
 
-  def flatMap[B](f: A ⇒ ResourceIterator[B]): ResourceIterator[B] = {
+  def flatMap[B](f: A => ResourceIterator[B]): ResourceIterator[B] = {
     var cur: ResourceIterator[B] = ResourceIterator.empty
     new ResourceIterator[B] {
       override def checkNext  = cur.hasNext || self.hasNext && { cur = f(self.next()); checkNext }
@@ -298,26 +300,26 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
   }
 
   @deprecated("Use emap instead", "0.2.2")
-  def flatMapResult[E, S, B](f: S ⇒ Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
+  def flatMapResult[E, S, B](f: S => Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
     emap(f)
 
-  def emap[E, S, B](f: S ⇒ Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
+  def emap[E, S, B](f: S => Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
     map(_.right.flatMap(f))
 
-  def filter(p: A ⇒ Boolean): ResourceIterator[A] = collect {
-    case a if p(a) ⇒ a
+  def filter(p: A => Boolean): ResourceIterator[A] = collect {
+    case a if p(a) => a
   }
 
-  def filterResult[E, S](p: S ⇒ Boolean)(implicit ev: A <:< Either[E, S]): ResourceIterator[A] =
+  def filterResult[E, S](p: S => Boolean)(implicit ev: A <:< Either[E, S]): ResourceIterator[A] =
     filter(_.right.exists(p))
 
-  def withFilter(p: A ⇒ Boolean): ResourceIterator[A] = filter(p)
+  def withFilter(p: A => Boolean): ResourceIterator[A] = filter(p)
 
   // - TraversableOnce -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  override def foreach[U](f: A ⇒ U): Unit = while(hasNext) f(next())
-  override def seq: TraversableOnce[A]    = this
-  override def hasDefiniteSize: Boolean   = isEmpty
+  override def foreach[U](f: A => U): Unit = while(hasNext) f(next())
+  override def seq: TraversableOnce[A]     = this
+  override def hasDefiniteSize: Boolean    = isEmpty
 
   override def copyToArray[B >: A](xs: Array[B], start: Int, len: Int): Unit = {
     var i   = start
@@ -328,14 +330,14 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     }
   }
 
-  override def forall(p: A ⇒ Boolean): Boolean = {
+  override def forall(p: A => Boolean): Boolean = {
     var res = true
     while(res && hasNext) res = p(next())
     res
   }
   override def toTraversable: Traversable[A] = toStream
   override def isEmpty: Boolean              = !hasNext
-  override def find(p: A ⇒ Boolean): Option[A] = {
+  override def find(p: A => Boolean): Option[A] = {
     var res: Option[A] = None
     while(res.isEmpty && hasNext) {
       val n = next()
@@ -343,7 +345,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     }
     res
   }
-  override def exists(p: A ⇒ Boolean): Boolean = {
+  override def exists(p: A => Boolean): Boolean = {
     var res = false
     while(!res && hasNext) res = p(next())
     res
@@ -356,7 +358,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
   override def isTraversableAgain: Boolean = false
 
   /** Calls the specified function when the underlying resource is empty. */
-  def withClose(f: () ⇒ Unit): ResourceIterator[A] =
+  def withClose(f: () => Unit): ResourceIterator[A] =
     new ResourceIterator[A] {
       override def checkNext  = self.hasNext
       override def readNext() = self.next()
@@ -377,7 +379,7 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
     * @param empty error value for when `next` is called on an empty iterator.
     * @param f     used to turn non-fatal exceptions into error types.
     */
-  def safe[F](empty: ⇒ F)(f: Throwable ⇒ F): ResourceIterator[Either[F, A]] = new ResourceIterator[Either[F, A]] {
+  def safe[F](empty: => F)(f: Throwable => F): ResourceIterator[Either[F, A]] = new ResourceIterator[Either[F, A]] {
     override def readNext() =
       if(self.hasNext) ResultCompanion.nonFatal(f)(self.next())
       else Left(empty)

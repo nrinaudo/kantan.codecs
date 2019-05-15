@@ -42,7 +42,7 @@ object codecs extends PlatformSpecificInstances {
     */
   @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
   implicit def javaEnumStringCodec[T <: Enum[T]](implicit tag: ClassTag[T]): StringCodec[T] =
-    StringCodec.from(StringDecoder.makeSafe("Enum")(s ⇒ {
+    StringCodec.from(StringDecoder.makeSafe("Enum")(s => {
       val enumClass = tag.runtimeClass.asInstanceOf[Class[T]]
       Enum.valueOf(enumClass, s)
     }))(_.name())
@@ -63,7 +63,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val patternStringCodec: StringCodec[Pattern] =
-    StringCodec.from(StringDecoder.makeSafe("Pattern")(s ⇒ Pattern.compile(s.trim)))(_.pattern())
+    StringCodec.from(StringDecoder.makeSafe("Pattern")(s => Pattern.compile(s.trim)))(_.pattern())
 
   /** Defines a [[StringCodec]] instance for `Regex`.
     *
@@ -81,7 +81,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val regexStringCodec: StringCodec[Regex] =
-    StringCodec.from(StringDecoder.makeSafe("Regex")(s ⇒ s.trim.r))(_.pattern.pattern())
+    StringCodec.from(StringDecoder.makeSafe("Regex")(s => s.trim.r))(_.pattern.pattern())
 
   /** Defines a [[StringCodec]] instance for `BigDecimal`.
     *
@@ -97,7 +97,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val bigDecimalStringCodec: StringCodec[BigDecimal] =
-    StringCodec.from(StringDecoder.makeSafe("BigDecimal")(s ⇒ BigDecimal(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("BigDecimal")(s => BigDecimal(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `BigInt`.
     *
@@ -113,7 +113,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val bigIntStringCodec: StringCodec[BigInt] =
-    StringCodec.from(StringDecoder.makeSafe("BigInt")(s ⇒ BigInt(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("BigInt")(s => BigInt(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Boolean`.
     *
@@ -129,7 +129,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val booleanStringCodec: StringCodec[Boolean] =
-    StringCodec.from(StringDecoder.makeSafe("Boolean")(s ⇒ s.trim.toBoolean))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Boolean")(s => s.trim.toBoolean))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Char`.
     *
@@ -144,7 +144,7 @@ object codecs extends PlatformSpecificInstances {
     * res2: String = a
     * }}}
     */
-  implicit val charStringCodec: StringCodec[Char] = StringCodec.from { s ⇒
+  implicit val charStringCodec: StringCodec[Char] = StringCodec.from { s =>
     // This is a bit dodgy, but necessary: if the string has a length greater than 1, it might be a legal character with
     // padding. The only issue is if the character is *whitespace* with whitespace padding. This is acknowledged and
     // willfully ignored, at least for the time being.
@@ -167,7 +167,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val doubleStringCodec: StringCodec[Double] =
-    StringCodec.from(StringDecoder.makeSafe("Double")(s ⇒ java.lang.Double.parseDouble(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Double")(s => java.lang.Double.parseDouble(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Byte`.
     *
@@ -183,7 +183,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val byteStringCodec: StringCodec[Byte] =
-    StringCodec.from(StringDecoder.makeSafe("Byte")(s ⇒ java.lang.Byte.parseByte(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Byte")(s => java.lang.Byte.parseByte(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Float`.
     *
@@ -199,7 +199,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val floatStringCodec: StringCodec[Float] =
-    StringCodec.from(StringDecoder.makeSafe("Float")(s ⇒ java.lang.Float.parseFloat(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Float")(s => java.lang.Float.parseFloat(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Int`.
     *
@@ -215,7 +215,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val intStringCodec: StringCodec[Int] =
-    StringCodec.from(StringDecoder.makeSafe("Int")(s ⇒ Integer.parseInt(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Int")(s => Integer.parseInt(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Long`.
     *
@@ -231,7 +231,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val longStringCodec: StringCodec[Long] =
-    StringCodec.from(StringDecoder.makeSafe("Long")(s ⇒ java.lang.Long.parseLong(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Long")(s => java.lang.Long.parseLong(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `Short`.
     *
@@ -247,7 +247,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val shortStringCodec: StringCodec[Short] =
-    StringCodec.from(StringDecoder.makeSafe("Short")(s ⇒ java.lang.Short.parseShort(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("Short")(s => java.lang.Short.parseShort(s.trim)))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `String`.
     *
@@ -263,7 +263,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val stringStringCodec: StringCodec[String] =
-    StringCodec.from(s ⇒ Right(s))(_.toString)
+    StringCodec.from(s => Right(s))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `java.util.UUID`.
     *
@@ -281,6 +281,6 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val uuidStringCodec: StringCodec[UUID] =
-    StringCodec.from(StringDecoder.makeSafe("UUID")(s ⇒ UUID.fromString(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("UUID")(s => UUID.fromString(s.trim)))(_.toString)
 
 }

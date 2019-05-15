@@ -20,7 +20,7 @@ package laws
 package discipline
 
 import _root_.scalaz.{\/, Maybe}
-import _root_.scalaz.scalacheck.{ScalazArbitrary ⇒ SA}
+import _root_.scalaz.scalacheck.{ScalazArbitrary => SA}
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.{Arbitrary, Cogen}
 
@@ -45,21 +45,21 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
   implicit def arbLegalMaybe[E, D, T](
     implicit al: Arbitrary[LegalValue[E, Option[D], T]]
   ): Arbitrary[LegalValue[E, Maybe[D], T]] =
-    Arbitrary(al.arbitrary.map(_.mapDecoded(v ⇒ Maybe.fromOption(v))))
+    Arbitrary(al.arbitrary.map(_.mapDecoded(v => Maybe.fromOption(v))))
 
   implicit def arbIllegalMaybe[E, D, T](
     implicit al: Arbitrary[IllegalValue[E, Option[D], T]]
   ): Arbitrary[IllegalValue[E, Maybe[D], T]] =
-    Arbitrary(al.arbitrary.map(_.mapDecoded(v ⇒ Maybe.fromOption(v))))
+    Arbitrary(al.arbitrary.map(_.mapDecoded(v => Maybe.fromOption(v))))
 
   implicit def arbLegalDisjunction[E, DL, DR, T](
     implicit a: Arbitrary[LegalValue[E, Either[DL, DR], T]]
   ): Arbitrary[LegalValue[E, DL \/ DR, T]] =
-    Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
+    Arbitrary(a.arbitrary.map(_.mapDecoded(v => \/.fromEither(v))))
 
   implicit def arbIllegalDisjunction[E, DL, DR, T](
     implicit a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]
   ): Arbitrary[IllegalValue[E, DL \/ DR, T]] =
-    Arbitrary(a.arbitrary.map(_.mapDecoded(v ⇒ \/.fromEither(v))))
+    Arbitrary(a.arbitrary.map(_.mapDecoded(v => \/.fromEither(v))))
 
 }

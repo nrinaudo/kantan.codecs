@@ -32,7 +32,7 @@ object ResourceResult extends ResultCompanion.Simple[ResourceError] {
     *
     * @see OpenResult.apply
     */
-  def open[A](a: ⇒ A): ResourceResult[A] = OpenResult(a)
+  def open[A](a: => A): ResourceResult[A] = OpenResult(a)
 
   /** Evaluates the specified value, returning a [[ProcessResult]] if an error occurs.
     *
@@ -46,7 +46,7 @@ object ResourceResult extends ResultCompanion.Simple[ResourceError] {
     *
     * @see ProcessResult.apply
     */
-  def process[A](a: ⇒ A): ResourceResult[A] = ProcessResult(a)
+  def process[A](a: => A): ResourceResult[A] = ProcessResult(a)
 
   /** Evaluates the specified value, returning a [[CloseResult]] if an error occurs.
     *
@@ -60,5 +60,5 @@ object ResourceResult extends ResultCompanion.Simple[ResourceError] {
     *
     * @see ResourceResult.apply
     */
-  def close[U](u: ⇒ U): ResourceResult[Unit] = CloseResult(u)
+  def close[U](u: => U): ResourceResult[Unit] = CloseResult(u)
 }

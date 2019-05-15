@@ -23,13 +23,13 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import strings.{DecodeError, StringDecoder, StringEncoder, StringResult}
 
 class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
-  val decode: String ⇒ StringResult[Maybe[Int]] = s ⇒
+  val decode: String => StringResult[Maybe[Int]] = s =>
     if(s.trim.isEmpty) Right(None)
     else StringResult(Just(s.toInt))
 
-  val encode: Maybe[Int] ⇒ String = _ match {
-    case Just(i) ⇒ i.toString
-    case None    ⇒ ""
+  val encode: Maybe[Int] => String = _ match {
+    case Just(i) => i.toString
+    case None    => ""
   }
 
   test("Derived decoders should have a lower priority than bespoke ones") {

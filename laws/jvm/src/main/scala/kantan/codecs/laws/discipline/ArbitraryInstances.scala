@@ -33,8 +33,8 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
 
   implicit def arbIllegalURI[T]: Arbitrary[IllegalValue[String, URI, T]] = Arbitrary {
     for {
-      str ← Gen.nonEmptyListOf(Gen.alphaNumChar)
-      i   ← Gen.choose(0, str.length)
+      str <- Gen.nonEmptyListOf(Gen.alphaNumChar)
+      i   <- Gen.choose(0, str.length)
     } yield {
       val (h, t) = str.splitAt(i)
       IllegalValue(s"$h $t")
@@ -42,16 +42,16 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
   }
 
   val genPathElement: Gen[String] = for {
-    length ← choose(1, 10)
-    path   ← listOfN(length, alphaLowerChar)
+    length <- choose(1, 10)
+    path   <- listOfN(length, alphaLowerChar)
   } yield path.mkString
 
   val genURL: Gen[URL] = for {
-    protocol ← oneOf("http", "https")
-    host     ← identifier
-    port     ← choose(0, 65535)
-    length   ← choose(0, 5)
-    path     ← listOfN(length, genPathElement)
+    protocol <- oneOf("http", "https")
+    host     <- identifier
+    port     <- choose(0, 65535)
+    length   <- choose(0, 5)
+    path     <- listOfN(length, genPathElement)
   } yield new URL(protocol, host, port, path.mkString("/", "/", ""))
 
   implicit val arbURL: Arbitrary[URL] = Arbitrary(genURL)
@@ -60,7 +60,7 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
   implicit val cogenUri: Cogen[URI]   = implicitly[Cogen[String]].contramap(_.toString)
 
   implicit val arbFile: Arbitrary[File] = Arbitrary(
-    Gen.nonEmptyListOf(Gen.identifier).map(ss ⇒ new File(ss.fold("")(_ + System.getProperty("file.separator") + _)))
+    Gen.nonEmptyListOf(Gen.identifier).map(ss => new File(ss.fold("")(_ + System.getProperty("file.separator") + _)))
   )
 
   implicit val arbPath: Arbitrary[Path] = Arbitrary(arbFile.arbitrary.map(_.toPath))
@@ -70,7 +70,7 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
 
   implicit val cogenFile: Cogen[File] = implicitly[Cogen[String]].contramap(_.toString)
   val genFileNotFound: Gen[FileNotFoundException] =
-    arbFile.arbitrary.map(f ⇒ new FileNotFoundException(s"File not found: $f"))
+    arbFile.arbitrary.map(f => new FileNotFoundException(s"File not found: $f"))
   override val genIoException =
     Gen.oneOf(genFileNotFound, genUnsupportedEncoding, Gen.const(new EOFException))
 

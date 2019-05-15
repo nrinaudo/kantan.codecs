@@ -27,7 +27,7 @@ trait SerializableTests[A] extends Laws {
   def serializable: RuleSet = new DefaultRuleSet(
     "serializable",
     None,
-    "serialize" → Prop(laws.serializable())
+    "serialize" -> Prop(laws.serializable())
   )
 }
 

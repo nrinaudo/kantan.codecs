@@ -50,7 +50,7 @@ trait JodaTimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00.000Z
     * }}}
     */
-  def dateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, DateTime, T] = dateTimeEncoder(Format(format))
+  def dateTimeEncoder(format: => DateTimeFormatter): Encoder[E, DateTime, T] = dateTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
@@ -107,7 +107,7 @@ trait JodaTimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00.000
     * }}}
     */
-  def localDateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDateTime, T] =
+  def localDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, LocalDateTime, T] =
     localDateTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
@@ -167,7 +167,7 @@ trait JodaTimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01
     * }}}
     */
-  def localDateEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
+  def localDateEncoder(format: => DateTimeFormatter): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
@@ -224,7 +224,7 @@ trait JodaTimeEncoderCompanion[E, T] {
     * res1: String = 12:00:00.000
     * }}}
     */
-  def localTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
+  def localTimeEncoder(format: => DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *

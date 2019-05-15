@@ -27,12 +27,12 @@ trait Closeable[A] {
 object Closeable {
   def apply[A](implicit ev: Closeable[A]): Closeable[A] = macro imp.summon[Closeable[A]]
 
-  def from[A](f: A ⇒ CloseResult): Closeable[A] = new Closeable[A] {
+  def from[A](f: A => CloseResult): Closeable[A] = new Closeable[A] {
     override def close(a: A) = f(a)
   }
 
   /** Instance for any type that extends `AutoCloseable`. */
-  implicit def autoCloseable[A <: AutoCloseable]: Closeable[A] = Closeable.from { c ⇒
+  implicit def autoCloseable[A <: AutoCloseable]: Closeable[A] = Closeable.from { c =>
     CloseResult(c.close())
   }
 }

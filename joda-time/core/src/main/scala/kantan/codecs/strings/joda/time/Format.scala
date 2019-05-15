@@ -127,7 +127,7 @@ sealed trait Format {
 /** Provides instance creation methods and default values for [[Format]]. */
 object Format {
 
-  def apply(fmt: ⇒ DateTimeFormatter): Format = new Format with Serializable {
+  def apply(fmt: => DateTimeFormatter): Format = new Format with Serializable {
     @transient override lazy val formatter = fmt
   }
 
@@ -146,7 +146,7 @@ object Format {
       Right(format)
 
     } catch {
-      case _: Exception ⇒ Left(s"Invalid pattern: '$pattern'")
+      case _: Exception => Left(s"Invalid pattern: '$pattern'")
     }
 
   // TODO:  re-enable the type annotation on res1 when support for scala 2.11 is dropped

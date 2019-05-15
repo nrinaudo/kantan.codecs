@@ -35,5 +35,5 @@ trait ArbitraryInstances
   implicit val arbLegalPositiveIntString: Arbitrary[LegalString[Int Refined Positive]] =
     arbLegalValue(_.toString)
   implicit val arbIllegalPositiveIntString: Arbitrary[IllegalString[Int Refined Positive]] =
-    Arbitrary(Arbitrary.arbitrary[Int].map(i ⇒ CodecValue.IllegalValue((-math.abs(i)).toString)))
+    Arbitrary(Arbitrary.arbitrary[Int].map(i => CodecValue.IllegalValue((-math.abs(i)).toString)))
 }

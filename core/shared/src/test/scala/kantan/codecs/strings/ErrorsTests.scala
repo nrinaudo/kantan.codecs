@@ -23,16 +23,16 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
 class ErrorsTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   test("DecodeErrors should be equal if the underlying exceptions are the same") {
-    forAll { (e1: DecodeError, e2: Exception) ⇒
+    forAll { (e1: DecodeError, e2: Exception) =>
       (e1, e2) match {
-        case (DecodeError(t1), DecodeError(t2)) ⇒ (e1 == e2) should be(t1 == t2)
-        case _                                  ⇒ e1 should not be (e2)
+        case (DecodeError(t1), DecodeError(t2)) => (e1 == e2) should be(t1 == t2)
+        case _                                  => e1 should not be (e2)
       }
     }
   }
 
   test("DecodeErrors should have identical hashCodes if the underlying exceptions are the same") {
-    forAll { (e1: DecodeError, e2: DecodeError) ⇒
+    forAll { (e1: DecodeError, e2: DecodeError) =>
       (e1.hashCode() == e2.hashCode()) should be(e1.message == e2.getMessage)
     }
   }

@@ -39,15 +39,15 @@ trait DecoderTests[E, D, F, T] extends Laws {
   private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit arbED: Arbitrary[CodecValue[E, D, T]]) =
     new SimpleRuleSet(
       "core",
-      "decode"                       → forAll(laws.decode _),
-      "map identity"                 → forAll(laws.mapIdentity _),
-      "emap identity"                → forAll(laws.emapIdentity _),
-      "map composition"              → forAll(laws.mapComposition[A, B] _),
-      "emap composition"             → forAll(laws.emapComposition[A, B] _),
-      "contramapEncoded identity"    → forAll(laws.contramapEncodedIdentity _),
-      "contramapEncoded composition" → forAll(laws.contramapEncodedComposition[A, B] _),
-      "leftMap identity"             → forAll(laws.leftMapIdentity _),
-      "leftMap composition"          → forAll(laws.leftMapComposition[A, B] _)
+      "decode"                       -> forAll(laws.decode _),
+      "map identity"                 -> forAll(laws.mapIdentity _),
+      "emap identity"                -> forAll(laws.emapIdentity _),
+      "map composition"              -> forAll(laws.mapComposition[A, B] _),
+      "emap composition"             -> forAll(laws.emapComposition[A, B] _),
+      "contramapEncoded identity"    -> forAll(laws.contramapEncodedIdentity _),
+      "contramapEncoded composition" -> forAll(laws.contramapEncodedComposition[A, B] _),
+      "leftMap identity"             -> forAll(laws.leftMapIdentity _),
+      "leftMap composition"          -> forAll(laws.leftMapComposition[A, B] _)
     )
 
   def bijectiveDecoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet = {
@@ -62,7 +62,7 @@ trait DecoderTests[E, D, F, T] extends Laws {
     new DefaultRuleSet(
       "decoder",
       Some(coreRules[A, B]),
-      "decode failure" → forAll(laws.decodeFailure _)
+      "decode failure" -> forAll(laws.decodeFailure _)
     )
 }
 

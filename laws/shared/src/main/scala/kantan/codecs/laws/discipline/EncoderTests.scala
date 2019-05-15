@@ -34,18 +34,20 @@ trait EncoderTests[E, D, T] extends Laws {
   def encoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet =
     new SimpleRuleSet(
       "core",
-      "encode"                 → forAll(laws.encode _),
-      "contramap identity"     → forAll(laws.contramapIdentity _),
-      "contramap composition"  → forAll(laws.contramapComposition[A, B] _),
-      "mapEncoded identity"    → forAll(laws.mapEncodedIdentity _),
-      "mapEncoded composition" → forAll(laws.mapEncodedComposition[A, B] _)
+      "encode"                 -> forAll(laws.encode _),
+      "contramap identity"     -> forAll(laws.contramapIdentity _),
+      "contramap composition"  -> forAll(laws.contramapComposition[A, B] _),
+      "mapEncoded identity"    -> forAll(laws.mapEncodedIdentity _),
+      "mapEncoded composition" -> forAll(laws.mapEncodedComposition[A, B] _)
     )
 }
 
 object EncoderTests {
-  def apply[E, D: Arbitrary, T](implicit l: EncoderLaws[E, D, T],
-                                al: Arbitrary[LegalValue[E, D, T]],
-                                ce: Cogen[E]): EncoderTests[E, D, T] =
+  def apply[E, D: Arbitrary, T](
+    implicit l: EncoderLaws[E, D, T],
+    al: Arbitrary[LegalValue[E, D, T]],
+    ce: Cogen[E]
+  ): EncoderTests[E, D, T] =
     new EncoderTests[E, D, T] {
       override val laws     = l
       override val arbLegal = al

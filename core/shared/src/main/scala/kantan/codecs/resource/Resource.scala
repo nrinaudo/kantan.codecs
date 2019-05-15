@@ -29,7 +29,7 @@ import scala.io.Codec
   * @tparam I type of the resource itself (eg `java.io.File`).
   * @tparam R type of the opened resource (eg `java.io.InputStream`)
   */
-trait Resource[I, R] { self ⇒
+trait Resource[I, R] { self =>
 
   /** Opens the specified resource. */
   def open(input: I): OpenResult[R]
@@ -39,33 +39,33 @@ trait Resource[I, R] { self ⇒
     * The resource will be closed regardless of whether `f` fails. Note that `f` is expected to be safe - it cannot
     * throw but should instead wrap all errors in a [[ProcessResult]].
     */
-  def withResource[O](input: I)(f: R ⇒ ProcessResult[O])(implicit c: Closeable[R]): ResourceResult[O] =
-    open(input).right.flatMap { r ⇒
+  def withResource[O](input: I)(f: R => ProcessResult[O])(implicit c: Closeable[R]): ResourceResult[O] =
+    open(input).right.flatMap { r =>
       val res = f(r)
 
-      Closeable[R].close(r).right.flatMap(_ ⇒ res)
+      Closeable[R].close(r).right.flatMap(_ => res)
     }
 
-  def contramap[II](f: II ⇒ I): Resource[II, R] = Resource.from(f andThen self.open)
+  def contramap[II](f: II => I): Resource[II, R] = Resource.from(f andThen self.open)
 
   @deprecated("Use econtramap instead", "0.3.1")
-  def contramapResult[II](f: II ⇒ OpenResult[I]): Resource[II, R] =
+  def contramapResult[II](f: II => OpenResult[I]): Resource[II, R] =
     econtramap(f)
 
-  def econtramap[II](f: II ⇒ OpenResult[I]): Resource[II, R] =
-    Resource.from(aa ⇒ f(aa).right.flatMap(self.open))
+  def econtramap[II](f: II => OpenResult[I]): Resource[II, R] =
+    Resource.from(aa => f(aa).right.flatMap(self.open))
 
-  def map[RR](f: R ⇒ RR): Resource[I, RR] = Resource.from(a ⇒ open(a).right.map(f))
+  def map[RR](f: R => RR): Resource[I, RR] = Resource.from(a => open(a).right.map(f))
 
   @deprecated("Use emap instead", "0.3.1")
-  def mapResult[RR](f: R ⇒ OpenResult[RR]): Resource[I, RR] = emap(f)
+  def mapResult[RR](f: R => OpenResult[RR]): Resource[I, RR] = emap(f)
 
-  def emap[RR](f: R ⇒ OpenResult[RR]): Resource[I, RR] =
-    Resource.from(a ⇒ open(a).right.flatMap(f))
+  def emap[RR](f: R => OpenResult[RR]): Resource[I, RR] =
+    Resource.from(a => open(a).right.flatMap(f))
 }
 
 object Resource extends PlatformSpecificInstances {
-  def from[I, R](f: I ⇒ OpenResult[R]): Resource[I, R] = new Resource[I, R] {
+  def from[I, R](f: I => OpenResult[R]): Resource[I, R] = new Resource[I, R] {
     override def open(a: I) = f(a)
   }
 
@@ -81,18 +81,18 @@ object Resource extends PlatformSpecificInstances {
   // -------------------------------------------------------------------------------------------------------------------
   /** Turns any [[InputResource]] into a [[ReaderResource]] using whatever implicit `Codec` is found in scope. */
   implicit def readerFromStream[A: InputResource](implicit codec: Codec): ReaderResource[A] =
-    InputResource[A].map(i ⇒ new InputStreamReader(i, codec.charSet))
+    InputResource[A].map(i => new InputStreamReader(i, codec.charSet))
 
   /** Turns any [[OutputResource]] into a [[WriterResource]] using whatever implicit `Codec` is found in scope. */
   implicit def writerFromStream[A: OutputResource](implicit codec: Codec): WriterResource[A] =
-    OutputResource[A].map(o ⇒ new OutputStreamWriter(o, codec.charSet))
+    OutputResource[A].map(o => new OutputStreamWriter(o, codec.charSet))
 
   // - Standard types --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
 
   implicit val bytesInputResource: InputResource[Array[Byte]] =
-    InputResource[InputStream].contramap(bs ⇒ new ByteArrayInputStream(bs))
+    InputResource[InputStream].contramap(bs => new ByteArrayInputStream(bs))
   implicit val stringReaderResource: ReaderResource[String] =
-    ReaderResource[Reader].contramap(s ⇒ new StringReader(s))
+    ReaderResource[Reader].contramap(s => new StringReader(s))
 
 }

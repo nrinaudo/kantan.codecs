@@ -38,36 +38,36 @@ trait ResourceIterable[A] {
     * The point is to allow methods such as [[map]] to be lazy: the mapping operation will be only be applied when
     * [[iterator]] is called, not immediately as is `Traversable`'s default behaviour.
     */
-  protected def onIterator[B](f: ResourceIterator[A] ⇒ ResourceIterator[B]): Repr[B]
+  protected def onIterator[B](f: ResourceIterator[A] => ResourceIterator[B]): Repr[B]
 
   // - "Lazy" methods --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def map[B](f: A ⇒ B): Repr[B]           = onIterator(_.map(f))
-  def flatMap[B](f: A ⇒ Repr[B]): Repr[B] = onIterator(_.flatMap(f.andThen(_.iterator)))
+  def map[B](f: A => B): Repr[B]           = onIterator(_.map(f))
+  def flatMap[B](f: A => Repr[B]): Repr[B] = onIterator(_.flatMap(f.andThen(_.iterator)))
 
-  def emap[E, S, B](f: S ⇒ Either[E, B])(implicit ev: A <:< Either[E, S]): Repr[Either[E, B]] =
+  def emap[E, S, B](f: S => Either[E, B])(implicit ev: A <:< Either[E, S]): Repr[Either[E, B]] =
     onIterator(_.emap(f))
 
   def collect[B](f: PartialFunction[A, B]): Repr[B] = onIterator(_.collect(f))
   def drop(n: Int): Repr[A]                         = onIterator(_.drop(n))
-  def dropWhile(p: A ⇒ Boolean): Repr[A]            = onIterator(_.dropWhile(p))
+  def dropWhile(p: A => Boolean): Repr[A]           = onIterator(_.dropWhile(p))
   def take(n: Int): Repr[A]                         = onIterator(_.take(n))
-  def takeWhile(p: A ⇒ Boolean): Repr[A]            = onIterator(_.takeWhile(p))
-  def filter(p: A ⇒ Boolean): Repr[A]               = onIterator(_.filter(p))
-  def withFilter(p: A ⇒ Boolean): Repr[A]           = onIterator(_.withFilter(p))
+  def takeWhile(p: A => Boolean): Repr[A]           = onIterator(_.takeWhile(p))
+  def filter(p: A => Boolean): Repr[A]              = onIterator(_.filter(p))
+  def withFilter(p: A => Boolean): Repr[A]          = onIterator(_.withFilter(p))
 
   // - Traversable methods ---------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def foreach[U](f: A ⇒ U): Unit             = iterator.foreach(f)
-  def forall(p: A ⇒ Boolean): Boolean        = iterator.forall(p)
-  def exists(p: A ⇒ Boolean): Boolean        = iterator.exists(p)
-  def find(p: A ⇒ Boolean): Option[A]        = iterator.find(p)
-  def isEmpty: Boolean                       = !iterator.hasNext
-  def nonEmpty: Boolean                      = !isEmpty
-  def foldLeft[B](b: B)(op: (B, A) ⇒ B): B   = iterator.foldLeft(b)(op)
-  def reduceLeft[B >: A](op: (B, A) ⇒ B): B  = iterator.reduceLeft(op)
-  def foldRight[B](z: B)(op: (A, B) ⇒ B): B  = iterator.foldRight(z)(op)
-  def reduceRight[B >: A](op: (A, B) ⇒ B): B = iterator.reduceRight(op)
+  def foreach[U](f: A => U): Unit             = iterator.foreach(f)
+  def forall(p: A => Boolean): Boolean        = iterator.forall(p)
+  def exists(p: A => Boolean): Boolean        = iterator.exists(p)
+  def find(p: A => Boolean): Option[A]        = iterator.find(p)
+  def isEmpty: Boolean                        = !iterator.hasNext
+  def nonEmpty: Boolean                       = !isEmpty
+  def foldLeft[B](b: B)(op: (B, A) => B): B   = iterator.foldLeft(b)(op)
+  def reduceLeft[B >: A](op: (B, A) => B): B  = iterator.reduceLeft(op)
+  def foldRight[B](z: B)(op: (A, B) => B): B  = iterator.foldRight(z)(op)
+  def reduceRight[B >: A](op: (A, B) => B): B = iterator.reduceRight(op)
 
   // - Transformation methods ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

@@ -30,15 +30,15 @@ trait EqualInstances {
     new Equal[Decoder[E, D, F, T]] {
       override def equal(a1: Decoder[E, D, F, T], a2: Decoder[E, D, F, T]) =
         kantan.codecs.laws.discipline.equality.eq(a1.decode, a2.decode) {
-          case (Left(f1), Left(f2))   ⇒ implicitly[Equal[F]].equal(f1, f2)
-          case (Right(d1), Right(d2)) ⇒ implicitly[Equal[D]].equal(d1, d2)
-          case _                      ⇒ false
+          case (Left(f1), Left(f2))   => implicitly[Equal[F]].equal(f1, f2)
+          case (Right(d1), Right(d2)) => implicitly[Equal[D]].equal(d1, d2)
+          case _                      => false
         }
     }
 
   implicit def encoderEqual[E: Equal, D: Arbitrary, T]: Equal[Encoder[E, D, T]] = new Equal[Encoder[E, D, T]] {
     override def equal(a1: Encoder[E, D, T], a2: Encoder[E, D, T]) =
-      kantan.codecs.laws.discipline.equality.eq(a1.encode, a2.encode) { (e1, e2) ⇒
+      kantan.codecs.laws.discipline.equality.eq(a1.encode, a2.encode) { (e1, e2) =>
         implicitly[Equal[E]].equal(e1, e2)
       }
   }

@@ -30,14 +30,14 @@ trait EncoderLaws[E, D, T] {
   // -------------------------------------------------------------------------------------------------------------------
   def mapEncodedIdentity(d: D): Boolean = encoder.encode(d) == encoder.mapEncoded(identity).encode(d)
 
-  def mapEncodedComposition[A, B](d: D, f: E ⇒ A, g: A ⇒ B): Boolean =
+  def mapEncodedComposition[A, B](d: D, f: E => A, g: A => B): Boolean =
     encoder.mapEncoded(f andThen g).encode(d) == encoder.mapEncoded(f).mapEncoded(g).encode(d)
 
   // - Contravariant functor laws --------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   def contramapIdentity(d: D): Boolean = encoder.encode(d) == encoder.contramap(identity[D]).encode(d)
 
-  def contramapComposition[A, B](b: B, f: A ⇒ D, g: B ⇒ A): Boolean =
+  def contramapComposition[A, B](b: B, f: A => D, g: B => A): Boolean =
     encoder.contramap(g andThen f).encode(b) == encoder.contramap(f).contramap(g).encode(b)
 }
 

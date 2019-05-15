@@ -52,7 +52,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res2: StringResult[LocalTime] = Right(12:00)
     * }}}
     */
-  def localTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
+  def localTimeCodec(format: => DateTimeFormatter): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
     *
@@ -102,7 +102,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res2: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
     */
-  def localDateTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, LocalDateTime, F, T] =
+  def localDateTimeCodec(format: => DateTimeFormatter): Codec[E, LocalDateTime, F, T] =
     localDateTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
@@ -153,7 +153,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res2: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
-  def localDateCodec(format: ⇒ DateTimeFormatter): Codec[E, LocalDate, F, T] =
+  def localDateCodec(format: => DateTimeFormatter): Codec[E, LocalDate, F, T] =
     localDateCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
@@ -204,7 +204,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res2: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
-  def instantCodec(format: ⇒ DateTimeFormatter): Codec[E, Instant, F, T] =
+  def instantCodec(format: => DateTimeFormatter): Codec[E, Instant, F, T] =
     instantCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
@@ -255,7 +255,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res2: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def zonedDateTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, ZonedDateTime, F, T] =
+  def zonedDateTimeCodec(format: => DateTimeFormatter): Codec[E, ZonedDateTime, F, T] =
     zonedDateTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
@@ -306,7 +306,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     * res2: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def offsetDateTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, OffsetDateTime, F, T] =
+  def offsetDateTimeCodec(format: => DateTimeFormatter): Codec[E, OffsetDateTime, F, T] =
     offsetDateTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
