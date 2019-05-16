@@ -25,20 +25,20 @@ import java.nio.file.{Files, Path}
 trait PlatformSpecificInstances {
 
   implicit val pathInputResource: InputResource[Path] =
-    InputResource[InputStream].econtramap(p ⇒ OpenResult(Files.newInputStream(p)))
+    InputResource[InputStream].econtramap(p => OpenResult(Files.newInputStream(p)))
 
   implicit val pathOutputResource: OutputResource[Path] =
-    OutputResource[OutputStream].econtramap(p ⇒ OpenResult(Files.newOutputStream(p)))
+    OutputResource[OutputStream].econtramap(p => OpenResult(Files.newOutputStream(p)))
 
   implicit val fileInputResource: InputResource[File] = InputResource[Path].contramap(_.toPath)
 
   implicit val fileOutputResource: OutputResource[File] = OutputResource[Path].contramap(_.toPath)
 
   implicit val charsReaderResource: ReaderResource[Array[Char]] =
-    ReaderResource[Reader].contramap(cs ⇒ new CharArrayReader(cs))
+    ReaderResource[Reader].contramap(cs => new CharArrayReader(cs))
 
   implicit val urlInputResource: InputResource[URL] =
-    InputResource[InputStream].econtramap(u ⇒ OpenResult(u.openStream()))
+    InputResource[InputStream].econtramap(u => OpenResult(u.openStream()))
 
   implicit val uriInputResource: InputResource[URI] = InputResource[URL].contramap(_.toURL)
 

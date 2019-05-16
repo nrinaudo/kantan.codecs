@@ -21,4 +21,4 @@ import error._
 
 sealed case class DecodeError(message: String) extends Error(message)
 
-object DecodeError extends ErrorCompanion[DecodeError]("an error occurred while decoding data")(s ⇒ new DecodeError(s))
+object DecodeError extends ErrorCompanion[DecodeError]("an error occurred while decoding data")(s => new DecodeError(s))

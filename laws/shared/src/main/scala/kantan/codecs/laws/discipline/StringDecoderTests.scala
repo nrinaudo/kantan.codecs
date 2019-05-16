@@ -24,8 +24,10 @@ import strings._
 
 object StringDecoderTests {
 
-  def apply[D: Arbitrary: Cogen](implicit l: StringDecoderLaws[D],
-                                 al: Arbitrary[LegalString[D]]): StringDecoderTests[D] =
+  def apply[D: Arbitrary: Cogen](
+    implicit l: StringDecoderLaws[D],
+    al: Arbitrary[LegalString[D]]
+  ): StringDecoderTests[D] =
     DecoderTests[String, D, DecodeError, codecs.type]
 
 }

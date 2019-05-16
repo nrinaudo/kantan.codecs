@@ -26,16 +26,16 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
   implicit val stringIsError: IsError[String] = IsError[Exception].map(_.getMessage)
 
-  type Dec = String ⇒ Either[String, Int]
+  type Dec = String => Either[String, Int]
 
   test("DecoderCompanion.from should be equivalent to Decoder.from") {
-    forAll { (f: Dec, str: String) ⇒
+    forAll { (f: Dec, str: String) =>
       Decoder.from(f).decode(str) should be(Companion.from(f).decode(str))
     }
   }
 
   test("DecoderCompanion.oneOf should be equivalent to Decoder.oneOf for non-empty lists") {
-    forAll { (h: Dec, t: List[Dec], str: String) ⇒
+    forAll { (h: Dec, t: List[Dec], str: String) =>
       val cDec = Companion.oneOf((h :: t).map(Companion.from[Int]): _*)
       val dDec = Decoder.oneOf((h :: t).map(Decoder.from[String, Int, String, codec.type]): _*)
 
@@ -47,7 +47,7 @@ class DecoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
     val cDec = Companion.oneOf()
     val dDec = Decoder.oneOf[String, Int, String, codec.type]()
 
-    forAll { (str: String) ⇒
+    forAll { (str: String) =>
       cDec.decode(str) should be(dDec.decode(str))
     }
   }

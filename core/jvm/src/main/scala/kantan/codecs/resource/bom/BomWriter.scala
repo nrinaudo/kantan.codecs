@@ -25,7 +25,7 @@ object BomWriter {
 
   /** Opens a `Writer` on the specified `OutputStream`, writing a BOM if the specified codec has one. */
   def apply(out: OutputStream, codec: Codec): Writer = new OutputStreamWriter(
-    ByteOrderMark.findFor(codec.charSet).fold(out) { bom ⇒
+    ByteOrderMark.findFor(codec.charSet).fold(out) { bom =>
       out.write(bom.bytes)
       out
     },

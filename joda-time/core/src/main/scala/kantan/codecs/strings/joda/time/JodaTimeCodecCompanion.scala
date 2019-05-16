@@ -53,7 +53,7 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
     * res2 = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */
-  def dateTimeCodec(format: ⇒ DateTimeFormatter): Codec[E, DateTime, F, T] = dateTimeCodec(Format(format))
+  def dateTimeCodec(format: => DateTimeFormatter): Codec[E, DateTime, F, T] = dateTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
     *
@@ -106,7 +106,7 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
     * res2: StringResult[LocalDateTime] = Right(2000-01-01T12:00:00.000)
     * }}}
     */
-  def localDateTimeCodec[D](format: ⇒ DateTimeFormatter): Codec[E, LocalDateTime, F, T] =
+  def localDateTimeCodec[D](format: => DateTimeFormatter): Codec[E, LocalDateTime, F, T] =
     localDateTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
@@ -160,7 +160,7 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
     * res2: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
-  def localDateCodec[D](format: ⇒ DateTimeFormatter): Codec[E, LocalDate, F, T] = localDateCodec(Format(format))
+  def localDateCodec[D](format: => DateTimeFormatter): Codec[E, LocalDate, F, T] = localDateCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
     *
@@ -213,7 +213,7 @@ trait JodaTimeCodecCompanion[E, F, T] extends JodaTimeDecoderCompanion[E, F, T] 
     * res2: StringResult[LocalTime] = Right(12:00:00.000)
     * }}}
     */
-  def localTimeCodec[D](format: ⇒ DateTimeFormatter): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
+  def localTimeCodec[D](format: => DateTimeFormatter): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
     *

@@ -40,7 +40,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: LocalDateTime ⇒
+    forAll { d: LocalDateTime =>
       val str: String = formatter.format(d)
 
       format.parseLocalDateTime(str).right.value should be(LocalDateTime.parse(str, formatter))
@@ -55,7 +55,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: ZonedDateTime ⇒
+    forAll { d: ZonedDateTime =>
       val str: String = formatter.format(d)
 
       format.parseZonedDateTime(str).right.value should be(ZonedDateTime.parse(str, formatter))
@@ -69,7 +69,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: LocalTime ⇒
+    forAll { d: LocalTime =>
       val str: String = formatter.format(d)
 
       format.parseLocalTime(str).right.value should be(LocalTime.parse(str, formatter))
@@ -84,7 +84,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: LocalDate ⇒
+    forAll { d: LocalDate =>
       val str: String = formatter.format(d)
 
       format.parseLocalDate(str).right.value should be(LocalDate.parse(str, formatter))
@@ -98,7 +98,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).right.value
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: ZonedDateTime ⇒
+    forAll { d: ZonedDateTime =>
       val str: String = formatter.format(d)
 
       format.parseZonedDateTime(str).right.value should be(ZonedDateTime.parse(str, formatter))

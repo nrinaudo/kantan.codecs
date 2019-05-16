@@ -48,7 +48,7 @@ sealed trait Format {
     * }}}
     */
   def parseInstant(str: String): StringResult[Instant] =
-    StringDecoder.makeSafe("Instant")(s ⇒ Instant.from(formatter.parse(s)))(str)
+    StringDecoder.makeSafe("Instant")(s => Instant.from(formatter.parse(s)))(str)
 
   /** Attempts to parse the specified string as a `LocalDateTime`.
     *
@@ -63,7 +63,7 @@ sealed trait Format {
     * }}}
     */
   def parseLocalDateTime(str: String): StringResult[LocalDateTime] =
-    StringDecoder.makeSafe("LocalDateTime")(s ⇒ LocalDateTime.parse(s, formatter))(str)
+    StringDecoder.makeSafe("LocalDateTime")(s => LocalDateTime.parse(s, formatter))(str)
 
   /** Attempts to parse the specified string as a `ZonedDateTime`.
     *
@@ -78,7 +78,7 @@ sealed trait Format {
     * }}}
     */
   def parseZonedDateTime(str: String): StringResult[ZonedDateTime] =
-    StringDecoder.makeSafe("ZonedDateTime")(s ⇒ ZonedDateTime.parse(s, formatter))(str)
+    StringDecoder.makeSafe("ZonedDateTime")(s => ZonedDateTime.parse(s, formatter))(str)
 
   /** Attempts to parse the specified string as a `LocalDateTime`.
     *
@@ -93,7 +93,7 @@ sealed trait Format {
     * }}}
     */
   def parseLocalTime(str: String): StringResult[LocalTime] =
-    StringDecoder.makeSafe("LocalTime")(s ⇒ LocalTime.parse(s, formatter))(str)
+    StringDecoder.makeSafe("LocalTime")(s => LocalTime.parse(s, formatter))(str)
 
   /** Attempts to parse the specified string as a `LocalDate`.
     *
@@ -108,7 +108,7 @@ sealed trait Format {
     * }}}
     */
   def parseLocalDate(str: String): StringResult[LocalDate] =
-    StringDecoder.makeSafe("LocalDate")(s ⇒ LocalDate.parse(s, formatter))(str)
+    StringDecoder.makeSafe("LocalDate")(s => LocalDate.parse(s, formatter))(str)
 
   /** Attempts to parse the specified string as a `LocalDate`.
     *
@@ -123,7 +123,7 @@ sealed trait Format {
     * }}}
     */
   def parseOffsetDateTime(str: String): StringResult[OffsetDateTime] =
-    StringDecoder.makeSafe("OffsetDateTime")(s ⇒ OffsetDateTime.parse(s, formatter))(str)
+    StringDecoder.makeSafe("OffsetDateTime")(s => OffsetDateTime.parse(s, formatter))(str)
 
   /** Formats the specified `TemporalAccessor` as a string.
     *
@@ -142,7 +142,7 @@ sealed trait Format {
 
 object Format {
 
-  def apply(fmt: ⇒ DateTimeFormatter): Format = new Format with Serializable {
+  def apply(fmt: => DateTimeFormatter): Format = new Format with Serializable {
     @transient override lazy val formatter = fmt
   }
 
@@ -161,7 +161,7 @@ object Format {
       Right(format)
 
     } catch {
-      case _: Exception ⇒ Left(s"Invalid pattern: '$pattern'")
+      case _: Exception => Left(s"Invalid pattern: '$pattern'")
     }
 
   /** Default `Instant` format.

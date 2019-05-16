@@ -43,7 +43,7 @@ trait LowPriorityHasBuilderInstances {
 object HasBuilder extends LowPriorityHasBuilderInstances {
   def apply[F[_], A](implicit ev: HasBuilder[F, A]): HasBuilder[F, A] = macro imp.summon[HasBuilder[F, A]]
 
-  def apply[F[_], A](f: ⇒ mutable.Builder[A, F[A]]): HasBuilder[F, A] = new HasBuilder[F, A] with Serializable {
+  def apply[F[_], A](f: => mutable.Builder[A, F[A]]): HasBuilder[F, A] = new HasBuilder[F, A] with Serializable {
     override def newBuilder = f
   }
 

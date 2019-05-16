@@ -21,7 +21,7 @@ package discipline
 
 import _root_.enumeratum.values._
 import kantan.codecs.laws._, CodecValue._
-import org.scalacheck.{Arbitrary, Gen}, Arbitrary.{arbitrary ⇒ arb}
+import org.scalacheck.{Arbitrary, Gen}, Arbitrary.{arbitrary => arb}
 import strings._
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
@@ -33,11 +33,11 @@ trait ArbitraryInstances
   // -------------------------------------------------------------------------------------------------------------------
 
   implicit val arbLegalEnumerated: Arbitrary[LegalString[Enumerated]] =
-    Arbitrary(Gen.oneOf(Enumerated.values.map(v ⇒ LegalValue[String, Enumerated, codecs.type](v.entryName, v))))
+    Arbitrary(Gen.oneOf(Enumerated.values.map(v => LegalValue[String, Enumerated, codecs.type](v.entryName, v))))
 
   implicit val arbIllegalEnumerated: Arbitrary[IllegalString[Enumerated]] = {
     val legal = Enumerated.values.map(_.entryName)
-    Arbitrary(arb[String].suchThat(s ⇒ !legal.contains(s)).map(s ⇒ IllegalValue(s)))
+    Arbitrary(arb[String].suchThat(s => !legal.contains(s)).map(s => IllegalValue(s)))
   }
 
   // - EnumeratedValue instances ---------------------------------------------------------------------------------------
@@ -48,16 +48,16 @@ trait ArbitraryInstances
   ): Arbitrary[LegalString[A]] =
     Arbitrary(
       Gen.oneOf(
-        enum.values.map(v ⇒ LegalValue[String, A, codecs.type](StringEncoder[V].encode(v.value), v))
+        enum.values.map(v => LegalValue[String, A, codecs.type](StringEncoder[V].encode(v.value), v))
       )
     )
 
   def arbIllegalEnumeratedValue[V: StringEncoder, A <: ValueEnumEntry[V]](
     enum: ValueEnum[V, A]
   ): Arbitrary[IllegalValue[String, A, codecs.type]] = {
-    val legal = enum.values.map(a ⇒ StringEncoder[V].encode(a.value))
+    val legal = enum.values.map(a => StringEncoder[V].encode(a.value))
     Arbitrary {
-      arb[String].suchThat(s ⇒ !legal.contains(s)).map(s ⇒ IllegalValue(s))
+      arb[String].suchThat(s => !legal.contains(s)).map(s => IllegalValue(s))
     }
   }
 

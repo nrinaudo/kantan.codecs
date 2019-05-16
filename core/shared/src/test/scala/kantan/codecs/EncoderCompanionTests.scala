@@ -24,7 +24,7 @@ class EncoderCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks 
   object Companion extends EncoderCompanion[String, codec.type]
 
   test("EncoderCompanion.from should be equivalent to Encoder.from") {
-    forAll { (f: Int ⇒ String, i: Int) ⇒
+    forAll { (f: Int => String, i: Int) =>
       Encoder.from(f).encode(i) should be(Companion.from(f).encode(i))
     }
   }

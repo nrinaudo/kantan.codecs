@@ -25,15 +25,15 @@ trait DecoderInstances {
   implicit final def decoderInstances[E, F, T]: MonadError[Decoder[E, ?, F, T], F] with Plus[Decoder[E, ?, F, T]] =
     new MonadError[Decoder[E, ?, F, T], F] with Plus[Decoder[E, ?, F, T]] {
 
-      override def point[A](a: ⇒ A) = Decoder.from(_ ⇒ Right(a))
+      override def point[A](a: => A) = Decoder.from(_ => Right(a))
 
-      override def bind[A, B](fa: Decoder[E, A, F, T])(f: A ⇒ Decoder[E, B, F, T]) = fa.flatMap(f)
+      override def bind[A, B](fa: Decoder[E, A, F, T])(f: A => Decoder[E, B, F, T]) = fa.flatMap(f)
 
-      override def handleError[A](fa: Decoder[E, A, F, T])(f: F ⇒ Decoder[E, A, F, T]) = fa.handleErrorWith(f)
+      override def handleError[A](fa: Decoder[E, A, F, T])(f: F => Decoder[E, A, F, T]) = fa.handleErrorWith(f)
 
-      override def raiseError[A](e: F) = Decoder.from(_ ⇒ Left(e))
+      override def raiseError[A](e: F) = Decoder.from(_ => Left(e))
 
-      override def plus[A](a: Decoder[E, A, F, T], b: ⇒ Decoder[E, A, F, T]) = a.orElse(b)
+      override def plus[A](a: Decoder[E, A, F, T], b: => Decoder[E, A, F, T]) = a.orElse(b)
 
     }
 }
@@ -41,7 +41,7 @@ trait DecoderInstances {
 trait EncoderInstances {
 
   implicit def encoderContravariant[E, T]: Contravariant[Encoder[E, ?, T]] = new Contravariant[Encoder[E, ?, T]] {
-    override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD ⇒ D) = fa.contramap(f)
+    override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD => D) = fa.contramap(f)
   }
 
 }
@@ -56,11 +56,13 @@ trait CommonInstances {
   ): Decoder[E, DA \/ DB, F, T] =
     da.map(-\/.apply).orElse(db.map(\/-.apply))
 
-  implicit def disjunctionEncoder[E, DA, DB, T](implicit ea: Encoder[E, DA, T],
-                                                eb: Encoder[E, DB, T]): Encoder[E, DA \/ DB, T] =
+  implicit def disjunctionEncoder[E, DA, DB, T](
+    implicit ea: Encoder[E, DA, T],
+    eb: Encoder[E, DB, T]
+  ): Encoder[E, DA \/ DB, T] =
     Encoder.from {
-      case -\/(a) ⇒ ea.encode(a)
-      case \/-(b) ⇒ eb.encode(b)
+      case -\/(a) => ea.encode(a)
+      case \/-(b) => eb.encode(b)
     }
 
   implicit def maybeDecoder[E, D, F, T](implicit da: Decoder[E, Option[D], F, T]): Decoder[E, Maybe[D], F, T] =

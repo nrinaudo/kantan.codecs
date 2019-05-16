@@ -29,11 +29,11 @@ object Instances extends DisciplineSuite {
 
   implicit def hlistEncoder[A: StringEncoder]: StringEncoder[A :: HNil] =
     StringEncoder.from {
-      case h :: _ ⇒ StringEncoder[A].encode(h)
+      case h :: _ => StringEncoder[A].encode(h)
     }
 
   implicit def hlistDecoder[A: StringDecoder]: StringDecoder[A :: HNil] =
-    StringDecoder[A].map(h ⇒ h :: HNil)
+    StringDecoder[A].map(h => h :: HNil)
 }
 
 @SuppressWarnings(Array("org.wartremover.warts.Null"))

@@ -36,55 +36,55 @@ trait ArbitraryInstances {
   // - DateTime --------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val arbDateTime: Arbitrary[DateTime] =
-    Arbitrary(Arbitrary.arbitrary[Date].map(date ⇒ new DateTime(date.getTime)))
+    Arbitrary(Arbitrary.arbitrary[Date].map(date => new DateTime(date.getTime)))
 
   implicit val arbLegalDateTimeString: Arbitrary[LegalString[DateTime]] =
     arbLegalValue(ISODateTimeFormat.dateTime.print)
   implicit val arbIllegalDateTimeString: Arbitrary[IllegalString[DateTime]] =
-    arbIllegalValue(s ⇒ Try(ISODateTimeFormat.dateTime.parseDateTime(s)).isFailure)
+    arbIllegalValue(s => Try(ISODateTimeFormat.dateTime.parseDateTime(s)).isFailure)
 
   implicit val cogenDateTime: Cogen[DateTime] = Cogen(_.getMillis)
 
   // - LocalDateTime ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val arbLocalDateTime: Arbitrary[LocalDateTime] = Arbitrary(Arbitrary.arbitrary[Date].map { date ⇒
+  implicit val arbLocalDateTime: Arbitrary[LocalDateTime] = Arbitrary(Arbitrary.arbitrary[Date].map { date =>
     new LocalDateTime(date.getTime).withMillisOfSecond(0)
   })
 
   implicit val arbLegalLocalDateTimeString: Arbitrary[LegalString[LocalDateTime]] =
     arbLegalValue(ISODateTimeFormat.dateTime.print)
   implicit val arbIllegalLocalDateTimeString: Arbitrary[IllegalString[LocalDateTime]] =
-    arbIllegalValue(s ⇒ Try(ISODateTimeFormat.localDateOptionalTimeParser().parseLocalDateTime(s)).isFailure)
+    arbIllegalValue(s => Try(ISODateTimeFormat.localDateOptionalTimeParser().parseLocalDateTime(s)).isFailure)
 
   implicit val cogenLocalDateTime: Cogen[LocalDateTime] =
-    Cogen.tuple4[Int, Int, Int, Int].contramap(d ⇒ (d.getYear, d.getMonthOfYear, d.getDayOfMonth, d.getMillisOfDay))
+    Cogen.tuple4[Int, Int, Int, Int].contramap(d => (d.getYear, d.getMonthOfYear, d.getDayOfMonth, d.getMillisOfDay))
 
   // - LocalDate -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val arbLocalDate: Arbitrary[LocalDate] = Arbitrary(Arbitrary.arbitrary[Date].map { date ⇒
+  implicit val arbLocalDate: Arbitrary[LocalDate] = Arbitrary(Arbitrary.arbitrary[Date].map { date =>
     new LocalDate(date.getTime)
   })
 
   implicit val arbLegalLocalDateString: Arbitrary[LegalString[LocalDate]] =
     arbLegalValue(ISODateTimeFormat.date.print)
   implicit val arbIllegalLocalDateString: Arbitrary[IllegalString[LocalDate]] =
-    arbIllegalValue(s ⇒ Try(ISODateTimeFormat.localDateParser().parseLocalDate(s)).isFailure)
+    arbIllegalValue(s => Try(ISODateTimeFormat.localDateParser().parseLocalDate(s)).isFailure)
 
   implicit val cogenLocalDate: Cogen[LocalDate] =
-    Cogen.tuple3[Int, Int, Int].contramap(d ⇒ (d.getYear, d.getMonthOfYear, d.getDayOfMonth))
+    Cogen.tuple3[Int, Int, Int].contramap(d => (d.getYear, d.getMonthOfYear, d.getDayOfMonth))
 
   // - LocalTime -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit val arbLocalTime: Arbitrary[LocalTime] = Arbitrary(Arbitrary.arbitrary[Date].map { date ⇒
+  implicit val arbLocalTime: Arbitrary[LocalTime] = Arbitrary(Arbitrary.arbitrary[Date].map { date =>
     new LocalTime(date.getTime).withMillisOfSecond(0)
   })
 
   implicit val arbLegalLocalTimeString: Arbitrary[LegalString[LocalTime]] =
     arbLegalValue(ISODateTimeFormat.time.print)
   implicit val arbIllegalLocalTimeString: Arbitrary[IllegalString[LocalTime]] =
-    arbIllegalValue(s ⇒ Try(ISODateTimeFormat.localTimeParser().parseLocalTime(s)).isFailure)
+    arbIllegalValue(s => Try(ISODateTimeFormat.localTimeParser().parseLocalTime(s)).isFailure)
 
   implicit val cogenLocalTime: Cogen[LocalTime] = Cogen
     .tuple4[Int, Int, Int, Int]
-    .contramap(d ⇒ (d.getHourOfDay, d.getMinuteOfHour, d.getSecondOfMinute, d.getMillisOfSecond))
+    .contramap(d => (d.getHourOfDay, d.getMinuteOfHour, d.getSecondOfMinute, d.getMillisOfSecond))
 }

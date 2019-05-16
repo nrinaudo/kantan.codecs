@@ -24,13 +24,13 @@ class CodecCompanionTests extends FunSuite with GeneratorDrivenPropertyChecks wi
   object Companion extends CodecCompanion[String, String, codec.type]
 
   test("CodecCompanion.from should be equivalent to Codec.from (for encoding)") {
-    forAll { (f: String ⇒ Either[String, Int], g: Int ⇒ String, i: Int) ⇒
+    forAll { (f: String => Either[String, Int], g: Int => String, i: Int) =>
       Codec.from(f)(g).encode(i) should be(Companion.from(f)(g).encode(i))
     }
   }
 
   test("CodecCompanion.from should be equivalent to Codec.from (for decoding)") {
-    forAll { (f: String ⇒ Either[String, Int], g: Int ⇒ String, str: String) ⇒
+    forAll { (f: String => Either[String, Int], g: Int => String, str: String) =>
       Codec.from(f)(g).decode(str) should be(Companion.from(f)(g).decode(str))
     }
   }

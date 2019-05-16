@@ -24,38 +24,39 @@ import org.scalacheck.{Arbitrary, Prop}
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import scala.util.Try
-import strings.{codecs ⇒ scodecs}
+import strings.{codecs => scodecs}
 
 class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
   test("mapDecoded should ignore illegal values and modify the encoded part of legal ones.") {
-    forAll { (v: StringValue[Int], f: Int ⇒ Float) ⇒
+    forAll { (v: StringValue[Int], f: Int => Float) =>
       v match {
-        case LegalValue(s, i) ⇒ v.mapDecoded(f) should be(LegalValue(s, f(i)))
-        case IllegalValue(s)  ⇒ v.mapDecoded(f) should be(IllegalValue(s))
+        case LegalValue(s, i) => v.mapDecoded(f) should be(LegalValue(s, f(i)))
+        case IllegalValue(s)  => v.mapDecoded(f) should be(IllegalValue(s))
       }
     }
   }
 
   test("mapEncoded should modify the encoded part of all values.") {
-    forAll { (v: StringValue[Int], f: String ⇒ Long) ⇒
+    forAll { (v: StringValue[Int], f: String => Long) =>
       v match {
-        case LegalValue(s, i) ⇒ v.mapEncoded(f) should be(LegalValue(f(s), i))
-        case IllegalValue(s)  ⇒ v.mapEncoded(f) should be(IllegalValue(f(s)))
+        case LegalValue(s, i) => v.mapEncoded(f) should be(LegalValue(f(s), i))
+        case IllegalValue(s)  => v.mapEncoded(f) should be(IllegalValue(f(s)))
       }
     }
   }
 
   // Not the most elegant code I wrote, but it does the job.
-  def testArbitrary[E, D, T](e: String, d: String)(f: E ⇒ D)(implicit arbL: Arbitrary[LegalValue[E, D, T]],
-                                                             arbI: Arbitrary[IllegalValue[E, D, T]]): Unit = {
+  def testArbitrary[E, D, T](e: String, d: String)(
+    f: E => D
+  )(implicit arbL: Arbitrary[LegalValue[E, D, T]], arbI: Arbitrary[IllegalValue[E, D, T]]): Unit = {
     test(s"Arbitrary[LegalValue[$e, $d]] should generate legal values") {
-      forAll { li: LegalValue[E, D, T] ⇒
+      forAll { li: LegalValue[E, D, T] =>
         f(li.encoded) should be(li.decoded)
       }
     }
 
     test(s"Arbitrary[IllegalValue[$e, $d]] should generate illegal values") {
-      forAll { li: IllegalValue[E, D, T] ⇒
+      forAll { li: IllegalValue[E, D, T] =>
         Prop.throws(classOf[Exception])(f(li.encoded))
         ()
       }
@@ -72,12 +73,12 @@ class CodecValueTests extends FunSuite with GeneratorDrivenPropertyChecks with M
   testArbitrary[String, BigInt, scodecs.type]("String", "BigInt")(BigInt.apply)
   testArbitrary[String, BigDecimal, scodecs.type]("String", "BigDecimal")(BigDecimal.apply)
   testArbitrary[String, UUID, scodecs.type]("String", "UUID")(UUID.fromString)
-  testArbitrary[String, Char, scodecs.type]("String", "Char") { s ⇒
+  testArbitrary[String, Char, scodecs.type]("String", "Char") { s =>
     if(s.length != 1) sys.error("not a valid char")
     else s.charAt(0)
   }
-  testArbitrary[String, Option[Int], scodecs.type]("String", "Option[Int]")(s ⇒ if(s.isEmpty) None else Some(s.toInt))
-  testArbitrary[String, Either[Boolean, Int], scodecs.type]("String", "Either[Boolean, Int]") { s ⇒
+  testArbitrary[String, Option[Int], scodecs.type]("String", "Option[Int]")(s => if(s.isEmpty) None else Some(s.toInt))
+  testArbitrary[String, Either[Boolean, Int], scodecs.type]("String", "Either[Boolean, Int]") { s =>
     Try(Left(s.toBoolean): Either[Boolean, Int]).getOrElse(Right(s.toInt): Either[Boolean, Int])
   }
   // TODO: re-enable?

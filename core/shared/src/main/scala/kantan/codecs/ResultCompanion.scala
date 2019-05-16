@@ -31,10 +31,10 @@ import scala.util.control.NonFatal
 object ResultCompanion {
 
   /** Basically `Try(s).toEither.left.map(f)`, but that's not available on Scala 2.11... */
-  def nonFatal[E, S](f: Throwable ⇒ E)(s: ⇒ S): Either[E, S] =
+  def nonFatal[E, S](f: Throwable => E)(s: => S): Either[E, S] =
     try Right(s)
     catch {
-      case NonFatal(e) ⇒ Left(f(e))
+      case NonFatal(e) => Left(f(e))
     }
 
   /** Provides companion object methods for result types that do not have a sane default error type.
@@ -48,10 +48,10 @@ object ResultCompanion {
     @inline def sequence[S, M[X] <: TraversableOnce[X]](rs: M[Either[F, S]])(
       implicit cbf: CanBuildFrom[M[Either[F, S]], S, M[S]]
     ): Either[F, M[S]] =
-      rs.foldLeft(Right(cbf(rs)): Either[F, mutable.Builder[S, M[S]]]) { (builder, res) ⇒
+      rs.foldLeft(Right(cbf(rs)): Either[F, mutable.Builder[S, M[S]]]) { (builder, res) =>
           for {
-            b ← builder.right
-            r ← res.right
+            b <- builder.right
+            r <- res.right
           } yield b += r
         }
         .right
@@ -75,12 +75,12 @@ object ResultCompanion {
     protected def fromThrowable(t: Throwable): F
 
     /** Attempts to evaluate the specified expression. */
-    @inline def apply[S](s: ⇒ S): Either[F, S] = nonFatal(fromThrowable _)(s)
+    @inline def apply[S](s: => S): Either[F, S] = nonFatal(fromThrowable _)(s)
 
     /** Turns the specified `Try` into a result. */
     @inline def fromTry[S](t: Try[S]): Either[F, S] = t match {
-      case Success(s) ⇒ Right(s)
-      case Failure(e) ⇒ Left(fromThrowable(e))
+      case Success(s) => Right(s)
+      case Failure(e) => Left(fromThrowable(e))
     }
 
   }

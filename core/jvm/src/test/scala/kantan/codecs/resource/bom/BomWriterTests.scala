@@ -20,7 +20,7 @@ package bom
 
 import java.io.ByteArrayInputStream
 import java.nio.charset.Charset
-import org.apache.commons.io.{ByteOrderMark ⇒ BOM}
+import org.apache.commons.io.{ByteOrderMark => BOM}
 import org.apache.commons.io.input.BOMInputStream
 import org.scalatest._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
@@ -39,31 +39,31 @@ class BomWriterTests extends FunSuite with GeneratorDrivenPropertyChecks with Ma
     ).getBOM
 
   test("UTF-8 BOMs should be written properly") {
-    forAll { str: String ⇒
+    forAll { str: String =>
       write(str, Codec.UTF8) should be(BOM.UTF_8)
     }
   }
 
   test("UTF-16LE BOMs should be written properly") {
-    forAll { str: String ⇒
+    forAll { str: String =>
       write(str, Codec(Charset.forName("UTF-16LE"))) should be(BOM.UTF_16LE)
     }
   }
 
   test("UTF-16BE BOMs should be written properly") {
-    forAll { str: String ⇒
+    forAll { str: String =>
       write(str, Codec(Charset.forName("UTF-16BE"))) should be(BOM.UTF_16BE)
     }
   }
 
   test("UTF-32LE BOMs should be written properly") {
-    forAll { str: String ⇒
+    forAll { str: String =>
       write(str, Codec(Charset.forName("UTF-32LE"))) should be(BOM.UTF_32LE)
     }
   }
 
   test("UTF-32BE BOMs should be written properly") {
-    forAll { str: String ⇒
+    forAll { str: String =>
       write(str, Codec(Charset.forName("UTF-32BE"))) should be(BOM.UTF_32BE)
     }
   }

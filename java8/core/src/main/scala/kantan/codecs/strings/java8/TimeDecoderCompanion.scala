@@ -50,7 +50,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalTime] = Right(12:00)
     * }}}
     */
-  def localTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
+  def localTimeDecoder(format: => DateTimeFormatter): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
     *
@@ -108,7 +108,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
-  def localDateDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
+  def localDateDecoder(format: => DateTimeFormatter): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
     *
@@ -166,7 +166,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
     */
-  def localDateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDateTime, F, T] =
+  def localDateTimeDecoder(format: => DateTimeFormatter): Decoder[E, LocalDateTime, F, T] =
     localDateTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
@@ -226,7 +226,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def offsetDateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, OffsetDateTime, F, T] =
+  def offsetDateTimeDecoder(format: => DateTimeFormatter): Decoder[E, OffsetDateTime, F, T] =
     offsetDateTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
@@ -286,7 +286,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def zonedDateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, ZonedDateTime, F, T] =
+  def zonedDateTimeDecoder(format: => DateTimeFormatter): Decoder[E, ZonedDateTime, F, T] =
     zonedDateTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
@@ -346,7 +346,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
-  def instantDecoder(format: ⇒ DateTimeFormatter): Decoder[E, Instant, F, T] = instantDecoder(Format(format))
+  def instantDecoder(format: => DateTimeFormatter): Decoder[E, Instant, F, T] = instantDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
     *

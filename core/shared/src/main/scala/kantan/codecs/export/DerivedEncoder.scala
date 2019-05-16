@@ -19,6 +19,6 @@ package export
 
 /** Provides construction methods for [[kantan.codecs.export.DerivedEncoder]]. */
 object DerivedEncoder {
-  def from[E, D, T](f: D ⇒ E): DerivedEncoder[E, D, T] =
+  def from[E, D, T](f: D => E): DerivedEncoder[E, D, T] =
     Exported(Encoder.from(f))
 }

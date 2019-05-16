@@ -50,7 +50,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 12:00:00
     * }}}
     */
-  def localTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
+  def localTimeEncoder(format: => DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
@@ -107,7 +107,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01
     * }}}
     */
-  def localDateEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
+  def localDateEncoder(format: => DateTimeFormatter): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
@@ -164,7 +164,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00
     * }}}
     */
-  def localDateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, LocalDateTime, T] =
+  def localDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, LocalDateTime, T] =
     localDateTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
@@ -224,7 +224,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def offsetDateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, OffsetDateTime, T] =
+  def offsetDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, OffsetDateTime, T] =
     offsetDateTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
@@ -284,7 +284,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def zonedDateTimeEncoder(format: ⇒ DateTimeFormatter): Encoder[E, ZonedDateTime, T] =
+  def zonedDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, ZonedDateTime, T] =
     zonedDateTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
@@ -344,7 +344,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def instantEncoder(format: ⇒ DateTimeFormatter): Encoder[E, Instant, T] = instantEncoder(Format(format))
+  def instantEncoder(format: => DateTimeFormatter): Encoder[E, Instant, T] = instantEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *

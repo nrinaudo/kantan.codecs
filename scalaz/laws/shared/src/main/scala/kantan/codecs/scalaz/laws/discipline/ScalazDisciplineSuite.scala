@@ -27,7 +27,7 @@ class ScalazDisciplineSuite extends DisciplineSuite {
   @SuppressWarnings(Array("org.wartremover.warts.Var"))
   def checkAll(name: String, props: Properties): Unit = {
     var i = 0
-    for((id, prop) ← props.properties) {
+    for((id, prop) <- props.properties) {
       i = i + 1
       test(s"$name[$i].$id") {
         check(prop)

@@ -49,7 +49,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     * res1: StringResult[DateTime] = Right(2000-01-01T12:00:00.000Z)
     * }}}
     */
-  def dateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, DateTime, F, T] = dateTimeDecoder(Format(format))
+  def dateTimeDecoder(format: => DateTimeFormatter): Decoder[E, DateTime, F, T] = dateTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
     *
@@ -108,7 +108,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDateTime] = Right(2000-01-01T12:00:00.000)
     * }}}
     */
-  def localDateTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDateTime, F, T] =
+  def localDateTimeDecoder(format: => DateTimeFormatter): Decoder[E, LocalDateTime, F, T] =
     localDateTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
@@ -168,7 +168,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
-  def localDateDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
+  def localDateDecoder(format: => DateTimeFormatter): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
     *
@@ -226,7 +226,7 @@ trait JodaTimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalTime] = Right(12:00:00.000)
     * }}}
     */
-  def localTimeDecoder(format: ⇒ DateTimeFormatter): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
+  def localTimeDecoder(format: => DateTimeFormatter): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
     *
