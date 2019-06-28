@@ -14,6 +14,6 @@ object Versions {
   val scalacheck           = "1.13.5"
   val scalacheckShapeless  = "1.1.8"
   val scalatest            = "3.0.5"
-  val scalaz               = "7.2.27"
+  val scalaz               = "7.2.28"
   val shapeless            = "2.3.3"
 }
