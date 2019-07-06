@@ -24,7 +24,7 @@ import java.time.temporal.TemporalAccessor
 
 /** `Serializable` wrapper around `DateTimeFormatter`.
   *
-  * The main purpose of this is to make joda-time codecs `Serializable` and thus usable with frameworks like spark.
+  * The main purpose of this is to make java8 codecs `Serializable` and thus usable with frameworks like spark.
   */
 sealed trait Format {
 

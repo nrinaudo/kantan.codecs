@@ -24,8 +24,6 @@ lazy val jvmModules: Seq[ProjectReference] = Seq(
   enumeratumLawsJVM,
   java8,
   java8Laws,
-  jodaTime,
-  jodaTimeLaws,
   lawsJVM,
   libra,
   libraLaws,
@@ -43,7 +41,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .enablePlugins(UnpublishedPlugin)
   .aggregate((jsModules ++ jvmModules :+ (docs: ProjectReference)): _*)
-  .dependsOn(catsJVM, coreJVM, enumeratumJVM, jodaTime, libra, refinedJVM, scalazJVM, shapelessJVM)
+  .dependsOn(catsJVM, coreJVM, enumeratumJVM, libra, refinedJVM, scalazJVM, shapelessJVM)
 
 lazy val docs = project
   .enablePlugins(DocumentationPlugin)
@@ -52,7 +50,7 @@ lazy val docs = project
     unidocProjectFilter in (ScalaUnidoc, unidoc) :=
       inAnyProject -- inProjects(jsModules: _*)
   )
-  .dependsOn(catsJVM, coreJVM, enumeratumJVM, jodaTime, libra, refinedJVM, scalazJVM, shapelessJVM, java8)
+  .dependsOn(catsJVM, coreJVM, enumeratumJVM, libra, refinedJVM, scalazJVM, shapelessJVM, java8)
 
 // - core projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -116,33 +114,6 @@ lazy val catsLaws = kantanCrossProject("cats-laws")
 
 lazy val catsLawsJVM = catsLaws.jvm
 lazy val catsLawsJS  = catsLaws.js
-
-// - joda-time projects ------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-lazy val jodaTime = Project(id = "joda-time", base = file("joda-time/core"))
-  .settings(
-    moduleName := "kantan.codecs-joda-time",
-    name       := "joda-time"
-  )
-  .enablePlugins(PublishedPlugin)
-  .dependsOn(coreJVM)
-  .settings(
-    libraryDependencies ++= Seq(
-      "com.propensive" %% "contextual"  % Versions.contextual,
-      "joda-time"      % "joda-time"    % Versions.joda,
-      "org.joda"       % "joda-convert" % Versions.jodaConvert,
-      "org.scalatest"  %% "scalatest"   % Versions.scalatest % "test"
-    )
-  )
-  .laws("joda-time-laws")
-
-lazy val jodaTimeLaws = Project(id = "joda-time-laws", base = file("joda-time/laws"))
-  .settings(
-    moduleName := "kantan.codecs-joda-time-laws",
-    name       := "joda-time-laws"
-  )
-  .enablePlugins(PublishedPlugin)
-  .dependsOn(coreJVM, lawsJVM, jodaTime)
 
 // - java8 projects ----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
