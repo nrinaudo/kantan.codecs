@@ -22,8 +22,9 @@ import strings._
 
 trait DecoderInstances {
 
-  implicit final def decoderInstances[E, F, T]: MonadError[Decoder[E, ?, F, T], F] with Plus[Decoder[E, ?, F, T]] =
-    new MonadError[Decoder[E, ?, F, T], F] with Plus[Decoder[E, ?, F, T]] {
+  implicit final def decoderInstances[E, F, T]
+    : MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] with Plus[({ type L[A] = Decoder[E, A, F, T] })#L] =
+    new MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] with Plus[({ type L[A] = Decoder[E, A, F, T] })#L] {
 
       override def point[A](a: => A) = Decoder.from(_ => Right(a))
 
@@ -40,9 +41,10 @@ trait DecoderInstances {
 
 trait EncoderInstances {
 
-  implicit def encoderContravariant[E, T]: Contravariant[Encoder[E, ?, T]] = new Contravariant[Encoder[E, ?, T]] {
-    override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD => D) = fa.contramap(f)
-  }
+  implicit def encoderContravariant[E, T]: Contravariant[({ type L[A] = Encoder[E, A, T] })#L] =
+    new Contravariant[({ type L[A] = Encoder[E, A, T] })#L] {
+      override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD => D) = fa.contramap(f)
+    }
 
 }
 

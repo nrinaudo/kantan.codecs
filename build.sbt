@@ -49,11 +49,6 @@ lazy val docs = project
   .enablePlugins(DocumentationPlugin)
   .settings(name := "docs")
   .settings(
-    libraryDependencies += compilerPlugin(
-      "org.typelevel" % "kind-projector" % Versions.kindProjector cross CrossVersion.binary
-    )
-  )
-  .settings(
     unidocProjectFilter in (ScalaUnidoc, unidoc) :=
       inAnyProject -- inProjects(jsModules: _*)
   )
@@ -101,9 +96,6 @@ lazy val cats = kantanCrossProject("cats")
   .dependsOn(core)
   .settings(
     libraryDependencies ++= Seq(
-      compilerPlugin(
-        "org.typelevel" % "kind-projector" % Versions.kindProjector cross CrossVersion.binary
-      ),
       "org.typelevel" %%% "cats-core" % Versions.cats,
       "org.scalatest" %%% "scalatest" % Versions.scalatest % "test"
     )
@@ -191,9 +183,6 @@ lazy val scalaz = kantanCrossProject("scalaz")
   .dependsOn(core)
   .settings(
     libraryDependencies ++= Seq(
-      compilerPlugin(
-        "org.typelevel" % "kind-projector" % Versions.kindProjector cross CrossVersion.binary
-      ),
       "org.scalaz"    %%% "scalaz-core" % Versions.scalaz,
       "org.scalatest" %%% "scalatest"   % Versions.scalatest % "test"
     )
