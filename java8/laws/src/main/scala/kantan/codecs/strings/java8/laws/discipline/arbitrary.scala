@@ -24,7 +24,7 @@ import java.time._
 import java.time.format.DateTimeFormatter
 import kantan.codecs.laws.{IllegalString, LegalString}
 import org.scalacheck.{Arbitrary, Cogen, Gen}
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.util.Try
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances

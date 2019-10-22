@@ -23,7 +23,7 @@ import imp.imp
 import java.io._
 import java.util.{Date, UUID}
 import java.util.regex.Pattern
-import org.scalacheck._, Arbitrary.{arbitrary => arb}, Gen._
+import org.scalacheck.{ArbitraryArities => _, _}, Arbitrary.{arbitrary => arb}, Gen._
 import scala.util.Try
 import scala.util.matching.Regex
 import strings.DecodeError

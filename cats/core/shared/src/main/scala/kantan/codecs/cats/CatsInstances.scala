@@ -24,8 +24,9 @@ import strings.DecodeError
 trait DecoderInstances {
 
   implicit final def decoderInstances[E, F, T]
-    : SemigroupK[Decoder[E, ?, F, T]] with MonadError[Decoder[E, ?, F, T], F] =
-    new SemigroupK[Decoder[E, ?, F, T]] with MonadError[Decoder[E, ?, F, T], F] {
+    : SemigroupK[({ type L[A] = Decoder[E, A, F, T] })#L] with MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] =
+    new SemigroupK[({ type L[A]  = Decoder[E, A, F, T] })#L]
+    with MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] {
 
       final def combineK[D](x: Decoder[E, D, F, T], y: Decoder[E, D, F, T]): Decoder[E, D, F, T] = x.orElse(y)
 
@@ -60,9 +61,10 @@ trait DecoderInstances {
 
 trait EncoderInstances {
 
-  implicit def encoderContravariant[E, T]: Contravariant[Encoder[E, ?, T]] = new Contravariant[Encoder[E, ?, T]] {
-    override def contramap[A, B](e: Encoder[E, A, T])(f: B => A) = e.contramap(f)
-  }
+  implicit def encoderContravariant[E, T]: Contravariant[({ type L[A] = Encoder[E, A, T] })#L] =
+    new Contravariant[({ type L[A] = Encoder[E, A, T] })#L] {
+      override def contramap[A, B](e: Encoder[E, A, T])(f: B => A) = e.contramap(f)
+    }
 
 }
 

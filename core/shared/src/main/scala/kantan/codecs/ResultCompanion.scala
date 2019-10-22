@@ -17,10 +17,7 @@
 package kantan.codecs
 
 import error.IsError
-import scala.collection.generic.CanBuildFrom
-import scala.collection.mutable
 import scala.util.{Failure, Success, Try}
-import scala.util.control.NonFatal
 
 /** Provides trait that result companion object can extend.
   *
@@ -30,32 +27,15 @@ import scala.util.control.NonFatal
   */
 object ResultCompanion {
 
-  /** Basically `Try(s).toEither.left.map(f)`, but that's not available on Scala 2.11... */
-  def nonFatal[E, S](f: Throwable => E)(s: => S): Either[E, S] =
-    try Right(s)
-    catch {
-      case NonFatal(e) => Left(f(e))
-    }
+  /** Evaluates the specified expression, catching non-fatal errors and sticking them in a `Left`. */
+  def nonFatal[E, S](f: Throwable => E)(s: => S): Either[E, S] = Try(s).toEither.left.map(f)
 
   /** Provides companion object methods for result types that do not have a sane default error type.
     *
     * If your specialised result type has a sane default (such as `TypeError` for `DecodeResult` in kantan.csv), use
     * [[WithDefault]] instead.
     */
-  trait Simple[F] {
-
-    /** Turns a collection of results into a result of a collection. */
-    @inline def sequence[S, M[X] <: TraversableOnce[X]](rs: M[Either[F, S]])(
-      implicit cbf: CanBuildFrom[M[Either[F, S]], S, M[S]]
-    ): Either[F, M[S]] =
-      rs.foldLeft(Right(cbf(rs)): Either[F, mutable.Builder[S, M[S]]]) { (builder, res) =>
-          for {
-            b <- builder.right
-            r <- res.right
-          } yield b += r
-        }
-        .right
-        .map(_.result())
+  trait Simple[F] extends VersionSpecificResultCompanion.Simple[F] {
 
     /** Turns the specified value into a success. */
     @inline def success[S](s: S): Either[F, S] = Right(s)

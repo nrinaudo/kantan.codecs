@@ -19,10 +19,12 @@ package export
 
 import DerivedCodecTests.{Just, Maybe, None}
 import org.scalatest._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import strings.{DecodeError, StringDecoder, StringEncoder, StringResult}
 
-class DerivedCodecTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class DerivedCodecTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   val decode: String => StringResult[Maybe[Int]] = s =>
     if(s.trim.isEmpty) Right(None)
     else StringResult(Just(s.toInt))

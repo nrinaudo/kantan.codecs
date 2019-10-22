@@ -37,7 +37,7 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
       i   <- Gen.choose(0, str.length)
     } yield {
       val (h, t) = str.splitAt(i)
-      IllegalValue(s"$h $t")
+      IllegalValue(s"${h.toString} ${t.toString}")
     }
   }
 
@@ -70,7 +70,7 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
 
   implicit val cogenFile: Cogen[File] = implicitly[Cogen[String]].contramap(_.toString)
   val genFileNotFound: Gen[FileNotFoundException] =
-    arbFile.arbitrary.map(f => new FileNotFoundException(s"File not found: $f"))
+    arbFile.arbitrary.map(f => new FileNotFoundException(s"File not found: ${f.toString}"))
   override val genIoException =
     Gen.oneOf(genFileNotFound, genUnsupportedEncoding, Gen.const(new EOFException))
 

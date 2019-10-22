@@ -17,7 +17,7 @@
 package kantan.codecs
 package resource
 
-import java.io._
+import java.io.{Closeable => _, _}
 import scala.io.Codec
 
 /** Represents a resource that can be opened and worked on.
@@ -40,10 +40,10 @@ trait Resource[I, R] { self =>
     * throw but should instead wrap all errors in a [[ProcessResult]].
     */
   def withResource[O](input: I)(f: R => ProcessResult[O])(implicit c: Closeable[R]): ResourceResult[O] =
-    open(input).right.flatMap { r =>
+    open(input).flatMap { r =>
       val res = f(r)
 
-      Closeable[R].close(r).right.flatMap(_ => res)
+      Closeable[R].close(r).flatMap(_ => res)
     }
 
   def contramap[II](f: II => I): Resource[II, R] = Resource.from(f andThen self.open)
@@ -53,15 +53,15 @@ trait Resource[I, R] { self =>
     econtramap(f)
 
   def econtramap[II](f: II => OpenResult[I]): Resource[II, R] =
-    Resource.from(aa => f(aa).right.flatMap(self.open))
+    Resource.from(aa => f(aa).flatMap(self.open))
 
-  def map[RR](f: R => RR): Resource[I, RR] = Resource.from(a => open(a).right.map(f))
+  def map[RR](f: R => RR): Resource[I, RR] = Resource.from(a => open(a).map(f))
 
   @deprecated("Use emap instead", "0.3.1")
   def mapResult[RR](f: R => OpenResult[RR]): Resource[I, RR] = emap(f)
 
   def emap[RR](f: R => OpenResult[RR]): Resource[I, RR] =
-    Resource.from(a => open(a).right.flatMap(f))
+    Resource.from(a => open(a).flatMap(f))
 }
 
 object Resource extends PlatformSpecificInstances {

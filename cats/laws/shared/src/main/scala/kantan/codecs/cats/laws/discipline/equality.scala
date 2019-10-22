@@ -21,12 +21,24 @@ package discipline
 
 import _root_.cats._
 import _root_.cats.instances.either._
-import _root_.cats.laws.discipline.eq._
 import org.scalacheck.Arbitrary
 
 object equality extends EqInstances
 
 trait EqInstances {
+
+  // This is needed because cats 2.0.0 introduces the notion of ExhaustiveCheck to derive instances of Eq[A => B], and
+  // I do not know how to provide an exhaustive list of string values.
+  implicit def eqFunction[A: Arbitrary, B: Eq]: Eq[A => B] =
+    new Eq[A => B] {
+      def eqv(x: A => B, y: A => B): Boolean = {
+        val samples = List.fill(50)(Arbitrary.arbitrary[A].sample).collect {
+          case Some(a) => a
+          case None    => sys.error("Could not generate arbitrary values to compare two functions")
+        }
+        samples.forall(a => Eq[B].eqv(x(a), y(a)))
+      }
+    }
 
   implicit def decoderEq[E: Arbitrary, D: Eq, F: Eq, T]: Eq[Decoder[E, D, F, T]] =
     Eq.by(_.decode _)

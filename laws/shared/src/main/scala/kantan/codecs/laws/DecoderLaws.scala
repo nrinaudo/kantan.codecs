@@ -64,7 +64,7 @@ trait DecoderLaws[E, D, F, T] {
     decoder.decode(v.encoded) == decoder.emap(Right.apply).decode(v.encoded)
 
   def emapComposition[A, B](v: CodecValue[E, D, T], f: D => Either[F, A], g: A => Either[F, B]): Boolean =
-    decoder.emap(d => f(d).right.flatMap(g)).decode(v.encoded) == decoder.emap(f).emap(g).decode(v.encoded)
+    decoder.emap(d => f(d).flatMap(g)).decode(v.encoded) == decoder.emap(f).emap(g).decode(v.encoded)
 
   // TODO: filter
   // TODO: collect

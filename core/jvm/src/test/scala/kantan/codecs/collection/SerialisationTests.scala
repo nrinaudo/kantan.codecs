@@ -20,17 +20,14 @@ package collection
 import laws.discipline._
 import scala.collection.immutable.{Queue, TreeSet}
 
-class SerialisationTests extends DisciplineSuite {
-
-  checkAll("HasBuilder[TreeSet]", SerializableTests[HasBuilder[TreeSet, Int]].serializable)
-  checkAll("HasBuilder[QueueHasBuilderTests]", SerializableTests[HasBuilder[Queue, Int]].serializable)
-  checkAll("HasBuilder[ListHasBuilderTests]", SerializableTests[HasBuilder[List, Int]].serializable)
-  checkAll("HasBuilder[StreamHasBuilderTests]", SerializableTests[HasBuilder[Stream, Int]].serializable)
-  checkAll("HasBuilder[VectorHasBuilderTests]", SerializableTests[HasBuilder[Vector, Int]].serializable)
-  checkAll("HasBuilder[IndexedSeqHasBuilderTests]", SerializableTests[HasBuilder[IndexedSeq, Int]].serializable)
-  checkAll("HasBuilder[TraversableHasBuilderTests]", SerializableTests[HasBuilder[Traversable, Int]].serializable)
-  checkAll("HasBuilder[SeqHasBuilderTests]", SerializableTests[HasBuilder[Seq, Int]].serializable)
-  checkAll("HasBuilder[SetHasBuilderTests]", SerializableTests[HasBuilder[Set, Int]].serializable)
-  checkAll("HasBuilder[ArrayHasBuilderTests]", SerializableTests[HasBuilder[Array, Int]].serializable)
+class SerialisationTests extends VersionSpecificSerialisationTests {
+  checkAll("Factory[TreeSet]", SerializableTests[Factory[Int, TreeSet[Int]]].serializable)
+  checkAll("Factory[QueueFactoryTests]", SerializableTests[Factory[Int, Queue[Int]]].serializable)
+  checkAll("Factory[ListFactoryTests]", SerializableTests[Factory[Int, List[Int]]].serializable)
+  checkAll("Factory[VectorFactoryTests]", SerializableTests[Factory[Int, Vector[Int]]].serializable)
+  checkAll("Factory[IndexedSeqFactoryTests]", SerializableTests[Factory[Int, IndexedSeq[Int]]].serializable)
+  checkAll("Factory[SeqFactoryTests]", SerializableTests[Factory[Int, Seq[Int]]].serializable)
+  checkAll("Factory[SetFactoryTests]", SerializableTests[Factory[Int, Set[Int]]].serializable)
+  checkAll("Factory[ArrayFactoryTests]", SerializableTests[Factory[Int, Array[Int]]].serializable)
 
 }

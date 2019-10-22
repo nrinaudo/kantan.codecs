@@ -17,6 +17,32 @@
 package kantan.codecs
 package resource
 
+/*
+contains
+count
+fold
+foldLeft
+reduce
+reduceLeft
+withFilter
+collectFirst
+flatten
+slice
+zipWithIndex
+zip
+head
+headOption
+mkString
+mkString
+mkString
+sum
+product
+min
+max
+maxBy
+minBy
+ */
+
 import scala.annotation.tailrec
 import scala.util.Try
 
@@ -45,7 +71,8 @@ import scala.util.Try
     "org.wartremover.warts.Null"
   )
 )
-trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { self =>
+trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.io.Closeable {
+  self =>
   // - Abstract methods ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Reads the next element in the underlying resource
@@ -123,8 +150,6 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
       }
   }
 
-  // - Useful methods --------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
   /** Drops the next `n` elements from the resource.
     *
     * If the resource contains `m` elements such that `m < n`, then only `m` elements will be dropped.
@@ -165,17 +190,20 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
         var state = 0 // Current state. 0: not initialised. 1: `n` contains an interesting value. 2: back to normal.
         var n: A  = _ // Where to store the first A that verifies p.
 
-        def init(): Unit = {
+        def init(): Unit =
           // Skips all elements until one is found that doesn't match `p` or the end of the resource is reached.
-          n = self.next()
-          while(self.hasNext && p(n)) n = self.next()
+          if(self.hasNext) {
+            n = self.next()
+            while(self.hasNext && p(n)) n = self.next()
 
-          // If we've not found anything interesting, move to the final state.
-          if(p(n)) state = 2
+            // If we've not found anything interesting, move to the final state.
+            if(p(n)) state = 2
 
-          // Otherwise, move to the 'return `n`' state.
-          else state = 1
-        }
+            // Otherwise, move to the 'return `n`' state.
+            else state = 1
+          }
+          else
+            state = 2
 
         // We have no choice here but to perform all IO-bound operations in `checkNext` - we can't know if there are more
         // elements to be had unless we read all of them until one that doesn't match `p` is found.
@@ -198,6 +226,111 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
 
         override def release() = self.close()
       }
+
+  def map[B](f: A => B): ResourceIterator[B] = new ResourceIterator[B] {
+    override def checkNext  = self.hasNext
+    override def readNext() = f(self.next())
+    override def release()  = self.close()
+  }
+
+  /** Applies the specified function to the `Right` case of the underlying `Either`. */
+  def mapResult[E, S, B](f: S => B)(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
+    map(_.map(f): Either[E, B])
+
+  def flatMap[B](f: A => ResourceIterator[B]): ResourceIterator[B] = {
+    var cur: ResourceIterator[B] = ResourceIterator.empty
+    new ResourceIterator[B] {
+      override def checkNext  = cur.hasNext || self.hasNext && { cur = f(self.next()); checkNext }
+      override def readNext() = cur.next()
+      override def release()  = self.close()
+    }
+  }
+
+  @deprecated("Use emap instead", "0.2.2")
+  def flatMapResult[E, S, B](f: S => Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
+    emap(f)
+
+  def emap[E, S, B](f: S => Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
+    map(_.flatMap(f))
+
+  def filter(p: A => Boolean): ResourceIterator[A] = collect {
+    case a if p(a) => a
+  }
+
+  def filterNot(pred: A => Boolean): ResourceIterator[A] = filter(a => !pred(a))
+
+  def withFilter(p: A => Boolean): ResourceIterator[A] = filter(p)
+
+  def filterResult[E, S](p: S => Boolean)(implicit ev: A <:< Either[E, S]): ResourceIterator[A] =
+    filter(_.exists(p))
+
+  def foreach[U](f: A => U): Unit = while(hasNext) f(next())
+
+  def hasDefiniteSize: Boolean = isEmpty
+
+  def forall(p: A => Boolean): Boolean = {
+    var res = true
+    while(res && hasNext) res = p(next())
+    res
+  }
+
+  def foldLeft[B](empty: B)(f: (B, A) => B): B = {
+    var acc = empty
+    while(hasNext) acc = f(acc, next())
+    acc
+  }
+
+  def zipWithIndex: ResourceIterator[(A, Int)] = {
+    var i = 0
+    map { a =>
+      val ret = (a, i)
+      i += 1
+      ret
+    }
+  }
+
+  def slice(from: Int, until: Int): ResourceIterator[A] = {
+    val low = math.max(0, from)
+
+    if(until <= low) ResourceIterator.empty
+    else drop(low).take(until - low)
+  }
+
+  def scanLeft[B](z: B)(f: (B, A) => B): ResourceIterator[B] = new ResourceIterator[B] {
+    var consumed = false
+    var acc      = z
+
+    override def checkNext = !consumed || self.hasNext
+    override def readNext() =
+      if(consumed) {
+        acc = f(acc, self.next())
+        acc
+      }
+      else {
+        consumed = true
+        z
+      }
+    override def release() = self.close()
+  }
+
+  def isEmpty: Boolean = !hasNext
+
+  def find(p: A => Boolean): Option[A] = {
+    var res: Option[A] = None
+    while(res.isEmpty && hasNext) {
+      val n = next()
+      if(p(n)) res = Some(n)
+    }
+    res
+  }
+
+  def exists(p: A => Boolean): Boolean = {
+    var res = false
+    while(!res && hasNext) res = p(next())
+    res
+  }
+
+  def isTraversableAgain: Boolean = false
 
   /** Restrict this resource to the next `n` elements, dropping whatever is left. */
   def take(n: Int): ResourceIterator[A] = new ResourceIterator[A] {
@@ -277,85 +410,6 @@ trait ResourceIterator[+A] extends TraversableOnce[A] with java.io.Closeable { s
 
         override def release() = self.close()
       }
-
-  // - Monadic operations ----------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  def map[B](f: A => B): ResourceIterator[B] = new ResourceIterator[B] {
-    override def checkNext  = self.hasNext
-    override def readNext() = f(self.next())
-    override def release()  = self.close()
-  }
-
-  /** Applies the specified function to the `Right` case of the underlying `Either`. */
-  def mapResult[E, S, B](f: S => B)(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
-    map(_.right.map(f): Either[E, B])
-
-  def flatMap[B](f: A => ResourceIterator[B]): ResourceIterator[B] = {
-    var cur: ResourceIterator[B] = ResourceIterator.empty
-    new ResourceIterator[B] {
-      override def checkNext  = cur.hasNext || self.hasNext && { cur = f(self.next()); checkNext }
-      override def readNext() = cur.next()
-      override def release()  = self.close()
-    }
-  }
-
-  @deprecated("Use emap instead", "0.2.2")
-  def flatMapResult[E, S, B](f: S => Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
-    emap(f)
-
-  def emap[E, S, B](f: S => Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
-    map(_.right.flatMap(f))
-
-  def filter(p: A => Boolean): ResourceIterator[A] = collect {
-    case a if p(a) => a
-  }
-
-  def filterResult[E, S](p: S => Boolean)(implicit ev: A <:< Either[E, S]): ResourceIterator[A] =
-    filter(_.right.exists(p))
-
-  def withFilter(p: A => Boolean): ResourceIterator[A] = filter(p)
-
-  // - TraversableOnce -------------------------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------------------------------------------
-  override def foreach[U](f: A => U): Unit = while(hasNext) f(next())
-  override def seq: TraversableOnce[A]     = this
-  override def hasDefiniteSize: Boolean    = isEmpty
-
-  override def copyToArray[B >: A](xs: Array[B], start: Int, len: Int): Unit = {
-    var i   = start
-    val end = start + math.min(len, xs.length - start)
-    while(i < end && hasNext) {
-      xs(i) = next()
-      i += 1
-    }
-  }
-
-  override def forall(p: A => Boolean): Boolean = {
-    var res = true
-    while(res && hasNext) res = p(next())
-    res
-  }
-  override def toTraversable: Traversable[A] = toStream
-  override def isEmpty: Boolean              = !hasNext
-  override def find(p: A => Boolean): Option[A] = {
-    var res: Option[A] = None
-    while(res.isEmpty && hasNext) {
-      val n = next()
-      if(p(n)) res = Some(n)
-    }
-    res
-  }
-  override def exists(p: A => Boolean): Boolean = {
-    var res = false
-    while(!res && hasNext) res = p(next())
-    res
-  }
-  override def toStream: Stream[A] = if(hasNext) Stream.cons(next(), toStream) else Stream.empty
-  override def toIterator: Iterator[A] = new Iterator[A] {
-    override def hasNext: Boolean = self.hasNext
-    override def next(): A        = self.next()
-  }
-  override def isTraversableAgain: Boolean = false
 
   /** Calls the specified function when the underlying resource is empty. */
   def withClose(f: () => Unit): ResourceIterator[A] =

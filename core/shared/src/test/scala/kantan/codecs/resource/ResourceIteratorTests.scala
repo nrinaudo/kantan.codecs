@@ -20,10 +20,13 @@ package resource
 import imp.imp
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest._, EitherValues._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 @SuppressWarnings(Array("org.wartremover.warts.Var", "org.wartremover.warts.While"))
-class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks with Matchers {
+class ResourceIteratorTests
+    extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers with VersionSpecificResourceIteratorTests {
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   case class FailingIterator[A](iterator: Iterator[A], index: Int) {
@@ -173,7 +176,7 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
   test("mapResult should behave as expected") {
     forAll { (is: List[Either[Boolean, Int]], f: Int => String) =>
-      ResourceIterator(is: _*).mapResult(f).toList should be(is.map(_.right.map(f)))
+      ResourceIterator(is: _*).mapResult(f).toList should be(is.map(_.map(f)))
     }
   }
 
@@ -185,7 +188,7 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
 
   test("emap should behave as expected") {
     forAll { (is: List[Either[Boolean, Int]], f: Int => Either[Boolean, String]) =>
-      ResourceIterator(is: _*).emap(f).toList should be(is.map(_.right.flatMap(f)))
+      ResourceIterator(is: _*).emap(f).toList should be(is.map(_.flatMap(f)))
     }
   }
 
@@ -195,27 +198,21 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
     }
   }
 
-  test("filterResult should behave as expected") {
-    forAll { (is: List[Either[Boolean, Int]], f: Int => Boolean) =>
-      ResourceIterator(is: _*).filterResult(f).toList should be(is.filter(_.right.exists(f)))
-    }
-  }
-
-  test("filtered iterators should close when empty") {
-    forAll { (is: List[Int], f: Int => Boolean) =>
-      closedWhenEmpty(ResourceIterator(is: _*).filter(f)) should be(true)
-    }
-  }
-
   test("withFilter should behave as expected") {
     forAll { (is: List[Int], f: Int => Boolean) =>
       ResourceIterator(is: _*).withFilter(f).toList should be(is.iterator.withFilter(f).toList)
     }
   }
 
-  test("seq should behave as expected") {
-    forAll { (is: List[Int]) =>
-      ResourceIterator(is: _*).seq.toList should be(is)
+  test("filterResult should behave as expected") {
+    forAll { (is: List[Either[Boolean, Int]], f: Int => Boolean) =>
+      ResourceIterator(is: _*).filterResult(f).toList should be(is.filter(_.exists(f)))
+    }
+  }
+
+  test("filtered iterators should close when empty") {
+    forAll { (is: List[Int], f: Int => Boolean) =>
+      closedWhenEmpty(ResourceIterator(is: _*).filter(f)) should be(true)
     }
   }
 
@@ -268,30 +265,6 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
     }
   }
 
-  test("toTraversable should behave as expected") {
-    forAll { (is: List[Int]) =>
-      ResourceIterator(is: _*).toTraversable.toList should be(is)
-    }
-  }
-
-  test("toIterator should behave as expected") {
-    forAll { (is: List[Int]) =>
-      ResourceIterator(is: _*).toIterator.sameElements(is.toIterator) should be(true)
-    }
-  }
-
-  test("toStream should behave as expected") {
-    forAll { (is: List[Int]) =>
-      ResourceIterator(is: _*).toStream should be(is.toStream)
-    }
-  }
-
-  test("to[List] should behave as expected") {
-    forAll { (is: List[Int]) =>
-      ResourceIterator(is: _*).to[List] should be(is)
-    }
-  }
-
   test("withClose should register the close function properly") {
     forAll { (is: List[Int]) =>
       closedWhenEmpty(ResourceIterator(is: _*)) should be(true)
@@ -328,6 +301,48 @@ class ResourceIteratorTests extends FunSuite with GeneratorDrivenPropertyChecks 
       val res = ResourceIterator(is: _*)
       res.close()
       res.hasNext should be(false)
+    }
+  }
+
+  test("toList should behave as expected") {
+    forAll { (is: List[Int]) =>
+      ResourceIterator(is: _*).toList should be(is)
+    }
+  }
+
+  test("toBuffer should behave as expected") {
+    forAll { (is: List[Int]) =>
+      ResourceIterator(is: _*).toBuffer should be(is.toBuffer)
+    }
+  }
+
+  test("toIndexedSeq should behave as expected") {
+    forAll { (is: List[Int]) =>
+      ResourceIterator(is: _*).toIndexedSeq should be(is.toIndexedSeq)
+    }
+  }
+
+  test("toIterable should behave as expected") {
+    forAll { (is: List[Int]) =>
+      ResourceIterator(is: _*).toIterable should be(is.toIterable)
+    }
+  }
+
+  test("toSeq should behave as expected") {
+    forAll { (is: List[Int]) =>
+      ResourceIterator(is: _*).toSeq should be(is.toSeq)
+    }
+  }
+
+  test("toSet should behave as expected") {
+    forAll { (is: List[Int]) =>
+      ResourceIterator(is: _*).toSet should be(is.toSet)
+    }
+  }
+
+  test("toVector should behave as expected") {
+    forAll { (is: List[Int]) =>
+      ResourceIterator(is: _*).toVector should be(is.toVector)
     }
   }
 }
