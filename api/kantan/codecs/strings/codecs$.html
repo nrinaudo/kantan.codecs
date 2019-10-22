@@ -1,570 +1,51 @@
-<!DOCTYPE html >
-<html>
-        <head>
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title></title>
-          <meta name="description" content="" />
-          <meta name="keywords" content="" />
-          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-          
-      <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
-      <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
-      <link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
-      <script type="text/javascript" src="../../../lib/jquery.js"></script>
-      <script type="text/javascript" src="../../../lib/jquery.panzoom.min.js"></script>
-      <script type="text/javascript" src="../../../lib/jquery.mousewheel.min.js"></script>
-      <script type="text/javascript" src="../../../lib/index.js"></script>
-      <script type="text/javascript" src="../../../index.js"></script>
-      <script type="text/javascript" src="../../../lib/scheduler.js"></script>
-      <script type="text/javascript" src="../../../lib/template.js"></script>
-      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
-      
-      <script type="text/javascript">
-        /* this variable can be used by the JS to determine the path to the root document */
-        var toRoot = '../../../';
-      </script>
-    
-        </head>
-        <body>
-      <div id="search">
-        <span id="doc-title"><span id="doc-version"></span></span>
-        <span class="close-results"><span class="left">&lt;</span> Back</span>
-        <div id="textfilter">
-          <span class="input">
-            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
-            <i class="clear material-icons"></i>
-            <i id="search-icon" class="material-icons"></i>
-          </span>
-        </div>
-    </div>
-      <div id="search-results">
-        <div id="search-progress">
-          <div id="progress-fill"></div>
-        </div>
-        <div id="results-content">
-          <div id="entity-results"></div>
-          <div id="member-results"></div>
-        </div>
-      </div>
-      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
-        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
-          <div id="subpackage-spacer">
-            <div id="packages">
-              <h1>Packages</h1>
-              <ul>
-                <li name="_root_.root" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="_root_"></a><a id="root:_root_"></a>
-      <span class="permalink">
-      <a href="index.html#_root_" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../../../index.html"><span class="name">root</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
-    </li><li name="_root_.kantan" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="kantan"></a><a id="kantan:kantan"></a>
-      <span class="permalink">
-      <a href="index.html#kantan" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../../index.html"><span class="name">kantan</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
-    </li><li name="kantan.codecs" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="codecs"></a><a id="codecs:codecs"></a>
-      <span class="permalink">
-      <a href="../kantan/index.html#codecs" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../index.html"><span class="name">codecs</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="kantan">kantan</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="strings"></a><a id="strings:strings"></a>
-      <span class="permalink">
-      <a href="../../kantan/codecs/index.html#strings" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="Defines codecs for encoding to and decoding from strings." href="index.html"><span class="name">strings</span></a>
-      </span>
-      
-      <p class="shortcomment cmt">Defines codecs for encoding to and decoding from strings.</p><div class="fullcomment"><div class="comment cmt"><p>Defines codecs for encoding to and decoding from strings.</p><p>These codecs are not necessary meant to use directly, but more as part of larger ones.
+<!DOCTYPE html ><html><head><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/><title></title><meta content="" name="description"/><meta content="" name="keywords"/><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet"/><link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet"/><link href="../../../lib/print.css" media="print" type="text/css" rel="stylesheet"/><link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css"/><script type="text/javascript" src="../../../lib/jquery.min.js"></script><script type="text/javascript" src="../../../lib/index.js"></script><script type="text/javascript" src="../../../index.js"></script><script type="text/javascript" src="../../../lib/scheduler.js"></script><script type="text/javascript" src="../../../lib/template.js"></script><script type="text/javascript">/* this variable can be used by the JS to determine the path to the root document */
+var toRoot = '../../../';</script></head><body><div id="search"><span id="doc-title"><span id="doc-version"></span></span> <span class="close-results"><span class="left">&lt;</span> Back</span><div id="textfilter"><span class="input"><input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/"/><i class="clear material-icons"></i><i id="search-icon" class="material-icons"></i></span></div></div><div id="search-results"><div id="search-progress"><div id="progress-fill"></div></div><div id="results-content"><div id="entity-results"></div><div id="member-results"></div></div></div><div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;"><div id="content-container" style="-webkit-overflow-scrolling: touch;"><div id="subpackage-spacer"><div id="packages"><h1>Packages</h1><ul><li class="indented0 " name="_root_.root" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="_root_"></a><a id="root:_root_"></a> <span class="permalink"><a href="../../../index.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">package</span></span> <span class="symbol"><a href="../../../index.html" title=""><span class="name">root</span></a></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="../../../index.html" name="_root_" id="_root_" class="extype">root</a></dd></dl></div></li><li class="indented1 " name="_root_.kantan" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="kantan"></a><a id="kantan:kantan"></a> <span class="permalink"><a href="../../../kantan/index.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">package</span></span> <span class="symbol"><a href="../../index.html" title=""><span class="name">kantan</span></a></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="../../../index.html" name="_root_" id="_root_" class="extype">root</a></dd></dl></div></li><li class="indented2 " name="kantan.codecs" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="codecs"></a><a id="codecs:codecs"></a> <span class="permalink"><a href="../../../kantan/codecs/index.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">package</span></span> <span class="symbol"><a href="../index.html" title=""><span class="name">codecs</span></a></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="../../index.html" name="kantan" id="kantan" class="extype">kantan</a></dd></dl></div></li><li class="indented3 " name="kantan.codecs.strings" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="strings"></a><a id="strings:strings"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/index.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">package</span></span> <span class="symbol"><a href="index.html" title="Defines codecs for encoding to and decoding from strings."><span class="name">strings</span></a></span><p class="shortcomment cmt">Defines codecs for encoding to and decoding from strings.</p><div class="fullcomment"><div class="comment cmt"><p>Defines codecs for encoding to and decoding from strings.</p><p>These codecs are not necessary meant to use directly, but more as part of larger ones.
 <a href="https://github.com/nrinaudo/kantan.csv" target="_blank">kantan.csv</a>, for example, works with CSV files but delegates the act
-of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="" class="extype" name="kantan.codecs.strings.codecs">kantan.codecs.strings.codecs</a>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="kantan.codecs">codecs</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.java8" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="java8"></a><a id="java8:java8"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/index.html#java8" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="java8/index.html"><span class="name">java8</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs.strings">strings</a></dd></dl></div>
-    </li><li name="kantan.codecs.strings.joda" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="joda"></a><a id="joda:joda"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/index.html#joda" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="joda/index.html"><span class="name">joda</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="kantan.codecs.strings">strings</a></dd></dl></div>
-    </li><li class="current-entities indented3">
-                        <a class="object" href="DecodeError$.html" title=""></a>
-                        <a class="class" href="DecodeError.html" title=""></a>
-                        <a href="DecodeError.html" title="">DecodeError</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="trait" href="PlatformSpecificCodecs.html" title="JVM-specific codecs."></a>
-                        <a href="PlatformSpecificCodecs.html" title="JVM-specific codecs.">PlatformSpecificCodecs</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="trait" href="PlatformSpecificDecoders.html" title="JVM-specific decoders."></a>
-                        <a href="PlatformSpecificDecoders.html" title="JVM-specific decoders.">PlatformSpecificDecoders</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="trait" href="PlatformSpecificEncoders.html" title="JVM-specific encoders."></a>
-                        <a href="PlatformSpecificEncoders.html" title="JVM-specific encoders.">PlatformSpecificEncoders</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="trait" href="PlatformSpecificInstances.html" title="JVM-specific codec instances."></a>
-                        <a href="PlatformSpecificInstances.html" title="JVM-specific codec instances.">PlatformSpecificInstances</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="StringCodec$.html" title="Provides instance creation methods."></a>
-                        <a href="StringCodec$.html" title="Provides instance creation methods.">StringCodec</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="StringDecoder$.html" title="Provides instance creation and summing methods for StringDecoder."></a>
-                        <a href="StringDecoder$.html" title="Provides instance creation and summing methods for StringDecoder.">StringDecoder</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="StringEncoder$.html" title=""></a>
-                        <a href="StringEncoder$.html" title="">StringEncoder</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="StringResult$.html" title=""></a>
-                        <a href="StringResult$.html" title="">StringResult</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="" title="Defines default instances for StringEncoder and StringDecoder."></a>
-                        <a href="" title="Defines default instances for StringEncoder and StringDecoder.">codecs</a>
-                      </li>
-              </ul>
-            </div>
-          </div>
-          <div id="content">
-            <body class="object value">
-      <div id="definition">
-        <div class="big-circle object">o</div>
-        <p id="owner"><a href="../../index.html" class="extype" name="kantan">kantan</a>.<a href="../index.html" class="extype" name="kantan.codecs">codecs</a>.<a href="index.html" class="extype" name="kantan.codecs.strings">strings</a></p>
-        <h1>codecs<span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span></h1>
-        <h3><span class="morelinks"></span></h3>
-      </div>
-
-      <h4 id="signature" class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <span class="name">codecs</span><span class="result"> extends <a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a></span>
-      </span>
-      </h4>
-
-      
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines default instances for <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringEncoder">StringEncoder</a> and <a href="index.html#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringDecoder">StringDecoder</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/shared/src/main/scala/kantan/codecs/strings/codecs.scala" target="_blank">codecs.scala</a></dd></dl><div class="toggleContainer block">
-          <span class="toggle">
-            Linear Supertypes
-          </span>
-          <div class="superTypes hiddenContent"><a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
-        </div></div>
-        
-
-      <div id="mbrsel">
-        <div class="toggle"></div>
-        <div id="memberfilter">
-          <i class="material-icons arrow"></i>
-          <span class="input">
-            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
-          </span>
-          <i class="clear material-icons"></i>
-        </div>
-        <div id="filterby">
-          <div id="order">
-            <span class="filtertype">Ordering</span>
-            <ol>
-              
-              <li class="alpha in"><span>Alphabetic</span></li>
-              <li class="inherit out"><span>By Inheritance</span></li>
-            </ol>
-          </div>
-          <div class="ancestors">
-                  <span class="filtertype">Inherited<br />
-                  </span>
-                  <ol id="linearization">
-                    <li class="in" name="kantan.codecs.strings.codecs"><span>codecs</span></li><li class="in" name="kantan.codecs.strings.PlatformSpecificInstances"><span>PlatformSpecificInstances</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
-                  </ol>
-                </div><div class="ancestors">
-              <span class="filtertype"></span>
-              <ol>
-                <li class="hideall out"><span>Hide All</span></li>
-                <li class="showall in"><span>Show All</span></li>
-              </ol>
-            </div>
-          <div id="visbl">
-              <span class="filtertype">Visibility</span>
-              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
-            </div>
-        </div>
-      </div>
-
-      <div id="template">
-        <div id="allMembers">
-        
-
-        
-
-        
-
-        <div class="values members">
-              <h3>Value Members</h3>
-              <ol>
-                <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#!=(x$1:Any):Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="##():Int"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html###():Int" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#==(x$1:Any):Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="asInstanceOf[T0]:T0"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#asInstanceOf[T0]:T0" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#bigDecimalStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="bigDecimalStringCodec:kantan.codecs.strings.StringCodec[BigDecimal]"></a><a id="bigDecimalStringCodec:StringCodec[BigDecimal]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#bigDecimalStringCodec:kantan.codecs.strings.StringCodec[BigDecimal]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">bigDecimalStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="scala.BigDecimal">BigDecimal</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>BigDecimal</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>BigDecimal</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+of encoding to or decoding from a CSV cell to string codecs.</p><p>Default instances can be found in <a href="" name="kantan.codecs.strings.codecs" id="kantan.codecs.strings.codecs" class="extype">kantan.codecs.strings.codecs</a>.
+</p></div><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="../index.html" name="kantan.codecs" id="kantan.codecs" class="extype">codecs</a></dd></dl></div></li><li class="indented4 " name="kantan.codecs.strings.java8" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="java8"></a><a id="java8:java8"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/java8/index.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">package</span></span> <span class="symbol"><a href="java8/index.html" title=""><span class="name">java8</span></a></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="index.html" name="kantan.codecs.strings" id="kantan.codecs.strings" class="extype">strings</a></dd></dl></div></li><li class="current-entities indented3"><a href="DecodeError$.html" title="" class="object"></a> <a href="DecodeError.html" title="" class="class"></a><a href="DecodeError.html" title="">DecodeError</a></li><li class="current-entities indented3"><span class="separator"></span> <a href="PlatformSpecificCodecs.html" title="JVM-specific codecs." class="trait"></a><a href="PlatformSpecificCodecs.html" title="JVM-specific codecs.">PlatformSpecificCodecs</a></li><li class="current-entities indented3"><span class="separator"></span> <a href="PlatformSpecificDecoders.html" title="JVM-specific decoders." class="trait"></a><a href="PlatformSpecificDecoders.html" title="JVM-specific decoders.">PlatformSpecificDecoders</a></li><li class="current-entities indented3"><span class="separator"></span> <a href="PlatformSpecificEncoders.html" title="JVM-specific encoders." class="trait"></a><a href="PlatformSpecificEncoders.html" title="JVM-specific encoders.">PlatformSpecificEncoders</a></li><li class="current-entities indented3"><span class="separator"></span> <a href="PlatformSpecificInstances.html" title="JVM-specific codec instances." class="trait"></a><a href="PlatformSpecificInstances.html" title="JVM-specific codec instances.">PlatformSpecificInstances</a></li><li class="current-entities indented3"><span class="separator"></span> <a href="StringCodec$.html" title="Provides instance creation methods." class="object"></a><a href="StringCodec$.html" title="Provides instance creation methods.">StringCodec</a></li><li class="current-entities indented3"><span class="separator"></span> <a href="StringDecoder$.html" title="Provides instance creation and summing methods for StringDecoder." class="object"></a><a href="StringDecoder$.html" title="Provides instance creation and summing methods for StringDecoder.">StringDecoder</a></li><li class="current-entities indented3"><span class="separator"></span> <a href="StringEncoder$.html" title="" class="object"></a><a href="StringEncoder$.html" title="">StringEncoder</a></li><li class="current-entities indented3"><span class="separator"></span> <a href="StringResult$.html" title="" class="object"></a><a href="StringResult$.html" title="">StringResult</a></li><li class="current-entities indented3"><span class="separator"></span> <a href="" title="Defines default instances for StringEncoder and StringDecoder." class="object"></a><a href="" title="Defines default instances for StringEncoder and StringDecoder.">codecs</a></li></ul></div></div><div id="content"><body class="object value"><div id="definition"><div class="big-circle object">o</div><p id="owner"><a href="../../index.html" name="kantan" id="kantan" class="extype">kantan</a>.<a href="../index.html" name="kantan.codecs" id="kantan.codecs" class="extype">codecs</a>.<a href="index.html" name="kantan.codecs.strings" id="kantan.codecs.strings" class="extype">strings</a></p><h1>codecs<span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html" title="Permalink"><i class="material-icons"></i></a></span></h1><h3><span class="morelinks"></span></h3></div><h4 id="signature" class="signature"><span class="modifier_kind"><span class="modifier"></span> <span class="kind">object</span></span> <span class="symbol"><span class="name">codecs</span><span class="result"> extends <a href="PlatformSpecificInstances.html" name="kantan.codecs.strings.PlatformSpecificInstances" id="kantan.codecs.strings.PlatformSpecificInstances" class="extype">PlatformSpecificInstances</a></span></span></h4><div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines default instances for <a href="index.html#StringEncoder[A]=kantan.codecs.Encoder[String,A,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringEncoder" id="kantan.codecs.strings.StringEncoder" class="extmbr">StringEncoder</a> and <a href="index.html#StringDecoder[A]=kantan.codecs.Decoder[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringDecoder" id="kantan.codecs.strings.StringDecoder" class="extmbr">StringDecoder</a>.</p></div><dl class="attributes block"><dt>Source</dt><dd><a href="https://github.com/nrinaudo/kantan.codecs/tree/master/core/shared/src/main/scala/kantan/codecs/strings/codecs.scala" target="_blank">codecs.scala</a></dd></dl><div class="toggleContainer"><div class="toggle block"><span>Linear Supertypes</span><div class="superTypes hiddenContent"><a href="PlatformSpecificInstances.html" name="kantan.codecs.strings.PlatformSpecificInstances" id="kantan.codecs.strings.PlatformSpecificInstances" class="extype">PlatformSpecificInstances</a>, <a href="https://www.scala-lang.org/api/2.13.1/scala/AnyRef.html#scala.AnyRef" name="scala.AnyRef" id="scala.AnyRef" class="extype">AnyRef</a>, <a href="https://www.scala-lang.org/api/2.13.1/scala/Any.html#scala.Any" name="scala.Any" id="scala.Any" class="extype">Any</a></div></div></div></div><div id="mbrsel"><div class="toggle"></div><div id="memberfilter"><i class="material-icons arrow"></i><span class="input"><input placeholder="Filter all members" id="mbrsel-input" type="text" accesskey="/"/></span><i class="clear material-icons"></i></div><div id="filterby"><div id="order"><span class="filtertype">Ordering</span><ol><li class="alpha in"><span>Alphabetic</span></li><li class="inherit out"><span>By Inheritance</span></li></ol></div><div class="ancestors"><span class="filtertype">Inherited<br/></span><ol id="linearization"><li class="in" name="kantan.codecs.strings.codecs"><span>codecs</span></li><li class="in" name="kantan.codecs.strings.PlatformSpecificInstances"><span>PlatformSpecificInstances</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li></ol></div><div class="ancestors"><span class="filtertype"></span><ol><li class="hideall out"><span>Hide All</span></li><li class="showall in"><span>Show All</span></li></ol></div><div id="visbl"><span class="filtertype">Visibility</span><ol><li class="public in"><span>Public</span></li><li class="protected out"><span>Protected</span></li></ol></div></div></div><div id="template"><div id="allMembers"><div class="values members"><h3>Value Members</h3><ol><li class="indented0 " name="scala.AnyRef#!=" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#!=(x$1:Any):Boolean" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name" title="gt4s: $bang$eq">!=</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.13.1/scala/Any.html#scala.Any" name="scala.Any" id="scala.Any" class="extype">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Boolean.html#scala.Boolean" name="scala.Boolean" id="scala.Boolean" class="extype">Boolean</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div></li><li class="indented0 " name="scala.AnyRef###" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="##():Int"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html###():Int" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name" title="gt4s: $hash$hash">##</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Int.html#scala.Int" name="scala.Int" id="scala.Int" class="extype">Int</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div></li><li class="indented0 " name="scala.AnyRef#==" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#==(x$1:Any):Boolean" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name" title="gt4s: $eq$eq">==</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.13.1/scala/Any.html#scala.Any" name="scala.Any" id="scala.Any" class="extype">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Boolean.html#scala.Boolean" name="scala.Boolean" id="scala.Boolean" class="extype">Boolean</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div></li><li class="indented0 " name="scala.Any#asInstanceOf" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="asInstanceOf[T0]:T0"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#asInstanceOf[T0]:T0" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span name="scala.Any.asInstanceOf.T0" class="extype">T0</span></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>Any</dd></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#bigDecimalStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="bigDecimalStringCodec:kantan.codecs.strings.StringCodec[BigDecimal]"></a><a id="bigDecimalStringCodec:StringCodec[BigDecimal]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#bigDecimalStringCodec:kantan.codecs.strings.StringCodec[BigDecimal]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">bigDecimalStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="scala.BigDecimal" class="extype">BigDecimal</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>BigDecimal</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>BigDecimal</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[BigDecimal].decode(<span class="lit">"2"</span>)
 res1: StringResult[BigDecimal] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[BigDecimal].encode(BigDecimal(<span class="num">2</span>D))
-res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#bigIntStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="bigIntStringCodec:kantan.codecs.strings.StringCodec[BigInt]"></a><a id="bigIntStringCodec:StringCodec[BigInt]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#bigIntStringCodec:kantan.codecs.strings.StringCodec[BigInt]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">bigIntStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="scala.BigInt">BigInt</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>BigInt</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>BigInt</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#bigIntStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="bigIntStringCodec:kantan.codecs.strings.StringCodec[BigInt]"></a><a id="bigIntStringCodec:StringCodec[BigInt]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#bigIntStringCodec:kantan.codecs.strings.StringCodec[BigInt]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">bigIntStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="scala.BigInt" class="extype">BigInt</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>BigInt</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>BigInt</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[BigInt].decode(<span class="lit">"2"</span>)
 res1: StringResult[BigInt] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[BigInt].encode(BigInt(<span class="num">2</span>))
-res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#booleanStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="booleanStringCodec:kantan.codecs.strings.StringCodec[Boolean]"></a><a id="booleanStringCodec:StringCodec[Boolean]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#booleanStringCodec:kantan.codecs.strings.StringCodec[Boolean]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">booleanStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Boolean</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Boolean</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#booleanStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="booleanStringCodec:kantan.codecs.strings.StringCodec[Boolean]"></a><a id="booleanStringCodec:StringCodec[Boolean]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#booleanStringCodec:kantan.codecs.strings.StringCodec[Boolean]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">booleanStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<a href="https://www.scala-lang.org/api/2.13.1/scala/Boolean.html#scala.Boolean" name="scala.Boolean" id="scala.Boolean" class="extype">Boolean</a>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Boolean</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Boolean</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Boolean</span>].decode(<span class="lit">"true"</span>)
 res1: StringResult[<span class="std">Boolean</span>] = Right(<span class="kw">true</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Boolean</span>].encode(<span class="kw">true</span>)
-res2: <span class="std">String</span> = <span class="kw">true</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#byteStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="byteStringCodec:kantan.codecs.strings.StringCodec[Byte]"></a><a id="byteStringCodec:StringCodec[Byte]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#byteStringCodec:kantan.codecs.strings.StringCodec[Byte]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">byteStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Byte</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Byte</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = <span class="kw">true</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#byteStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="byteStringCodec:kantan.codecs.strings.StringCodec[Byte]"></a><a id="byteStringCodec:StringCodec[Byte]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#byteStringCodec:kantan.codecs.strings.StringCodec[Byte]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">byteStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<a href="https://www.scala-lang.org/api/2.13.1/scala/Byte.html#scala.Byte" name="scala.Byte" id="scala.Byte" class="extype">Byte</a>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Byte</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Byte</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Byte</span>].decode(<span class="lit">"2"</span>)
 res1: StringResult[<span class="std">Byte</span>] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Byte</span>].encode(<span class="num">2</span>)
-res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#charStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="charStringCodec:kantan.codecs.strings.StringCodec[Char]"></a><a id="charStringCodec:StringCodec[Char]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#charStringCodec:kantan.codecs.strings.StringCodec[Char]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">charStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Char</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Char</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#charStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="charStringCodec:kantan.codecs.strings.StringCodec[Char]"></a><a id="charStringCodec:StringCodec[Char]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#charStringCodec:kantan.codecs.strings.StringCodec[Char]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">charStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<a href="https://www.scala-lang.org/api/2.13.1/scala/Char.html#scala.Char" name="scala.Char" id="scala.Char" class="extype">Char</a>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Char</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Char</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Char</span>].decode(<span class="lit">"a"</span>)
 res1: StringResult[<span class="std">Char</span>] = Right(a)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Char</span>].encode(<span class="lit">'a'</span>)
-res2: <span class="std">String</span> = a</pre></li></ol>
-            </div></dl></div>
-    </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="clone():Object"></a><a id="clone():AnyRef"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#clone():Object" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@native</span><span class="args">()</span>
-              
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#doubleStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="doubleStringCodec:kantan.codecs.strings.StringCodec[Double]"></a><a id="doubleStringCodec:StringCodec[Double]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#doubleStringCodec:kantan.codecs.strings.StringCodec[Double]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">doubleStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Double</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Double</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = a</pre></li></ol></div></dl></div></li><li class="indented0 " name="scala.AnyRef#clone" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="prt"><a id="clone():Object"></a><a id="clone():AnyRef"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#clone():Object" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">def</span></span> <span class="symbol"><span class="name">clone</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/AnyRef.html#scala.AnyRef" name="scala.AnyRef" id="scala.AnyRef" class="extype">AnyRef</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Attributes</dt><dd>protected[<span name="java.lang" class="extype">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd><span class="name">@throws</span><span class="args">(<span><span class="defval">classOf[java.lang.CloneNotSupportedException]</span></span>)</span> <span class="name">@native</span><span class="args">()</span> </dd></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#doubleStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="doubleStringCodec:kantan.codecs.strings.StringCodec[Double]"></a><a id="doubleStringCodec:StringCodec[Double]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#doubleStringCodec:kantan.codecs.strings.StringCodec[Double]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">doubleStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<a href="https://www.scala-lang.org/api/2.13.1/scala/Double.html#scala.Double" name="scala.Double" id="scala.Double" class="extype">Double</a>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Double</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Double</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Double</span>].decode(<span class="lit">"2"</span>)
 res1: StringResult[<span class="std">Double</span>] = Right(<span class="num">2.0</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Double</span>].encode(<span class="num">2</span>D)
-res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#eq(x$1:AnyRef):Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#equals(x$1:Any):Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.codecs.strings.PlatformSpecificInstances#fileStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fileStringCodec:kantan.codecs.strings.StringCodec[java.io.File]"></a><a id="fileStringCodec:StringCodec[File]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#fileStringCodec:kantan.codecs.strings.StringCodec[java.io.File]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">fileStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="java.io.File">File</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.io.File</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.io.File</code>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a></dd><div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="scala.AnyRef#eq" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#eq(x$1:AnyRef):Boolean" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.13.1/scala/AnyRef.html#scala.AnyRef" name="scala.AnyRef" id="scala.AnyRef" class="extype">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Boolean.html#scala.Boolean" name="scala.Boolean" id="scala.Boolean" class="extype">Boolean</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div></li><li class="indented0 " name="scala.AnyRef#equals" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="equals(x$1:Object):Boolean"></a><a id="equals(AnyRef):Boolean"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#equals(x$1:Object):Boolean" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">def</span></span> <span class="symbol"><span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.13.1/scala/AnyRef.html#scala.AnyRef" name="scala.AnyRef" id="scala.AnyRef" class="extype">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Boolean.html#scala.Boolean" name="scala.Boolean" id="scala.Boolean" class="extype">Boolean</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div></li><li class="indented0 " name="kantan.codecs.strings.PlatformSpecificInstances#fileStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="fileStringCodec:kantan.codecs.strings.StringCodec[java.io.File]"></a><a id="fileStringCodec:StringCodec[File]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#fileStringCodec:kantan.codecs.strings.StringCodec[java.io.File]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">fileStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="java.io.File" class="extype">File</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.io.File</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.io.File</code>.
+</p></div><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="PlatformSpecificInstances.html" name="kantan.codecs.strings.PlatformSpecificInstances" id="kantan.codecs.strings.PlatformSpecificInstances" class="extype">PlatformSpecificInstances</a></dd><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; <span class="kw">import</span> java.io.File
 
 scala&gt; StringDecoder[File].decode(<span class="lit">"/home/nrinaudo"</span>)
@@ -572,155 +53,22 @@ res1: StringResult[File] = Right(/home/nrinaudo)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[File].encode(<span class="kw">new</span> File(<span class="lit">"/home/nrinaudo"</span>))
-res2: <span class="std">String</span> = /home/nrinaudo</pre></li></ol>
-            </div></dl></div>
-    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="finalize():Unit"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#finalize():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[java.lang.Throwable]</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#floatStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="floatStringCodec:kantan.codecs.strings.StringCodec[Float]"></a><a id="floatStringCodec:StringCodec[Float]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#floatStringCodec:kantan.codecs.strings.StringCodec[Float]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">floatStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Float.html#scala.Float" class="extype" name="scala.Float">Float</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Float</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Float</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = /home/nrinaudo</pre></li></ol></div></dl></div></li><li class="indented0 " name="scala.AnyRef#finalize" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="prt"><a id="finalize():Unit"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#finalize():Unit" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">def</span></span> <span class="symbol"><span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Unit.html#scala.Unit" name="scala.Unit" id="scala.Unit" class="extype">Unit</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Attributes</dt><dd>protected[<span name="java.lang" class="extype">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd><span class="name">@throws</span><span class="args">(<span><span class="symbol">classOf[java.lang.Throwable]</span></span>)</span> </dd></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#floatStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="floatStringCodec:kantan.codecs.strings.StringCodec[Float]"></a><a id="floatStringCodec:StringCodec[Float]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#floatStringCodec:kantan.codecs.strings.StringCodec[Float]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">floatStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<a href="https://www.scala-lang.org/api/2.13.1/scala/Float.html#scala.Float" name="scala.Float" id="scala.Float" class="extype">Float</a>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Float</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Float</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Float</span>].decode(<span class="lit">"2"</span>)
 res1: StringResult[<span class="std">Float</span>] = Right(<span class="num">2.0</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Float</span>].encode(<span class="num">2</span>F)
-res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getClass():Class[_]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#getClass():Class[_]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
-                <span class="name">@native</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="hashCode():Int"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#hashCode():Int" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
-                <span class="name">@native</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#intStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="intStringCodec:kantan.codecs.strings.StringCodec[Int]"></a><a id="intStringCodec:StringCodec[Int]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#intStringCodec:kantan.codecs.strings.StringCodec[Int]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">intStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Int</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Int</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = <span class="num">2.0</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="scala.AnyRef#getClass" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="getClass():Class[_]"></a><a id="getClass():Class[_&lt;:AnyRef]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#getClass():Class[_]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">getClass</span><span class="params">()</span><span class="result">: <span name="java.lang.Class" class="extype">Class</span>[_ &lt;: <a href="https://www.scala-lang.org/api/2.13.1/scala/AnyRef.html#scala.AnyRef" name="scala.AnyRef" id="scala.AnyRef" class="extype">AnyRef</a>]</span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd><span class="name">@native</span><span class="args">()</span> </dd></dl></div></li><li class="indented0 " name="scala.AnyRef#hashCode" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="hashCode():Int"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#hashCode():Int" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">def</span></span> <span class="symbol"><span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Int.html#scala.Int" name="scala.Int" id="scala.Int" class="extype">Int</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd><span class="name">@native</span><span class="args">()</span> </dd></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#intStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="intStringCodec:kantan.codecs.strings.StringCodec[Int]"></a><a id="intStringCodec:StringCodec[Int]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#intStringCodec:kantan.codecs.strings.StringCodec[Int]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">intStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<a href="https://www.scala-lang.org/api/2.13.1/scala/Int.html#scala.Int" name="scala.Int" id="scala.Int" class="extype">Int</a>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Int</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Int</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Int</span>].decode(<span class="lit">"2"</span>)
 res1: StringResult[<span class="std">Int</span>] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Int</span>].encode(<span class="num">2</span>)
-res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="isInstanceOf[T0]:Boolean"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#isInstanceOf[T0]:Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#javaEnumStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="javaEnumStringCodec[T&lt;:Enum[T]](implicittag:scala.reflect.ClassTag[T]):kantan.codecs.strings.StringCodec[T]"></a><a id="javaEnumStringCodec[T&lt;:Enum[T]](ClassTag[T]):StringCodec[T]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#javaEnumStringCodec[T&lt;:Enum[T]](implicittag:scala.reflect.ClassTag[T]):kantan.codecs.strings.StringCodec[T]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">javaEnumStringCodec</span><span class="tparams">[<span name="T">T &lt;: <span class="extype" name="java.lang.Enum">Enum</span>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="tag">tag: <a href="http://www.scala-lang.org/api/2.12.7/scala/reflect/ClassTag.html#scala.reflect.ClassTag" class="extype" name="scala.reflect.ClassTag">ClassTag</a>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>)</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="kantan.codecs.strings.codecs.javaEnumStringCodec.T">T</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for Java enumerations.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for Java enumerations.
-</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@SuppressWarnings</span><span class="args">()</span>
-              
-        </dd><div class="block">Example:
-               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.nio.file.AccessMode
+res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="scala.Any#isInstanceOf" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="isInstanceOf[T0]:Boolean"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#isInstanceOf[T0]:Boolean" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Boolean.html#scala.Boolean" name="scala.Boolean" id="scala.Boolean" class="extype">Boolean</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>Any</dd></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#javaEnumStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="javaEnumStringCodec[T&lt;:Enum[T]](implicittag:scala.reflect.ClassTag[T]):kantan.codecs.strings.StringCodec[T]"></a><a id="javaEnumStringCodec[T&lt;:Enum[T]](ClassTag[T]):StringCodec[T]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#javaEnumStringCodec[T&lt;:Enum[T]](implicittag:scala.reflect.ClassTag[T]):kantan.codecs.strings.StringCodec[T]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">javaEnumStringCodec</span><span class="tparams">[<span name="T">T &lt;: <span name="java.lang.Enum" class="extype">Enum</span>[<span name="kantan.codecs.strings.codecs.javaEnumStringCodec.T" class="extype">T</span>]</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="tag">tag: <a href="https://www.scala-lang.org/api/2.13.1/scala/reflect/ClassTag.html#scala.reflect.ClassTag" name="scala.reflect.ClassTag" id="scala.reflect.ClassTag" class="extype">ClassTag</a>[<span name="kantan.codecs.strings.codecs.javaEnumStringCodec.T" class="extype">T</span>]</span>)</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="kantan.codecs.strings.codecs.javaEnumStringCodec.T" class="extype">T</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for Java enumerations.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for Java enumerations.
+</p></div><dl class="attributes block"><dt>Annotations</dt><dd><span class="name">@SuppressWarnings</span><span class="args">()</span> </dd><div class="block">Example:<ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.nio.file.AccessMode
 
 <span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[AccessMode].decode(<span class="lit">"READ"</span>)
@@ -728,108 +76,15 @@ res1: StringResult[AccessMode] = Right(READ)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[AccessMode].encode(AccessMode.READ)
-res2: <span class="std">String</span> = READ</pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#longStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="longStringCodec:kantan.codecs.strings.StringCodec[Long]"></a><a id="longStringCodec:StringCodec[Long]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#longStringCodec:kantan.codecs.strings.StringCodec[Long]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">longStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Long</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Long</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = READ</pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#longStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="longStringCodec:kantan.codecs.strings.StringCodec[Long]"></a><a id="longStringCodec:StringCodec[Long]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#longStringCodec:kantan.codecs.strings.StringCodec[Long]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">longStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<a href="https://www.scala-lang.org/api/2.13.1/scala/Long.html#scala.Long" name="scala.Long" id="scala.Long" class="extype">Long</a>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Long</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Long</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Long</span>].decode(<span class="lit">"2"</span>)
 res1: StringResult[<span class="std">Long</span>] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Long</span>].encode(<span class="num">2</span>L)
-res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#ne(x$1:AnyRef):Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="notify():Unit"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#notify():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@native</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="notifyAll():Unit"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#notifyAll():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@native</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="kantan.codecs.strings.PlatformSpecificInstances#pathStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="pathStringCodec:kantan.codecs.strings.StringCodec[java.nio.file.Path]"></a><a id="pathStringCodec:StringCodec[Path]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#pathStringCodec:kantan.codecs.strings.StringCodec[java.nio.file.Path]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">pathStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="java.nio.file.Path">Path</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.nio.file.Path</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.nio.file.Path</code>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a></dd><dt>Annotations</dt><dd>
-                <span class="name">@SuppressWarnings</span><span class="args">()</span>
-              
-        </dd><div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="scala.AnyRef#ne" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#ne(x$1:AnyRef):Boolean" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.13.1/scala/AnyRef.html#scala.AnyRef" name="scala.AnyRef" id="scala.AnyRef" class="extype">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Boolean.html#scala.Boolean" name="scala.Boolean" id="scala.Boolean" class="extype">Boolean</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div></li><li class="indented0 " name="scala.AnyRef#notify" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="notify():Unit"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#notify():Unit" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">notify</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Unit.html#scala.Unit" name="scala.Unit" id="scala.Unit" class="extype">Unit</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd><span class="name">@native</span><span class="args">()</span> </dd></dl></div></li><li class="indented0 " name="scala.AnyRef#notifyAll" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="notifyAll():Unit"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#notifyAll():Unit" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Unit.html#scala.Unit" name="scala.Unit" id="scala.Unit" class="extype">Unit</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd><span class="name">@native</span><span class="args">()</span> </dd></dl></div></li><li class="indented0 " name="kantan.codecs.strings.PlatformSpecificInstances#pathStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="pathStringCodec:kantan.codecs.strings.StringCodec[java.nio.file.Path]"></a><a id="pathStringCodec:StringCodec[Path]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#pathStringCodec:kantan.codecs.strings.StringCodec[java.nio.file.Path]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">pathStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="java.nio.file.Path" class="extype">Path</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.nio.file.Path</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.nio.file.Path</code>.
+</p></div><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="PlatformSpecificInstances.html" name="kantan.codecs.strings.PlatformSpecificInstances" id="kantan.codecs.strings.PlatformSpecificInstances" class="extype">PlatformSpecificInstances</a></dd><dt>Annotations</dt><dd><span class="name">@SuppressWarnings</span><span class="args">()</span> </dd><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; <span class="kw">import</span> java.nio.file.{Path, Paths}
 
 scala&gt; StringDecoder[Path].decode(<span class="lit">"/home/nrinaudo"</span>)
@@ -837,26 +92,8 @@ res1: StringResult[Path] = Right(/home/nrinaudo)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[Path].encode(Paths.get(<span class="lit">"/home/nrinaudo"</span>))
-res2: <span class="std">String</span> = /home/nrinaudo</pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#patternStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="patternStringCodec:kantan.codecs.strings.StringCodec[java.util.regex.Pattern]"></a><a id="patternStringCodec:StringCodec[Pattern]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#patternStringCodec:kantan.codecs.strings.StringCodec[java.util.regex.Pattern]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">patternStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="java.util.regex.Pattern">Pattern</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Pattern</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Pattern</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.util.regex.Pattern
+res2: <span class="std">String</span> = /home/nrinaudo</pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#patternStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="patternStringCodec:kantan.codecs.strings.StringCodec[java.util.regex.Pattern]"></a><a id="patternStringCodec:StringCodec[Pattern]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#patternStringCodec:kantan.codecs.strings.StringCodec[java.util.regex.Pattern]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">patternStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="java.util.regex.Pattern" class="extype">Pattern</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Pattern</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Pattern</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> java.util.regex.Pattern
 
 <span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[Pattern].decode(<span class="lit">"[a-z]"</span>)
@@ -864,26 +101,8 @@ res1: StringResult[Pattern] = Right([a-z])
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[Pattern].encode(Pattern.compile(<span class="lit">"[a-z]"</span>))
-res2: <span class="std">String</span> = [a-z]</pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#regexStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="regexStringCodec:kantan.codecs.strings.StringCodec[scala.util.matching.Regex]"></a><a id="regexStringCodec:StringCodec[Regex]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#regexStringCodec:kantan.codecs.strings.StringCodec[scala.util.matching.Regex]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">regexStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/util/matching/Regex.html#scala.util.matching.Regex" class="extype" name="scala.util.matching.Regex">Regex</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Regex</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Regex</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> scala.util.matching.Regex
+res2: <span class="std">String</span> = [a-z]</pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#regexStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="regexStringCodec:kantan.codecs.strings.StringCodec[scala.util.matching.Regex]"></a><a id="regexStringCodec:StringCodec[Regex]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#regexStringCodec:kantan.codecs.strings.StringCodec[scala.util.matching.Regex]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">regexStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<a href="https://www.scala-lang.org/api/2.13.1/scala/util/matching/Regex.html#scala.util.matching.Regex" name="scala.util.matching.Regex" id="scala.util.matching.Regex" class="extype">Regex</a>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Regex</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Regex</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre>scala&gt; <span class="kw">import</span> scala.util.matching.Regex
 
 <span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[Regex].decode(<span class="lit">"[a-z]"</span>)
@@ -891,108 +110,22 @@ res1: StringResult[Regex] = Right([a-z])
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[Regex].encode(<span class="lit">"[a-z]"</span>.r)
-res2: <span class="std">String</span> = [a-z]</pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#shortStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="shortStringCodec:kantan.codecs.strings.StringCodec[Short]"></a><a id="shortStringCodec:StringCodec[Short]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#shortStringCodec:kantan.codecs.strings.StringCodec[Short]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">shortStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Short.html#scala.Short" class="extype" name="scala.Short">Short</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Short</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>Short</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = [a-z]</pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#shortStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="shortStringCodec:kantan.codecs.strings.StringCodec[Short]"></a><a id="shortStringCodec:StringCodec[Short]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#shortStringCodec:kantan.codecs.strings.StringCodec[Short]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">shortStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<a href="https://www.scala-lang.org/api/2.13.1/scala/Short.html#scala.Short" name="scala.Short" id="scala.Short" class="extype">Short</a>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Short</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>Short</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">Short</span>].decode(<span class="lit">"2"</span>)
 res1: StringResult[<span class="std">Short</span>] = Right(<span class="num">2</span>)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">Short</span>].encode(<span class="num">2.</span>toShort)
-res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#stringStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="stringStringCodec:kantan.codecs.strings.StringCodec[String]"></a><a id="stringStringCodec:StringCodec[String]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#stringStringCodec:kantan.codecs.strings.StringCodec[String]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">stringStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>String</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>String</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = <span class="num">2</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#stringStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="stringStringCodec:kantan.codecs.strings.StringCodec[String]"></a><a id="stringStringCodec:StringCodec[String]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#stringStringCodec:kantan.codecs.strings.StringCodec[String]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">stringStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="scala.Predef.String" class="extype">String</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>String</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>String</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; StringDecoder[<span class="std">String</span>].decode(<span class="lit">"foobar"</span>)
 res1: StringResult[<span class="std">String</span>] = Right(foobar)
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[<span class="std">String</span>].encode(<span class="lit">"foobar"</span>)
-res2: <span class="std">String</span> = foobar</pre></li></ol>
-            </div></dl></div>
-    </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toString():String"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#toString():String" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="kantan.codecs.strings.PlatformSpecificInstances#uriStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="uriStringCodec:kantan.codecs.strings.StringCodec[java.net.URI]"></a><a id="uriStringCodec:StringCodec[URI]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#uriStringCodec:kantan.codecs.strings.StringCodec[java.net.URI]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">uriStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="java.net.URI">URI</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.net.URI</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.net.URI</code>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a></dd><div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = foobar</pre></li></ol></div></dl></div></li><li class="indented0 " name="scala.AnyRef#synchronized" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](=&gt;T0):T0"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: =&gt; <span name="java.lang.AnyRef.synchronized.T0" class="extype">T0</span></span>)</span><span class="result">: <span name="java.lang.AnyRef.synchronized.T0" class="extype">T0</span></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div></li><li class="indented0 " name="scala.AnyRef#toString" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="toString():String"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#toString():String" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">def</span></span> <span class="symbol"><span class="name">toString</span><span class="params">()</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div></li><li class="indented0 " name="kantan.codecs.strings.PlatformSpecificInstances#uriStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="uriStringCodec:kantan.codecs.strings.StringCodec[java.net.URI]"></a><a id="uriStringCodec:StringCodec[URI]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#uriStringCodec:kantan.codecs.strings.StringCodec[java.net.URI]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">uriStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="java.net.URI" class="extype">URI</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.net.URI</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.net.URI</code>.
+</p></div><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="PlatformSpecificInstances.html" name="kantan.codecs.strings.PlatformSpecificInstances" id="kantan.codecs.strings.PlatformSpecificInstances" class="extype">PlatformSpecificInstances</a></dd><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; <span class="kw">import</span> java.net.URI
 
 scala&gt; StringDecoder[URI].decode(<span class="lit">"http://localhost:8080"</span>)
@@ -1000,26 +133,8 @@ res1: StringResult[URI] = Right(http:<span class="cmt">//localhost:8080)</span>
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[URI].encode(<span class="kw">new</span> URI(<span class="lit">"http://localhost:8080"</span>))
-res2: <span class="std">String</span> = http:<span class="cmt">//localhost:8080</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.PlatformSpecificInstances#urlStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="urlStringCodec:kantan.codecs.strings.StringCodec[java.net.URL]"></a><a id="urlStringCodec:StringCodec[URL]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#urlStringCodec:kantan.codecs.strings.StringCodec[java.net.URL]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">urlStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="java.net.URL">URL</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.net.URL</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.net.URL</code>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a></dd><div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = http:<span class="cmt">//localhost:8080</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.PlatformSpecificInstances#urlStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="urlStringCodec:kantan.codecs.strings.StringCodec[java.net.URL]"></a><a id="urlStringCodec:StringCodec[URL]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#urlStringCodec:kantan.codecs.strings.StringCodec[java.net.URL]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">urlStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="java.net.URL" class="extype">URL</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.net.URL</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.net.URL</code>.
+</p></div><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="PlatformSpecificInstances.html" name="kantan.codecs.strings.PlatformSpecificInstances" id="kantan.codecs.strings.PlatformSpecificInstances" class="extype">PlatformSpecificInstances</a></dd><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; <span class="kw">import</span> java.net.URL
 
 scala&gt; StringDecoder[URL].decode(<span class="lit">"http://localhost:8080"</span>)
@@ -1027,26 +142,8 @@ res1: StringResult[URL] = Right(http:<span class="cmt">//localhost:8080)</span>
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[URL].encode(<span class="kw">new</span> URL(<span class="lit">"http://localhost:8080"</span>))
-res2: <span class="std">String</span> = http:<span class="cmt">//localhost:8080</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="kantan.codecs.strings.codecs#uuidStringCodec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="uuidStringCodec:kantan.codecs.strings.StringCodec[java.util.UUID]"></a><a id="uuidStringCodec:StringCodec[UUID]"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#uuidStringCodec:kantan.codecs.strings.StringCodec[java.util.UUID]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">uuidStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a>[<span class="extype" name="java.util.UUID">UUID</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.util.UUID</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" class="extmbr" name="kantan.codecs.strings.StringCodec">StringCodec</a> instance for <code>java.util.UUID</code>.
-</p></div><dl class="attributes block"> <div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
+res2: <span class="std">String</span> = http:<span class="cmt">//localhost:8080</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="kantan.codecs.strings.codecs#uuidStringCodec" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="uuidStringCodec:kantan.codecs.strings.StringCodec[java.util.UUID]"></a><a id="uuidStringCodec:StringCodec[UUID]"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#uuidStringCodec:kantan.codecs.strings.StringCodec[java.util.UUID]" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">implicit </span> <span class="kind">val</span></span> <span class="symbol"><span class="name">uuidStringCodec</span><span class="result">: <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a>[<span name="java.util.UUID" class="extype">UUID</span>]</span></span><p class="shortcomment cmt">Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.util.UUID</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines a <a href="index.html#StringCodec[A]=kantan.codecs.Codec[String,A,kantan.codecs.strings.DecodeError,kantan.codecs.strings.codecs.type]" name="kantan.codecs.strings.StringCodec" id="kantan.codecs.strings.StringCodec" class="extmbr">StringCodec</a> instance for <code>java.util.UUID</code>.
+</p></div><dl class="attributes block"><div class="block">Example:<ol><li class="cmt"><p></p><pre><span class="cmt">// Decoding example</span>
 scala&gt; <span class="kw">import</span> java.util.UUID
 
 scala&gt; StringDecoder[UUID].decode(<span class="lit">"123e4567-e89b-12d3-a456-426655440000"</span>)
@@ -1054,111 +151,4 @@ res1: StringResult[UUID] = Right(<span class="num">123</span>e4567-e89b-<span cl
 
 <span class="cmt">// Encoding example</span>
 scala&gt; StringEncoder[UUID].encode(UUID.fromString(<span class="lit">"123e4567-e89b-12d3-a456-426655440000"</span>))
-res2: <span class="std">String</span> = <span class="num">123</span>e4567-e89b-<span class="num">12</span>d3-a456-<span class="num">426655440000</span></pre></li></ol>
-            </div></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait():Unit"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#wait():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
-      <span class="permalink">
-      <a href="../../../kantan/codecs/strings/codecs$.html#wait(x$1:Long):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@native</span><span class="args">()</span>
-              
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li>
-              </ol>
-            </div>
-
-        
-
-        
-        </div>
-
-        <div id="inheritedMembers">
-        <div class="parent" name="kantan.codecs.strings.PlatformSpecificInstances">
-              <h3>Inherited from <a href="PlatformSpecificInstances.html" class="extype" name="kantan.codecs.strings.PlatformSpecificInstances">PlatformSpecificInstances</a></h3>
-            </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
-            </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
-            </div>
-        
-        </div>
-
-        <div id="groupedMembers">
-        <div class="group" name="Ungrouped">
-              <h3>Ungrouped</h3>
-              
-            </div>
-        </div>
-
-      </div>
-
-      <div id="tooltip"></div>
-
-      <div id="footer">  </div>
-    </body>
-          </div>
-        </div>
-      </div>
-    </body>
-      </html>
+res2: <span class="std">String</span> = <span class="num">123</span>e4567-e89b-<span class="num">12</span>d3-a456-<span class="num">426655440000</span></pre></li></ol></div></dl></div></li><li class="indented0 " name="scala.AnyRef#wait" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="wait():Unit"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#wait():Unit" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">wait</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Unit.html#scala.Unit" name="scala.Unit" id="scala.Unit" class="extype">Unit</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd><span class="name">@throws</span><span class="args">(<span><span class="defval">classOf[java.lang.InterruptedException]</span></span>)</span> </dd></dl></div></li><li class="indented0 " name="scala.AnyRef#wait" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.13.1/scala/Long.html#scala.Long" name="scala.Long" id="scala.Long" class="extype">Long</a></span>, <span name="arg1">arg1: <a href="https://www.scala-lang.org/api/2.13.1/scala/Int.html#scala.Int" name="scala.Int" id="scala.Int" class="extype">Int</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Unit.html#scala.Unit" name="scala.Unit" id="scala.Unit" class="extype">Unit</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd><span class="name">@throws</span><span class="args">(<span><span class="defval">classOf[java.lang.InterruptedException]</span></span>)</span> </dd></dl></div></li><li class="indented0 " name="scala.AnyRef#wait" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a> <span class="permalink"><a href="../../../kantan/codecs/strings/codecs$.html#wait(x$1:Long):Unit" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier">final </span> <span class="kind">def</span></span> <span class="symbol"><span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.13.1/scala/Long.html#scala.Long" name="scala.Long" id="scala.Long" class="extype">Long</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.13.1/scala/Unit.html#scala.Unit" name="scala.Unit" id="scala.Unit" class="extype">Unit</a></span></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd><span class="name">@throws</span><span class="args">(<span><span class="defval">classOf[java.lang.InterruptedException]</span></span>)</span> <span class="name">@native</span><span class="args">()</span> </dd></dl></div></li></ol></div></div><div id="inheritedMembers"><div name="kantan.codecs.strings.PlatformSpecificInstances" class="parent"><h3>Inherited from <a href="PlatformSpecificInstances.html" name="kantan.codecs.strings.PlatformSpecificInstances" id="kantan.codecs.strings.PlatformSpecificInstances" class="extype">PlatformSpecificInstances</a></h3></div><div name="scala.AnyRef" class="parent"><h3>Inherited from <a href="https://www.scala-lang.org/api/2.13.1/scala/AnyRef.html#scala.AnyRef" name="scala.AnyRef" id="scala.AnyRef" class="extype">AnyRef</a></h3></div><div name="scala.Any" class="parent"><h3>Inherited from <a href="https://www.scala-lang.org/api/2.13.1/scala/Any.html#scala.Any" name="scala.Any" id="scala.Any" class="extype">Any</a></h3></div></div><div id="groupedMembers"><div name="Ungrouped" class="group"><h3>Ungrouped</h3></div></div></div><div id="tooltip"></div><div id="footer"></div></body></div></div></div></body></html>

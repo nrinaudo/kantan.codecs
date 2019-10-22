@@ -10,6 +10,7 @@ no one but me will ever use kantan.codecs directly, but should I be wrong, feel 
 more detailed guidelines.
 
 ## Errors
+
 Errors should be represented as sum types, and usually provide one alternative that serves as a wrapper for
 [`Throwable`]. By convention, the sum type should be called `DecodeError`.
 
@@ -51,6 +52,7 @@ object DecodeResult {
 ## `Encoder`, `Decoder`, `Codec`
 
 ### Tag type
+
 [`Encoder`], [`Decoder`] and [`Codec`] require a tag type - a phantom type use to disambiguate between implementations
 that work with the same encoded type. This is traditionally a singleton object called `codecs`.
 
@@ -89,6 +91,7 @@ object CellCodec {
 ```
 
 ### Default instances
+
 [`Decoder`] and [`Encoder`] implementations should have accompanying "instances" trait containing all default instances.
 
 ```scala
@@ -119,23 +122,21 @@ object codecs extends CellCodecInstances
 ## Notes on default instances
 
 ### Adapting existing instances
+
 Decoding from strings is a fairly common requirement, regardless of the underlying format. Default codecs are provided
 for these, and can be adapted trivially:
 
 ```scala
 import kantan.codecs.strings.{StringEncoder, StringDecoder}
 
-trait CellDecoderInstances {
-  def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
-    da.leftMap(DecodeError.typeError).tag[codecs.type]
-}
+def fromStringDecoder[A](implicit da: StringDecoder[A]): CellDecoder[A] =
+  da.leftMap(DecodeError.typeError).tag[codecs.type]
 
-trait CellEncoderInstances {
-  def fromStringEncoder[A](implicit ea: StringEncoder[A]): CellEncoder[A] = ea.tag[codecs.type]
-}
+def fromStringEncoder[A](implicit ea: StringEncoder[A]): CellEncoder[A] = ea.tag[codecs.type]
 ```
 
 ### Difference between primitive types and first-order types
+
 There's a critical distinction to be made between default instances for primitive types and for first-order types:
 it's safe to provide a [`Codec`] for the former, but usually not for the later.
 
@@ -144,7 +145,7 @@ In order to write default instances for `Option`, one might be tempted to write:
 ```scala
 def optionCodec[A](implicit ca: CellCodec[A]): CellCodec[Option[A]] = CellCodec.from { s =>
   if(s.isEmpty) DecodeResult.success(Option.empty[A])
-  else          ca.decode(s).right.map(Some.apply)
+  else          ca.decode(s).map(Some.apply)
 } { _.map(ca.encode).getOrElse("") }
 ```
 
@@ -157,6 +158,7 @@ that any type `A` that has, say, an [`Encoder`] but not a [`Decoder`] should sti
 this implementation prevents it.
 
 ### Naming default instances
+
 Since encoder and decoder instances will eventually find themselves part of the same trait (`CellCodecInstances` in our
 examples), it's important to make sure their names don't clash: prefer `stringDecoder` and `stringEncoder` to the
 simpler but unsafe `string`.
