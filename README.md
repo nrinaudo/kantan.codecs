@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/nrinaudo/kantan.codecs.svg?branch=master)](https://travis-ci.org/nrinaudo/kantan.codecs)
 [![codecov](https://codecov.io/gh/nrinaudo/kantan.codecs/branch/master/graph/badge.svg)](https://codecov.io/gh/nrinaudo/kantan.codecs)
-[![Latest version](https://index.scala-lang.org/nrinaudo/kantan.codecs/kantan.codecs/latest.svg)](https://index.scala-lang.org/nrinaudo/kantan.codecs)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.codecs_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nrinaudo/kantan.codecs_2.13)
 [![Join the chat at https://gitter.im/nrinaudo/kantan.codecs](https://img.shields.io/badge/gitter-join%20chat-52c435.svg)](https://gitter.im/nrinaudo/kantan.codecs)
 
 
