@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package cats
+package kantan.codecs.cats
 
-import _root_.cats.Show
-import _root_.cats.kernel.laws.discipline.EqTests
-import laws.discipline._, arbitrary._
-import strings.DecodeError
+import cats.Show
+import cats.kernel.laws.discipline.EqTests
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.strings.DecodeError
 
 class DecodeErrorTests extends DisciplineSuite {
 

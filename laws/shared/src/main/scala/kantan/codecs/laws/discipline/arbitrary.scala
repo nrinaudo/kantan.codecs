@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import CodecValue.{IllegalValue, LegalValue}
 import imp.imp
 import java.io._
 import java.util.{Date, UUID}
 import java.util.regex.Pattern
-import org.scalacheck.{ArbitraryArities => _, _}, Arbitrary.{arbitrary => arb}, Gen._
+import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.laws.CodecValue
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.strings.DecodeError
+import org.scalacheck.{Arbitrary, Cogen, Gen}
+import org.scalacheck.Arbitrary.{arbitrary => arb}
+import org.scalacheck.Gen.{const, listOf, oneOf}
 import scala.util.Try
 import scala.util.matching.Regex
-import strings.DecodeError
 
 object arbitrary extends ArbitraryInstances
 

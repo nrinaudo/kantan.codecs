@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package collection
+package kantan.codecs.collection
 
-import laws.discipline._
+import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
 
 class VersionSpecificSerialisationTests extends DisciplineSuite {
   checkAll("Factory[StreamFactoryTests]", SerializableTests[Factory[Int, Stream[Int]]].serializable)

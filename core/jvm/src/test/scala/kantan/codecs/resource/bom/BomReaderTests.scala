@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
-package bom
+package kantan.codecs.resource.bom
 
 import java.io.{ByteArrayInputStream, Reader}
 import java.nio.charset.Charset
 import org.scalacheck.Gen
-import org.scalatest._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks

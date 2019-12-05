@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
+package kantan.codecs.scalaz
 
-import _root_.scalaz._
-import strings._
+import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.error.Error
+import kantan.codecs.strings.DecodeError
+import scalaz.{-\/, \/, \/-, Contravariant, Equal, Maybe, MonadError, Plus, Show}
 
 trait DecoderInstances {
 
@@ -50,7 +51,7 @@ trait EncoderInstances {
 
 trait CommonInstances {
 
-  implicit def isErrorShow[E <: error.Error]: Show[E] = Show.show(_.toString)
+  implicit def isErrorShow[E <: Error]: Show[E] = Show.show(_.toString)
 
   implicit def disjunctionDecoder[E, DA, DB, F, T](
     implicit da: Decoder[E, DA, F, T],

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package refined
+package kantan.codecs.refined
 
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import laws.discipline._, arbitrary._
+import kantan.codecs.refined.laws.discipline.{DisciplineSuite, StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.refined.laws.discipline.arbitrary._
 
 class RefinedCodecTests extends DisciplineSuite {
 

@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
-import export.Exported
-import java.time._
-import laws.discipline._, arbitrary._
+import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
+import kantan.codecs.Encoder
+import kantan.codecs.export.Exported
+import kantan.codecs.strings.StringEncoder
+import kantan.codecs.strings.java8.laws.discipline.{DisciplineSuite, EncoderTests}
+import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 
 class TimeEncoderCompanionTests extends DisciplineSuite {
 

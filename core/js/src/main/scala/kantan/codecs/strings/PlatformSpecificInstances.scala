@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
 /** Scala.js-specific codec instances. */
 trait PlatformSpecificInstances

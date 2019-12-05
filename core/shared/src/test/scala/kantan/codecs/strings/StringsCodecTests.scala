@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
-import laws.discipline._, arbitrary._
-import tagged._
+import kantan.codecs.laws.discipline.{
+  DecoderTests,
+  DisciplineSuite,
+  EncoderTests,
+  StringCodecTests,
+  StringDecoderTests,
+  StringEncoderTests
+}
+import kantan.codecs.laws.discipline.arbitrary._
 
-class StringCodecTests extends DisciplineSuite {
+class StringsCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[String]", StringDecoderTests[String].bijectiveDecoder[Int, Int])
   checkAll("StringEncoder[String]", StringEncoderTests[String].encoder[Int, Int])

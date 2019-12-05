@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
-import export.Exported
-import java.time._
-import laws.discipline._, arbitrary._
+import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
+import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.export.Exported
+import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
+import kantan.codecs.strings.java8.laws.discipline.{CodecTests, DisciplineSuite}
+import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 
 class TimeCodecCompanionTests extends DisciplineSuite {
 
@@ -49,10 +50,6 @@ class TimeCodecCompanionTests extends DisciplineSuite {
   }
 
   import CodecCompanion._
-
-  import kantan.codecs.laws.CodecValue._
-  import org.scalacheck._
-  implicitly[Arbitrary[LegalValue[String, Instant, codec.type]]]
 
   checkAll("TimeCodecCompanion[Instant]", CodecTests[String, Instant, DecodeError, codec.type].codec[Int, Int])
   checkAll(

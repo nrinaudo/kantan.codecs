@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
+
+import kantan.codecs.Optional
 
 trait OptionalLaws[A] {
   def optional: Optional[A]

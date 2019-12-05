@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
 import java.nio.file.AccessMode
-import laws.discipline._, arbitrary._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.laws.discipline.arbitrary._
 
 class AccessModeCodecTests extends DisciplineSuite {
 

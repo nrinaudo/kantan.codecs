@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package enumeratum
-package laws
-package discipline
+package kantan.codecs.enumeratum.laws.discipline
 
-import _root_.enumeratum.values._
-import kantan.codecs.laws._, CodecValue._
+import enumeratum.values._
+import kantan.codecs.laws.{IllegalString, LegalString}
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.strings.{codecs, StringEncoder}
 import org.scalacheck.{Arbitrary, Gen}, Arbitrary.{arbitrary => arb}
-import strings._
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
 
-trait ArbitraryInstances
-    extends _root_.enumeratum.ScalacheckInstances with _root_.enumeratum.values.ScalacheckInstances {
+trait ArbitraryInstances extends enumeratum.ScalacheckInstances with enumeratum.values.ScalacheckInstances {
 
   // - Enumerated instances --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

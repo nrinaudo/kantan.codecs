@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
 trait VersionSpecificResourceIteratorTests { self: ResourceIteratorTests =>
   test("seq should behave as expected") {

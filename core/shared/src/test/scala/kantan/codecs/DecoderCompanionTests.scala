@@ -16,8 +16,7 @@
 
 package kantan.codecs
 
-import error._
-import org.scalatest._
+import kantan.codecs.error.IsError
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks

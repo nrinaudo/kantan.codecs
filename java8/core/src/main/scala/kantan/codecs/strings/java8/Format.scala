@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
-import java.time._
+import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
+import kantan.codecs.strings.{StringDecoder, StringResult}
 
 /** `Serializable` wrapper around `DateTimeFormatter`.
   *
@@ -181,7 +180,7 @@ object Format {
     * res2: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
-  val defaultInstantFormat: Format = Format(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC))
+  val defaultInstantFormat: Format = Format(DateTimeFormatter.ISO_INSTANT.withZone(java.time.ZoneOffset.UTC))
 
   /** Default `LocalDateTime` format.
     *

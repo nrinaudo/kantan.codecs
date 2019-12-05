@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package collection
+package kantan.codecs.collection
 
-import laws.discipline._
+import kantan.codecs.laws.discipline.SerializableTests
 import scala.collection.immutable.{Queue, TreeSet}
 
 class SerialisationTests extends VersionSpecificSerialisationTests {

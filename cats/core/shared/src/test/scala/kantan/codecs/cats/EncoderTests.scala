@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package cats
+package kantan.codecs.cats
 
-import _root_.cats.instances.all._
-import _root_.cats.laws.discipline.ContravariantTests
-import laws.discipline._, arbitrary._, equality._
-import strings.StringEncoder
+import cats.instances.all._
+import cats.laws.discipline.ContravariantTests
+import kantan.codecs.cats.laws.discipline.equality._
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.strings.StringEncoder
 
 class EncoderTests extends DisciplineSuite {
   checkAll("StringEncoder", ContravariantTests[StringEncoder].contravariant[Int, Int, Int])

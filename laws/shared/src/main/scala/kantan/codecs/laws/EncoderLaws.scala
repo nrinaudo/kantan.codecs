@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
 
-import CodecValue.LegalValue
+import kantan.codecs.Encoder
+import kantan.codecs.laws.CodecValue.LegalValue
 
 trait EncoderLaws[E, D, T] {
   def encoder: Encoder[E, D, T]

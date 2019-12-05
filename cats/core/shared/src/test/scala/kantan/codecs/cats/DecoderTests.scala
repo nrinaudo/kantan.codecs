@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package cats
+package kantan.codecs.cats
 
-import _root_.cats.Eq
-import _root_.cats.data.EitherT
-import _root_.cats.instances.all._
-import _root_.cats.laws.discipline.{MonadErrorTests, SemigroupKTests}
-import _root_.cats.laws.discipline.SemigroupalTests.Isomorphisms
-import laws.discipline._, arbitrary._, equality._
-import strings.{DecodeError, StringDecoder}
+import cats.Eq
+import cats.data.EitherT
+import cats.instances.all._
+import cats.laws.discipline.{MonadErrorTests, SemigroupKTests}
+import cats.laws.discipline.SemigroupalTests.Isomorphisms
+import kantan.codecs.cats.laws.discipline.equality._
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.strings.{DecodeError, StringDecoder}
 
 class DecoderTests extends DisciplineSuite {
 

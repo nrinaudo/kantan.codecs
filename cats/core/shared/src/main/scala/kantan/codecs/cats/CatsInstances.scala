@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package cats
+package kantan.codecs.cats
 
-import _root_.cats._
+import cats.{Contravariant, Eq, MonadError, SemigroupK, Show}
+import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.error.Error
+import kantan.codecs.strings.DecodeError
 import scala.annotation.tailrec
-import strings.DecodeError
 
 trait DecoderInstances {
 
@@ -70,8 +71,7 @@ trait EncoderInstances {
 
 trait CommonInstances {
 
-  implicit def isErrorShow[E <: error.Error]: Show[E] = Show.show(_.toString)
+  implicit def isErrorShow[E <: Error]: Show[E] = Show.show(_.toString)
 
   implicit val stringDecodeErrorEq: Eq[DecodeError] = Eq.fromUniversalEquals
-
 }

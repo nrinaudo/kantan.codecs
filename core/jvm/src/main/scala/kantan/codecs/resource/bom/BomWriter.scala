@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
-package bom
+package kantan.codecs.resource.bom
 
 import java.io.{OutputStream, OutputStreamWriter, Writer}
 import scala.io.Codec

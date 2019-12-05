@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
 import java.time.LocalDateTime
-import laws.discipline._, arbitrary._
+import kantan.codecs.strings.StringEncoder
+import kantan.codecs.strings.java8.laws.discipline.{
+  DisciplineSuite,
+  SerializableTests,
+  StringCodecTests,
+  StringDecoderTests,
+  StringEncoderTests
+}
+import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 
 class LocalDateTimeCodecTests extends DisciplineSuite {
 

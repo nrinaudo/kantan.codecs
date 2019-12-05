@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package export
+package kantan.codecs.export
 
-import DerivedCodecTests.{Just, Maybe, None}
-import org.scalatest._
+import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.export.DerivedCodecTests.{Just, Maybe, None}
+import kantan.codecs.strings.{codecs, DecodeError, StringDecoder, StringEncoder, StringResult}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import strings.{DecodeError, StringDecoder, StringEncoder, StringResult}
 
 class DerivedCodecTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   val decode: String => StringResult[Maybe[Int]] = s =>
@@ -36,34 +35,34 @@ class DerivedCodecTests extends AnyFunSuite with ScalaCheckPropertyChecks with M
 
   test("Derived decoders should have a lower priority than bespoke ones") {
     implicit val bespoke: StringDecoder[Maybe[Int]] = StringDecoder.from(decode)
-    implicit val derived: DerivedDecoder[String, Maybe[Int], DecodeError, strings.codecs.type] =
-      DerivedDecoder.from[String, Maybe[Int], DecodeError, strings.codecs.type](decode)
+    implicit val derived: DerivedDecoder[String, Maybe[Int], DecodeError, codecs.type] =
+      DerivedDecoder.from[String, Maybe[Int], DecodeError, codecs.type](decode)
 
-    implicitly[Decoder[String, Maybe[Int], DecodeError, strings.codecs.type]] should be(bespoke)
+    implicitly[Decoder[String, Maybe[Int], DecodeError, codecs.type]] should be(bespoke)
     derived // Allows this to compile - otherwise the compiler detects correctly that derived isn't used and fails.
   }
 
   test("Derived encoders should have a lower priority than bespoke ones") {
     implicit val bespoke: StringEncoder[Maybe[Int]] = StringEncoder.from(encode)
-    implicit val derived: DerivedEncoder[String, Maybe[Int], strings.codecs.type] =
-      DerivedEncoder.from[String, Maybe[Int], strings.codecs.type](encode)
+    implicit val derived: DerivedEncoder[String, Maybe[Int], codecs.type] =
+      DerivedEncoder.from[String, Maybe[Int], codecs.type](encode)
 
-    implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] should be(bespoke)
+    implicitly[Encoder[String, Maybe[Int], codecs.type]] should be(bespoke)
     derived // Allows this to compile - otherwise the compiler detects correctly that derived isn't used and fails.
   }
 
   test("Derived decoders should be picked up when no other is available") {
-    implicit val derived: DerivedDecoder[String, Maybe[Int], Throwable, strings.codecs.type] =
-      DerivedDecoder.from[String, Maybe[Int], Throwable, strings.codecs.type](decode)
+    implicit val derived: DerivedDecoder[String, Maybe[Int], Throwable, codecs.type] =
+      DerivedDecoder.from[String, Maybe[Int], Throwable, codecs.type](decode)
 
-    implicitly[Decoder[String, Maybe[Int], Throwable, strings.codecs.type]] should be(derived.value)
+    implicitly[Decoder[String, Maybe[Int], Throwable, codecs.type]] should be(derived.value)
   }
 
   test("Derived encoders should be picked up when no other is available") {
-    implicit val derived: DerivedEncoder[String, Maybe[Int], strings.codecs.type] =
-      DerivedEncoder.from[String, Maybe[Int], strings.codecs.type](encode)
+    implicit val derived: DerivedEncoder[String, Maybe[Int], codecs.type] =
+      DerivedEncoder.from[String, Maybe[Int], codecs.type](encode)
 
-    implicitly[Encoder[String, Maybe[Int], strings.codecs.type]] should be(derived.value)
+    implicitly[Encoder[String, Maybe[Int], codecs.type]] should be(derived.value)
   }
 }
 

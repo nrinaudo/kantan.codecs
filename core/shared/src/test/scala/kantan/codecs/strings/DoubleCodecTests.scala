@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
-import laws.discipline._, arbitrary._
-import tagged._
+import kantan.codecs.laws.discipline.{
+  DecoderTests,
+  DisciplineSuite,
+  EncoderTests,
+  StringCodecTests,
+  StringDecoderTests,
+  StringEncoderTests
+}
+import kantan.codecs.laws.discipline.arbitrary._
 
 class DoubleCodecTests extends DisciplineSuite {
 

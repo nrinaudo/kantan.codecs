@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
+package kantan.codecs.scalaz
 
-import _root_.scalaz.\/
-import laws.discipline._, arbitrary._
+import kantan.codecs.scalaz.laws.discipline.{DisciplineSuite, StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.scalaz.laws.discipline.arbitrary._
+import scalaz.\/
 
 class DisjunctionCodecTests extends DisciplineSuite {
 

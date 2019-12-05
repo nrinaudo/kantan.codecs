@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package libra
-package laws
+package kantan.codecs.libra.laws
 
 package object discipline extends kantan.codecs.laws.discipline.DisciplinePackage

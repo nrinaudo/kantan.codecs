@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package shapeless
+package kantan.codecs.shapeless
 
-import Instances._
-import _root_.shapeless._
-import laws._
-import laws.discipline._, arbitrary._
-import strings._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.shapeless.Instances._
+import kantan.codecs.shapeless.laws.Or
+import kantan.codecs.shapeless.laws.discipline.arbitrary._
+import kantan.codecs.strings.StringEncoder
+import shapeless.CNil
 
 @SuppressWarnings(Array("org.wartremover.warts.Null"))
 class InstancesTests extends DisciplineSuite {

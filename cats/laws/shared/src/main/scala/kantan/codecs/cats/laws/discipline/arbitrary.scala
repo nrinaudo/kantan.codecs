@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package cats
-package laws
-package discipline
+package kantan.codecs.cats.laws.discipline
 
 object arbitrary extends ArbitraryInstances
 
