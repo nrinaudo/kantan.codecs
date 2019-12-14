@@ -8,7 +8,7 @@ object Versions {
   val imp                  = "0.4.1"
   val libra                = "0.6.0"
   val refined              = "0.9.10"
-  val scalacheck           = "1.14.2"
+  val scalacheck           = "1.14.3"
   val scalacheckShapeless  = "1.2.3"
   val scalatest            = "3.1.0"
   val scalaz               = "7.2.29"
