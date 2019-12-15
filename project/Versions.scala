@@ -3,7 +3,7 @@ object Versions {
   val collectionCompat     = "2.1.3"
   val commonsIo            = "2.6"
   val disciplineScalatest  = "1.0.0-RC1"
-  val enumeratum           = "1.5.13"
+  val enumeratum           = "1.5.14"
   val enumeratumScalacheck = "1.5.16"
   val imp                  = "0.4.1"
   val libra                = "0.6.0"
