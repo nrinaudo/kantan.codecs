@@ -160,7 +160,8 @@ object Format {
       format.formatter
       Right(format)
 
-    } catch {
+    }
+    catch {
       case _: Exception => Left(s"Invalid pattern: '$pattern'")
     }
 

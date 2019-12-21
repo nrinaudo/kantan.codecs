@@ -25,8 +25,8 @@ trait DecoderInstances {
 
   implicit final def decoderInstances[E, F, T]
     : SemigroupK[({ type L[A] = Decoder[E, A, F, T] })#L] with MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] =
-    new SemigroupK[({ type L[A]  = Decoder[E, A, F, T] })#L]
-    with MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] {
+    new SemigroupK[({ type L[A]    = Decoder[E, A, F, T] })#L]
+      with MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] {
 
       final def combineK[D](x: Decoder[E, D, F, T], y: Decoder[E, D, F, T]): Decoder[E, D, F, T] = x.orElse(y)
 

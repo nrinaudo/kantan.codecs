@@ -122,7 +122,8 @@ trait CommonArbitraryInstances extends ArbitraryArities {
     } yield {
       try {
         BigDecimal(x, scale, mc)
-      } catch {
+      }
+      catch {
         // Handle the case where scale/precision conflict
         case _: java.lang.ArithmeticException => BigDecimal(x, scale, UNLIMITED)
       }
