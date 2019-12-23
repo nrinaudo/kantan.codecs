@@ -42,10 +42,10 @@ object codecs extends PlatformSpecificInstances {
     */
   @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
   implicit def javaEnumStringCodec[T <: Enum[T]](implicit tag: ClassTag[T]): StringCodec[T] =
-    StringCodec.from(StringDecoder.makeSafe("Enum")(s => {
+    StringCodec.from(StringDecoder.makeSafe("Enum") { s =>
       val enumClass = tag.runtimeClass.asInstanceOf[Class[T]]
       Enum.valueOf(enumClass, s)
-    }))(_.name())
+    })(_.name())
 
   /** Defines a [[StringCodec]] instance for `Pattern`.
     *

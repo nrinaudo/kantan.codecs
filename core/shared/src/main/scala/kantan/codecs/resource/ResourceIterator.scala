@@ -122,7 +122,8 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
     else {
       if(try {
            checkNext
-         } catch {
+         }
+         catch {
            case scala.util.control.NonFatal(e) =>
              lastError = Some(e)
              close()
@@ -143,7 +144,8 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
         val n = readNext()
         hasNext
         n
-      } catch {
+      }
+      catch {
         case e: Throwable =>
           close()
           throw e
