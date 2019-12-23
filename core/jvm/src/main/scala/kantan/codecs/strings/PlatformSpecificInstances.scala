@@ -41,7 +41,10 @@ trait PlatformSpecificInstances {
     * }}}
     */
   implicit val urlStringCodec: StringCodec[URL] =
-    StringCodec.from(StringDecoder.makeSafe("URL")(s => new URL(s.trim)))(_.toString)
+    StringCodec.fromUnsafe(
+      decode = encoded => new URL(encoded.trim),
+      encode = _.toString
+    )
 
   /** Defines a [[StringCodec]] instance for `java.net.URI`.
     *
@@ -59,7 +62,10 @@ trait PlatformSpecificInstances {
     * }}}
     */
   implicit val uriStringCodec: StringCodec[URI] =
-    StringCodec.from(StringDecoder.makeSafe("URI")(s => new URI(s.trim)))(_.toString)
+    StringCodec.fromUnsafe(
+      decode = encoded => new URI(encoded.trim),
+      encode = _.toString()
+    )
 
   /** Defines a [[StringCodec]] instance for `java.io.File`.
     *
@@ -77,7 +83,10 @@ trait PlatformSpecificInstances {
     * }}}
     */
   implicit val fileStringCodec: StringCodec[File] =
-    StringCodec.from(StringDecoder.makeSafe("File")(s => new File(s.trim)))(_.toString)
+    StringCodec.fromUnsafe(
+      decode = encoded => new File(encoded.trim),
+      encode = _.toString()
+    )
 
   /** Defines a [[StringCodec]] instance for `java.nio.file.Path`.
     *
@@ -96,8 +105,10 @@ trait PlatformSpecificInstances {
     */
   @SuppressWarnings(Array("org.wartremover.warts.ToString"))
   implicit val pathStringCodec: StringCodec[Path] =
-    StringCodec.from(StringDecoder.makeSafe("Path")(p => Paths.get(p.trim)))(_.toString)
-
+    StringCodec.fromUnsafe(
+      decode = encoded => Paths.get(encoded.toString),
+      encode = _.toString()
+    )
 }
 
 /** JVM-specific [[StringDecoder decoders]]. */
