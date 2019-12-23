@@ -50,7 +50,7 @@ trait Decoder[E, D, F, T] extends Serializable {
   @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
   def unsafeDecode(e: E): D = decode(e).fold(
     error => sys.error(s"Failed to decode value $e: $error"),
-    d => d
+    d     => d
   )
 
   // - Composition -----------------------------------------------------------------------------------------------------
