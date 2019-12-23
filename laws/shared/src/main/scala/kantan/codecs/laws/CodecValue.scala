@@ -17,30 +17,32 @@
 package kantan.codecs.laws
 
 // TODO: investigate what type variance annotations can be usefully applied to CodecValue.
-sealed abstract class CodecValue[E, D, T] extends Product with Serializable {
-  def encoded: E
-  def mapEncoded[EE](f: E => EE): CodecValue[EE, D, T]
-  def mapDecoded[DD](f: D => DD): CodecValue[E, DD, T]
-  def tag[TT]: CodecValue[E, D, TT]
+sealed abstract class CodecValue[Encoded, Decoded, Tag] extends Product with Serializable {
+  def encoded: Encoded
+  def mapEncoded[E](f: Encoded => E): CodecValue[E, Decoded, Tag]
+  def mapDecoded[D](f: Decoded => D): CodecValue[Encoded, D, Tag]
+  def tag[T]: CodecValue[Encoded, Decoded, T]
 
   def isLegal: Boolean
   def isIllegal: Boolean = !isLegal
 }
 
 object CodecValue {
-  final case class LegalValue[E, D, T](encoded: E, decoded: D) extends CodecValue[E, D, T] {
-    override def mapDecoded[DD](f: D => DD) = LegalValue(encoded, f(decoded))
-    override def mapEncoded[EE](f: E => EE) = LegalValue(f(encoded), decoded)
+  final case class LegalValue[Encoded, Decoded, Tag](encoded: Encoded, decoded: Decoded)
+      extends CodecValue[Encoded, Decoded, Tag] {
+
+    override def mapDecoded[D](f: Decoded => D) = LegalValue(encoded, f(decoded))
+    override def mapEncoded[E](f: Encoded => E) = LegalValue(f(encoded), decoded)
     @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
-    override def tag[TT] = this.asInstanceOf[LegalValue[E, D, TT]]
+    override def tag[T]  = this.asInstanceOf[LegalValue[Encoded, Decoded, T]]
     override val isLegal = true
   }
 
-  final case class IllegalValue[E, D, T](encoded: E) extends CodecValue[E, D, T] {
-    override def mapDecoded[DD](f: D => DD) = IllegalValue(encoded)
-    override def mapEncoded[EE](f: E => EE) = IllegalValue(f(encoded))
+  final case class IllegalValue[Encoded, Decoded, Tag](encoded: Encoded) extends CodecValue[Encoded, Decoded, Tag] {
+    override def mapDecoded[D](f: Decoded => D) = IllegalValue(encoded)
+    override def mapEncoded[E](f: Encoded => E) = IllegalValue(f(encoded))
     @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
-    override def tag[TT] = this.asInstanceOf[IllegalValue[E, D, TT]]
+    override def tag[T]  = this.asInstanceOf[IllegalValue[Encoded, Decoded, T]]
     override val isLegal = false
   }
 }

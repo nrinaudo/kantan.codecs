@@ -21,12 +21,13 @@ import kantan.codecs.export.DerivedDecoder
 
 /** Type class for types that can be decoded from other types.
   *
-  * @tparam E encoded type - what to decode from.
-  * @tparam D decoded type - what to decode to.
-  * @tparam F failure type - how to represent errors.
-  * @tparam T tag type - used to specialise decoder instances, and usually where default implementations are declared.
+  * @tparam Encoded encoded type - what to decode from.
+  * @tparam Decoded decoded type - what to decode to.
+  * @tparam Failure failure type - how to represent errors.
+  * @tparam Tag     tag type - used to specialise decoder instances, and usually where default implementations are
+  *                 declared.
   */
-trait Decoder[E, D, F, T] extends Serializable {
+trait Decoder[Encoded, Decoded, Failure, Tag] extends Serializable {
   // - Decoding --------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Decodes encoded data.
@@ -37,7 +38,7 @@ trait Decoder[E, D, F, T] extends Serializable {
     *
     * Callers that wish to fail fast and fail hard can use the [[unsafeDecode]] method instead.
     */
-  def decode(e: E): Either[F, D]
+  def decode(e: Encoded): Either[Failure, Decoded]
 
   /** Decodes encoded data unsafely.
     *
@@ -48,7 +49,7 @@ trait Decoder[E, D, F, T] extends Serializable {
     * reaction to failure.
     */
   @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
-  def unsafeDecode(e: E): D = decode(e).fold(
+  def unsafeDecode(e: Encoded): Decoded = decode(e).fold(
     error => sys.error(s"Failed to decode value $e: $error"),
     d => d
   )
@@ -56,7 +57,7 @@ trait Decoder[E, D, F, T] extends Serializable {
   // - Composition -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   /** Creates a new [[Decoder]] instance with a fallback decoder if the current one fails. */
-  def orElse[DD >: D](d: Decoder[E, DD, F, T]): Decoder[E, DD, F, T] =
+  def orElse[D >: Decoded](d: Decoder[Encoded, D, Failure, Tag]): Decoder[Encoded, D, Failure, Tag] =
     Decoder.from(e => decode(e).left.flatMap(_ => d.decode(e)))
 
   /** Creates a new [[Decoder]] instance by transforming raw results with the specified function.
@@ -65,67 +66,72 @@ trait Decoder[E, D, F, T] extends Serializable {
     * one needs to turn failures into successes, and even then, [[recover]] or [[recoverWith]] are probably more
     * directly useful.
     */
-  def andThen[FF, DD](f: Either[F, D] => Either[FF, DD]): Decoder[E, DD, FF, T] = Decoder.from(e => f(decode(e)))
+  def andThen[F, D](f: Either[Failure, Decoded] => Either[F, D]): Decoder[Encoded, D, F, Tag] =
+    Decoder.from(e => f(decode(e)))
 
   /** Creates a new [[Decoder]] instance by transforming some failures into successes with the specified function. */
-  def recover[DD >: D](pf: PartialFunction[F, DD]): Decoder[E, DD, F, T] =
+  def recover[D >: Decoded](pf: PartialFunction[Failure, Decoded]): Decoder[Encoded, D, Failure, Tag] =
     andThen(_.left.flatMap { f =>
       if(pf.isDefinedAt(f)) Right(pf(f))
       else Left(f)
     })
 
   /** Creates a new [[Decoder]] instance by transforming some failures with the specified function. */
-  def recoverWith[DD >: D, FF >: F](pf: PartialFunction[F, Either[FF, DD]]): Decoder[E, DD, FF, T] =
+  def recoverWith[D >: Decoded, F >: Failure](
+    pf: PartialFunction[Failure, Either[F, D]]
+  ): Decoder[Encoded, D, F, Tag] =
     andThen(_.left.flatMap { f =>
       if(pf.isDefinedAt(f)) pf(f)
       else Left(f)
     })
 
-  def handleErrorWith(f: F => Decoder[E, D, F, T]): Decoder[E, D, F, T] = Decoder.from { s =>
-    decode(s).left.flatMap(error => f(error).decode(s))
-  }
+  def handleErrorWith(f: Failure => Decoder[Encoded, Decoded, Failure, Tag]): Decoder[Encoded, Decoded, Failure, Tag] =
+    Decoder.from { s =>
+      decode(s).left.flatMap(error => f(error).decode(s))
+    }
 
   /** Creates a new [[Decoder]] instance by transforming successful results with the specified function.
     *
     * This differs from [[emap]] in that the transformation function cannot fail.
     */
-  def map[DD](f: D => DD): Decoder[E, DD, F, T] = andThen(_.map(f))
+  def map[D](f: Decoded => D): Decoder[Encoded, D, Failure, Tag] = andThen(_.map(f))
 
   @deprecated("Use emap instead", "0.2.0")
-  def mapResult[DD](f: D => Either[F, DD]): Decoder[E, DD, F, T] = emap(f)
+  def mapResult[D](f: Decoded => Either[Failure, D]): Decoder[Encoded, D, Failure, Tag] = emap(f)
 
   /** Creates a new [[Decoder]] instance by transforming successful results with the specified function.
     *
     * This differs from [[map]] in that it allows the transformation function to fail.
     */
-  def emap[DD](f: D => Either[F, DD]): Decoder[E, DD, F, T] = andThen(_.flatMap(f))
+  def emap[D](f: Decoded => Either[Failure, D]): Decoder[Encoded, D, Failure, Tag] = andThen(_.flatMap(f))
 
   /** Applies the specified partial function, turning all non-matches to failures.
     *
     * You can think as [[collect]] as a bit like a [[filter]] and a [[map]] merged into one.
     */
   @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
-  def collect[DD](f: PartialFunction[D, DD])(implicit t: IsError[F]): Decoder[E, DD, F, T] = emap { d =>
-    if(f.isDefinedAt(d)) Right(f(d))
-    else Left(t.fromMessage(s"Not acceptable: '$d'"))
-  }
+  def collect[D](f: PartialFunction[Decoded, D])(implicit t: IsError[Failure]): Decoder[Encoded, D, Failure, Tag] =
+    emap { d =>
+      if(f.isDefinedAt(d)) Right(f(d))
+      else Left(t.fromMessage(s"Not acceptable: '$d'"))
+    }
 
   /** Turns all values that don't match the specified predicates into failures.
     *
     * See [[collect]] if you wish to transform the values in the same call.
     */
-  def filter(f: D => Boolean)(implicit t: IsError[F]): Decoder[E, D, F, T] = collect {
+  def filter(f: Decoded => Boolean)(implicit t: IsError[Failure]): Decoder[Encoded, Decoded, Failure, Tag] = collect {
     case d if f(d) => d
   }
 
   @deprecated("Use leftMap instead", "0.2.0")
-  def mapError[FF](f: F => FF): Decoder[E, D, FF, T] = leftMap(f)
+  def mapError[F](f: Failure => F): Decoder[Encoded, Decoded, F, Tag] = leftMap(f)
 
   /** Creates a new [[Decoder]] instance by transforming errors with the specified function. */
-  def leftMap[FF](f: F => FF): Decoder[E, D, FF, T] = andThen(_.left.map(f))
+  def leftMap[F](f: Failure => F): Decoder[Encoded, Decoded, F, Tag] = andThen(_.left.map(f))
 
   /** Creates a new [[Decoder]] instance by transforming encoded values with the specified function. */
-  def contramapEncoded[EE](f: EE => E): Decoder[EE, D, F, T] = Decoder.from(f andThen decode)
+  def contramapEncoded[E](f: E => Encoded): Decoder[E, Decoded, Failure, Tag] = Decoder.from(f andThen decode)
 
   /** Changes the type with which the decoder is tagged.
     *
@@ -133,22 +139,24 @@ trait Decoder[E, D, F, T] extends Serializable {
     * example, is a common task for which the default implementation can be shared rather than copy / pasted.
     */
   @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
-  def tag[TT]: Decoder[E, D, F, TT] = this.asInstanceOf[Decoder[E, D, F, TT]]
+  def tag[T]: Decoder[Encoded, Decoded, Failure, T] = this.asInstanceOf[Decoder[Encoded, Decoded, Failure, T]]
 
   @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
-  def flatMap[DD](f: D => Decoder[E, DD, F, T]): Decoder[E, DD, F, T] = Decoder.from { s =>
-    decode(s) match {
-      case Right(d)    => f(d).decode(s)
-      case l @ Left(_) => l.asInstanceOf[Either[F, DD]]
-    }
+  def flatMap[D](f: Decoded => Decoder[Encoded, D, Failure, Tag]): Decoder[Encoded, D, Failure, Tag] = Decoder.from {
+    s =>
+      decode(s) match {
+        case Right(d)    => f(d).decode(s)
+        case l @ Left(_) => l.asInstanceOf[Either[Failure, D]]
+      }
   }
 
-  def product[DD](decoder: Decoder[E, DD, F, T]): Decoder[E, (D, DD), F, T] = Decoder.from { s =>
-    for {
-      d  <- decode(s)
-      dd <- decoder.decode(s)
-    } yield (d, dd)
-  }
+  def product[D](decoder: Decoder[Encoded, D, Failure, Tag]): Decoder[Encoded, (Decoded, D), Failure, Tag] =
+    Decoder.from { s =>
+      for {
+        d  <- decode(s)
+        dd <- decoder.decode(s)
+      } yield (d, dd)
+    }
 }
 
 /** Provides methods commonly declared by companion objects for specialised decoder types.
@@ -156,27 +164,30 @@ trait Decoder[E, D, F, T] extends Serializable {
   * Most libraries that use kantan.codecs will declare type aliases for decoders - `CellDecoder` in kantan.csv, for
   * example. [[DecoderCompanion]] lets such types have a useful companion object without a lot of code duplication.
   */
-trait DecoderCompanion[E, F, T] extends Serializable {
+trait DecoderCompanion[Encoded, Failure, Tag] extends Serializable {
 
   /** Summons an implicit instance of [[Decoder]] if one is found, fails compilation otherwise.
     *
     * This is a slightly faster, less verbose version of `implicitly`.
     */
-  def apply[D](implicit ev: Decoder[E, D, F, T]): Decoder[E, D, F, T] = macro imp.summon[Decoder[E, D, F, T]]
+  def apply[D](implicit ev: Decoder[Encoded, D, Failure, Tag]): Decoder[Encoded, D, Failure, Tag] =
+    macro imp.summon[Decoder[Encoded, D, Failure, Tag]]
 
   /** Creates a new [[Decoder]] instance from the specified function. */
-  @inline def from[D](f: E => Either[F, D]): Decoder[E, D, F, T] = Decoder.from(f)
+  @inline def from[D](f: Encoded => Either[Failure, D]): Decoder[Encoded, D, Failure, Tag] = Decoder.from(f)
 
   /** Creates a new [[Decoder]] instance from the specified function.
     *
     * This method turns the specified function safe. The error message might end up being a bit generic though - use
     * [[from]] if you want to deal with errors explicitly.
     */
-  @inline def fromUnsafe[D](f: E => D)(implicit t: IsError[F]): Decoder[E, D, F, T] =
+  @inline def fromUnsafe[D](f: Encoded => D)(implicit t: IsError[Failure]): Decoder[Encoded, D, Failure, Tag] =
     Decoder.fromUnsafe(f)
 
   @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
-  def fromPartial[D](f: PartialFunction[E, Either[F, D]])(implicit t: IsError[F]): Decoder[E, D, F, T] =
+  def fromPartial[D](
+    f: PartialFunction[Encoded, Either[Failure, D]]
+  )(implicit t: IsError[Failure]): Decoder[Encoded, D, Failure, Tag] =
     Decoder.from { e =>
       if(f.isDefinedAt(e)) f(e)
       else Left(t.fromMessage(s"Not acceptable: '$e'"))
@@ -187,7 +198,9 @@ trait DecoderCompanion[E, F, T] extends Serializable {
     * When decoding, each of the specified decoders will be attempted. The result will be the first success if found,
     * or the last failure otherwise.
     */
-  @inline def oneOf[D](ds: Decoder[E, D, F, T]*)(implicit i: IsError[F]): Decoder[E, D, F, T] = Decoder.oneOf(ds: _*)
+  @inline def oneOf[D](ds: Decoder[Encoded, D, Failure, Tag]*)(
+    implicit i: IsError[Failure]
+  ): Decoder[Encoded, D, Failure, Tag] = Decoder.oneOf(ds: _*)
 }
 
 object Decoder {

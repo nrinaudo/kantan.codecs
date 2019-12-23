@@ -23,12 +23,12 @@ import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
-trait EncoderTests[E, D, T] extends Laws {
-  def laws: EncoderLaws[E, D, T]
+trait EncoderTests[Encoded, Decoded, Tag] extends Laws {
+  def laws: EncoderLaws[Encoded, Decoded, Tag]
 
-  implicit def arbLegal: Arbitrary[LegalValue[E, D, T]]
-  implicit val arbD: Arbitrary[D]
-  implicit val cogenE: Cogen[E]
+  implicit def arbLegal: Arbitrary[LegalValue[Encoded, Decoded, Tag]]
+  implicit val arbD: Arbitrary[Decoded]
+  implicit val cogenE: Cogen[Encoded]
 
   def encoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet =
     new SimpleRuleSet(

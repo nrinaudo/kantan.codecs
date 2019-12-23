@@ -23,11 +23,12 @@ import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop.forAll
 
-trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[E, D, T] {
-  def laws: CodecLaws[E, D, F, T]
+trait CodecTests[Encoded, Decoded, Failure, Tag]
+    extends DecoderTests[Encoded, Decoded, Failure, Tag] with EncoderTests[Encoded, Decoded, Tag] {
+  def laws: CodecLaws[Encoded, Decoded, Failure, Tag]
 
   private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
-    implicit av: Arbitrary[CodecValue[E, D, T]]
+    implicit av: Arbitrary[CodecValue[Encoded, Decoded, Tag]]
   ): RuleSet =
     new DefaultRuleSet(
       "round trip",
@@ -47,7 +48,7 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
     )
 
   def bijectiveCodec[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet = new RuleSet {
-    implicit val arbValues: Arbitrary[CodecValue[E, D, T]] = Arbitrary(arbLegal.arbitrary)
+    implicit val arbValues: Arbitrary[CodecValue[Encoded, Decoded, Tag]] = Arbitrary(arbLegal.arbitrary)
 
     val name    = "bijective codec"
     val bases   = Nil
@@ -55,7 +56,9 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
     val props   = Seq.empty
   }
 
-  def codec[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
+  def codec[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
+    implicit ai: Arbitrary[IllegalValue[Encoded, Decoded, Tag]]
+  ): RuleSet =
     new RuleSet {
       val name    = "codec"
       val bases   = Nil

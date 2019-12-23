@@ -26,9 +26,9 @@ import kantan.codecs.strings.StringDecoder
   * Usage note: when declaring default implicit instances, be sure to wrap them in an [[export.Exported]]. Otherwise,
   * custom instances and default ones are very likely to conflict.
   */
-trait TimeDecoderCompanion[E, F, T] {
+trait TimeDecoderCompanion[Encoded, Failure, Tag] {
 
-  def decoderFrom[D](d: StringDecoder[D]): Decoder[E, D, F, T]
+  def decoderFrom[D](d: StringDecoder[D]): Decoder[Encoded, D, Failure, Tag]
 
   // - LocalTime -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -49,7 +49,8 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalTime] = Right(12:00)
     * }}}
     */
-  def localTimeDecoder(format: => DateTimeFormatter): Decoder[E, LocalTime, F, T] = localTimeDecoder(Format(format))
+  def localTimeDecoder(format: => DateTimeFormatter): Decoder[Encoded, LocalTime, Failure, Tag] =
+    localTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
     *
@@ -67,7 +68,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalTime] = Right(12:00)
     * }}}
     */
-  def localTimeDecoder(format: Format): Decoder[E, LocalTime, F, T] =
+  def localTimeDecoder(format: Format): Decoder[Encoded, LocalTime, Failure, Tag] =
     decoderFrom(StringDecoder.from(format.parseLocalTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultLocalTimeFormat default format]].
@@ -86,7 +87,8 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalTime] = Right(12:00)
     * }}}
     */
-  def defaultLocalTimeDecoder: Decoder[E, LocalTime, F, T] = localTimeDecoder(Format.defaultLocalTimeFormat)
+  def defaultLocalTimeDecoder: Decoder[Encoded, LocalTime, Failure, Tag] =
+    localTimeDecoder(Format.defaultLocalTimeFormat)
 
   // - LocalDate -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -107,7 +109,8 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
-  def localDateDecoder(format: => DateTimeFormatter): Decoder[E, LocalDate, F, T] = localDateDecoder(Format(format))
+  def localDateDecoder(format: => DateTimeFormatter): Decoder[Encoded, LocalDate, Failure, Tag] =
+    localDateDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
     *
@@ -125,7 +128,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
-  def localDateDecoder(format: Format): Decoder[E, LocalDate, F, T] =
+  def localDateDecoder(format: Format): Decoder[Encoded, LocalDate, Failure, Tag] =
     decoderFrom(StringDecoder.from(format.parseLocalDate))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultLocalDateFormat default format]].
@@ -144,7 +147,8 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDate] = Right(2000-01-01)
     * }}}
     */
-  def defaultLocalDateDecoder: Decoder[E, LocalDate, F, T] = localDateDecoder(Format.defaultLocalDateFormat)
+  def defaultLocalDateDecoder: Decoder[Encoded, LocalDate, Failure, Tag] =
+    localDateDecoder(Format.defaultLocalDateFormat)
 
   // - LocalDateTime ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -165,7 +169,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
     */
-  def localDateTimeDecoder(format: => DateTimeFormatter): Decoder[E, LocalDateTime, F, T] =
+  def localDateTimeDecoder(format: => DateTimeFormatter): Decoder[Encoded, LocalDateTime, Failure, Tag] =
     localDateTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
@@ -184,7 +188,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
     */
-  def localDateTimeDecoder(format: Format): Decoder[E, LocalDateTime, F, T] =
+  def localDateTimeDecoder(format: Format): Decoder[Encoded, LocalDateTime, Failure, Tag] =
     decoderFrom(StringDecoder.from(format.parseLocalDateTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultLocalDateTimeFormat default format]].
@@ -203,7 +207,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
     * }}}
     */
-  def defaultLocalDateTimeDecoder: Decoder[E, LocalDateTime, F, T] =
+  def defaultLocalDateTimeDecoder: Decoder[Encoded, LocalDateTime, Failure, Tag] =
     localDateTimeDecoder(Format.defaultLocalDateTimeFormat)
 
   // - OffsetDateTime --------------------------------------------------------------------------------------------------
@@ -225,7 +229,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def offsetDateTimeDecoder(format: => DateTimeFormatter): Decoder[E, OffsetDateTime, F, T] =
+  def offsetDateTimeDecoder(format: => DateTimeFormatter): Decoder[Encoded, OffsetDateTime, Failure, Tag] =
     offsetDateTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
@@ -244,7 +248,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def offsetDateTimeDecoder(format: Format): Decoder[E, OffsetDateTime, F, T] =
+  def offsetDateTimeDecoder(format: Format): Decoder[Encoded, OffsetDateTime, Failure, Tag] =
     decoderFrom(StringDecoder.from(format.parseOffsetDateTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultOffsetDateTimeFormat default format]].
@@ -263,7 +267,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def defaultOffsetDateTimeDecoder: Decoder[E, OffsetDateTime, F, T] =
+  def defaultOffsetDateTimeDecoder: Decoder[Encoded, OffsetDateTime, Failure, Tag] =
     offsetDateTimeDecoder(Format.defaultOffsetDateTimeFormat)
 
   // - ZonedDateTime ---------------------------------------------------------------------------------------------------
@@ -285,7 +289,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def zonedDateTimeDecoder(format: => DateTimeFormatter): Decoder[E, ZonedDateTime, F, T] =
+  def zonedDateTimeDecoder(format: => DateTimeFormatter): Decoder[Encoded, ZonedDateTime, Failure, Tag] =
     zonedDateTimeDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
@@ -304,7 +308,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def zonedDateTimeDecoder(format: Format): Decoder[E, ZonedDateTime, F, T] =
+  def zonedDateTimeDecoder(format: Format): Decoder[Encoded, ZonedDateTime, Failure, Tag] =
     decoderFrom(StringDecoder.from(format.parseZonedDateTime))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultZonedDateTimeFormat default format]].
@@ -323,7 +327,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
     * }}}
     */
-  def defaultZonedDateTimeDecoder: Decoder[E, ZonedDateTime, F, T] =
+  def defaultZonedDateTimeDecoder: Decoder[Encoded, ZonedDateTime, Failure, Tag] =
     zonedDateTimeDecoder(Format.defaultZonedDateTimeFormat)
 
   // - Instant ---------------------------------------------------------------------------------------------------------
@@ -345,7 +349,8 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
-  def instantDecoder(format: => DateTimeFormatter): Decoder[E, Instant, F, T] = instantDecoder(Format(format))
+  def instantDecoder(format: => DateTimeFormatter): Decoder[Encoded, Instant, Failure, Tag] =
+    instantDecoder(Format(format))
 
   /** Creates a [[Decoder]] instance that uses the specified format.
     *
@@ -363,7 +368,7 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
-  def instantDecoder(format: Format): Decoder[E, Instant, F, T] =
+  def instantDecoder(format: Format): Decoder[Encoded, Instant, Failure, Tag] =
     decoderFrom(StringDecoder.from(format.parseInstant))
 
   /** Creates a [[Decoder]] instance using the [[Format.defaultInstantFormat default format]].
@@ -382,6 +387,6 @@ trait TimeDecoderCompanion[E, F, T] {
     * res1: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
-  def defaultInstantDecoder: Decoder[E, Instant, F, T] = instantDecoder(Format.defaultInstantFormat)
+  def defaultInstantDecoder: Decoder[Encoded, Instant, Failure, Tag] = instantDecoder(Format.defaultInstantFormat)
 
 }

@@ -19,47 +19,60 @@ package kantan.codecs.laws
 import kantan.codecs.{Codec, Decoder, Encoder}
 import kantan.codecs.laws.CodecValue.LegalValue
 
-trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, D, T] {
-  implicit lazy val codec: Codec[E, D, F, T] = Codec.from(decoder.decode _)(encoder.encode _)
+trait CodecLaws[Encoded, Decoded, Failure, Tag]
+    extends DecoderLaws[Encoded, Decoded, Failure, Tag] with EncoderLaws[Encoded, Decoded, Tag] {
+  implicit lazy val codec: Codec[Encoded, Decoded, Failure, Tag] = Codec.from(decoder.decode _)(encoder.encode _)
 
   // - Misc. laws ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def leftMapIdentityEncoding[A](d: D): Boolean =
+  def leftMapIdentityEncoding[A](d: Decoded): Boolean =
     codec.encode(d) == codec.leftMap(identity).encode(d)
 
-  def leftMapCompositionEncoding[A, B](d: D, f: F => A, g: A => B): Boolean =
+  def leftMapCompositionEncoding[A, B](d: Decoded, f: Failure => A, g: A => B): Boolean =
     codec.leftMap(f andThen g).encode(d) == codec.leftMap(f).leftMap(g).encode(d)
 
   // - Invariant functor laws ------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def imapIdentityEncoding(v: CodecValue[E, D, T]): Boolean =
-    codec.imap(identity[D])(identity[D]).decode(v.encoded) == codec.decode(v.encoded)
+  def imapIdentityEncoding(v: CodecValue[Encoded, Decoded, Tag]): Boolean =
+    codec.imap(identity[Decoded])(identity[Decoded]).decode(v.encoded) == codec.decode(v.encoded)
 
-  def imapIdentityDecoding(d: D): Boolean =
-    codec.imap(identity[D])(identity[D]).encode(d) == codec.encode(d)
+  def imapIdentityDecoding(d: Decoded): Boolean =
+    codec.imap(identity[Decoded])(identity[Decoded]).encode(d) == codec.encode(d)
 
-  def imapCompositionEncoding[A, B](b: B, f1: D => A, f2: A => D, g1: A => B, g2: B => A): Boolean =
+  def imapCompositionEncoding[A, B](b: B, f1: Decoded => A, f2: A => Decoded, g1: A => B, g2: B => A): Boolean =
     codec.imap(f1)(f2).imap(g1)(g2).encode(b) == codec.imap(g1 compose f1)(f2 compose g2).encode(b)
 
-  def imapCompositionDecoding[A, B](v: CodecValue[E, D, T], f1: D => A, f2: A => D, g1: A => B, g2: B => A): Boolean =
+  def imapCompositionDecoding[A, B](
+    v: CodecValue[Encoded, Decoded, Tag],
+    f1: Decoded => A,
+    f2: A => Decoded,
+    g1: A => B,
+    g2: B => A
+  ): Boolean =
     codec.imap(f1)(f2).imap(g1)(g2).decode(v.encoded) == codec.imap(g1 compose f1)(f2 compose g2).decode(v.encoded)
 
-  def imapEncodedIdentityEncoding(d: D): Boolean =
-    codec.imapEncoded(identity[E])(identity[E]).encode(d) == codec.encode(d)
+  def imapEncodedIdentityEncoding(d: Decoded): Boolean =
+    codec.imapEncoded(identity[Encoded])(identity[Encoded]).encode(d) == codec.encode(d)
 
-  def imapEncodedIdentityDecoding(v: CodecValue[E, D, T]): Boolean =
-    codec.imapEncoded(identity[E])(identity[E]).decode(v.encoded) == codec.decode(v.encoded)
+  def imapEncodedIdentityDecoding(v: CodecValue[Encoded, Decoded, Tag]): Boolean =
+    codec.imapEncoded(identity[Encoded])(identity[Encoded]).decode(v.encoded) == codec.decode(v.encoded)
 
-  def imapEncodedCompositionEncoding[A, B](d: D, f1: E => A, f2: A => E, g1: A => B, g2: B => A): Boolean =
+  def imapEncodedCompositionEncoding[A, B](
+    d: Decoded,
+    f1: Encoded => A,
+    f2: A => Encoded,
+    g1: A => B,
+    g2: B => A
+  ): Boolean =
     codec.imapEncoded(f1)(f2).imapEncoded(g1)(g2).encode(d) == codec.imapEncoded(g1 compose f1)(f2 compose g2).encode(d)
 
-  def imapEncodedCompositionDecoding[A, B](b: B, f1: E => A, f2: A => E, g1: A => B, g2: B => A): Boolean =
+  def imapEncodedCompositionDecoding[A, B](b: B, f1: Encoded => A, f2: A => Encoded, g1: A => B, g2: B => A): Boolean =
     codec.imapEncoded(f1)(f2).imapEncoded(g1)(g2).decode(b) == codec.imapEncoded(g1 compose f1)(f2 compose g2).decode(b)
 
   // - Round trip laws -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def roundTripEncoding(d: D): Boolean = decoder.decode(encoder.encode(d)) == Right(d)
-  def roundTripDecoding(v: LegalValue[E, D, T]): Boolean =
+  def roundTripEncoding(d: Decoded): Boolean = decoder.decode(encoder.encode(d)) == Right(d)
+  def roundTripDecoding(v: LegalValue[Encoded, Decoded, Tag]): Boolean =
     decoder.decode(v.encoded).map(encoder.encode) == Right(v.encoded)
 }
 

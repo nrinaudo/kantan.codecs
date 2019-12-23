@@ -24,18 +24,20 @@ import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
-trait DecoderTests[E, D, F, T] extends Laws {
-  def laws: DecoderLaws[E, D, F, T]
+trait DecoderTests[Encoded, Decoded, Failure, Tag] extends Laws {
+  def laws: DecoderLaws[Encoded, Decoded, Failure, Tag]
 
-  implicit def arbLegal: Arbitrary[LegalValue[E, D, T]]
+  implicit def arbLegal: Arbitrary[LegalValue[Encoded, Decoded, Tag]]
 
-  implicit def arbF: Arbitrary[F]
-  implicit val arbD: Arbitrary[D]
-  implicit val arbE: Arbitrary[E]
-  implicit val cogenF: Cogen[F]
-  implicit val cogenD: Cogen[D]
+  implicit def arbF: Arbitrary[Failure]
+  implicit val arbD: Arbitrary[Decoded]
+  implicit val arbE: Arbitrary[Encoded]
+  implicit val cogenF: Cogen[Failure]
+  implicit val cogenD: Cogen[Decoded]
 
-  private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit arbED: Arbitrary[CodecValue[E, D, T]]) =
+  private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
+    implicit arbED: Arbitrary[CodecValue[Encoded, Decoded, Tag]]
+  ) =
     new SimpleRuleSet(
       "core",
       "decode"                       -> forAll(laws.decode _),
@@ -50,14 +52,16 @@ trait DecoderTests[E, D, F, T] extends Laws {
     )
 
   def bijectiveDecoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet = {
-    implicit val arbValues: Arbitrary[CodecValue[E, D, T]] = Arbitrary(arbLegal.arbitrary)
+    implicit val arbValues: Arbitrary[CodecValue[Encoded, Decoded, Tag]] = Arbitrary(arbLegal.arbitrary)
     new DefaultRuleSet(
       "bijective decoder",
       Some(coreRules[A, B])
     )
   }
 
-  def decoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
+  def decoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
+    implicit ai: Arbitrary[IllegalValue[Encoded, Decoded, Tag]]
+  ): RuleSet =
     new DefaultRuleSet(
       "decoder",
       Some(coreRules[A, B]),
