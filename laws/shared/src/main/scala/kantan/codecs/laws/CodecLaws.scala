@@ -21,7 +21,7 @@ import kantan.codecs.laws.CodecValue.LegalValue
 
 trait CodecLaws[Encoded, Decoded, Failure, Tag]
     extends DecoderLaws[Encoded, Decoded, Failure, Tag] with EncoderLaws[Encoded, Decoded, Tag] {
-  implicit lazy val codec: Codec[Encoded, Decoded, Failure, Tag] = Codec.from(decoder.decode _)(encoder.encode _)
+  lazy val codec: Codec[Encoded, Decoded, Failure, Tag] = Codec.from(decoder.decode _)(encoder.encode _)
 
   // - Misc. laws ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ trait CodecLaws[Encoded, Decoded, Failure, Tag]
 }
 
 object CodecLaws {
-  implicit def apply[E, D, F, T](implicit de: Decoder[E, D, F, T], ee: Encoder[E, D, T]): CodecLaws[E, D, F, T] =
+  def apply[E, D, F, T](implicit de: Decoder[E, D, F, T], ee: Encoder[E, D, T]): CodecLaws[E, D, F, T] =
     new CodecLaws[E, D, F, T] {
       override val encoder = ee
       override val decoder = de

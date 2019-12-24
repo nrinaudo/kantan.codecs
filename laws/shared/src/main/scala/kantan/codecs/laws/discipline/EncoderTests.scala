@@ -17,6 +17,7 @@
 package kantan.codecs.laws.discipline
 
 import imp.imp
+import kantan.codecs.Encoder
 import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.EncoderLaws
 import org.scalacheck.{Arbitrary, Cogen}
@@ -43,12 +44,12 @@ trait EncoderTests[Encoded, Decoded, Tag] extends Laws {
 
 object EncoderTests {
   def apply[E, D: Arbitrary, T](
-    implicit l: EncoderLaws[E, D, T],
+    implicit e: Encoder[E, D, T],
     al: Arbitrary[LegalValue[E, D, T]],
     ce: Cogen[E]
   ): EncoderTests[E, D, T] =
     new EncoderTests[E, D, T] {
-      override val laws     = l
+      override val laws     = EncoderLaws[E, D, T]
       override val arbLegal = al
       override val cogenE   = ce
       override val arbD     = imp[Arbitrary[D]]

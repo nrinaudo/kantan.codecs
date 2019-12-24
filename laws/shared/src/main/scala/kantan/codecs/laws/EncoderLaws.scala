@@ -42,7 +42,7 @@ trait EncoderLaws[Encoded, Decoded, Tag] {
 }
 
 object EncoderLaws {
-  implicit def apply[E, D, T](implicit ee: Encoder[E, D, T]): EncoderLaws[E, D, T] = new EncoderLaws[E, D, T] {
+  def apply[E, D, T](implicit ee: Encoder[E, D, T]): EncoderLaws[E, D, T] = new EncoderLaws[E, D, T] {
     override val encoder = ee
   }
 }

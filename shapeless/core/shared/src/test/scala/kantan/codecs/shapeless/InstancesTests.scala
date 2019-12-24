@@ -16,7 +16,7 @@
 
 package kantan.codecs.shapeless
 
-import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringDecoderTests, StringEncoderTests}
 import kantan.codecs.shapeless.Instances._
 import kantan.codecs.shapeless.laws.Or
 import kantan.codecs.shapeless.laws.discipline.arbitrary._
@@ -30,7 +30,6 @@ class InstancesTests extends DisciplineSuite {
   // -------------------------------------------------------------------------------------------------------------------
   checkAll("StringDecoder[Int Or Boolean]", StringDecoderTests[Int Or Boolean].decoder[Int, Int])
   checkAll("StringEncoder[Int Or Boolean]", StringEncoderTests[Int Or Boolean].encoder[Int, Int])
-  checkAll("StringCodec[Int Or Boolean]", StringCodecTests[Int Or Boolean].codec[Int, Int])
 
   test("Encoder[?, CNil, ?] should fail") {
     intercept[IllegalStateException] { StringEncoder[CNil].encode(null) }

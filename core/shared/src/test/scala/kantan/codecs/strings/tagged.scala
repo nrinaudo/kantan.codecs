@@ -34,6 +34,8 @@ object tagged {
   // -------------------------------------------------------------------------------------------------------------------
   type DecoderTests[D]      = RootDecoderTests[String, D, DecodeError, tagged.type]
   type EncoderTests[D]      = RootEncoderTests[String, D, tagged.type]
+  type TaggedDecoder[D]     = Decoder[String, D, DecodeError, tagged.type]
+  type TaggedEncoder[D]     = Encoder[String, D, tagged.type]
   type TaggedDecoderLaws[D] = DecoderLaws[String, D, DecodeError, tagged.type]
   type TaggedEncoderLaws[D] = EncoderLaws[String, D, tagged.type]
   type TaggedLegalValue[D]  = LegalValue[String, D, tagged.type]
@@ -50,14 +52,14 @@ object tagged {
   // }}}
 
   object DecoderTests {
-    def apply[D: Arbitrary: Cogen: TaggedDecoderLaws](
+    def apply[D: Arbitrary: Cogen: TaggedDecoder](
       implicit al: Arbitrary[TaggedLegalValue[D]]
     ): DecoderTests[D] =
       RootDecoderTests.apply
   }
 
   object EncoderTests {
-    def apply[D: Arbitrary: TaggedEncoderLaws](
+    def apply[D: Arbitrary: TaggedEncoder](
       implicit al: Arbitrary[TaggedLegalValue[D]]
     ): EncoderTests[D] =
       RootEncoderTests.apply

@@ -76,7 +76,7 @@ trait DecoderLaws[Encoded, Decoded, Failure, Tag] {
 }
 
 object DecoderLaws {
-  implicit def apply[E, D, F, T](implicit de: Decoder[E, D, F, T]): DecoderLaws[E, D, F, T] =
+  def apply[E, D, F, T](implicit de: Decoder[E, D, F, T]): DecoderLaws[E, D, F, T] =
     new DecoderLaws[E, D, F, T] {
       override val decoder = de
     }

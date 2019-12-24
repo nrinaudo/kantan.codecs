@@ -16,12 +16,12 @@
 
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.laws.{LegalString, StringEncoderLaws}
-import kantan.codecs.strings.codecs
+import kantan.codecs.laws.LegalString
+import kantan.codecs.strings.{codecs, StringEncoder}
 import org.scalacheck.Arbitrary
 
 object StringEncoderTests {
 
-  def apply[D: Arbitrary](implicit l: StringEncoderLaws[D], al: Arbitrary[LegalString[D]]): StringEncoderTests[D] =
+  def apply[D: Arbitrary: StringEncoder](implicit al: Arbitrary[LegalString[D]]): StringEncoderTests[D] =
     EncoderTests[String, D, codecs.type]
 }

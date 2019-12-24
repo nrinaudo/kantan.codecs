@@ -19,7 +19,6 @@ package kantan.codecs.enumeratum.values
 import kantan.codecs.enumeratum.laws.discipline.{
   DisciplineSuite,
   EnumeratedLong,
-  StringCodecTests,
   StringDecoderTests,
   StringEncoderTests
 }
@@ -29,6 +28,5 @@ class LongEnumCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[EnumeratedLong]", StringDecoderTests[EnumeratedLong].decoder[Int, Int])
   checkAll("StringEncoder[EnumeratedLong]", StringEncoderTests[EnumeratedLong].encoder[Int, Int])
-  checkAll("StringCodec[EnumeratedLong]", StringCodecTests[EnumeratedLong].codec[Int, Int])
 
 }

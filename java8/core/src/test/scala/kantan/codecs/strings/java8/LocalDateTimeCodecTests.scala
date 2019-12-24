@@ -21,7 +21,6 @@ import kantan.codecs.strings.StringEncoder
 import kantan.codecs.strings.java8.laws.discipline.{
   DisciplineSuite,
   SerializableTests,
-  StringCodecTests,
   StringDecoderTests,
   StringEncoderTests
 }
@@ -34,7 +33,5 @@ class LocalDateTimeCodecTests extends DisciplineSuite {
 
   checkAll("StringEncoder[LocalDateTime]", StringEncoderTests[LocalDateTime].encoder[Int, Int])
   checkAll("StringEncoder[LocalDateTime]", SerializableTests[StringEncoder[LocalDateTime]].serializable)
-
-  checkAll("StringCodec[LocalDateTime]", StringCodecTests[LocalDateTime].codec[Int, Int])
 
 }

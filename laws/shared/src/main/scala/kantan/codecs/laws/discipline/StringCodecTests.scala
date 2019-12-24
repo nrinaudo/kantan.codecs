@@ -16,14 +16,14 @@
 
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.laws.{LegalString, StringCodecLaws}
+import kantan.codecs.laws.LegalString
 import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.strings.{codecs, DecodeError}
+import kantan.codecs.strings.StringCodec
 import org.scalacheck.{Arbitrary, Cogen}
 
 object StringCodecTests {
 
-  def apply[D: Arbitrary: Cogen](implicit l: StringCodecLaws[D], al: Arbitrary[LegalString[D]]): StringCodecTests[D] =
-    CodecTests[String, D, DecodeError, codecs.type]
+  def apply[D: Arbitrary: Cogen: StringCodec](implicit al: Arbitrary[LegalString[D]]): StringCodecTests[D] =
+    CodecTests.apply
 
 }

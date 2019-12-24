@@ -42,7 +42,7 @@ trait SerializableLaws[A] {
 }
 
 object SerializableLaws {
-  implicit def apply[A](implicit a: A): SerializableLaws[A] = new SerializableLaws[A] {
+  def apply[A](implicit a: A): SerializableLaws[A] = new SerializableLaws[A] {
     override def value = a
   }
 }

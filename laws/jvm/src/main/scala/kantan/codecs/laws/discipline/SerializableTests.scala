@@ -31,7 +31,7 @@ trait SerializableTests[A] extends Laws {
 }
 
 object SerializableTests {
-  def apply[A](implicit l: SerializableLaws[A]): SerializableTests[A] = new SerializableTests[A] {
-    override def laws = l
+  def apply[A](implicit a: A): SerializableTests[A] = new SerializableTests[A] {
+    override def laws = SerializableLaws[A]
   }
 }

@@ -17,6 +17,7 @@
 package kantan.codecs.laws.discipline
 
 import imp.imp
+import kantan.codecs.Codec
 import kantan.codecs.laws.{CodecLaws, CodecValue}
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.laws.discipline.arbitrary._
@@ -69,11 +70,11 @@ trait CodecTests[Encoded, Decoded, Failure, Tag]
 
 object CodecTests {
   def apply[E: Arbitrary: Cogen, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](
-    implicit l: CodecLaws[E, D, F, T],
+    implicit c: Codec[E, D, F, T],
     al: Arbitrary[LegalValue[E, D, T]]
   ): CodecTests[E, D, F, T] =
     new CodecTests[E, D, F, T] {
-      override val laws     = l
+      override val laws     = CodecLaws[E, D, F, T]
       override val arbLegal = al
       override val arbF     = imp[Arbitrary[F]]
       override val cogenF   = Cogen[F]

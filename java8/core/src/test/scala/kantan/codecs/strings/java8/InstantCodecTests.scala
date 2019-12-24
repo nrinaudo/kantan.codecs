@@ -21,7 +21,6 @@ import kantan.codecs.strings.{StringDecoder, StringEncoder}
 import kantan.codecs.strings.java8.laws.discipline.{
   DisciplineSuite,
   SerializableTests,
-  StringCodecTests,
   StringDecoderTests,
   StringEncoderTests
 }
@@ -34,5 +33,4 @@ class InstantCodecTests extends DisciplineSuite {
   checkAll("StringEncoder[Instant]", StringEncoderTests[Instant].encoder[Int, Int])
   checkAll("StringEncoder[Instant]", SerializableTests[StringEncoder[Instant]].serializable)
 
-  checkAll("StringCodec[Instant]", StringCodecTests[Instant].codec[Int, Int])
 }

@@ -16,19 +16,12 @@
 
 package kantan.codecs.enumeratum
 
-import kantan.codecs.enumeratum.laws.discipline.{
-  DisciplineSuite,
-  Enumerated,
-  StringCodecTests,
-  StringDecoderTests,
-  StringEncoderTests
-}
+import kantan.codecs.enumeratum.laws.discipline.{DisciplineSuite, Enumerated, StringDecoderTests, StringEncoderTests}
 import kantan.codecs.enumeratum.laws.discipline.arbitrary._
 
 class EnumCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[Enumerated]", StringDecoderTests[Enumerated].decoder[Int, Int])
   checkAll("StringEncoder[Enumerated]", StringEncoderTests[Enumerated].encoder[Int, Int])
-  checkAll("StringCodec[Enumerated]", StringCodecTests[Enumerated].codec[Int, Int])
 
 }
