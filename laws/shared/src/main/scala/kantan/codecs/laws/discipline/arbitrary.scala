@@ -139,8 +139,6 @@ trait CommonArbitraryInstances extends ArbitraryArities {
     Arbitrary(Arbitrary.arbitrary[Int].map(offset => new Date(now + offset)))
   }
 
-  implicit val arbUuid: Arbitrary[UUID] = Arbitrary(Gen.uuid)
-
   // - Cogen -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   implicit val cogenStringDecodeError: Cogen[DecodeError] = implicitly[Cogen[String]].contramap(_.message)
