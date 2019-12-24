@@ -18,14 +18,7 @@ package kantan.codecs.strings
 
 import java.text.SimpleDateFormat
 import java.util.{Date, Locale}
-import kantan.codecs.laws.discipline.{
-  DecoderTests,
-  DisciplineSuite,
-  EncoderTests,
-  StringCodecTests,
-  StringDecoderTests,
-  StringEncoderTests
-}
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
 import kantan.codecs.laws.discipline.arbitrary._
 
 class DateCodecTests extends DisciplineSuite {
@@ -33,11 +26,11 @@ class DateCodecTests extends DisciplineSuite {
   implicit val codec: StringCodec[Date] =
     StringCodec.dateCodec(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.ENGLISH))
 
-  checkAll("StringDecoder[Date]", StringDecoderTests[Date].decoder[Int, Int])
-  checkAll("StringEncoder[Date]", StringEncoderTests[Date].encoder[Int, Int])
+  checkAll("StringDecoder[Date]", StringCodecTests[Date].decoder[Int, Int])
+  checkAll("StringEncoder[Date]", StringCodecTests[Date].encoder[Int, Int])
   checkAll("StringCodec[Date]", StringCodecTests[Date].codec[Int, Int])
 
-  checkAll("TaggedDecoder[Date]", DecoderTests[String, Date, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[Date]", EncoderTests[String, Date, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[Date]", tagged.DecoderTests[Date].decoder[Int, Int])
+  checkAll("TaggedEncoder[Date]", tagged.EncoderTests[Date].encoder[Int, Int])
 
 }

@@ -17,23 +17,16 @@
 package kantan.codecs.strings
 
 import java.net.URI
-import kantan.codecs.laws.discipline.{
-  DecoderTests,
-  DisciplineSuite,
-  EncoderTests,
-  StringCodecTests,
-  StringDecoderTests,
-  StringEncoderTests
-}
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
 import kantan.codecs.laws.discipline.arbitrary._
 
 class URICodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[URI]", StringDecoderTests[URI].decoder[Int, Int])
-  checkAll("StringEncoder[URI]", StringEncoderTests[URI].encoder[Int, Int])
+  checkAll("StringDecoder[URI]", StringCodecTests[URI].decoder[Int, Int])
+  checkAll("StringEncoder[URI]", StringCodecTests[URI].encoder[Int, Int])
   checkAll("StringCodec[URI]", StringCodecTests[URI].codec[Int, Int])
 
-  checkAll("TaggedDecoder[URI]", DecoderTests[String, URI, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[URI]", EncoderTests[String, URI, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[URI]", tagged.DecoderTests[URI].decoder[Int, Int])
+  checkAll("TaggedEncoder[URI]", tagged.EncoderTests[URI].encoder[Int, Int])
 
 }

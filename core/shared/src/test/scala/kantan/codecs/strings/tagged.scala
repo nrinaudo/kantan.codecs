@@ -18,9 +18,53 @@ package kantan.codecs.strings
 
 import imp.imp
 import kantan.codecs.{Codec, Decoder, Encoder}
+import kantan.codecs.laws.{DecoderLaws, EncoderLaws}
+import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.codecs.laws.discipline.{DecoderTests => RootDecoderTests, EncoderTests => RootEncoderTests}
+import kantan.codecs.laws.discipline.arbitrary._
+import org.scalacheck.{Arbitrary, Cogen}
 
+/** Acts as both a tag type and a namespace for tagged type tests.
+  *
+  * The purpose of this is to test `Decoder.tag` and `Encoder.tag`.
+  */
 object tagged {
 
+  // - Type aliases for readability ------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  type DecoderTests[D]      = RootDecoderTests[String, D, DecodeError, tagged.type]
+  type EncoderTests[D]      = RootEncoderTests[String, D, tagged.type]
+  type TaggedDecoderLaws[D] = DecoderLaws[String, D, DecodeError, tagged.type]
+  type TaggedEncoderLaws[D] = EncoderLaws[String, D, tagged.type]
+  type TaggedLegalValue[D]  = LegalValue[String, D, tagged.type]
+
+  // - Specialised tests -----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  // These are provided strictly for readability purposes. They allow developers to write:
+  // {{{
+  // checkAll("TaggedDecoder[Int]", tagged.DecoderTests[Int].decoder[Int, Int])
+  // }}}
+  // rather than:
+  // {{{
+  // checkAll("TaggedDecoder[Int]", DecoderTests[String, Int, DecodeError, tagged.type].decoder[Int, Int])
+  // }}}
+
+  object DecoderTests {
+    def apply[D: Arbitrary: Cogen: TaggedDecoderLaws](
+      implicit al: Arbitrary[TaggedLegalValue[D]]
+    ): DecoderTests[D] =
+      RootDecoderTests.apply
+  }
+
+  object EncoderTests {
+    def apply[D: Arbitrary: TaggedEncoderLaws](
+      implicit al: Arbitrary[TaggedLegalValue[D]]
+    ): EncoderTests[D] =
+      RootEncoderTests.apply
+  }
+
+  // - Default instances -----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   implicit def decoder[D: StringDecoder]: Decoder[String, D, DecodeError, tagged.type] =
     StringDecoder[D].tag[tagged.type]
 

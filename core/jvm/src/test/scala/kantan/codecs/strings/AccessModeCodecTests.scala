@@ -17,16 +17,16 @@
 package kantan.codecs.strings
 
 import java.nio.file.AccessMode
-import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
 import kantan.codecs.laws.discipline.arbitrary._
 
 class AccessModeCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[AccessMode]", StringDecoderTests[AccessMode].bijectiveDecoder[Int, Int])
-  checkAll("StringEncoder[AccessMode]", StringEncoderTests[AccessMode].encoder[Int, Int])
+  checkAll("StringDecoder[AccessMode]", StringCodecTests[AccessMode].bijectiveDecoder[Int, Int])
+  checkAll("StringEncoder[AccessMode]", StringCodecTests[AccessMode].encoder[Int, Int])
   checkAll("StringCodec[AccessMode]", StringCodecTests[AccessMode].bijectiveCodec[Int, Int])
 
-  checkAll("TaggedDecoder[AccessMode]", StringDecoderTests[AccessMode].bijectiveDecoder[Int, Int])
-  checkAll("TaggedEncoder[AccessMode]", StringEncoderTests[AccessMode].encoder[Int, Int])
+  checkAll("TaggedDecoder[AccessMode]", tagged.DecoderTests[AccessMode].bijectiveDecoder[Int, Int])
+  checkAll("TaggedEncoder[AccessMode]", tagged.EncoderTests[AccessMode].encoder[Int, Int])
 
 }

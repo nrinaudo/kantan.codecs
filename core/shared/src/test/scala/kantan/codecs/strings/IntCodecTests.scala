@@ -16,23 +16,16 @@
 
 package kantan.codecs.strings
 
-import kantan.codecs.laws.discipline.{
-  DecoderTests,
-  DisciplineSuite,
-  EncoderTests,
-  StringCodecTests,
-  StringDecoderTests,
-  StringEncoderTests
-}
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
 import kantan.codecs.laws.discipline.arbitrary._
 
 class IntCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[Int]", StringDecoderTests[Int].decoder[Int, Int])
-  checkAll("StringEncoder[Int]", StringEncoderTests[Int].encoder[Int, Int])
+  checkAll("StringDecoder[Int]", StringCodecTests[Int].decoder[Int, Int])
+  checkAll("StringEncoder[Int]", StringCodecTests[Int].encoder[Int, Int])
   checkAll("StringCodec[Int]", StringCodecTests[Int].codec[Int, Int])
 
-  checkAll("TaggedDecoder[Int]", DecoderTests[String, Int, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[Int]", EncoderTests[String, Int, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[Int]", tagged.DecoderTests[Int].decoder[Int, Int])
+  checkAll("TaggedEncoder[Int]", tagged.EncoderTests[Int].encoder[Int, Int])
 
 }

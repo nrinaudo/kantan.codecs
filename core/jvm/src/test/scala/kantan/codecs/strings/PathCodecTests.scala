@@ -17,22 +17,16 @@
 package kantan.codecs.strings
 
 import java.nio.file.Path
-import kantan.codecs.laws.discipline.{
-  DecoderTests,
-  DisciplineSuite,
-  EncoderTests,
-  StringCodecTests,
-  StringDecoderTests,
-  StringEncoderTests
-}
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
 import kantan.codecs.laws.discipline.arbitrary._
+
 class PathCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[Path]", StringDecoderTests[Path].bijectiveDecoder[Int, Int])
-  checkAll("StringEncoder[Path]", StringEncoderTests[Path].encoder[Int, Int])
+  checkAll("StringDecoder[Path]", StringCodecTests[Path].bijectiveDecoder[Int, Int])
+  checkAll("StringEncoder[Path]", StringCodecTests[Path].encoder[Int, Int])
   checkAll("StringCodec[Path]", StringCodecTests[Path].bijectiveCodec[Int, Int])
 
-  checkAll("TaggedDecoder[Path]", DecoderTests[String, Path, DecodeError, tagged.type].bijectiveDecoder[Int, Int])
-  checkAll("TaggedEncoder[Path]", EncoderTests[String, Path, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[Path]", tagged.DecoderTests[Path].bijectiveDecoder[Int, Int])
+  checkAll("TaggedEncoder[Path]", tagged.EncoderTests[Path].encoder[Int, Int])
 
 }

@@ -16,24 +16,17 @@
 
 package kantan.codecs.strings
 
-import kantan.codecs.laws.discipline.{
-  DecoderTests,
-  DisciplineSuite,
-  EncoderTests,
-  StringCodecTests,
-  StringDecoderTests,
-  StringEncoderTests
-}
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.strings.tagged._
 
 class OptionCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[Option[Int]]", StringDecoderTests[Option[Int]].decoder[Int, Int])
-  checkAll("StringEncoder[Option[Int]]", StringEncoderTests[Option[Int]].encoder[Int, Int])
+  checkAll("StringDecoder[Option[Int]]", StringCodecTests[Option[Int]].decoder[Int, Int])
+  checkAll("StringEncoder[Option[Int]]", StringCodecTests[Option[Int]].encoder[Int, Int])
   checkAll("StringCodec[Option[Int]]", StringCodecTests[Option[Int]].codec[Int, Int])
 
-  checkAll("TaggedDecoder[Option[Int]]", DecoderTests[String, Option[Int], DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[Option[Int]]", EncoderTests[String, Option[Int], tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[Option[Int]]", tagged.DecoderTests[Option[Int]].decoder[Int, Int])
+  checkAll("TaggedEncoder[Option[Int]]", tagged.EncoderTests[Option[Int]].encoder[Int, Int])
 
 }
