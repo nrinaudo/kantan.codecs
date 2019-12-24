@@ -37,13 +37,16 @@ trait Codec[Encoded, Decoded, Failure, Tag]
 
   def imap[D](f: Decoded => D)(g: D => Decoded): Codec[Encoded, D, Failure, Tag] =
     Codec.from((e: Encoded) => decode(e).map(f))(g andThen encode)
+
   def imapEncoded[E](f: Encoded => E)(g: E => Encoded): Codec[E, Decoded, Failure, Tag] =
     Codec.from(g andThen decode)(d => f(encode(d)))
 }
 
 trait CodecCompanion[Encoded, Failure, Tag] {
+
   @inline def from[D](f: Encoded => Either[Failure, D])(g: D => Encoded): Codec[Encoded, D, Failure, Tag] =
     Codec.from(f)(g)
+
   @inline def from[D](
     d: Decoder[Encoded, D, Failure, Tag],
     e: Encoder[Encoded, D, Tag]
