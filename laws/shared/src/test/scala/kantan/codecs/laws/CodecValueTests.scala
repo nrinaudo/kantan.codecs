@@ -17,13 +17,15 @@
 package kantan.codecs.laws
 
 import discipline.arbitrary._
+import imp.imp
 import java.util.UUID
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.strings.{codecs => scodecs}
+import kantan.codecs.strings.codecs
 import org.scalacheck.{Arbitrary, Prop}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import scala.reflect.ClassTag
 import scala.util.Try
 
 class CodecValueTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
@@ -44,43 +46,46 @@ class CodecValueTests extends AnyFunSuite with ScalaCheckPropertyChecks with Mat
       }
     }
   }
-
   // Not the most elegant code I wrote, but it does the job.
-  def testArbitrary[E, D, T](e: String, d: String)(
+  def testArbitrary[E: ClassTag, D: ClassTag](
     f: E => D
-  )(implicit arbL: Arbitrary[LegalValue[E, D, T]], arbI: Arbitrary[IllegalValue[E, D, T]]): Unit = {
+  )(implicit arbL: Arbitrary[LegalValue[E, D, codecs.type]], arbI: Arbitrary[IllegalValue[E, D, codecs.type]]): Unit = {
+
+    val e = imp[ClassTag[E]].runtimeClass.getSimpleName
+    val d = imp[ClassTag[D]].runtimeClass.getSimpleName
+
     test(s"Arbitrary[LegalValue[$e, $d]] should generate legal values") {
-      forAll { li: LegalValue[E, D, T] =>
+      forAll { li: LegalValue[E, D, codecs.type] =>
         f(li.encoded) should be(li.decoded)
       }
     }
 
     test(s"Arbitrary[IllegalValue[$e, $d]] should generate illegal values") {
-      forAll { li: IllegalValue[E, D, T] =>
+      forAll { li: IllegalValue[E, D, codecs.type] =>
         Prop.throws(classOf[Exception])(f(li.encoded))
         ()
       }
     }
   }
 
-  testArbitrary[String, Int, scodecs.type]("String", "Int")(_.toInt)
-  testArbitrary[String, Float, scodecs.type]("String", "Float")(_.toFloat)
-  testArbitrary[String, Double, scodecs.type]("String", "Double")(_.toDouble)
-  testArbitrary[String, Long, scodecs.type]("String", "Long")(_.toLong)
-  testArbitrary[String, Short, scodecs.type]("String", "Short")(_.toShort)
-  testArbitrary[String, Byte, scodecs.type]("String", "Byte")(_.toByte)
-  testArbitrary[String, Boolean, scodecs.type]("String", "Boolean")(_.toBoolean)
-  testArbitrary[String, BigInt, scodecs.type]("String", "BigInt")(BigInt.apply)
-  testArbitrary[String, BigDecimal, scodecs.type]("String", "BigDecimal")(BigDecimal.apply)
-  testArbitrary[String, UUID, scodecs.type]("String", "UUID")(UUID.fromString)
-  testArbitrary[String, Char, scodecs.type]("String", "Char") { s =>
+  testArbitrary[String, Int](_.toInt)
+  testArbitrary[String, Float](_.toFloat)
+  testArbitrary[String, Double](_.toDouble)
+  testArbitrary[String, Long](_.toLong)
+  testArbitrary[String, Short](_.toShort)
+  testArbitrary[String, Byte](_.toByte)
+  testArbitrary[String, Boolean](_.toBoolean)
+  testArbitrary[String, BigInt](BigInt.apply)
+  testArbitrary[String, BigDecimal](BigDecimal.apply)
+  testArbitrary[String, UUID](UUID.fromString)
+  testArbitrary[String, Char] { s =>
     if(s.length != 1) sys.error("not a valid char")
     else s.charAt(0)
   }
-  testArbitrary[String, Option[Int], scodecs.type]("String", "Option[Int]")(s => if(s.isEmpty) None else Some(s.toInt))
-  testArbitrary[String, Either[Boolean, Int], scodecs.type]("String", "Either[Boolean, Int]") { s =>
+  testArbitrary[String, Option[Int]](s => if(s.isEmpty) None else Some(s.toInt))
+  testArbitrary[String, Either[Boolean, Int]] { s =>
     Try(Left(s.toBoolean): Either[Boolean, Int]).getOrElse(Right(s.toInt): Either[Boolean, Int])
   }
   // TODO: re-enable?
-  //testArbitrary[Seq[String], Seq[Int], scodecs.type]("String", "Seq[Int]")(_.map(_.toInt))
+  //testArbitrary[Seq[String], Seq[Int]](_.map(_.toInt))
 }
