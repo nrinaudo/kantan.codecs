@@ -17,7 +17,6 @@
 package kantan.codecs.strings
 
 import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
-import kantan.codecs.laws.discipline.arbitrary._
 
 class BooleanCodecTests extends DisciplineSuite {
 

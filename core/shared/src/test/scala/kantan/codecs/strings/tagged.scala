@@ -19,6 +19,7 @@ package kantan.codecs.strings
 import imp.imp
 import kantan.codecs.{Codec, Decoder, Encoder}
 import kantan.codecs.laws.{DecoderLaws, EncoderLaws}
+import kantan.codecs.laws.{HasIllegalStringValues, HasIllegalValues, HasLegalStringValues, HasLegalValues}
 import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.discipline.{DecoderTests => RootDecoderTests, EncoderTests => RootEncoderTests}
 import kantan.codecs.laws.discipline.arbitrary._
@@ -32,13 +33,15 @@ object tagged {
 
   // - Type aliases for readability ------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  type DecoderTests[D]      = RootDecoderTests[String, D, DecodeError, tagged.type]
-  type EncoderTests[D]      = RootEncoderTests[String, D, tagged.type]
-  type TaggedDecoder[D]     = Decoder[String, D, DecodeError, tagged.type]
-  type TaggedEncoder[D]     = Encoder[String, D, tagged.type]
-  type TaggedDecoderLaws[D] = DecoderLaws[String, D, DecodeError, tagged.type]
-  type TaggedEncoderLaws[D] = EncoderLaws[String, D, tagged.type]
-  type TaggedLegalValue[D]  = LegalValue[String, D, tagged.type]
+  type DecoderTests[D]           = RootDecoderTests[String, D, DecodeError, tagged.type]
+  type EncoderTests[D]           = RootEncoderTests[String, D, tagged.type]
+  type TaggedDecoder[D]          = Decoder[String, D, DecodeError, tagged.type]
+  type TaggedEncoder[D]          = Encoder[String, D, tagged.type]
+  type TaggedDecoderLaws[D]      = DecoderLaws[String, D, DecodeError, tagged.type]
+  type TaggedEncoderLaws[D]      = EncoderLaws[String, D, tagged.type]
+  type TaggedLegalValue[D]       = LegalValue[String, D, tagged.type]
+  type HasLegalTaggedValues[D]   = HasLegalValues[String, D, tagged.type]
+  type HasIllegalTaggedValues[D] = HasIllegalValues[String, D, tagged.type]
 
   // - Specialised tests -----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -75,5 +78,11 @@ object tagged {
 
   def codec[D: StringCodec]: Codec[String, D, DecodeError, tagged.type] =
     imp[StringCodec[D]].tag[tagged.type]
+
+  implicit def hasLegalValues[D](implicit hlv: HasLegalStringValues[D]): HasLegalTaggedValues[D] =
+    hlv.tag[tagged.type]
+
+  implicit def hasIllegalValues[D](implicit hiv: HasIllegalStringValues[D]): HasIllegalTaggedValues[D] =
+    hiv.tag[tagged.type]
 
 }

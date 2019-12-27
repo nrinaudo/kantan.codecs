@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs.laws
 
-import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
-
-class CharCodecTests extends DisciplineSuite {
-
-  checkAll("StringDecoder[Char]", StringCodecTests[Char].decoder[Int, Int])
-  checkAll("StringEncoder[Char]", StringCodecTests[Char].encoder[Int, Int])
-  checkAll("StringCodec[Char]", StringCodecTests[Char].codec[Int, Int])
-
-  checkAll("TaggedDecoder[Char]", tagged.DecoderTests[Char].decoder[Int, Int])
-  checkAll("TaggedEncoder[Char]", tagged.EncoderTests[Char].encoder[Int, Int])
-
-}
+trait PlatformSpecificHasIllegalValues

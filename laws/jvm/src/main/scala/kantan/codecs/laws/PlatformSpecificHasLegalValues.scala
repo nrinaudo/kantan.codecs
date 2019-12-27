@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs.strings
+package kantan.codecs.laws
 
-import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
+import java.io.File
+import java.net.URL
+import java.nio.file.Path
+import kantan.codecs.laws.HasLegalValues._
 
-class CharCodecTests extends DisciplineSuite {
+trait PlatformSpecificHasLegalValues {
 
-  checkAll("StringDecoder[Char]", StringCodecTests[Char].decoder[Int, Int])
-  checkAll("StringEncoder[Char]", StringCodecTests[Char].encoder[Int, Int])
-  checkAll("StringCodec[Char]", StringCodecTests[Char].codec[Int, Int])
-
-  checkAll("TaggedDecoder[Char]", tagged.DecoderTests[Char].decoder[Int, Int])
-  checkAll("TaggedEncoder[Char]", tagged.EncoderTests[Char].encoder[Int, Int])
+  implicit val url: HasLegalStringValues[URL]   = fromToString
+  implicit val path: HasLegalStringValues[Path] = fromToString
+  implicit val file: HasLegalStringValues[File] = fromToString
 
 }
