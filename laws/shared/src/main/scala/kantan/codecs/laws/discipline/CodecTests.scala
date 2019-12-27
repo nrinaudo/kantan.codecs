@@ -20,16 +20,17 @@ import imp.imp
 import kantan.codecs.Codec
 import kantan.codecs.laws.{CodecLaws, CodecValue}
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.laws.discipline.arbitrary._
-import org.scalacheck.{Arbitrary, Cogen}
+import org.scalacheck.{Arbitrary, Cogen, Shrink}
 import org.scalacheck.Prop.forAll
 
 trait CodecTests[Encoded, Decoded, Failure, Tag]
     extends DecoderTests[Encoded, Decoded, Failure, Tag] with EncoderTests[Encoded, Decoded, Tag] {
   def laws: CodecLaws[Encoded, Decoded, Failure, Tag]
 
-  private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
-    implicit av: Arbitrary[CodecValue[Encoded, Decoded, Tag]]
+  private def coreRules[A: Arbitrary: Cogen: Shrink, B: Arbitrary: Cogen: Shrink](
+    implicit av: Arbitrary[CodecValue[Encoded, Decoded, Tag]],
+    shrinkFoo: Shrink[IllegalValue[Encoded, Decoded, Tag]],
+    shrinkBar: Shrink[LegalValue[Encoded, Decoded, Tag]]
   ): RuleSet =
     new DefaultRuleSet(
       "round trip",
@@ -48,7 +49,7 @@ trait CodecTests[Encoded, Decoded, Failure, Tag]
       "imapEncoded composition(decoding)"  -> forAll(laws.imapEncodedCompositionDecoding[A, B] _)
     )
 
-  def bijectiveCodec[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet = new RuleSet {
+  def bijectiveCodec[A: Arbitrary: Cogen: Shrink, B: Arbitrary: Cogen: Shrink]: RuleSet = new RuleSet {
     implicit val arbValues: Arbitrary[CodecValue[Encoded, Decoded, Tag]] = Arbitrary(arbLegal.arbitrary)
 
     val name    = "bijective codec"
@@ -57,8 +58,10 @@ trait CodecTests[Encoded, Decoded, Failure, Tag]
     val props   = Seq.empty
   }
 
-  def codec[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
-    implicit ai: Arbitrary[IllegalValue[Encoded, Decoded, Tag]]
+  def codec[A: Arbitrary: Cogen: Shrink, B: Arbitrary: Cogen: Shrink](
+    implicit ai: Arbitrary[IllegalValue[Encoded, Decoded, Tag]],
+    shrinkFoo: Shrink[IllegalValue[Encoded, Decoded, Tag]],
+    shrinkBar: Shrink[LegalValue[Encoded, Decoded, Tag]]
   ): RuleSet =
     new RuleSet {
       val name    = "codec"
@@ -69,7 +72,7 @@ trait CodecTests[Encoded, Decoded, Failure, Tag]
 }
 
 object CodecTests {
-  def apply[E: Arbitrary: Cogen, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](
+  def apply[E: Arbitrary: Cogen, D: Arbitrary: Cogen: Shrink, F: Cogen: Arbitrary, T](
     implicit c: Codec[E, D, F, T],
     al: Arbitrary[LegalValue[E, D, T]]
   ): CodecTests[E, D, F, T] =
@@ -82,5 +85,6 @@ object CodecTests {
       override val cogenE   = Cogen[E]
       override val arbD     = imp[Arbitrary[D]]
       override val arbE     = imp[Arbitrary[E]]
+      override val shrinkD  = imp[Shrink[D]]
     }
 }

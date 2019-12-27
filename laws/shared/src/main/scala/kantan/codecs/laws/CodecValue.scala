@@ -78,4 +78,33 @@ object CodecValue {
   ): Arbitrary[IllegalValue[E, D, T]] =
     Arbitrary(imp[Arbitrary[E]].arbitrary.map(aiv.asIllegalValue))
 
+  // - Shrink instances ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+
+  implicit def shrinkCodecValue[E, D, T](
+    implicit shrinkLegal: Shrink[LegalValue[E, D, T]],
+    shrinkIllegal: Shrink[IllegalValue[E, D, T]]
+  ): Shrink[CodecValue[E, D, T]] =
+    Shrink {
+      case legal @ LegalValue(_, _)  => shrinkLegal.shrink(legal)
+      case illegal @ IllegalValue(_) => shrinkIllegal.shrink(illegal)
+    }
+
+  implicit def shrinkLegalValue[E, D: Shrink, T](implicit alv: HasLegalValues[E, D, T]): Shrink[LegalValue[E, D, T]] =
+    Shrink { value =>
+      imp[Shrink[D]]
+        .shrink(value.decoded)
+        .map(alv.asLegalValue)
+    }
+
+  implicit def shrinkIllegalValue[E: Shrink, D, T](
+    implicit aiv: HasIllegalValues[E, D, T]
+  ): Shrink[IllegalValue[E, D, T]] =
+    Shrink { value =>
+      imp[Shrink[E]]
+        .shrink(value.encoded)
+        .filter(aiv.isInvalid)
+        .map(IllegalValue.apply[E, D, T])
+    }
+
 }
