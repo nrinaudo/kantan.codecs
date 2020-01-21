@@ -173,7 +173,7 @@ trait CommonArbitraryInstances extends ArbitraryArities {
     Arbitrary(
       Gen.oneOf(
         arb[Exception].map(e => scala.util.Failure(e): Try[A]),
-        aa.arbitrary.map(a   => scala.util.Success(a): Try[A])
+        aa.arbitrary.map(a => scala.util.Success(a): Try[A])
       )
     )
 }
