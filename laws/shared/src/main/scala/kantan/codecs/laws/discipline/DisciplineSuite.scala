@@ -21,6 +21,6 @@ package discipline
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import org.typelevel.discipline.scalatest.Discipline
+import org.typelevel.discipline.scalatest.FunSuiteDiscipline
 
-trait DisciplineSuite extends AnyFunSuite with ScalaCheckPropertyChecks with Discipline with Matchers
+trait DisciplineSuite extends AnyFunSuite with ScalaCheckPropertyChecks with FunSuiteDiscipline with Matchers
