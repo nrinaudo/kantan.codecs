@@ -20,6 +20,7 @@ package laws
 package discipline
 
 import org.scalacheck.Properties
+import org.scalatestplus.scalacheck.Checkers
 
 class ScalazDisciplineSuite extends DisciplineSuite {
   // The i bit is a dirty hack to work around the fact that some scalaz properties have duplicated identifiers, which
@@ -30,7 +31,7 @@ class ScalazDisciplineSuite extends DisciplineSuite {
     for((id, prop) <- props.properties) {
       i = i + 1
       test(s"$name[${i.toString}].$id") {
-        check(prop)
+        Checkers.check(prop)
       }
     }
   }

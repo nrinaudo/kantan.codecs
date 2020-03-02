@@ -17,13 +17,12 @@
 package kantan.codecs
 package shapeless
 
+import Instances._
 import laws._
 import laws.discipline._
 import strings._
 
 class SerialisationTests extends DisciplineSuite {
-  import Instances._
-
   checkAll("StringDecoder[Int Or Boolean]", SerializableTests[StringDecoder[Int Or Boolean]].serializable)
   checkAll("StringEncoder[Int Or Boolean]", SerializableTests[StringEncoder[Int Or Boolean]].serializable)
 
