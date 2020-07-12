@@ -170,7 +170,7 @@ lazy val scalazLaws = kantanCrossProject("scalaz-laws")
   .settings(
     libraryDependencies ++= Seq(
       "org.scalaz"    %%% "scalaz-core"               % Versions.scalaz,
-      "org.scalaz"    %%% "scalaz-scalacheck-binding" % (Versions.scalaz + "-scalacheck-1.14"),
+      "org.scalaz"    %%% "scalaz-scalacheck-binding" % (Versions.scalaz),
       "org.scalatest" %%% "scalatest"                 % Versions.scalatest % "optional"
     )
   )

@@ -50,13 +50,13 @@ trait EncoderInstances {
 
 trait CommonInstances {
 
-  implicit def isErrorShow[E <: error.Error]: Show[E] = Show.show(_.toString)
+  implicit def isErrorShow[E <: error.Error]: Show[E] = Show.show(e => Cord(e.toString))
 
   implicit def disjunctionDecoder[E, DA, DB, F, T](
     implicit da: Decoder[E, DA, F, T],
     db: Decoder[E, DB, F, T]
   ): Decoder[E, DA \/ DB, F, T] =
-    da.map(-\/.apply).orElse(db.map(\/-.apply))
+    da.map(-\/.apply[DA, DB]).orElse(db.map(\/-.apply[DA, DB]))
 
   implicit def disjunctionEncoder[E, DA, DB, T](
     implicit ea: Encoder[E, DA, T],
