@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
 import java.io.File
-import laws.discipline._, arbitrary._
-import tagged._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
+import kantan.codecs.laws.discipline.arbitrary._
 
 class FileCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[File]", StringDecoderTests[File].bijectiveDecoder[Int, Int])
-  checkAll("StringEncoder[File]", StringEncoderTests[File].encoder[Int, Int])
+  checkAll("StringDecoder[File]", StringCodecTests[File].bijectiveDecoder[Int, Int])
+  checkAll("StringEncoder[File]", StringCodecTests[File].encoder[Int, Int])
   checkAll("StringCodec[File]", StringCodecTests[File].bijectiveCodec[Int, Int])
 
-  checkAll("TaggedDecoder[File]", DecoderTests[String, File, DecodeError, tagged.type].bijectiveDecoder[Int, Int])
-  checkAll("TaggedEncoder[File]", EncoderTests[String, File, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[File]", tagged.DecoderTests[File].bijectiveDecoder[Int, Int])
+  checkAll("TaggedEncoder[File]", tagged.EncoderTests[File].encoder[Int, Int])
 
 }

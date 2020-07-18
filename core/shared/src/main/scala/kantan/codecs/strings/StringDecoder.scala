@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
+
+import kantan.codecs.DecoderCompanion
+import scala.reflect.ClassTag
 
 /** Provides instance creation and summing methods for [[StringDecoder]].
   *
   * Default [[StringDecoder]] instances are provided in [[codecs]].
   */
 object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] with PlatformSpecificDecoders {
+
+  /** Creates a safe decoding function from the specified unsafe one.
+    *
+    * @see [[makeSafe[D](typeName:String)* makeSafe]]
+    */
+  def makeSafe[D](f: String => D)(implicit tag: ClassTag[D]): String => StringResult[D] =
+    makeSafe(tag.runtimeClass.getName())(f)
 
   /** Creates a safe decoding function from the specified unsafe one.
     *
@@ -42,11 +51,8 @@ object StringDecoder extends DecoderCompanion[String, DecodeError, codecs.type] 
     * res2: StringResult[Int] = Left(DecodeError: 'foobar' is not a valid Int)
     * }}}
     *
-    * @param typeName name of the decoded type (used in error messages).
-    * @param f decoding function.
-    * @tparam D decoded type.
+    * @see [[makeSafe[D](f:String=>D)* makeSafe]]
     */
   def makeSafe[D](typeName: String)(f: String => D): String => StringResult[D] =
     s => StringResult(f(s)).left.map(t => DecodeError(s"'$s' is not a valid $typeName", t))
-
 }

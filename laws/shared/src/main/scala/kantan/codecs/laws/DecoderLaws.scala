@@ -14,56 +14,74 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
 
-import CodecValue.{IllegalValue, LegalValue}
-import org.scalacheck.Prop
+import kantan.codecs.Decoder
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 
-trait DecoderLaws[E, D, F, T] {
-  def decoder: Decoder[E, D, F, T]
+/** Laws that a [[Decoder]] must abide by to be considered lawful.
+  *
+  * These are executed through [[kantan.codecs.discipline.DecoderTests]].
+  */
+trait DecoderLaws[Encoded, Decoded, Failure, Tag] {
 
-  private def cmp(result: Either[F, D], cv: CodecValue[E, D, T]): Boolean = (cv, result) match {
-    case (IllegalValue(_), Left(_))    => true
-    case (LegalValue(_, d), Right(d2)) => d == d2
-    case _                             => false
-  }
+  /** Decoder whose lawfulness is being checked. */
+  def decoder: Decoder[Encoded, Decoded, Failure, Tag]
 
   // - Simple laws -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def decode(v: CodecValue[E, D, T]): Boolean = cmp(decoder.decode(v.encoded), v)
+  // These two laws are the foundation on which the others are built: if we can trust that `decode` is well behaved,
+  // then relying on it in all other laws is sane.
 
-  def decodeFailure(v: IllegalValue[E, D, T]): Boolean =
-    Prop.throws(classOf[Exception])(decoder.unsafeDecode(v.encoded))
+  /** Decoding a legal value must yield the expected result. */
+  def decode(v: LegalValue[Encoded, Decoded, Tag]): Boolean = decoder.decode(v.encoded) == Right(v.decoded)
+
+  /** Decoding an illegal value must fail. */
+  def decodeFailure(v: IllegalValue[Encoded, Decoded, Tag]): Boolean =
+    decoder.decode(v.encoded).isLeft
 
   // - Functor laws ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def mapIdentity(v: CodecValue[E, D, T]): Boolean =
+  /** Mapping on `identity` should not change the decoder's behaviour. */
+  def mapIdentity(v: CodecValue[Encoded, Decoded, Tag]): Boolean =
     decoder.decode(v.encoded) == decoder.map(identity).decode(v.encoded)
 
-  def mapComposition[A, B](v: CodecValue[E, D, T], f: D => A, g: A => B): Boolean =
+  /** Mapping on the composition of two functions must be the same as mapping on the first, then the second. */
+  def mapComposition[A, B](v: CodecValue[Encoded, Decoded, Tag], f: Decoded => A, g: A => B): Boolean =
     decoder.map(f andThen g).decode(v.encoded) == decoder.map(f).map(g).decode(v.encoded)
 
-  def leftMapIdentity[A](v: CodecValue[E, D, T]): Boolean =
+  // - Bifunctor laws --------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Same as [[mapIdentity]], but for `leftMap`. */
+  def leftMapIdentity[A](v: CodecValue[Encoded, Decoded, Tag]): Boolean =
     decoder.decode(v.encoded) == decoder.leftMap(identity).decode(v.encoded)
 
-  def leftMapComposition[A, B](v: CodecValue[E, D, T], f: F => A, g: A => B): Boolean =
+  /** Same as [[mapComposition]], but for `leftMap`. */
+  def leftMapComposition[A, B](v: CodecValue[Encoded, Decoded, Tag], f: Failure => A, g: A => B): Boolean =
     decoder.leftMap(f andThen g).decode(v.encoded) == decoder.leftMap(f).leftMap(g).decode(v.encoded)
 
   // - Contravariant laws ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def contramapEncodedIdentity(v: CodecValue[E, D, T]): Boolean =
-    decoder.decode(v.encoded) == decoder.contramapEncoded(identity[E]).decode(v.encoded)
+  /** Same as [[mapIdentity]], but for `contramapEncoded`. */
+  def contramapEncodedIdentity(v: CodecValue[Encoded, Decoded, Tag]): Boolean =
+    decoder.decode(v.encoded) == decoder.contramapEncoded(identity[Encoded]).decode(v.encoded)
 
-  def contramapEncodedComposition[A, B](b: B, f: A => E, g: B => A): Boolean =
+  /** Same as [[mapComposition]], but for `contramapEncoded`. */
+  def contramapEncodedComposition[A, B](b: B, f: A => Encoded, g: B => A): Boolean =
     decoder.contramapEncoded(g andThen f).decode(b) == decoder.contramapEncoded(f).contramapEncoded(g).decode(b)
 
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def emapIdentity(v: CodecValue[E, D, T]): Boolean =
+  /** Same as [[mapIdentity]], but for `emap`. */
+  def emapIdentity(v: CodecValue[Encoded, Decoded, Tag]): Boolean =
     decoder.decode(v.encoded) == decoder.emap(Right.apply).decode(v.encoded)
 
-  def emapComposition[A, B](v: CodecValue[E, D, T], f: D => Either[F, A], g: A => Either[F, B]): Boolean =
+  /** Same as [[mapComposition]], but for `emap`. */
+  def emapComposition[A, B](
+    v: CodecValue[Encoded, Decoded, Tag],
+    f: Decoded => Either[Failure, A],
+    g: A => Either[Failure, B]
+  ): Boolean =
     decoder.emap(d => f(d).flatMap(g)).decode(v.encoded) == decoder.emap(f).emap(g).decode(v.encoded)
 
   // TODO: filter
@@ -71,7 +89,12 @@ trait DecoderLaws[E, D, F, T] {
 }
 
 object DecoderLaws {
-  implicit def apply[E, D, F, T](implicit de: Decoder[E, D, F, T]): DecoderLaws[E, D, F, T] =
+
+  /** Creates an instance of [[DecoderLaws]] for any type that has a valid decoder instance.
+    *
+    * There rarely is a need to call this directly. Consider using [[kantan.codecs.discipline.DecoderTests]] instead.
+    */
+  def apply[E, D, F, T](implicit de: Decoder[E, D, F, T]): DecoderLaws[E, D, F, T] =
     new DecoderLaws[E, D, F, T] {
       override val decoder = de
     }

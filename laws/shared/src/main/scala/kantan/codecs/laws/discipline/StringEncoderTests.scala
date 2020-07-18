@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
+import kantan.codecs.laws.LegalString
+import kantan.codecs.strings.{codecs, StringEncoder}
 import org.scalacheck.Arbitrary
-import strings._
 
 object StringEncoderTests {
 
-  def apply[D: Arbitrary](implicit l: StringEncoderLaws[D], al: Arbitrary[LegalString[D]]): StringEncoderTests[D] =
+  def apply[D: Arbitrary: StringEncoder](implicit al: Arbitrary[LegalString[D]]): StringEncoderTests[D] =
     EncoderTests[String, D, codecs.type]
 }

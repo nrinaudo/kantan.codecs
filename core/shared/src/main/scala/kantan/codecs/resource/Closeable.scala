@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
 /** Type class for all types that can be closed. */
 trait Closeable[A] {

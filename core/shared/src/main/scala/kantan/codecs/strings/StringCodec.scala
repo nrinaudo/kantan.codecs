@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
+
+import kantan.codecs.CodecCompanion
+import scala.reflect.ClassTag
 
 /** Provides instance creation methods.
   *
@@ -24,4 +26,33 @@ package strings
   *
   * Default instances are defined in [[codecs]].
   */
-object StringCodec extends CodecCompanion[String, DecodeError, codecs.type] with PlatformSpecificCodecs
+object StringCodec extends CodecCompanion[String, DecodeError, codecs.type] with PlatformSpecificCodecs {
+
+  /** Creates a [[StringCodec]] from the specified (unsafe) decode and encode functions.
+    *
+    * This methods allows callers to provide a decode method that throws, and have the error handled neatly.
+    *
+    * @example
+    * {{{
+    * scala> val intCodec: StringCodec[Int] =
+    *      |   StringCodec.fromUnsafe(
+    *      |     decode = Integer.parseInt,
+    *      |     encode = decoded => decoded.toString()
+    *      |   )
+    *
+    * scala> intCodec.decode("Foobar")
+    * res0: StringResult[Int] = Left(DecodeError: 'Foobar' is not a valid int)
+    * }}}
+    *
+    * @see [[fromUnsafe[D](typeName:String)* fromUnsafe]]
+    */
+  def fromUnsafe[D](decode: String => D, encode: D => String)(implicit tag: ClassTag[D]): StringCodec[D] =
+    StringCodec.from(StringDecoder.makeSafe(decode))(encode)
+
+  /** Creates a [[StringCodec]] from the specified (unsafe) decode and encode functions.
+    *
+    * @see [[fromUnsafe[D](decode:String=>D,encode:D=>String)* fromUnsafe]]
+    */
+  def fromUnsafe[D](typeName: String)(decode: String => D, encode: D => String): StringCodec[D] =
+    StringCodec.from(StringDecoder.makeSafe(typeName)(decode))(encode)
+}

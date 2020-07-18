@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import CodecValue.{IllegalValue, LegalValue}
 import imp.imp
 import java.io._
 import java.util.{Date, UUID}
 import java.util.regex.Pattern
-import org.scalacheck.{ArbitraryArities => _, _}, Arbitrary.{arbitrary => arb}, Gen._
+import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.strings.DecodeError
+import org.scalacheck.{Arbitrary, Cogen, Gen}
+import org.scalacheck.Arbitrary.{arbitrary => arb}
+import org.scalacheck.Gen.{const, listOf, oneOf}
 import scala.util.Try
 import scala.util.matching.Regex
-import strings.DecodeError
 
 object arbitrary extends ArbitraryInstances
 
@@ -65,26 +66,14 @@ trait CommonArbitraryInstances extends ArbitraryArities {
 
   // - CodecValue ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbValue[E, D, T](
-    implicit arbL: Arbitrary[LegalValue[E, D, T]],
-    arbI: Arbitrary[IllegalValue[E, D, T]]
-  ): Arbitrary[CodecValue[E, D, T]] =
-    Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
-
-  implicit def arbLegalValueFromEnc[E, A: Arbitrary, T](implicit ea: Encoder[E, A, T]): Arbitrary[LegalValue[E, A, T]] =
-    arbLegalValue(ea.encode)
-
-  implicit def arbIllegalValueFromDec[E: Arbitrary, A, T](
-    implicit da: Decoder[E, A, _, T]
-  ): Arbitrary[IllegalValue[E, A, T]] = arbIllegalValue(e => da.decode(e).isLeft)
 
   def arbLegalValue[E, A, T](encode: A => E)(implicit arbA: Arbitrary[A]): Arbitrary[LegalValue[E, A, T]] = Arbitrary {
     arbA.arbitrary.map(a => LegalValue(encode(a), a))
   }
 
-  def arbIllegalValue[E: Arbitrary, A, T](illegal: E => Boolean): Arbitrary[IllegalValue[E, A, T]] =
+  def arbIllegalValue[E: Arbitrary, A, T](isIllegal: E => Boolean): Arbitrary[IllegalValue[E, A, T]] =
     Arbitrary {
-      imp[Arbitrary[E]].arbitrary.suchThat(illegal).map(e => IllegalValue(e))
+      imp[Arbitrary[E]].arbitrary.suchThat(isIllegal).map(e => IllegalValue(e))
     }
 
   // - Codecs ----------------------------------------------------------------------------------------------------------
@@ -136,8 +125,6 @@ trait CommonArbitraryInstances extends ArbitraryArities {
     val now = System.currentTimeMillis()
     Arbitrary(Arbitrary.arbitrary[Int].map(offset => new Date(now + offset)))
   }
-
-  implicit val arbUuid: Arbitrary[UUID] = Arbitrary(Gen.uuid)
 
   // - Cogen -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

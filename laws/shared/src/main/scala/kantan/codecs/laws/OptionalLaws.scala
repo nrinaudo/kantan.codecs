@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
+
+import kantan.codecs.Optional
 
 trait OptionalLaws[A] {
   def optional: Optional[A]
@@ -24,7 +25,7 @@ trait OptionalLaws[A] {
 }
 
 object OptionalLaws {
-  implicit def apply[A: Optional]: OptionalLaws[A] = new OptionalLaws[A] {
+  def apply[A: Optional]: OptionalLaws[A] = new OptionalLaws[A] {
     override val optional = Optional[A]
   }
 }

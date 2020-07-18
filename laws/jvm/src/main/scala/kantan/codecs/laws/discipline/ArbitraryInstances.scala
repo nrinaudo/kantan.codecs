@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import CodecValue.IllegalValue
-import java.io._
+import java.io.{EOFException, File, FileNotFoundException}
 import java.net.{URI, URL}
 import java.nio.file.{AccessMode, Path}
-import org.scalacheck._, Gen._
+import kantan.codecs.laws.CodecValue.IllegalValue
+import org.scalacheck.{Arbitrary, Cogen, Gen}
+import org.scalacheck.Gen.{alphaLowerChar, choose, identifier, listOfN, oneOf}
 
 trait ArbitraryInstances extends CommonArbitraryInstances {
   // This is just a sample java enum.

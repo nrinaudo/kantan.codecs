@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package shapeless
-package laws
+package kantan.codecs.shapeless.laws
 
 package object discipline extends kantan.codecs.laws.discipline.DisciplinePackage

@@ -14,60 +14,60 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
-import export.Exported
-import java.time._
-import laws.discipline._, arbitrary._
+import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
+import kantan.codecs.Codec
+import kantan.codecs.export.Exported
+import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
+import kantan.codecs.strings.java8.laws.discipline.DisciplineSuite
+import kantan.codecs.strings.java8.laws.discipline.arbitrary._
+
+/** Companion tagged by a type that is *not* the strings tag type. This allows us to declare exported implicits that
+  * are unique and not "hidden" by existing ones.
+  */
+object CodecCompanion extends TimeCodecCompanion[String, DecodeError, codec.type] {
+
+  type TestCodec[D] = Exported[Codec[String, D, DecodeError, codec.type]]
+
+  override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
+  override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
+
+  implicit val instantTestCodec: TestCodec[Instant] = Exported(instantCodec(Format.defaultInstantFormat))
+  implicit val zonedDateTimeTestCodec: TestCodec[ZonedDateTime] = Exported(
+    zonedDateTimeCodec(Format.defaultZonedDateTimeFormat)
+  )
+  implicit val offsetDateTimeTestCodec: TestCodec[OffsetDateTime] = Exported(
+    offsetDateTimeCodec(Format.defaultOffsetDateTimeFormat)
+  )
+  implicit val localDateTimeTestCodec: TestCodec[LocalDateTime] = Exported(
+    localDateTimeCodec(Format.defaultLocalDateTimeFormat)
+  )
+  implicit val localDateTestCodec: TestCodec[LocalDate] = Exported(localDateCodec(Format.defaultLocalDateFormat))
+  implicit val localTimeTestCodec: TestCodec[LocalTime] = Exported(localTimeCodec(Format.defaultLocalTimeFormat))
+
+}
 
 class TimeCodecCompanionTests extends DisciplineSuite {
 
-  type TestDecoder[D] = Exported[Decoder[String, D, DecodeError, codec.type]]
-  type TestEncoder[D] = Exported[Encoder[String, D, codec.type]]
-
-  object CodecCompanion extends TimeCodecCompanion[String, DecodeError, codec.type] {
-
-    override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
-    override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
-
-    implicit val instantTestEncoder: TestEncoder[Instant]               = Exported(defaultInstantEncoder)
-    implicit val zonedDateTimeTestEncoder: TestEncoder[ZonedDateTime]   = Exported(defaultZonedDateTimeEncoder)
-    implicit val offsetDateTimeTestEncoder: TestEncoder[OffsetDateTime] = Exported(defaultOffsetDateTimeEncoder)
-    implicit val localDateTimeTestEncoder: TestEncoder[LocalDateTime]   = Exported(defaultLocalDateTimeEncoder)
-    implicit val localDateTestEncoder: TestEncoder[LocalDate]           = Exported(defaultLocalDateEncoder)
-    implicit val localTimeTestEncoder: TestEncoder[LocalTime]           = Exported(defaultLocalTimeEncoder)
-
-    implicit val instantTestDecoder: TestDecoder[Instant]               = Exported(defaultInstantDecoder)
-    implicit val zonedDateTimeTestDecoder: TestDecoder[ZonedDateTime]   = Exported(defaultZonedDateTimeDecoder)
-    implicit val offsetDateTimeTestDecoder: TestDecoder[OffsetDateTime] = Exported(defaultOffsetDateTimeDecoder)
-    implicit val localDateTimeTestDecoder: TestDecoder[LocalDateTime]   = Exported(defaultLocalDateTimeDecoder)
-    implicit val localDateTestDecoder: TestDecoder[LocalDate]           = Exported(defaultLocalDateDecoder)
-    implicit val localTimeTestDecoder: TestDecoder[LocalTime]           = Exported(defaultLocalTimeDecoder)
-
-  }
-
   import CodecCompanion._
 
-  import kantan.codecs.laws.CodecValue._
-  import org.scalacheck._
-  implicitly[Arbitrary[LegalValue[String, Instant, codec.type]]]
+  checkAll("TimeCodecCompanion[Instant]", TimeDecoderTests[Instant].decoder[Int, Int])
+  checkAll("TimeCodecCompanion[Instant]", TimeEncoderTests[Instant].encoder[Int, Int])
 
-  checkAll("TimeCodecCompanion[Instant]", CodecTests[String, Instant, DecodeError, codec.type].codec[Int, Int])
-  checkAll(
-    "TimeCodecCompanion[ZonedDateTime]",
-    CodecTests[String, ZonedDateTime, DecodeError, codec.type].codec[Int, Int]
-  )
-  checkAll(
-    "TimeCodecCompanion[OffsetDateTime]",
-    CodecTests[String, OffsetDateTime, DecodeError, codec.type].codec[Int, Int]
-  )
-  checkAll(
-    "TimeCodecCompanion[LocalDateTime]",
-    CodecTests[String, LocalDateTime, DecodeError, codec.type].codec[Int, Int]
-  )
-  checkAll("TimeCodecCompanion[LocalDate]", CodecTests[String, LocalDate, DecodeError, codec.type].codec[Int, Int])
-  checkAll("TimeCodecCompanion[LocalTime]", CodecTests[String, LocalTime, DecodeError, codec.type].codec[Int, Int])
+  checkAll("TimeCodecCompanion[ZonedDateTime]", TimeDecoderTests[ZonedDateTime].decoder[Int, Int])
+  checkAll("TimeCodecCompanion[ZonedDateTime]", TimeEncoderTests[ZonedDateTime].encoder[Int, Int])
+
+  checkAll("TimeCodecCompanion[OffsetDateTime]", TimeDecoderTests[OffsetDateTime].decoder[Int, Int])
+  checkAll("TimeCodecCompanion[OffsetDateTime]", TimeEncoderTests[OffsetDateTime].encoder[Int, Int])
+
+  checkAll("TimeCodecCompanion[LocalDateTime]", TimeDecoderTests[LocalDateTime].decoder[Int, Int])
+  checkAll("TimeCodecCompanion[LocalDateTime]", TimeEncoderTests[LocalDateTime].encoder[Int, Int])
+
+  checkAll("TimeCodecCompanion[LocalDate]", TimeDecoderTests[LocalDate].decoder[Int, Int])
+  checkAll("TimeCodecCompanion[LocalDate]", TimeEncoderTests[LocalDate].encoder[Int, Int])
+
+  checkAll("TimeCodecCompanion[LocalTime]", TimeDecoderTests[LocalTime].decoder[Int, Int])
+  checkAll("TimeCodecCompanion[LocalTime]", TimeEncoderTests[LocalTime].encoder[Int, Int])
 
 }

@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package enumeratum
-package values
+package kantan.codecs.enumeratum.values
 
-import laws.discipline._
-import laws.discipline.arbitrary._
+import kantan.codecs.enumeratum.laws.discipline.{
+  DisciplineSuite,
+  EnumeratedShort,
+  StringDecoderTests,
+  StringEncoderTests
+}
+import kantan.codecs.enumeratum.laws.discipline.arbitrary._
 
 class ShortEnumCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[EnumeratedShort]", StringDecoderTests[EnumeratedShort].decoder[Int, Int])
   checkAll("StringEncoder[EnumeratedShort]", StringEncoderTests[EnumeratedShort].encoder[Int, Int])
-  checkAll("StringCodec[EnumeratedShort]", StringCodecTests[EnumeratedShort].codec[Int, Int])
 
 }

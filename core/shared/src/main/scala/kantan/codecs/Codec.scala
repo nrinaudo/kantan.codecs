@@ -24,23 +24,34 @@ package kantan.codecs
   * alternative would be to require it to have a [[Decoder]] and an [[Encoder]] instance, which a [[Codec]] would
   * fulfill.
   */
-trait Codec[E, D, F, T] extends Decoder[E, D, F, T] with Encoder[E, D, T] {
-  @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
-  override def tag[TT]: Codec[E, D, F, TT] = this.asInstanceOf[Codec[E, D, F, TT]]
+trait Codec[Encoded, Decoded, Failure, Tag]
+    extends Decoder[Encoded, Decoded, Failure, Tag] with Encoder[Encoded, Decoded, Tag] {
 
-  override def leftMap[FF](f: F => FF): Codec[E, D, FF, T] = Codec.from(super.leftMap(f), this)
+  @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
+  override def tag[T]: Codec[Encoded, Decoded, Failure, T] = this.asInstanceOf[Codec[Encoded, Decoded, Failure, T]]
+
+  override def leftMap[F](f: Failure => F): Codec[Encoded, Decoded, F, Tag] = Codec.from(super.leftMap(f), this)
 
   @deprecated("Use leftMap instead", "0.2.1")
-  override def mapError[FF](f: F => FF): Codec[E, D, FF, T] = leftMap(f)
+  override def mapError[F](f: Failure => F): Codec[Encoded, Decoded, F, Tag] = leftMap(f)
 
-  def imap[DD](f: D => DD)(g: DD => D): Codec[E, DD, F, T] =
-    Codec.from((e: E) => decode(e).map(f))(g andThen encode)
-  def imapEncoded[EE](f: E => EE)(g: EE => E): Codec[EE, D, F, T] = Codec.from(g andThen decode)(d => f(encode(d)))
+  def imap[D](f: Decoded => D)(g: D => Decoded): Codec[Encoded, D, Failure, Tag] =
+    Codec.from((e: Encoded) => decode(e).map(f))(g andThen encode)
+
+  def imapEncoded[E](f: Encoded => E)(g: E => Encoded): Codec[E, Decoded, Failure, Tag] =
+    Codec.from(g andThen decode)(d => f(encode(d)))
 }
 
-trait CodecCompanion[E, F, T] {
-  @inline def from[D](f: E => Either[F, D])(g: D => E): Codec[E, D, F, T]             = Codec.from(f)(g)
-  @inline def from[D](d: Decoder[E, D, F, T], e: Encoder[E, D, T]): Codec[E, D, F, T] = Codec.from(d, e)
+trait CodecCompanion[Encoded, Failure, Tag] {
+
+  @inline def from[D](f: Encoded => Either[Failure, D])(g: D => Encoded): Codec[Encoded, D, Failure, Tag] =
+    Codec.from(f)(g)
+
+  @inline def from[D](
+    d: Decoder[Encoded, D, Failure, Tag],
+    e: Encoder[Encoded, D, Tag]
+  ): Codec[Encoded, D, Failure, Tag] =
+    Codec.from(d, e)
 }
 
 /** Provides instance creation methods for [[Codec]]. */

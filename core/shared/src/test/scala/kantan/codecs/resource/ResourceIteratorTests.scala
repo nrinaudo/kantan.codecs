@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
 import imp.imp
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest._, EitherValues._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -277,7 +275,7 @@ class ResourceIteratorTests
 
       val res = ResourceIterator(is: _*).safe(error)(identity)
       closedWhenEmpty(res) should be(true)
-      res.next().left.value should be(error)
+      res.next() should be(Left(error))
     }
   }
 

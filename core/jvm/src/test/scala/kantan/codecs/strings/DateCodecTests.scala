@@ -14,23 +14,31 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
 import java.text.SimpleDateFormat
 import java.util.{Date, Locale}
-import laws.discipline._, arbitrary._
+import kantan.codecs.laws.{HasIllegalValues, HasLegalValues}
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
+import kantan.codecs.laws.discipline.arbitrary._
 
 class DateCodecTests extends DisciplineSuite {
+  val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.ENGLISH)
 
   implicit val codec: StringCodec[Date] =
-    StringCodec.dateCodec(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.ENGLISH))
+    StringCodec.dateCodec(format)
 
-  checkAll("StringDecoder[Date]", StringDecoderTests[Date].decoder[Int, Int])
-  checkAll("StringEncoder[Date]", StringEncoderTests[Date].encoder[Int, Int])
+  implicit val hasLegalValues: HasLegalValues[String, Date, codecs.type] =
+    HasLegalValues.from(date => format.synchronized(format.format(date)))
+
+  implicit val hasIllegalValues: HasIllegalValues[String, Date, codecs.type] =
+    HasIllegalValues.fromUnsafeString(s => format.synchronized(format.parse(s)))
+
+  checkAll("StringDecoder[Date]", StringCodecTests[Date].decoder[Int, Int])
+  checkAll("StringEncoder[Date]", StringCodecTests[Date].encoder[Int, Int])
   checkAll("StringCodec[Date]", StringCodecTests[Date].codec[Int, Int])
 
-  checkAll("TaggedDecoder[Date]", DecoderTests[String, Date, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[Date]", EncoderTests[String, Date, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[Date]", tagged.DecoderTests[Date].decoder[Int, Int])
+  checkAll("TaggedEncoder[Date]", tagged.EncoderTests[Date].encoder[Int, Int])
 
 }

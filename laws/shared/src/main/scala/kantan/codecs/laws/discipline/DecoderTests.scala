@@ -14,29 +14,33 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import CodecValue.{IllegalValue, LegalValue}
-import arbitrary._
 import imp.imp
-import org.scalacheck.{Arbitrary, Cogen}
-import org.scalacheck.Prop._
+import kantan.codecs.Decoder
+import kantan.codecs.laws.{CodecValue, DecoderLaws}
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import org.scalacheck.{Arbitrary, Cogen, Shrink}
+import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
-trait DecoderTests[E, D, F, T] extends Laws {
-  def laws: DecoderLaws[E, D, F, T]
+trait DecoderTests[Encoded, Decoded, Failure, Tag] extends Laws {
+  def laws: DecoderLaws[Encoded, Decoded, Failure, Tag]
 
-  implicit def arbLegal: Arbitrary[LegalValue[E, D, T]]
+  implicit def arbLegal: Arbitrary[LegalValue[Encoded, Decoded, Tag]]
 
-  implicit def arbF: Arbitrary[F]
-  implicit val arbD: Arbitrary[D]
-  implicit val arbE: Arbitrary[E]
-  implicit val cogenF: Cogen[F]
-  implicit val cogenD: Cogen[D]
+  implicit def arbF: Arbitrary[Failure]
+  implicit val arbD: Arbitrary[Decoded]
+  implicit val shrinkD: Shrink[Decoded]
+  implicit val arbE: Arbitrary[Encoded]
+  implicit val cogenF: Cogen[Failure]
+  implicit val cogenD: Cogen[Decoded]
 
-  private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit arbED: Arbitrary[CodecValue[E, D, T]]) =
+  private def coreRules[A: Arbitrary: Cogen: Shrink, B: Arbitrary: Cogen: Shrink](
+    implicit arbED: Arbitrary[CodecValue[Encoded, Decoded, Tag]],
+    shrinkFoo: Shrink[IllegalValue[Encoded, Decoded, Tag]],
+    shrinkBar: Shrink[LegalValue[Encoded, Decoded, Tag]]
+  ) =
     new SimpleRuleSet(
       "core",
       "decode"                       -> forAll(laws.decode _),
@@ -50,15 +54,22 @@ trait DecoderTests[E, D, F, T] extends Laws {
       "leftMap composition"          -> forAll(laws.leftMapComposition[A, B] _)
     )
 
-  def bijectiveDecoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet = {
-    implicit val arbValues: Arbitrary[CodecValue[E, D, T]] = Arbitrary(arbLegal.arbitrary)
+  def bijectiveDecoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
+    implicit shrinkFoo: Shrink[IllegalValue[Encoded, Decoded, Tag]],
+    shrinkBar: Shrink[LegalValue[Encoded, Decoded, Tag]]
+  ): RuleSet = {
+    implicit val arbValues: Arbitrary[CodecValue[Encoded, Decoded, Tag]] = Arbitrary(arbLegal.arbitrary)
     new DefaultRuleSet(
       "bijective decoder",
       Some(coreRules[A, B])
     )
   }
 
-  def decoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
+  def decoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
+    implicit ai: Arbitrary[IllegalValue[Encoded, Decoded, Tag]],
+    shrinkFoo: Shrink[IllegalValue[Encoded, Decoded, Tag]],
+    shrinkBar: Shrink[LegalValue[Encoded, Decoded, Tag]]
+  ): RuleSet =
     new DefaultRuleSet(
       "decoder",
       Some(coreRules[A, B]),
@@ -67,17 +78,18 @@ trait DecoderTests[E, D, F, T] extends Laws {
 }
 
 object DecoderTests {
-  def apply[E: Arbitrary, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](
-    implicit l: DecoderLaws[E, D, F, T],
+  def apply[E: Arbitrary, D: Arbitrary: Cogen: Shrink, F: Cogen: Arbitrary, T](
+    implicit d: Decoder[E, D, F, T],
     al: Arbitrary[LegalValue[E, D, T]]
   ): DecoderTests[E, D, F, T] =
     new DecoderTests[E, D, F, T] {
-      override val laws     = l
+      override val laws     = DecoderLaws[E, D, F, T]
       override val arbLegal = al
       override val arbF     = imp[Arbitrary[F]]
       override val cogenF   = Cogen[F]
       override val cogenD   = Cogen[D]
       override val arbD     = imp[Arbitrary[D]]
       override val arbE     = imp[Arbitrary[E]]
+      override val shrinkD  = imp[Shrink[D]]
     }
 }

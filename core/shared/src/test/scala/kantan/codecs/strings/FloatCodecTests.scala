@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
-import laws.discipline._, arbitrary._
-import tagged._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
 
 class FloatCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[Float]", StringDecoderTests[Float].decoder[Int, Int])
-  checkAll("StringEncoder[Float]", StringEncoderTests[Float].encoder[Int, Int])
+  checkAll("StringDecoder[Float]", StringCodecTests[Float].decoder[Int, Int])
+  checkAll("StringEncoder[Float]", StringCodecTests[Float].encoder[Int, Int])
   checkAll("StringCodec[Float]", StringCodecTests[Float].codec[Int, Int])
 
-  checkAll("TaggedDecoder[Float]", DecoderTests[String, Float, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[Float]", EncoderTests[String, Float, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[Float]", tagged.DecoderTests[Float].decoder[Int, Int])
+  checkAll("TaggedEncoder[Float]", tagged.EncoderTests[Float].encoder[Int, Int])
 
 }

@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package libra
+package kantan.codecs.libra
 
-import _root_.libra.Quantity
-import laws.discipline._
-import laws.discipline.arbitrary._
+import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.libra.laws.discipline.arbitrary._
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import libra.Quantity
 import shapeless.HNil
-import strings._
 
 class LibraCodecTests extends DisciplineSuite {
 
@@ -42,9 +41,5 @@ class LibraCodecTests extends DisciplineSuite {
 
   checkAll("StringEncoder[Quantity[Int, HNil]]", StringEncoderTests[Quantity[Int, HNil]].encoder[Int, Int])
   checkAll("StringEncoder[Quantity[Int, HNil]]", SerializableTests[StringEncoder[Quantity[Int, HNil]]].serializable)
-
-  checkAll("StringCodec[Quantity[Double, HNil]]", StringCodecTests[Quantity[Double, HNil]].codec[Int, Int])
-
-  checkAll("StringCodec[Quantity[Int, HNil]]", StringCodecTests[Quantity[Int, HNil]].codec[Int, Int])
 
 }

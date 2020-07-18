@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
+package kantan.codecs.scalaz
 
-import _root_.scalaz.Maybe
-import laws.discipline._, arbitrary._
+import kantan.codecs.scalaz.laws.discipline.{DisciplineSuite, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.scalaz.laws.discipline.arbitrary._
+import scalaz.Maybe
 
 class MaybeCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[Maybe[Int]]", StringDecoderTests[Maybe[Int]].decoder[Int, Int])
   checkAll("StringEncoder[Maybe[Int]]", StringEncoderTests[Maybe[Int]].encoder[Int, Int])
-  checkAll("StringCodec[Maybe[Int]]", StringCodecTests[Maybe[Int]].codec[Int, Int])
 
 }

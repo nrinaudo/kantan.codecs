@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
-import laws.discipline._, arbitrary._
-import tagged._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.strings.tagged._
 
 class EitherCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[Either[Int, Boolean]]", StringDecoderTests[Either[Int, Boolean]].decoder[Int, Int])
   checkAll("StringEncoder[Either[Int, Boolean]]", StringEncoderTests[Either[Int, Boolean]].encoder[Int, Int])
-  checkAll("StringCodec[Either[Int, Boolean]]", StringCodecTests[Either[Int, Boolean]].codec[Int, Int])
+  // No StringCodec instance to test: we derive StringEncoder and StringEncoder instances separately.
 
   checkAll(
     "TaggedDecoder[Either[Int, Boolean]]",
-    DecoderTests[String, Either[Int, Boolean], DecodeError, tagged.type].decoder[Int, Int]
+    tagged.DecoderTests[Either[Int, Boolean]].decoder[Int, Int]
   )
   checkAll(
     "TaggedEncoder[Either[Int, Boolean]]",
-    EncoderTests[String, Either[Int, Boolean], tagged.type].encoder[Int, Int]
+    tagged.EncoderTests[Either[Int, Boolean]].encoder[Int, Int]
   )
 
 }

@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import arbitrary._
+import kantan.codecs.laws.LegalString
+import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.strings.StringCodec
 import org.scalacheck.{Arbitrary, Cogen}
-import strings._
 
 object StringCodecTests {
 
-  def apply[D: Arbitrary: Cogen](implicit l: StringCodecLaws[D], al: Arbitrary[LegalString[D]]): StringCodecTests[D] =
-    CodecTests[String, D, DecodeError, codecs.type]
+  def apply[D: Arbitrary: Cogen: StringCodec](implicit al: Arbitrary[LegalString[D]]): StringCodecTests[D] =
+    CodecTests.apply
 
 }

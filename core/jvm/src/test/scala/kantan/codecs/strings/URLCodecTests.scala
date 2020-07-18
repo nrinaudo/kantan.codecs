@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
 import java.net.URL
-import laws.discipline._, arbitrary._
-import tagged._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
+import kantan.codecs.laws.discipline.arbitrary._
 
 class URLCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[URL]", StringDecoderTests[URL].decoder[Int, Int])
-  checkAll("StringEncoder[URL]", StringEncoderTests[URL].encoder[Int, Int])
+  checkAll("StringDecoder[URL]", StringCodecTests[URL].decoder[Int, Int])
+  checkAll("StringEncoder[URL]", StringCodecTests[URL].encoder[Int, Int])
   checkAll("StringCodec[URL]", StringCodecTests[URL].codec[Int, Int])
 
-  checkAll("TaggedDecoder[URL]", DecoderTests[String, URL, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[URL]", EncoderTests[String, URL, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[URL]", tagged.DecoderTests[URL].decoder[Int, Int])
+  checkAll("TaggedEncoder[URL]", tagged.EncoderTests[URL].encoder[Int, Int])
 
 }

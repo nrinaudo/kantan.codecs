@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
+import kantan.codecs.laws.SerializableLaws
 import org.scalacheck.Prop
 import org.typelevel.discipline.Laws
 
@@ -32,7 +31,7 @@ trait SerializableTests[A] extends Laws {
 }
 
 object SerializableTests {
-  def apply[A](implicit l: SerializableLaws[A]): SerializableTests[A] = new SerializableTests[A] {
-    override def laws = l
+  def apply[A](implicit a: A): SerializableTests[A] = new SerializableTests[A] {
+    override def laws = SerializableLaws[A]
   }
 }

@@ -16,7 +16,6 @@
 
 package kantan.codecs
 
-import org.scalatest._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -27,13 +26,19 @@ class CodecCompanionTests extends AnyFunSuite with ScalaCheckPropertyChecks with
 
   test("CodecCompanion.from should be equivalent to Codec.from (for encoding)") {
     forAll { (f: String => Either[String, Int], g: Int => String, i: Int) =>
-      Codec.from(f)(g).encode(i) should be(Companion.from(f)(g).encode(i))
+      val codec     = Codec.from(f)(g)
+      val companion = Companion.from(f)(g)
+
+      codec.encode(i) should be(companion.encode(i))
     }
   }
 
   test("CodecCompanion.from should be equivalent to Codec.from (for decoding)") {
     forAll { (f: String => Either[String, Int], g: Int => String, str: String) =>
-      Codec.from(f)(g).decode(str) should be(Companion.from(f)(g).decode(str))
+      val codec     = Codec.from(f)(g)
+      val companion = Companion.from(f)(g)
+
+      codec.decode(str) should be(companion.decode(str))
     }
   }
 }

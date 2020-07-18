@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package libra
-package laws
-package discipline
+package kantan.codecs.libra.laws.discipline
 
-import _root_.libra.Quantity
-import _root_.shapeless.HList
-import kantan.codecs.laws._, CodecValue._
-import org.scalacheck.{Arbitrary, Cogen}, Arbitrary.{arbitrary => arb}
-import strings._
+import kantan.codecs.laws.{IllegalString, LegalString}
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.strings.StringEncoder
+import libra.Quantity
+import org.scalacheck.{Arbitrary, Cogen}
+import org.scalacheck.Arbitrary.{arbitrary => arb}
+import shapeless.HList
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
 

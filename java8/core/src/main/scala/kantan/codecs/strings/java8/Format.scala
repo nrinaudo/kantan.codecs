@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
-import java.time._
+import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
+import kantan.codecs.strings.{StringDecoder, StringResult}
 
 /** `Serializable` wrapper around `DateTimeFormatter`.
   *
@@ -48,7 +47,9 @@ sealed trait Format {
     * }}}
     */
   def parseInstant(str: String): StringResult[Instant] =
-    StringDecoder.makeSafe("Instant")(s => Instant.from(formatter.parse(s)))(str)
+    StringDecoder
+      .makeSafe(s => Instant.from(formatter.parse(s)))
+      .apply(str)
 
   /** Attempts to parse the specified string as a `LocalDateTime`.
     *
@@ -63,7 +64,9 @@ sealed trait Format {
     * }}}
     */
   def parseLocalDateTime(str: String): StringResult[LocalDateTime] =
-    StringDecoder.makeSafe("LocalDateTime")(s => LocalDateTime.parse(s, formatter))(str)
+    StringDecoder
+      .makeSafe(s => LocalDateTime.parse(s, formatter))
+      .apply(str)
 
   /** Attempts to parse the specified string as a `ZonedDateTime`.
     *
@@ -78,7 +81,9 @@ sealed trait Format {
     * }}}
     */
   def parseZonedDateTime(str: String): StringResult[ZonedDateTime] =
-    StringDecoder.makeSafe("ZonedDateTime")(s => ZonedDateTime.parse(s, formatter))(str)
+    StringDecoder
+      .makeSafe(s => ZonedDateTime.parse(s, formatter))
+      .apply(str)
 
   /** Attempts to parse the specified string as a `LocalDateTime`.
     *
@@ -93,7 +98,9 @@ sealed trait Format {
     * }}}
     */
   def parseLocalTime(str: String): StringResult[LocalTime] =
-    StringDecoder.makeSafe("LocalTime")(s => LocalTime.parse(s, formatter))(str)
+    StringDecoder
+      .makeSafe(s => LocalTime.parse(s, formatter))
+      .apply(str)
 
   /** Attempts to parse the specified string as a `LocalDate`.
     *
@@ -108,7 +115,9 @@ sealed trait Format {
     * }}}
     */
   def parseLocalDate(str: String): StringResult[LocalDate] =
-    StringDecoder.makeSafe("LocalDate")(s => LocalDate.parse(s, formatter))(str)
+    StringDecoder
+      .makeSafe(s => LocalDate.parse(s, formatter))
+      .apply(str)
 
   /** Attempts to parse the specified string as a `LocalDate`.
     *
@@ -123,7 +132,9 @@ sealed trait Format {
     * }}}
     */
   def parseOffsetDateTime(str: String): StringResult[OffsetDateTime] =
-    StringDecoder.makeSafe("OffsetDateTime")(s => OffsetDateTime.parse(s, formatter))(str)
+    StringDecoder
+      .makeSafe(s => OffsetDateTime.parse(s, formatter))
+      .apply(str)
 
   /** Formats the specified `TemporalAccessor` as a string.
     *
@@ -181,7 +192,7 @@ object Format {
     * res2: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
     * }}}
     */
-  val defaultInstantFormat: Format = Format(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC))
+  val defaultInstantFormat: Format = Format(DateTimeFormatter.ISO_INSTANT.withZone(java.time.ZoneOffset.UTC))
 
   /** Default `LocalDateTime` format.
     *

@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
 import java.io.File
 import java.net.{URI, URL}
 import java.nio.file.{AccessMode, Path}
 import java.text.SimpleDateFormat
 import java.util.{Date, Locale, UUID}
-import laws.discipline._
+import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
 
 class SerialisationTests extends DisciplineSuite {
 

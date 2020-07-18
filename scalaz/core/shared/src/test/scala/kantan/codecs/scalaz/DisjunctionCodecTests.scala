@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
+package kantan.codecs.scalaz
 
-import _root_.scalaz.\/
-import laws.discipline._, arbitrary._
+import kantan.codecs.scalaz.laws.discipline.{DisciplineSuite, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.scalaz.laws.discipline.arbitrary._
+import scalaz.\/
 
 class DisjunctionCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[Int \\/ Boolean]", StringDecoderTests[Int \/ Boolean].decoder[Int, Int])
   checkAll("StringEncoder[Int \\/ Boolean]", StringEncoderTests[Int \/ Boolean].encoder[Int, Int])
-  checkAll("StringCodec[Int \\/ Boolean]", StringCodecTests[Int \/ Boolean].codec[Int, Int])
 
 }

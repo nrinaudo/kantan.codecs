@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package enumeratum
-package values
+package kantan.codecs.enumeratum.values
 
-import laws.discipline._
-import laws.discipline.arbitrary._
+import kantan.codecs.enumeratum.laws.discipline.{
+  DisciplineSuite,
+  EnumeratedByte,
+  StringDecoderTests,
+  StringEncoderTests
+}
+import kantan.codecs.enumeratum.laws.discipline.arbitrary._
 
 class ByteEnumCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[EnumeratedByte]", StringDecoderTests[EnumeratedByte].decoder[Int, Int])
   checkAll("StringEncoder[EnumeratedByte]", StringEncoderTests[EnumeratedByte].encoder[Int, Int])
-  checkAll("StringCodec[EnumeratedByte]", StringCodecTests[EnumeratedByte].codec[Int, Int])
 
 }

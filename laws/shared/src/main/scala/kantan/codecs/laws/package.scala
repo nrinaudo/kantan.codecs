@@ -16,14 +16,16 @@
 
 package kantan.codecs
 
-import laws.CodecValue.{IllegalValue, LegalValue}
-import strings._
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.strings.{codecs, DecodeError}
 
 package object laws {
 
-  type StringValue[A]   = CodecValue[String, A, codecs.type]
-  type LegalString[A]   = LegalValue[String, A, codecs.type]
-  type IllegalString[A] = IllegalValue[String, A, codecs.type]
+  type StringValue[A]            = CodecValue[String, A, codecs.type]
+  type LegalString[A]            = LegalValue[String, A, codecs.type]
+  type IllegalString[A]          = IllegalValue[String, A, codecs.type]
+  type HasLegalStringValues[D]   = HasLegalValues[String, D, codecs.type]
+  type HasIllegalStringValues[D] = HasIllegalValues[String, D, codecs.type]
 
   type StringEncoderLaws[A] = EncoderLaws[String, A, codecs.type]
   type StringDecoderLaws[A] = DecoderLaws[String, A, DecodeError, codecs.type]

@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
-import laws.discipline._, arbitrary._
-import tagged._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
 
 class BigIntCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[BigInt]", StringDecoderTests[BigInt].decoder[Int, Int])
-  checkAll("StringEncoder[BigInt]", StringEncoderTests[BigInt].encoder[Int, Int])
+  checkAll("StringDecoder[BigInt]", StringCodecTests[BigInt].decoder[Int, Int])
+  checkAll("StringEncoder[BigInt]", StringCodecTests[BigInt].encoder[Int, Int])
   checkAll("StringCodec[BigInt]", StringCodecTests[BigInt].codec[Int, Int])
 
-  checkAll("TaggedDecoder[BigInt]", DecoderTests[String, BigInt, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[BigInt]", EncoderTests[String, BigInt, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[BigInt]", tagged.DecoderTests[BigInt].decoder[Int, Int])
+  checkAll("TaggedEncoder[BigInt]", tagged.EncoderTests[BigInt].encoder[Int, Int])
 
 }

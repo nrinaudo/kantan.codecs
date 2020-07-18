@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
 import java.time.LocalTime
-import laws.discipline._, arbitrary._
+import kantan.codecs.strings.StringEncoder
+import kantan.codecs.strings.java8.laws.discipline.{
+  DisciplineSuite,
+  SerializableTests,
+  StringDecoderTests,
+  StringEncoderTests
+}
+import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 
 class LocalTimeCodecTests extends DisciplineSuite {
 
@@ -28,7 +33,5 @@ class LocalTimeCodecTests extends DisciplineSuite {
 
   checkAll("StringEncoder[LocalTime]", StringEncoderTests[LocalTime].encoder[Int, Int])
   checkAll("StringEncoder[LocalTime]", SerializableTests[StringEncoder[LocalTime]].serializable)
-
-  checkAll("StringCodec[LocalTime]", StringCodecTests[LocalTime].codec[Int, Int])
 
 }

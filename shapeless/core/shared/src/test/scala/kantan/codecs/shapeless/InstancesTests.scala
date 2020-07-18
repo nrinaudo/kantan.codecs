@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package shapeless
+package kantan.codecs.shapeless
 
-import Instances._
-import _root_.shapeless._
-import laws._
-import laws.discipline._, arbitrary._
-import strings._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.shapeless.Instances._
+import kantan.codecs.shapeless.laws.Or
+import kantan.codecs.shapeless.laws.discipline.arbitrary._
+import kantan.codecs.strings.StringEncoder
+import shapeless.CNil
 
 @SuppressWarnings(Array("org.wartremover.warts.Null"))
 class InstancesTests extends DisciplineSuite {
@@ -30,7 +30,6 @@ class InstancesTests extends DisciplineSuite {
   // -------------------------------------------------------------------------------------------------------------------
   checkAll("StringDecoder[Int Or Boolean]", StringDecoderTests[Int Or Boolean].decoder[Int, Int])
   checkAll("StringEncoder[Int Or Boolean]", StringEncoderTests[Int Or Boolean].encoder[Int, Int])
-  checkAll("StringCodec[Int Or Boolean]", StringCodecTests[Int Or Boolean].codec[Int, Int])
 
   test("Encoder[?, CNil, ?] should fail") {
     intercept[IllegalStateException] { StringEncoder[CNil].encode(null) }

@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
 import java.time.OffsetDateTime
-import laws.discipline._, arbitrary._
+import kantan.codecs.strings.StringEncoder
+import kantan.codecs.strings.java8.laws.discipline.{
+  DisciplineSuite,
+  SerializableTests,
+  StringDecoderTests,
+  StringEncoderTests
+}
+import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 
 class OffsetDateTimeCodecTests extends DisciplineSuite {
 
@@ -28,7 +33,5 @@ class OffsetDateTimeCodecTests extends DisciplineSuite {
 
   checkAll("StringEncoder[OffsetDateTime]", StringEncoderTests[OffsetDateTime].encoder[Int, Int])
   checkAll("StringEncoder[OffsetDateTime]", SerializableTests[StringEncoder[OffsetDateTime]].serializable)
-
-  checkAll("StringCodec[OffsetDateTime]", StringCodecTests[OffsetDateTime].codec[Int, Int])
 
 }

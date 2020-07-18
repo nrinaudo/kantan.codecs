@@ -16,7 +16,7 @@
 
 package kantan.codecs
 
-import error.IsError
+import kantan.codecs.error.IsError
 import scala.util.{Failure, Success, Try}
 
 /** Provides trait that result companion object can extend.

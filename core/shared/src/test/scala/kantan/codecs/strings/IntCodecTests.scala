@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
-import laws.discipline._, arbitrary._
-import tagged._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
 
 class IntCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[Int]", StringDecoderTests[Int].decoder[Int, Int])
-  checkAll("StringEncoder[Int]", StringEncoderTests[Int].encoder[Int, Int])
+  checkAll("StringDecoder[Int]", StringCodecTests[Int].decoder[Int, Int])
+  checkAll("StringEncoder[Int]", StringCodecTests[Int].encoder[Int, Int])
   checkAll("StringCodec[Int]", StringCodecTests[Int].codec[Int, Int])
 
-  checkAll("TaggedDecoder[Int]", DecoderTests[String, Int, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[Int]", EncoderTests[String, Int, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[Int]", tagged.DecoderTests[Int].decoder[Int, Int])
+  checkAll("TaggedEncoder[Int]", tagged.EncoderTests[Int].encoder[Int, Int])
 
 }

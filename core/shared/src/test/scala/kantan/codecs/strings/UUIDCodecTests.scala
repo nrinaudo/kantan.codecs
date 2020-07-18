@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
 import java.util.UUID
-import laws.discipline._, arbitrary._
-import tagged._
+import kantan.codecs.laws.discipline.{DisciplineSuite, StringCodecTests}
+import kantan.codecs.laws.discipline.arbitrary._
 
 class UUIDCodecTests extends DisciplineSuite {
 
-  checkAll("StringDecoder[UUID]", StringDecoderTests[UUID].decoder[Int, Int])
-  checkAll("StringEncoder[UUID]", StringEncoderTests[UUID].encoder[Int, Int])
+  checkAll("StringDecoder[UUID]", StringCodecTests[UUID].decoder[Int, Int])
+  checkAll("StringEncoder[UUID]", StringCodecTests[UUID].encoder[Int, Int])
   checkAll("StringCodec[UUID]", StringCodecTests[UUID].codec[Int, Int])
 
-  checkAll("TaggedDecoder[UUID]", DecoderTests[String, UUID, DecodeError, tagged.type].decoder[Int, Int])
-  checkAll("TaggedEncoder[UUID]", EncoderTests[String, UUID, tagged.type].encoder[Int, Int])
+  checkAll("TaggedDecoder[UUID]", tagged.DecoderTests[UUID].decoder[Int, Int])
+  checkAll("TaggedEncoder[UUID]", tagged.EncoderTests[UUID].encoder[Int, Int])
 
 }

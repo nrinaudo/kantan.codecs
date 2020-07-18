@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
+
+import kantan.codecs.ResultCompanion
 
 object ProcessResult extends ResultCompanion.WithError[ResourceError.ProcessError]

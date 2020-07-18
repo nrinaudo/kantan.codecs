@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
-import java.time._
+import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
 import java.time.format.DateTimeFormatter
-import strings.StringEncoder
+import kantan.codecs.Encoder
+import kantan.codecs.strings.StringEncoder
 
 /** Provides useful methods for a java8 time encoder companions.
   *
   * Usage note: when declaring default implicit instances, be sure to wrap them in an [[export.Exported]]. Otherwise,
   * custom instances and default ones are very likely to conflict.
   */
-trait TimeEncoderCompanion[E, T] {
+trait TimeEncoderCompanion[Encoded, Tag] {
 
-  def encoderFrom[D](d: StringEncoder[D]): Encoder[E, D, T]
+  def encoderFrom[D](d: StringEncoder[D]): Encoder[Encoded, D, Tag]
 
   // - LocalTime -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -50,7 +49,8 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 12:00:00
     * }}}
     */
-  def localTimeEncoder(format: => DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
+  def localTimeEncoder(format: => DateTimeFormatter): Encoder[Encoded, LocalTime, Tag] =
+    localTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
@@ -68,7 +68,8 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 12:00:00.000
     * }}}
     */
-  def localTimeEncoder(format: Format): Encoder[E, LocalTime, T] = encoderFrom(StringEncoder.from(format.format))
+  def localTimeEncoder(format: Format): Encoder[Encoded, LocalTime, Tag] =
+    encoderFrom(StringEncoder.from(format.format))
 
   /** Creates an [[Encoder]] instance using the [[Format.defaultLocalTimeFormat default format]].
     *
@@ -86,7 +87,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 12:00:00
     * }}}
     */
-  def defaultLocalTimeEncoder: Encoder[E, LocalTime, T] = localTimeEncoder(Format.defaultLocalTimeFormat)
+  def defaultLocalTimeEncoder: Encoder[Encoded, LocalTime, Tag] = localTimeEncoder(Format.defaultLocalTimeFormat)
 
   // - LocalDate -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -107,7 +108,8 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01
     * }}}
     */
-  def localDateEncoder(format: => DateTimeFormatter): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
+  def localDateEncoder(format: => DateTimeFormatter): Encoder[Encoded, LocalDate, Tag] =
+    localDateEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
@@ -125,7 +127,8 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01
     * }}}
     */
-  def localDateEncoder(format: Format): Encoder[E, LocalDate, T] = encoderFrom(StringEncoder.from(format.format))
+  def localDateEncoder(format: Format): Encoder[Encoded, LocalDate, Tag] =
+    encoderFrom(StringEncoder.from(format.format))
 
   /** Creates an [[Encoder]] instance using the [[Format.defaultLocalDateFormat default format]].
     *
@@ -143,7 +146,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01
     * }}}
     */
-  def defaultLocalDateEncoder: Encoder[E, LocalDate, T] = localDateEncoder(Format.defaultLocalDateFormat)
+  def defaultLocalDateEncoder: Encoder[Encoded, LocalDate, Tag] = localDateEncoder(Format.defaultLocalDateFormat)
 
   // - LocalDateTime ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -164,7 +167,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00
     * }}}
     */
-  def localDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, LocalDateTime, T] =
+  def localDateTimeEncoder(format: => DateTimeFormatter): Encoder[Encoded, LocalDateTime, Tag] =
     localDateTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
@@ -183,7 +186,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00.000
     * }}}
     */
-  def localDateTimeEncoder(format: Format): Encoder[E, LocalDateTime, T] =
+  def localDateTimeEncoder(format: Format): Encoder[Encoded, LocalDateTime, Tag] =
     encoderFrom(StringEncoder.from(format.format))
 
   /** Creates an [[Encoder]] instance using the [[Format.defaultLocalDateTimeFormat default format]].
@@ -202,7 +205,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00
     * }}}
     */
-  def defaultLocalDateTimeEncoder: Encoder[E, LocalDateTime, T] =
+  def defaultLocalDateTimeEncoder: Encoder[Encoded, LocalDateTime, Tag] =
     localDateTimeEncoder(Format.defaultLocalDateTimeFormat)
 
   // - OffsetDateTime --------------------------------------------------------------------------------------------------
@@ -224,7 +227,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def offsetDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, OffsetDateTime, T] =
+  def offsetDateTimeEncoder(format: => DateTimeFormatter): Encoder[Encoded, OffsetDateTime, Tag] =
     offsetDateTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
@@ -243,7 +246,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00.000Z
     * }}}
     */
-  def offsetDateTimeEncoder(format: Format): Encoder[E, OffsetDateTime, T] =
+  def offsetDateTimeEncoder(format: Format): Encoder[Encoded, OffsetDateTime, Tag] =
     encoderFrom(StringEncoder.from(format.format))
 
   /** Creates an [[Encoder]] instance using the [[Format.defaultOffsetDateTimeFormat default format]].
@@ -262,7 +265,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def defaultOffsetDateTimeEncoder: Encoder[E, OffsetDateTime, T] =
+  def defaultOffsetDateTimeEncoder: Encoder[Encoded, OffsetDateTime, Tag] =
     offsetDateTimeEncoder(Format.defaultOffsetDateTimeFormat)
 
   // - ZonedDateTime ---------------------------------------------------------------------------------------------------
@@ -284,7 +287,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def zonedDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, ZonedDateTime, T] =
+  def zonedDateTimeEncoder(format: => DateTimeFormatter): Encoder[Encoded, ZonedDateTime, Tag] =
     zonedDateTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
@@ -303,7 +306,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00.000Z
     * }}}
     */
-  def zonedDateTimeEncoder(format: Format): Encoder[E, ZonedDateTime, T] =
+  def zonedDateTimeEncoder(format: Format): Encoder[Encoded, ZonedDateTime, Tag] =
     encoderFrom(StringEncoder.from(format.format))
 
   /** Creates an [[Encoder]] instance using the [[Format.defaultZonedDateTimeFormat default format]].
@@ -322,7 +325,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def defaultZonedDateTimeEncoder: Encoder[E, ZonedDateTime, T] =
+  def defaultZonedDateTimeEncoder: Encoder[Encoded, ZonedDateTime, Tag] =
     zonedDateTimeEncoder(Format.defaultZonedDateTimeFormat)
 
   // - Instant ---------------------------------------------------------------------------------------------------------
@@ -344,7 +347,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def instantEncoder(format: => DateTimeFormatter): Encoder[E, Instant, T] = instantEncoder(Format(format))
+  def instantEncoder(format: => DateTimeFormatter): Encoder[Encoded, Instant, Tag] = instantEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
@@ -362,7 +365,7 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def instantEncoder(format: Format): Encoder[E, Instant, T] =
+  def instantEncoder(format: Format): Encoder[Encoded, Instant, Tag] =
     encoderFrom(StringEncoder.from(format.format))
 
   /** Creates an [[Encoder]] instance using the [[Format.defaultInstantFormat default format]].
@@ -381,6 +384,6 @@ trait TimeEncoderCompanion[E, T] {
     * res1: String = 2000-01-01T12:00:00Z
     * }}}
     */
-  def defaultInstantEncoder: Encoder[E, Instant, T] = instantEncoder(Format.defaultInstantFormat)
+  def defaultInstantEncoder: Encoder[Encoded, Instant, Tag] = instantEncoder(Format.defaultInstantFormat)
 
 }

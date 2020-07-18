@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
 
-import strings._
+import kantan.codecs.strings.{codecs, DecodeError}
 
 package object discipline {
 

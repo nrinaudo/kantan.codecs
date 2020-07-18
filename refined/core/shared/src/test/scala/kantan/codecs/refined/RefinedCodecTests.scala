@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package refined
+package kantan.codecs.refined
 
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import laws.discipline._, arbitrary._
+import kantan.codecs.refined.laws.discipline.{DisciplineSuite, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.refined.laws.discipline.arbitrary._
 
 class RefinedCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[Int Refined Positive]", StringDecoderTests[Int Refined Positive].decoder[Int, Int])
   checkAll("StringEncoder[Int Refined Positive]", StringEncoderTests[Int Refined Positive].encoder[Int, Int])
-  checkAll("StringCodec[Int Refined Positive]", StringCodecTests[Int Refined Positive].codec[Int, Int])
 
 }

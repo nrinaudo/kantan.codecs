@@ -14,95 +14,85 @@
  * limitations under the License.
  */
 
-package kantan
-package codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
-import java.time._
+import java.time.{LocalDate, LocalDateTime, LocalTime, ZonedDateTime}
 import java.time.format.DateTimeFormatter
-import kantan.codecs.laws.SerializableLaws
-import laws.discipline._, arbitrary._
+import java.time.temporal.TemporalAccessor
+import kantan.codecs.strings.StringResult
+import kantan.codecs.strings.java8.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.codecs.strings.java8.laws.discipline.arbitrary._
+import org.scalacheck.Arbitrary
+import org.scalatest.compatible.Assertion
 
 class FormatTests extends DisciplineSuite {
 
-  checkAll("Format (from literal)", SerializableTests(SerializableLaws(fmt"yyyyMM")).serializable)
+  // - Serialization laws ----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  checkAll("Format (from literal)", SerializableTests(fmt"yyyyMM").serializable)
   checkAll(
     "Format (from DateTimeFormatter)",
-    SerializableTests(SerializableLaws(Format(DateTimeFormatter.ofPattern("yyyyMM")))).serializable
+    SerializableTests(Format(DateTimeFormatter.ofPattern("yyyyMM"))).serializable
   )
 
-  test("Format should yield the same results as the corresponding DateTimeFormatter for LocalDateTime") {
+  // - Comparison against Java implementations -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
+  /** Makes sure that the specified format is handled identically by our implementation and Java's. */
+  def testFormat[A <: TemporalAccessor: Arbitrary](
+    format: String,
+    kantanParse: (Format, String) => StringResult[A],
+    javaParse: (DateTimeFormatter, String) => A
+  ): Assertion = {
 
-    val formatStr = "yyyy-MM-dd'T'HH:mm:ss"
+    val kantanFormat = Format.from(format).getOrElse(sys.error(s"Not a valid format: '$format"))
+    val javaFormat   = DateTimeFormatter.ofPattern(format)
 
-    val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
-    val formatter = DateTimeFormatter.ofPattern(formatStr)
+    forAll { a: A =>
+      val str: String = javaFormat.format(a)
 
-    forAll { d: LocalDateTime =>
-      val str: String = formatter.format(d)
-
-      format.parseLocalDateTime(str) should be(Right(LocalDateTime.parse(str, formatter)))
+      kantanParse(kantanFormat, str) should be(Right(javaParse(javaFormat, str)))
 
     }
+  }
+
+  test("Format should yield the same results as the corresponding DateTimeFormatter for LocalDateTime") {
+    testFormat(
+      format = "yyyy-MM-dd'T'HH:mm:ss",
+      kantanParse = (format, str) => format.parseLocalDateTime(str),
+      javaParse = (formatter, str) => LocalDateTime.parse(str, formatter)
+    )
   }
 
   test("Format should yield the same results as the corresponding DateTimeFormatter for ZonedDateTime") {
-
-    val formatStr = "yyyy-MM-dd'T'HH:mm:ssxx"
-
-    val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
-    val formatter = DateTimeFormatter.ofPattern(formatStr)
-
-    forAll { d: ZonedDateTime =>
-      val str: String = formatter.format(d)
-
-      format.parseZonedDateTime(str) should be(Right(ZonedDateTime.parse(str, formatter)))
-    }
+    testFormat(
+      format = "yyyy-MM-dd'T'HH:mm:ssxx",
+      kantanParse = (format, str) => format.parseZonedDateTime(str),
+      javaParse = (formatter, str) => ZonedDateTime.parse(str, formatter)
+    )
   }
 
   test("Format should yield the same results as the corresponding DateTimeFormatter for LocalTime") {
-
-    val formatStr = "HH:mm:ss"
-
-    val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
-    val formatter = DateTimeFormatter.ofPattern(formatStr)
-
-    forAll { d: LocalTime =>
-      val str: String = formatter.format(d)
-
-      format.parseLocalTime(str) should be(Right(LocalTime.parse(str, formatter)))
-
-    }
+    testFormat(
+      format = "HH:mm:ss",
+      kantanParse = (format, str) => format.parseLocalTime(str),
+      javaParse = (formatter, str) => LocalTime.parse(str, formatter)
+    )
   }
 
   test("Format should yield the same results as the corresponding DateTimeFormatter for LocalDate") {
-
-    val formatStr = "yyyy-MM-dd"
-
-    val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
-    val formatter = DateTimeFormatter.ofPattern(formatStr)
-
-    forAll { d: LocalDate =>
-      val str: String = formatter.format(d)
-
-      format.parseLocalDate(str) should be(Right(LocalDate.parse(str, formatter)))
-    }
+    testFormat(
+      format = "yyyy-MM-dd",
+      kantanParse = (format, str) => format.parseLocalDate(str),
+      javaParse = (formatter, str) => LocalDate.parse(str, formatter)
+    )
   }
 
   test("Format should yield the same results as the corresponding DateTimeFormatter for OffsetDateTime") {
-
-    val formatStr = "yyyy-MM-dd'T'HH:mm:ssxx"
-
-    val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
-    val formatter = DateTimeFormatter.ofPattern(formatStr)
-
-    forAll { d: ZonedDateTime =>
-      val str: String = formatter.format(d)
-
-      format.parseZonedDateTime(str) should be(Right(ZonedDateTime.parse(str, formatter)))
-
-    }
+    testFormat(
+      format = "yyyy-MM-dd'T'HH:mm:ssxx",
+      kantanParse = (format, str) => format.parseZonedDateTime(str),
+      javaParse = (formatter, str) => ZonedDateTime.parse(str, formatter)
+    )
   }
 
   // Skipping tests for Instant, as this is not supported without ZoneId information that is impossible to convey

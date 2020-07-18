@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
-package laws
-package discipline
+package kantan.codecs.scalaz.laws.discipline
 
 import org.scalacheck.Properties
 import org.scalatestplus.scalacheck.Checkers

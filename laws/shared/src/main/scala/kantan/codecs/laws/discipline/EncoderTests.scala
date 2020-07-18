@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import CodecValue.LegalValue
-import imp._
+import imp.imp
+import kantan.codecs.Encoder
+import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.codecs.laws.EncoderLaws
 import org.scalacheck.{Arbitrary, Cogen}
-import org.scalacheck.Prop._
+import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
-trait EncoderTests[E, D, T] extends Laws {
-  def laws: EncoderLaws[E, D, T]
+trait EncoderTests[Encoded, Decoded, Tag] extends Laws {
+  def laws: EncoderLaws[Encoded, Decoded, Tag]
 
-  implicit def arbLegal: Arbitrary[LegalValue[E, D, T]]
-  implicit val arbD: Arbitrary[D]
-  implicit val cogenE: Cogen[E]
+  implicit def arbLegal: Arbitrary[LegalValue[Encoded, Decoded, Tag]]
+  implicit val arbD: Arbitrary[Decoded]
+  implicit val cogenE: Cogen[Encoded]
 
   def encoder[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet =
     new SimpleRuleSet(
-      "core",
+      "encoder",
       "encode"                 -> forAll(laws.encode _),
       "contramap identity"     -> forAll(laws.contramapIdentity _),
       "contramap composition"  -> forAll(laws.contramapComposition[A, B] _),
@@ -44,12 +44,12 @@ trait EncoderTests[E, D, T] extends Laws {
 
 object EncoderTests {
   def apply[E, D: Arbitrary, T](
-    implicit l: EncoderLaws[E, D, T],
+    implicit e: Encoder[E, D, T],
     al: Arbitrary[LegalValue[E, D, T]],
     ce: Cogen[E]
   ): EncoderTests[E, D, T] =
     new EncoderTests[E, D, T] {
-      override val laws     = l
+      override val laws     = EncoderLaws[E, D, T]
       override val arbLegal = al
       override val cogenE   = ce
       override val arbD     = imp[Arbitrary[D]]

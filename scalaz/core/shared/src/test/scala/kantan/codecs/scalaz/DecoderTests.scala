@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
+package kantan.codecs.scalaz
 
-import _root_.scalaz.scalacheck.ScalazProperties._
-import _root_.scalaz.std.anyVal._
-import laws.discipline._, arbitrary._, equality._
-import strings._
+import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
+import kantan.codecs.scalaz.laws.discipline.arbitrary._
+import kantan.codecs.scalaz.laws.discipline.equality._
+import kantan.codecs.strings.{DecodeError, StringDecoder}
+import scalaz.scalacheck.ScalazProperties._
+import scalaz.std.anyVal._
 
 class DecoderTests extends ScalazDisciplineSuite {
   checkAll("StringDecoder", monadError.laws[StringDecoder, DecodeError])

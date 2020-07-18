@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
+package kantan.codecs.scalaz
 
-import _root_.scalaz.Show
-import _root_.scalaz.scalacheck.ScalazProperties.{equal => equ}
-import laws.discipline._, arbitrary._
-import strings.DecodeError
+import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
+import kantan.codecs.scalaz.laws.discipline.arbitrary._
+import kantan.codecs.strings.DecodeError
+import scalaz.Show
+import scalaz.scalacheck.ScalazProperties.{equal => equ}
 
 class DecodeErrorTests extends ScalazDisciplineSuite {
 
