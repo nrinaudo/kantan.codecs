@@ -18,7 +18,6 @@ package kantan.codecs
 package export
 
 import DerivedCodecTests.{Just, Maybe, None}
-import org.scalatest._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
