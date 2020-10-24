@@ -22,7 +22,7 @@ import scala.collection.mutable.Buffer
 
 @SuppressWarnings(Array("org.wartremover.warts.MutableDataStructures"))
 trait VersionSpecificResourceIterator[+A] { self: ResourceIterator[A] =>
-  def to[F](factory: Factory[A, F]): F = foldLeft(factory.newBuilder)(_ += _).result
+  def to[F](factory: Factory[A, F]): F = foldLeft(factory.newBuilder)(_ += _).result()
 
   def toList: List[A]               = to(List)
   def toBuffer[AA >: A]: Buffer[AA] = to(Buffer)

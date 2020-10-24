@@ -22,7 +22,6 @@ import java.io.ByteArrayInputStream
 import java.nio.charset.Charset
 import org.apache.commons.io.{ByteOrderMark => BOM}
 import org.apache.commons.io.input.BOMInputStream
-import org.scalatest._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
