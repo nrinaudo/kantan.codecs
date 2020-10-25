@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
-package laws
+package kantan.codecs.scalaz.laws
 
 package object discipline extends kantan.codecs.laws.discipline.DisciplinePackage

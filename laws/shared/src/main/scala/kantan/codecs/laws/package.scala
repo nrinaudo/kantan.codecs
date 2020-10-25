@@ -16,8 +16,8 @@
 
 package kantan.codecs
 
-import laws.CodecValue.{IllegalValue, LegalValue}
-import strings._
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.strings.{codecs, DecodeError}
 
 package object laws {
 

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package error
+package kantan.codecs.error
+
+import kantan.codecs.ResultCompanion
 
 /** Type class for types that can be used as errors.
   *

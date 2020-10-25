@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.Arbitrary
@@ -24,12 +22,12 @@ import org.scalacheck.Arbitrary
 object codec {
 
   implicit def arbLegalValue[D](
-    implicit arb: Arbitrary[LegalValue[String, D, codecs.type]]
+    implicit arb: Arbitrary[LegalValue[String, D, kantan.codecs.strings.codecs.type]]
   ): Arbitrary[LegalValue[String, D, codec.type]] =
     Arbitrary(arb.arbitrary.map(_.tag[codec.type]))
 
   implicit def arbIllegalValue[D](
-    implicit arb: Arbitrary[IllegalValue[String, D, codecs.type]]
+    implicit arb: Arbitrary[IllegalValue[String, D, kantan.codecs.strings.codecs.type]]
   ): Arbitrary[IllegalValue[String, D, codec.type]] =
     Arbitrary(arb.arbitrary.map(_.tag[codec.type]))
 

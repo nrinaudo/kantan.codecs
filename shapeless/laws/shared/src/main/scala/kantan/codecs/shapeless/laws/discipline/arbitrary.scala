@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package shapeless
-package laws
-package discipline
+package kantan.codecs.shapeless.laws.discipline
 
 import org.scalacheck.derive._
 

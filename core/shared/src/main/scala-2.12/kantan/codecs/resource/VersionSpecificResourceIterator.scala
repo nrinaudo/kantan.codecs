@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
 import kantan.codecs.collection.Factory
 import scala.annotation.unchecked.{uncheckedVariance => uV}

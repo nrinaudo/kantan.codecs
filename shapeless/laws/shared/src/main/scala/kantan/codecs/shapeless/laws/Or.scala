@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package shapeless
-package laws
+package kantan.codecs.shapeless.laws
 
 sealed trait Or[+A, +B]         extends Product with Serializable
 final case class Left[A](a: A)  extends Or[A, Nothing]

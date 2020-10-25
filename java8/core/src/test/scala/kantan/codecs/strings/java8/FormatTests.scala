@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package kantan
-package codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
-import java.time._
+import java.time.{LocalDate, LocalDateTime, LocalTime, ZonedDateTime}
 import java.time.format.DateTimeFormatter
 import kantan.codecs.laws.SerializableLaws
-import laws.discipline._, arbitrary._
+import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 
 class FormatTests extends DisciplineSuite {
 

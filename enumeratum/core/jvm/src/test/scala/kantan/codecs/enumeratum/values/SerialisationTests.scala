@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package enumeratum
-package values
+package kantan.codecs.enumeratum.values
 
-import laws.discipline._
-import strings._
+import kantan.codecs.enumeratum.laws.discipline.{
+  EnumeratedByte,
+  EnumeratedChar,
+  EnumeratedInt,
+  EnumeratedLong,
+  EnumeratedShort,
+  EnumeratedString
+}
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.SerializableTests
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
 
 class SerialisationTests extends DisciplineSuite {
 

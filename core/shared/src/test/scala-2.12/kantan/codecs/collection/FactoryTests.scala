@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package collection
+package kantan.codecs.collection
 
 import org.scalacheck.Arbitrary
 import org.scalatest.funsuite.AnyFunSuite

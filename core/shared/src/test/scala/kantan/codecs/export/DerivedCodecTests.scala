@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package export
+package kantan.codecs.export
 
-import DerivedCodecTests.{Just, Maybe, None}
+import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.export.DerivedCodecTests.{Just, Maybe, None}
+import kantan.codecs.strings
+import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder, StringResult}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import strings.{DecodeError, StringDecoder, StringEncoder, StringResult}
 
 class DerivedCodecTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   val decode: String => StringResult[Maybe[Int]] = s =>

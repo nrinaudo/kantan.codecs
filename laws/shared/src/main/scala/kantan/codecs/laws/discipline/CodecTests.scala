@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import CodecValue.{IllegalValue, LegalValue}
-import arbitrary._
 import imp.imp
+import kantan.codecs.laws.{CodecLaws, CodecValue}
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Cogen}
-import org.scalacheck.Prop._
+import org.scalacheck.Prop.forAll
 
 trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[E, D, T] {
   def laws: CodecLaws[E, D, F, T]
