@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs.refined
+package kantan.codecs.shapeless
 
-import eu.timepit.refined.api.Refined
-import eu.timepit.refined.numeric.Positive
-import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.codecs.shapeless.Instances._
+import kantan.codecs.shapeless.laws.Or
+import kantan.codecs.shapeless.laws.discipline.{DisciplineSuite, SerializableTests}
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
 
-class SerialisationTests extends DisciplineSuite {
-
-  checkAll("StringDecoder[Int Refined Positive]", SerializableTests[StringDecoder[Int Refined Positive]].serializable)
-  checkAll("StringEncoder[Int Refined Positive]", SerializableTests[StringEncoder[Int Refined Positive]].serializable)
+class SerializationTests extends DisciplineSuite {
+  checkAll("StringDecoder[Int Or Boolean]", SerializableTests[StringDecoder[Int Or Boolean]].serializable)
+  checkAll("StringEncoder[Int Or Boolean]", SerializableTests[StringEncoder[Int Or Boolean]].serializable)
 
 }

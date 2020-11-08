@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs.shapeless
+package kantan.codecs.collection
 
-import kantan.codecs.shapeless.Instances._
-import kantan.codecs.shapeless.laws.Or
-import kantan.codecs.shapeless.laws.discipline.{DisciplineSuite, SerializableTests}
-import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
 
-class SerialisationTests extends DisciplineSuite {
-  checkAll("StringDecoder[Int Or Boolean]", SerializableTests[StringDecoder[Int Or Boolean]].serializable)
-  checkAll("StringEncoder[Int Or Boolean]", SerializableTests[StringEncoder[Int Or Boolean]].serializable)
-
+class VersionSpecificSerializationTests extends DisciplineSuite {
+  checkAll("Factory[StreamFactoryTests]", SerializableTests[Factory[Int, Stream[Int]]].serializable)
+  checkAll("Factory[TraversableFactoryTests]", SerializableTests[Factory[Int, Traversable[Int]]].serializable)
 }

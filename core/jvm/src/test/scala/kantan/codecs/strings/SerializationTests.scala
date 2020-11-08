@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.{Date, Locale, UUID}
 import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
 
-class SerialisationTests extends DisciplineSuite {
+class SerializationTests extends DisciplineSuite {
 
   checkAll("StringDecoder[BigDecimal]", SerializableTests[StringDecoder[BigDecimal]].serializable)
   checkAll("StringEncoder[BigDecimal]", SerializableTests[StringEncoder[BigDecimal]].serializable)

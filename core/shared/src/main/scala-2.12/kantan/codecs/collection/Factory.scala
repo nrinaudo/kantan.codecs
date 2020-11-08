@@ -26,7 +26,7 @@ import scala.reflect.ClassTag
   * This is a bit like `CanBuildFrom` (and instances of [[Factory]] can be derived automatically for any type that
   * has a `CanBuildFrom`), but simpler (no `From` type parameter, no variance, ...) and with one critical difference:
   * all the default instances are `Serializable`, meaning that type classes that depend on `Factory` can be
-  * used with Apache Spark and other framework that, unfortunately, rely on serialisation.
+  * used with Apache Spark and other framework that, unfortunately, rely on serialization.
   */
 trait Factory[A, C] {
   def newBuilder: mutable.Builder[A, C]

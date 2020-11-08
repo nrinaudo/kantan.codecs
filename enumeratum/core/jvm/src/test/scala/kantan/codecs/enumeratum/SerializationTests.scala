@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs.collection
+package kantan.codecs.enumeratum
 
+import kantan.codecs.enumeratum.laws.discipline.Enumerated
 import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
 
-class VersionSpecificSerialisationTests extends DisciplineSuite {
-  checkAll("Factory[LazyListFactoryTests]", SerializableTests[Factory[Int, LazyList[Int]]].serializable)
-  checkAll("Factory[IterableFactoryTests]", SerializableTests[Factory[Int, Iterable[Int]]].serializable)
+class SerializationTests extends DisciplineSuite {
+
+  checkAll("StringDecoder[Enumerated]", SerializableTests[StringDecoder[Enumerated]].serializable)
+  checkAll("StringEncoder[Enumerated]", SerializableTests[StringEncoder[Enumerated]].serializable)
+
 }

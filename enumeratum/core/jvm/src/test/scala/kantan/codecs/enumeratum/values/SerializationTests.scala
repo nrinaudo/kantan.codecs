@@ -28,7 +28,7 @@ import kantan.codecs.laws.discipline.DisciplineSuite
 import kantan.codecs.laws.discipline.SerializableTests
 import kantan.codecs.strings.{StringDecoder, StringEncoder}
 
-class SerialisationTests extends DisciplineSuite {
+class SerializationTests extends DisciplineSuite {
 
   checkAll("StringDecoder[EnumeratedByte]", SerializableTests[StringDecoder[Int]].serializable)
   checkAll("StringEncoder[EnumeratedByte]", SerializableTests[StringEncoder[EnumeratedByte]].serializable)
