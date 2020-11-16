@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
+
+import kantan.codecs.ResultCompanion
 
 object StringResult extends ResultCompanion.WithError[DecodeError]

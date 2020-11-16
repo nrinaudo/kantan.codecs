@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
-import java.io.{Closeable => _, _}
+import java.io.{Closeable => _}
+import java.io.{ByteArrayInputStream, InputStream, OutputStream}
+import java.io.{InputStreamReader, OutputStreamWriter, Reader, StringReader, Writer}
 import scala.io.Codec
 
 /** Represents a resource that can be opened and worked on.

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package libra
+package kantan.codecs.libra
 
-import _root_.libra.Quantity
-import laws.discipline._
-import laws.discipline.arbitrary._
+import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.codecs.laws.discipline.{StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.libra.laws.discipline.arbitrary._
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import libra.Quantity
 import shapeless.HNil
-import strings._
 
 class LibraCodecTests extends DisciplineSuite {
 

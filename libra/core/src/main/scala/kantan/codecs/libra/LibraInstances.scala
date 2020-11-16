@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package libra
+package kantan.codecs.libra
 
-import _root_.libra.Quantity
-import _root_.shapeless.HList
+import kantan.codecs.{Decoder, Encoder}
+import libra.Quantity
+import shapeless.HList
 
 trait DecoderInstances {
 

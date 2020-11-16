@@ -16,8 +16,8 @@
 
 package kantan.codecs
 
-import error._
-import export.DerivedDecoder
+import kantan.codecs.error.IsError
+import kantan.codecs.export.DerivedDecoder
 
 /** Type class for types that can be decoded from other types.
   *

@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
-import ResourceError.CloseError
+import kantan.codecs.resource.ResourceError.CloseError
 
 object CloseResult {
   val success: CloseResult                    = Right(())

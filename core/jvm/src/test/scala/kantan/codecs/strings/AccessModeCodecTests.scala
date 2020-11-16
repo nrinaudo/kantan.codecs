@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
 import java.nio.file.AccessMode
-import laws.discipline._, arbitrary._
+import kantan.codecs.laws.discipline.{DecoderTests, DisciplineSuite, EncoderTests}
+import kantan.codecs.laws.discipline.{StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.laws.discipline.arbitrary._
 
 class AccessModeCodecTests extends DisciplineSuite {
 
@@ -26,7 +27,10 @@ class AccessModeCodecTests extends DisciplineSuite {
   checkAll("StringEncoder[AccessMode]", StringEncoderTests[AccessMode].encoder[Int, Int])
   checkAll("StringCodec[AccessMode]", StringCodecTests[AccessMode].bijectiveCodec[Int, Int])
 
-  checkAll("TaggedDecoder[AccessMode]", StringDecoderTests[AccessMode].bijectiveDecoder[Int, Int])
-  checkAll("TaggedEncoder[AccessMode]", StringEncoderTests[AccessMode].encoder[Int, Int])
+  checkAll(
+    "TaggedDecoder[AccessMode]",
+    DecoderTests[String, AccessMode, DecodeError, tagged.type].bijectiveDecoder[Int, Int]
+  )
+  checkAll("TaggedEncoder[AccessMode]", EncoderTests[String, AccessMode, tagged.type].encoder[Int, Int])
 
 }

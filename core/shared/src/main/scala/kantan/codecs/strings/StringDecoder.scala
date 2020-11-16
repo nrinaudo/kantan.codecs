@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
+
+import kantan.codecs.DecoderCompanion
 
 /** Provides instance creation and summing methods for [[StringDecoder]].
   *

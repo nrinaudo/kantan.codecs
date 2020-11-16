@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package enumeratum
+package kantan.codecs.shapeless
 
-import laws.discipline._
-import strings._
+import kantan.codecs.shapeless.Instances._
+import kantan.codecs.shapeless.laws.Or
+import kantan.codecs.shapeless.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
 
-class SerialisationTests extends DisciplineSuite {
-
-  checkAll("StringDecoder[Enumerated]", SerializableTests[StringDecoder[Enumerated]].serializable)
-  checkAll("StringEncoder[Enumerated]", SerializableTests[StringEncoder[Enumerated]].serializable)
+class SerializationTests extends DisciplineSuite {
+  checkAll("StringDecoder[Int Or Boolean]", SerializableTests[StringDecoder[Int Or Boolean]].serializable)
+  checkAll("StringEncoder[Int Or Boolean]", SerializableTests[StringEncoder[Int Or Boolean]].serializable)
 
 }

@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
-package laws
-package discipline
+package kantan.codecs.scalaz.laws.discipline
 
-import _root_.scalaz.{\/, Maybe}
-import _root_.scalaz.scalacheck.{ScalazArbitrary => SA}
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.{Arbitrary, Cogen}
+import scalaz.{\/, Maybe}
+import scalaz.scalacheck.{ScalazArbitrary => SA}
 
 object arbitrary extends ArbitraryInstances
 

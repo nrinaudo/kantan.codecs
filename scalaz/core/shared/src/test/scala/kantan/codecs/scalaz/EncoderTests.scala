@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
+package kantan.codecs.scalaz
 
-import _root_.scalaz.Scalaz._
-import _root_.scalaz.scalacheck.ScalazProperties.contravariant
-import laws.discipline._, arbitrary._, equality._
-import strings.StringEncoder
+import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
+import kantan.codecs.scalaz.laws.discipline.arbitrary._
+import kantan.codecs.scalaz.laws.discipline.equality._
+import kantan.codecs.strings.StringEncoder
+import scalaz.scalacheck.ScalazProperties.contravariant
+import scalaz.std.anyVal._
+import scalaz.std.string._
 
 class EncoderTests extends ScalazDisciplineSuite {
   checkAll("StringEncoder", contravariant.laws[StringEncoder])

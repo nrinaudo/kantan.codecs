@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
-package laws
-package discipline
+package kantan.codecs.scalaz.laws.discipline
 
-import _root_.scalaz.Equal
+import kantan.codecs.{Decoder, Encoder}
 import org.scalacheck.Arbitrary
+import scalaz.Equal
 
 object equality extends EqualInstances
 

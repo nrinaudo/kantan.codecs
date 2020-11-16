@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
-import export.Exported
-import java.time._
+import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
+import kantan.codecs.export.Exported
 
 package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type] with ToFormatLiteral {
 

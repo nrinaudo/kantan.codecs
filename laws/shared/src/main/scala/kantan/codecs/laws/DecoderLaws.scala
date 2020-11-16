@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
 
-import CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.Decoder
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import org.scalacheck.Prop
 
 trait DecoderLaws[E, D, F, T] {

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package scalaz
+package kantan.codecs.scalaz
 
-import _root_.scalaz.Maybe
-import laws.discipline._, arbitrary._
+import kantan.codecs.laws.discipline.{StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.scalaz.laws.discipline.arbitrary._
+import scalaz.Maybe
 
 class MaybeCodecTests extends DisciplineSuite {
 

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package enumeratum
-package values
+package kantan.codecs.enumeratum.values
 
-import laws.discipline._
-import laws.discipline.arbitrary._
+import kantan.codecs.enumeratum.laws.discipline.EnumeratedInt
+import kantan.codecs.enumeratum.laws.discipline.arbitrary._
+import kantan.codecs.laws.discipline.{StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.laws.discipline.DisciplineSuite
 
 class IntEnumCodecTests extends DisciplineSuite {
 

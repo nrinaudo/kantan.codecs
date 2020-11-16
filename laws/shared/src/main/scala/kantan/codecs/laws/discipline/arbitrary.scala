@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import CodecValue.{IllegalValue, LegalValue}
 import imp.imp
-import java.io._
+import java.io.{IOException, UnsupportedEncodingException}
 import java.util.{Date, UUID}
 import java.util.regex.Pattern
-import org.scalacheck.{ArbitraryArities => _, _}, Arbitrary.{arbitrary => arb}, Gen._
+import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.laws.CodecValue
+import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.strings.DecodeError
+import org.scalacheck.{ArbitraryArities => _}
+import org.scalacheck.{Arbitrary, Cogen, Gen}
+import org.scalacheck.Arbitrary.{arbitrary => arb}
 import scala.util.Try
 import scala.util.matching.Regex
-import strings.DecodeError
 
 object arbitrary extends ArbitraryInstances
 
@@ -34,23 +36,25 @@ trait CommonArbitraryInstances extends ArbitraryArities {
 
   // - Arbitrary patterns ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  val genRegexOptions: Gen[Int] = listOf(
-    oneOf(
-      Pattern.UNIX_LINES,
-      256,
-      Pattern.CANON_EQ,
-      Pattern.CASE_INSENSITIVE,
-      Pattern.MULTILINE,
-      Pattern.DOTALL,
-      Pattern.LITERAL,
-      Pattern.UNICODE_CASE,
-      Pattern.COMMENTS
+  val genRegexOptions: Gen[Int] = Gen
+    .listOf(
+      Gen.oneOf(
+        Pattern.UNIX_LINES,
+        256,
+        Pattern.CANON_EQ,
+        Pattern.CASE_INSENSITIVE,
+        Pattern.MULTILINE,
+        Pattern.DOTALL,
+        Pattern.LITERAL,
+        Pattern.UNICODE_CASE,
+        Pattern.COMMENTS
+      )
     )
-  ).map(_.toSet.foldLeft(0)(_ | _))
+    .map(_.toSet.foldLeft(0)(_ | _))
 
   // TODO: add more standard regexes to this list?
   val genRegularExpression: Gen[String] =
-    oneOf("[a-zA-z]", "^[a-z0-9_-]{3,16}$", "^[a-z0-9_-]{6,18}$", "^#?([a-f0-9]{6}|[a-f0-9]{3})$")
+    Gen.oneOf("[a-zA-z]", "^[a-z0-9_-]{3,16}$", "^[a-z0-9_-]{6,18}$", "^#?([a-f0-9]{6}|[a-f0-9]{3})$")
 
   val genPattern: Gen[Pattern] = for {
     regex <- genRegularExpression
@@ -113,11 +117,11 @@ trait CommonArbitraryInstances extends ArbitraryArities {
   // https://github.com/scala/scala/pull/4320
   implicit lazy val arbBigDecimal: Arbitrary[BigDecimal] = {
     import java.math.MathContext._
-    val mcGen = oneOf(DECIMAL32, DECIMAL64, DECIMAL128)
+    val mcGen = Gen.oneOf(DECIMAL32, DECIMAL64, DECIMAL128)
     val bdGen = for {
       x     <- Arbitrary.arbitrary[BigInt]
       mc    <- mcGen
-      limit <- const(math.max(x.abs.toString.length - mc.getPrecision, 0))
+      limit <- Gen.const(math.max(x.abs.toString.length - mc.getPrecision, 0))
       scale <- Gen.choose(Int.MinValue + limit, Int.MaxValue)
     } yield {
       try {

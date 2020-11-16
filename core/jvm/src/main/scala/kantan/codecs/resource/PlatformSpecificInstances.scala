@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
-import java.io._
+import java.io.{CharArrayReader, File, InputStream, OutputStream, Reader}
 import java.net.{URI, URL}
 import java.nio.file.{Files, Path}
 

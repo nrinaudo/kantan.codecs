@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
 import imp.imp
+import kantan.codecs.laws.OptionalLaws
 import org.scalacheck.Arbitrary
-import org.scalacheck.Prop._
+import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
 trait OptionalTests[A] extends Laws {
