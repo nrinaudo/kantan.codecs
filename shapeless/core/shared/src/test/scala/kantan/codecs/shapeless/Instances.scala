@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package shapeless
+package kantan.codecs.shapeless
 
-import _root_.shapeless._
-import laws.discipline._
-import strings._
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import shapeless.{::, HNil}
 
-object Instances extends DisciplineSuite {
+object Instances {
 
   // - HList / Coproduct instances -------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

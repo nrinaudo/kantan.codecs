@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
-import java.time._
+import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
 import java.time.format.DateTimeFormatter
-import strings.StringEncoder
+import kantan.codecs.Encoder
+import kantan.codecs.strings.StringEncoder
 
 /** Provides useful methods for a java8 time encoder companions.
   *

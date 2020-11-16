@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
 trait PlatformSpecificDisciplinePackage

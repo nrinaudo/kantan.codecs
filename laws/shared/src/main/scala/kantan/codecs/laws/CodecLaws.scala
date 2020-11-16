@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
 
-import CodecValue.LegalValue
+import kantan.codecs.{Codec, Decoder, Encoder}
+import kantan.codecs.laws.CodecValue.LegalValue
 
 trait CodecLaws[E, D, F, T] extends DecoderLaws[E, D, F, T] with EncoderLaws[E, D, T] {
   implicit lazy val codec: Codec[E, D, F, T] = Codec.from(decoder.decode _)(encoder.encode _)

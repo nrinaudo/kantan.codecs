@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
 trait VersionSpecificResourceIteratorTests { self: ResourceIteratorTests =>
   test("to(List) should behave as expected") {

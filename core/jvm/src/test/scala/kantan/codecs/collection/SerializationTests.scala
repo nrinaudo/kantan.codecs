@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package collection
+package kantan.codecs.collection
 
-import laws.discipline._
+import kantan.codecs.laws.discipline.SerializableTests
 import scala.collection.immutable.{Queue, TreeSet}
 
-class SerialisationTests extends VersionSpecificSerialisationTests {
+class SerializationTests extends VersionSpecificSerializationTests {
   checkAll("Factory[TreeSet]", SerializableTests[Factory[Int, TreeSet[Int]]].serializable)
   checkAll("Factory[QueueFactoryTests]", SerializableTests[Factory[Int, Queue[Int]]].serializable)
   checkAll("Factory[ListFactoryTests]", SerializableTests[Factory[Int, List[Int]]].serializable)

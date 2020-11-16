@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
+
+import kantan.codecs.ResultCompanion
 
 /** Provides convenience methods for [[ResourceResult]]. */
 object ResourceResult extends ResultCompanion.Simple[ResourceError] {

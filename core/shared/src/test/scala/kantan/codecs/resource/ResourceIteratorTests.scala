@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
 import imp.imp
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest._, EitherValues._
+import org.scalatest.EitherValues._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks

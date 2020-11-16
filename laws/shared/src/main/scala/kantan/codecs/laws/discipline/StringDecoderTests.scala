@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import arbitrary._
+import kantan.codecs.laws.{LegalString, StringDecoderLaws}
+import kantan.codecs.laws.discipline.arbitrary._
+import kantan.codecs.strings.{codecs, DecodeError}
 import org.scalacheck.{Arbitrary, Cogen}
-import strings._
 
 object StringDecoderTests {
 

@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
-package discipline
+package kantan.codecs.laws.discipline
 
-import CodecValue.IllegalValue
-import java.io._
+import java.io.{EOFException, File, FileNotFoundException}
 import java.net.{URI, URL}
 import java.nio.file.{AccessMode, Path}
-import org.scalacheck._, Gen._
+import kantan.codecs.laws.CodecValue.IllegalValue
+import org.scalacheck.{Arbitrary, Cogen, Gen}
 
 trait ArbitraryInstances extends CommonArbitraryInstances {
   // This is just a sample java enum.
@@ -42,16 +40,16 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
   }
 
   val genPathElement: Gen[String] = for {
-    length <- choose(1, 10)
-    path   <- listOfN(length, alphaLowerChar)
+    length <- Gen.choose(1, 10)
+    path   <- Gen.listOfN(length, Gen.alphaLowerChar)
   } yield path.mkString
 
   val genURL: Gen[URL] = for {
-    protocol <- oneOf("http", "https")
-    host     <- identifier
-    port     <- choose(0, 65535)
-    length   <- choose(0, 5)
-    path     <- listOfN(length, genPathElement)
+    protocol <- Gen.oneOf("http", "https")
+    host     <- Gen.identifier
+    port     <- Gen.choose(0, 65535)
+    length   <- Gen.choose(0, 5)
+    path     <- Gen.listOfN(length, genPathElement)
   } yield new URL(protocol, host, port, path.mkString("/", "/", ""))
 
   implicit val arbURL: Arbitrary[URL] = Arbitrary(genURL)
@@ -72,6 +70,10 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
   val genFileNotFound: Gen[FileNotFoundException] =
     arbFile.arbitrary.map(f => new FileNotFoundException(s"File not found: ${f.toString}"))
   override val genIoException =
-    Gen.oneOf(genFileNotFound, genUnsupportedEncoding, Gen.const(new EOFException))
+    Gen.oneOf(
+      genFileNotFound,
+      genUnsupportedEncoding,
+      Gen.const(new EOFException)
+    )
 
 }

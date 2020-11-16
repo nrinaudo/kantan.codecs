@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
-import laws.discipline._
+import kantan.codecs.laws.discipline.DisciplineSuite
 
 // TODO: this is currently disabled because of Java's messed up Pattern.equals implementation.
 class PatternCodecTests extends DisciplineSuite /*{

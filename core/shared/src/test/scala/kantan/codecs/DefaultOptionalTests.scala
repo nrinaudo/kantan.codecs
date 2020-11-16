@@ -16,7 +16,7 @@
 
 package kantan.codecs
 
-import laws.discipline._
+import kantan.codecs.laws.discipline.{DisciplineSuite, OptionalTests}
 
 class DefaultOptionalTests extends DisciplineSuite {
   checkAll("Optional[Option[Int]]", OptionalTests[Option[Int]].optional)

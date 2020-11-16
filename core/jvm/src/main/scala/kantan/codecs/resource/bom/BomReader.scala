@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
-package bom
+package kantan.codecs.resource.bom
 
-import java.io._
+import java.io.{InputStream, InputStreamReader, PushbackInputStream, Reader}
 import scala.io.Codec
 
 object BomReader {

@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
-import error._
+import kantan.codecs.error.{Error, ErrorCompanion}
 
 /** Errors that can occur while working with a [[Resource]]. */
 sealed abstract class ResourceError(message: String) extends Error(message)

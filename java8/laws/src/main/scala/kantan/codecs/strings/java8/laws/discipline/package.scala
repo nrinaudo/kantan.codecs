@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
-package laws
+package kantan.codecs.strings.java8.laws
 
 package object discipline extends kantan.codecs.laws.discipline.DisciplinePackage

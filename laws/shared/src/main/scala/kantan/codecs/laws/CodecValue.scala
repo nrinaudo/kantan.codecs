@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package laws
+package kantan.codecs.laws
 
 // TODO: investigate what type variance annotations can be usefully applied to CodecValue.
 sealed abstract class CodecValue[E, D, T] extends Product with Serializable {

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
+package kantan.codecs.strings
 
 import imp.imp
+import kantan.codecs.{Codec, Decoder, Encoder}
 
 object tagged {
 

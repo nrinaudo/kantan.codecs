@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
 /** Scala.js specific instances of [[Resource]]. */
 trait PlatformSpecificInstances

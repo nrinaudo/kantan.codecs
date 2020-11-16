@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package refined
+package kantan.codecs.refined
 
-import error.IsError
 import eu.timepit.refined.api.{RefType, Validate}
+import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.error.IsError
 
 trait DecoderInstances {
 

@@ -14,35 +14,9 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package resource
+package kantan.codecs.resource
 
-/*
-contains
-count
-fold
-foldLeft
-reduce
-reduceLeft
-withFilter
-collectFirst
-flatten
-slice
-zipWithIndex
-zip
-head
-headOption
-mkString
-mkString
-mkString
-sum
-product
-min
-max
-maxBy
-minBy
- */
-
+import kantan.codecs.ResultCompanion
 import scala.annotation.tailrec
 import scala.util.Try
 

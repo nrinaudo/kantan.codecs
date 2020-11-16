@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package kantan.codecs
-package strings
-package java8
+package kantan.codecs.strings.java8
 
 import java.time.ZonedDateTime
-import laws.discipline._, arbitrary._
+import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.codecs.laws.discipline.{StringCodecTests, StringDecoderTests, StringEncoderTests}
+import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 
 class ZonedDateTimeCodecTests extends DisciplineSuite {
 
   checkAll("StringDecoder[ZonedDateTime]", StringDecoderTests[ZonedDateTime].decoder[Int, Int])
-  checkAll("StringDecoder[ZonedDateTime]", SerializableTests[StringEncoder[ZonedDateTime]].serializable)
+  checkAll("StringDecoder[ZonedDateTime]", SerializableTests[StringDecoder[ZonedDateTime]].serializable)
 
   checkAll("StringEncoder[ZonedDateTime]", StringEncoderTests[ZonedDateTime].encoder[Int, Int])
   checkAll("StringEncoder[ZonedDateTime]", SerializableTests[StringEncoder[ZonedDateTime]].serializable)
