@@ -1,5 +1,5 @@
-kantanProject in ThisBuild := "codecs"
-startYear in ThisBuild     := Some(2016)
+ThisBuild / kantanProject := "codecs"
+ThisBuild / startYear     := Some(2016)
 
 lazy val jsModules: Seq[ProjectReference] = Seq(
   catsJS,
@@ -47,7 +47,7 @@ lazy val docs = project
   .enablePlugins(DocumentationPlugin)
   .settings(name := "docs")
   .settings(
-    unidocProjectFilter in (ScalaUnidoc, unidoc) :=
+    ScalaUnidoc / unidoc / unidocProjectFilter :=
       inAnyProject -- inProjects(jsModules: _*)
   )
   .dependsOn(catsJVM, coreJVM, enumeratumJVM, libra, refinedJVM, scalazJVM, shapelessJVM, java8)
