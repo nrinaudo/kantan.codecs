@@ -1,6 +1,6 @@
 object Versions {
   val cats                 = "2.6.1"
-  val collectionCompat     = "2.3.2"
+  val collectionCompat     = "2.5.0"
   val commonsIo            = "2.8.0"
   val disciplineScalatest  = "2.0.1"
   val enumeratum           = "1.7.0"
