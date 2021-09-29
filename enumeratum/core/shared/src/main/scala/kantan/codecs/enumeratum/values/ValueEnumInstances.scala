@@ -19,6 +19,7 @@ package kantan.codecs.enumeratum.values
 import enumeratum.values._
 import kantan.codecs.{Decoder, Encoder}
 import kantan.codecs.error.IsError
+import scala.annotation.nowarn
 
 // I would really prefer enumeratumDecoder && enumeratumEncoder to be implicit and to be sufficient, but somehow,
 // through a mechanism that I have yet to work out, I can get an implicit IntEnum[D] but not one of ValueEnum[Int, D],
@@ -94,31 +95,37 @@ trait EncoderInstances {
   ): Encoder[E, D, T] =
     encoder.contramap(_.value)
 
+  @nowarn
   implicit def intEnumeratumEncoder[E, D <: IntEnumEntry: IntEnum, T](
     implicit encoder: Encoder[E, Int, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
+  @nowarn
   implicit def longEnumeratumEncoder[E, D <: LongEnumEntry: LongEnum, T](
     implicit encoder: Encoder[E, Long, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
+  @nowarn
   implicit def shortEnumeratumEncoder[E, D <: ShortEnumEntry: ShortEnum, T](
     implicit encoder: Encoder[E, Short, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
+  @nowarn
   implicit def stringEnumeratumEncoder[E, D <: StringEnumEntry: StringEnum, T](
     implicit encoder: Encoder[E, String, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
+  @nowarn
   implicit def byteEnumeratumEncoder[E, D <: ByteEnumEntry: ByteEnum, T](
     implicit encoder: Encoder[E, Byte, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
+  @nowarn
   implicit def charEnumeratumEncoder[E, D <: CharEnumEntry: CharEnum, T](
     implicit encoder: Encoder[E, Char, T]
   ): Encoder[E, D, T] =

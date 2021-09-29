@@ -93,10 +93,10 @@ trait CommonArbitraryInstances extends ArbitraryArities {
 
   // - Codecs ----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbDecoder[E: Arbitrary: Cogen, D: Arbitrary, F: Arbitrary, T]: Arbitrary[Decoder[E, D, F, T]] =
+  implicit def arbDecoder[E: Cogen, D: Arbitrary, F: Arbitrary, T]: Arbitrary[Decoder[E, D, F, T]] =
     Arbitrary(arb[E => Either[F, D]].map(Decoder.from))
 
-  implicit def arbEncoder[E: Arbitrary, D: Arbitrary: Cogen, T]: Arbitrary[Encoder[E, D, T]] =
+  implicit def arbEncoder[E: Arbitrary, D: Cogen, T]: Arbitrary[Encoder[E, D, T]] =
     Arbitrary(arb[D => E].map(Encoder.from))
 
   // - String codecs ---------------------------------------------------------------------------------------------------
