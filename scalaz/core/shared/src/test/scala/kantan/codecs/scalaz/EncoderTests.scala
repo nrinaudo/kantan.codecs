@@ -21,7 +21,6 @@ import kantan.codecs.scalaz.laws.discipline.arbitrary._
 import kantan.codecs.scalaz.laws.discipline.equality._
 import kantan.codecs.strings.StringEncoder
 import scalaz.scalacheck.ScalazProperties.contravariant
-import scalaz.std.anyVal._
 import scalaz.std.string._
 
 class EncoderTests extends ScalazDisciplineSuite {

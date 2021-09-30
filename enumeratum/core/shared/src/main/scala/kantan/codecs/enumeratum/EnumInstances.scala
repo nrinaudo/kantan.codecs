@@ -19,6 +19,7 @@ package kantan.codecs.enumeratum
 import enumeratum.{Enum, EnumEntry}
 import kantan.codecs.{Decoder, Encoder}
 import kantan.codecs.error.IsError
+import scala.annotation.nowarn
 
 /** Defines implicit `Decoder` instances for any enumeratum `Enum` type. */
 trait DecoderInstances {
@@ -47,6 +48,7 @@ trait EncoderInstances {
   // - it has a major impact for `ValueEnum`
   // - I haven't been able to decide whether it was useful here or not, but it certainly can't hurt to reduce the
   //   implicit search space.
+  @nowarn
   implicit def enumeratumEncoder[E, D <: EnumEntry: Enum, T](
     implicit encoder: Encoder[E, String, T]
   ): Encoder[E, D, T] =
