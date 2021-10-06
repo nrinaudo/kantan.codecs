@@ -4,7 +4,7 @@ object Versions {
   val commonsIo            = "2.11.0"
   val disciplineScalatest  = "2.1.5"
   val enumeratum           = "1.7.0"
-  val enumeratumScalacheck = "1.7.0"
+  val enumeratumScalacheck = "1.7.1"
   val imp                  = "0.5.0"
   val libra                = "0.7.0"
   val refined              = "0.9.27"
