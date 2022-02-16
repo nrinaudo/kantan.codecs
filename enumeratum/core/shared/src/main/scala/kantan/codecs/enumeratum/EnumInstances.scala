@@ -25,14 +25,14 @@ import scala.annotation.nowarn
 trait DecoderInstances {
 
   implicit def enumeratumDecoder[E, D <: EnumEntry, F, T](
-    implicit enum: Enum[D],
+    implicit enumD: Enum[D],
     decoder: Decoder[E, String, F, T],
     error: IsError[F]
   ): Decoder[E, D, F, T] = {
     // Enum is not serializable. The following is to make sure that the generated Decoder doesn't embark a
     // non-serializable value and becomes non-serializable itself.
-    val map       = enum.namesToValuesMap
-    val enumLabel = enum.values.map(_.entryName).mkString("[", ", ", "]")
+    val map       = enumD.namesToValuesMap
+    val enumLabel = enumD.values.map(_.entryName).mkString("[", ", ", "]")
 
     decoder.emap { name =>
       map.get(name).toRight(error.fromMessage(s"'$name' is not a member of enumeration $enumLabel"))
