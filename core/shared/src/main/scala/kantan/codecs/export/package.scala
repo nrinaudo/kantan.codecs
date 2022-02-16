@@ -26,7 +26,7 @@ package kantan.codecs
   * rather than [[Decoder]] / [[Encoder]], however, they'll find themselves with a lower precedence and only be used
   * if no other, more specific instance is found.
   */
-package object export {
+package object `export` {
 
   /** [[Decoder]] instance that should only be used when no specific one is found. */
   type DerivedDecoder[E, D, F, T] = Exported[Decoder[E, D, F, T]]

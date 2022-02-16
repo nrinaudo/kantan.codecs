@@ -30,14 +30,14 @@ trait DecoderInstances {
 
   @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
   def enumeratumDecoder[V, E, D <: ValueEnumEntry[V], F, T](
-    implicit enum: ValueEnum[V, D],
+    implicit valueEnum: ValueEnum[V, D],
     decoder: Decoder[E, V, F, T],
     error: IsError[F]
   ): Decoder[E, D, F, T] = {
     // ValueEnum is not serializable. The following is to make sure that the generated Decoder doesn't embark a
     // non-serializable value and becomes non-serializable itself.
-    val map       = enum.valuesToEntriesMap
-    val enumLabel = enum.values.map(_.value).mkString("[", ", ", "]")
+    val map       = valueEnum.valuesToEntriesMap
+    val enumLabel = valueEnum.values.map(_.value).mkString("[", ", ", "]")
 
     decoder.emap { value =>
       map.get(value).toRight(error.fromMessage(s"'$value' is not in values $enumLabel"))

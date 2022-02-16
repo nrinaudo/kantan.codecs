@@ -43,18 +43,18 @@ trait ArbitraryInstances
   // -------------------------------------------------------------------------------------------------------------------
 
   def arbLegalEnumeratedValue[V: StringEncoder, A <: ValueEnumEntry[V]](
-    enum: ValueEnum[V, A]
+    valueEnum: ValueEnum[V, A]
   ): Arbitrary[LegalString[A]] =
     Arbitrary(
       Gen.oneOf(
-        enum.values.map(v => LegalValue[String, A, codecs.type](StringEncoder[V].encode(v.value), v))
+        valueEnum.values.map(v => LegalValue[String, A, codecs.type](StringEncoder[V].encode(v.value), v))
       )
     )
 
   def arbIllegalEnumeratedValue[V: StringEncoder, A <: ValueEnumEntry[V]](
-    enum: ValueEnum[V, A]
+    valueEnum: ValueEnum[V, A]
   ): Arbitrary[IllegalValue[String, A, codecs.type]] = {
-    val legal = enum.values.map(a => StringEncoder[V].encode(a.value))
+    val legal = valueEnum.values.map(a => StringEncoder[V].encode(a.value))
     Arbitrary {
       arb[String].suchThat(s => !legal.contains(s)).map(s => IllegalValue(s))
     }
