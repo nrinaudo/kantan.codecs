@@ -41,7 +41,7 @@ trait PlatformSpecificInstances {
     * }}}
     */
   implicit val urlStringCodec: StringCodec[URL] =
-    StringCodec.from(StringDecoder.makeSafe("URL")(s => new URL(s.trim)))(_.toString)
+    StringCodec.from(StringDecoder.makeSafe("URL")(s => new URI(s.trim).toURL()))(_.toString)
 
   /** Defines a [[StringCodec]] instance for `java.net.URI`.
     *

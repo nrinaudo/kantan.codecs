@@ -17,11 +17,6 @@
 package kantan.codecs.laws.discipline
 
 trait PlatformSpecificDisciplinePackage {
-
-  // We're using non-standard field names (since they're basically companion objects). Calm scalastyle down.
-  // scalastyle:off
   type SerializableTests[A] = kantan.codecs.laws.discipline.SerializableTests[A]
   val SerializableTests = kantan.codecs.laws.discipline.SerializableTests
-// scalastyle:on
-
 }

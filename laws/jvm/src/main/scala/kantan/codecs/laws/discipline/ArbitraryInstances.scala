@@ -50,7 +50,9 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
     port     <- Gen.choose(0, 65535)
     length   <- Gen.choose(0, 5)
     path     <- Gen.listOfN(length, genPathElement)
-  } yield new URL(protocol, host, port, path.mkString("/", "/", ""))
+  } yield
+  // public URI(String scheme, String userInfo, String host, int port, String path, String query, String fragment)
+  new URI(protocol, "", host, port, path.mkString("/", "/", ""), "", "").toURL()
 
   implicit val arbURL: Arbitrary[URL] = Arbitrary(genURL)
   implicit val arbURI: Arbitrary[URI] = Arbitrary(genURL.map(_.toURI))

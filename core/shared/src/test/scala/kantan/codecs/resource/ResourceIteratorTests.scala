@@ -28,7 +28,7 @@ class ResourceIteratorTests
     extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers with VersionSpecificResourceIteratorTests {
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  case class FailingIterator[A](iterator: Iterator[A], index: Int) {
+  case class FailingIterator[A](it: Iterator[A], index: Int) {
     def resourceIterator: ResourceIterator[A] = new ResourceIterator[A] {
       var i = 0
 
@@ -39,12 +39,12 @@ class ResourceIteratorTests
 
       override def readNext() = {
         checkFail()
-        iterator.next()
+        it.next()
       }
 
       override def checkNext = {
         checkFail()
-        iterator.hasNext
+        it.hasNext
       }
       override def release() = ()
     }
@@ -146,7 +146,7 @@ class ResourceIteratorTests
     forAll { (is: List[Int], n: Int) =>
       val res = ResourceIterator(is: _*).take(n)
       while(res.hasNext) res.next()
-      intercept[NoSuchElementException] { res.next() }
+      intercept[NoSuchElementException](res.next())
       ()
     }
   }
@@ -162,7 +162,7 @@ class ResourceIteratorTests
     forAll { (is: List[Int], f: Int => Option[String]) =>
       val res = ResourceIterator(is: _*).collect(Function.unlift(f))
       while(res.hasNext) res.next()
-      intercept[NoSuchElementException] { res.next() }
+      intercept[NoSuchElementException](res.next())
       ()
     }
   }
@@ -224,7 +224,7 @@ class ResourceIteratorTests
   }
 
   test("the empty iterator should throw when next is called") {
-    intercept[NoSuchElementException] { ResourceIterator.empty.next() }
+    intercept[NoSuchElementException](ResourceIterator.empty.next())
     ()
   }
 
@@ -288,9 +288,8 @@ class ResourceIteratorTests
         .withClose(() => closed = true)
         .safe(new Throwable("eos"))(identity)
 
-      while(res.hasNext) {
+      while(res.hasNext)
         if(res.next().isLeft) res.hasNext should be(false)
-      }
       closed should be(true)
     }
   }
@@ -322,8 +321,9 @@ class ResourceIteratorTests
   }
 
   test("toIterable should behave as expected") {
+    import scala.collection.compat._
     forAll { (is: List[Int]) =>
-      ResourceIterator(is: _*).toIterable should be(is.toIterable)
+      ResourceIterator(is: _*).toIterable should be(is.to(Iterable))
     }
   }
 

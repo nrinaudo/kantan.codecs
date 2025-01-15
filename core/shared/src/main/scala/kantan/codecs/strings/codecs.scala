@@ -262,7 +262,7 @@ object codecs extends PlatformSpecificInstances {
     * }}}
     */
   implicit val stringStringCodec: StringCodec[String] =
-    StringCodec.from(s => Right(s))(_.toString)
+    StringCodec.from(s => Right(s))(identity)
 
   /** Defines a [[StringCodec]] instance for `java.util.UUID`.
     *
