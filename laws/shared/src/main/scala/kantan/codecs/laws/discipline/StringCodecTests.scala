@@ -16,10 +16,13 @@
 
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.laws.{LegalString, StringCodecLaws}
+import kantan.codecs.laws.LegalString
+import kantan.codecs.laws.StringCodecLaws
 import kantan.codecs.laws.discipline.arbitrary._
-import kantan.codecs.strings.{codecs, DecodeError}
-import org.scalacheck.{Arbitrary, Cogen}
+import kantan.codecs.strings.DecodeError
+import kantan.codecs.strings.codecs
+import org.scalacheck.Arbitrary
+import org.scalacheck.Cogen
 
 object StringCodecTests {
 

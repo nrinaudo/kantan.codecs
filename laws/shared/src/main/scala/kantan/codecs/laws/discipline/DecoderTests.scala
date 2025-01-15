@@ -17,10 +17,13 @@
 package kantan.codecs.laws.discipline
 
 import imp.imp
-import kantan.codecs.laws.{CodecValue, DecoderLaws}
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.CodecValue
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.codecs.laws.DecoderLaws
 import kantan.codecs.laws.discipline.arbitrary._
-import org.scalacheck.{Arbitrary, Cogen}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Cogen
 import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
@@ -66,8 +69,8 @@ trait DecoderTests[E, D, F, T] extends Laws {
 }
 
 object DecoderTests {
-  def apply[E: Arbitrary, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](
-    implicit l: DecoderLaws[E, D, F, T],
+  def apply[E: Arbitrary, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](implicit
+    l: DecoderLaws[E, D, F, T],
     al: Arbitrary[LegalValue[E, D, T]]
   ): DecoderTests[E, D, F, T] =
     new DecoderTests[E, D, F, T] {

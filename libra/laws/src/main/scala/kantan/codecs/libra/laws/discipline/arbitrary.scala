@@ -16,12 +16,15 @@
 
 package kantan.codecs.libra.laws.discipline
 
-import kantan.codecs.laws.{IllegalString, LegalString}
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.codecs.laws.IllegalString
+import kantan.codecs.laws.LegalString
 import kantan.codecs.strings.StringEncoder
 import libra.Quantity
-import org.scalacheck.{Arbitrary, Cogen}
+import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.{arbitrary => arb}
+import org.scalacheck.Cogen
 import shapeless.HList
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
@@ -37,8 +40,8 @@ trait ArbitraryInstances {
   implicit def arbLegalQuantity[A: Arbitrary: StringEncoder, D <: HList]: Arbitrary[LegalString[Quantity[A, D]]] =
     Arbitrary(arb[A].map(a => LegalValue(StringEncoder[A].encode(a), Quantity(a))))
 
-  implicit def arbIllegalQuantity[A, D <: HList](
-    implicit ai: Arbitrary[IllegalString[A]]
+  implicit def arbIllegalQuantity[A, D <: HList](implicit
+    ai: Arbitrary[IllegalString[A]]
   ): Arbitrary[IllegalString[Quantity[A, D]]] =
     Arbitrary(ai.arbitrary.map(i => IllegalValue(i.encoded)))
 

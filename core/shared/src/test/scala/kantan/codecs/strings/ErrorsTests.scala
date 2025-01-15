@@ -26,7 +26,7 @@ class ErrorsTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matcher
     forAll { (e1: DecodeError, e2: Exception) =>
       (e1, e2) match {
         case (DecodeError(t1), DecodeError(t2)) => (e1 == e2) should be(t1 == t2)
-        case _                                  => e1 should not be (e2)
+        case _                                  => e1 should not be e2
       }
     }
   }

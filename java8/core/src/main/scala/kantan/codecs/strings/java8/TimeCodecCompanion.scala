@@ -16,9 +16,15 @@
 
 package kantan.codecs.strings.java8
 
-import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
-import java.time.format.DateTimeFormatter
 import kantan.codecs.Codec
+
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 /** Provides useful methods for a java8 time codec companions.
   *
@@ -33,7 +39,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -49,14 +55,15 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[LocalTime] = Right(12:00)
-    * }}}
+    *   }}}
     */
-  def localTimeCodec(format: => DateTimeFormatter): Codec[E, LocalTime, F, T] = localTimeCodec(Format(format))
+  def localTimeCodec(format: => DateTimeFormatter): Codec[E, LocalTime, F, T] =
+    localTimeCodec(Format(format))
 
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -72,7 +79,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[LocalTime] = Right(12:00)
-    * }}}
+    *   }}}
     */
   def localTimeCodec(format: Format): Codec[E, LocalTime, F, T] =
     Codec.from(localTimeDecoder(format), localTimeEncoder(format))
@@ -83,7 +90,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -99,7 +106,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
-    * }}}
+    *   }}}
     */
   def localDateTimeCodec(format: => DateTimeFormatter): Codec[E, LocalDateTime, F, T] =
     localDateTimeCodec(Format(format))
@@ -107,7 +114,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -123,7 +130,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[LocalDateTime] = Right(2000-01-01T12:00)
-    * }}}
+    *   }}}
     */
   def localDateTimeCodec(format: Format): Codec[E, LocalDateTime, F, T] =
     Codec.from(localDateTimeDecoder(format), localDateTimeEncoder(format))
@@ -134,7 +141,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -150,7 +157,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[LocalDate] = Right(2000-01-01)
-    * }}}
+    *   }}}
     */
   def localDateCodec(format: => DateTimeFormatter): Codec[E, LocalDate, F, T] =
     localDateCodec(Format(format))
@@ -158,7 +165,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -174,7 +181,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[LocalDate] = Right(2000-01-01)
-    * }}}
+    *   }}}
     */
   def localDateCodec(format: Format): Codec[E, LocalDate, F, T] =
     Codec.from(localDateDecoder(format), localDateEncoder(format))
@@ -185,7 +192,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -201,7 +208,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
-    * }}}
+    *   }}}
     */
   def instantCodec(format: => DateTimeFormatter): Codec[E, Instant, F, T] =
     instantCodec(Format(format))
@@ -209,7 +216,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -225,7 +232,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[Instant] = Right(2000-01-01T12:00:00Z)
-    * }}}
+    *   }}}
     */
   def instantCodec(format: Format): Codec[E, Instant, F, T] =
     Codec.from(instantDecoder(format), instantEncoder(format))
@@ -236,7 +243,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -252,7 +259,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
-    * }}}
+    *   }}}
     */
   def zonedDateTimeCodec(format: => DateTimeFormatter): Codec[E, ZonedDateTime, F, T] =
     zonedDateTimeCodec(Format(format))
@@ -260,7 +267,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -276,7 +283,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[ZonedDateTime] = Right(2000-01-01T12:00Z)
-    * }}}
+    *   }}}
     */
   def zonedDateTimeCodec(format: Format): Codec[E, ZonedDateTime, F, T] =
     Codec.from(zonedDateTimeDecoder(format), zonedDateTimeEncoder(format))
@@ -287,7 +294,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -303,7 +310,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
-    * }}}
+    *   }}}
     */
   def offsetDateTimeCodec(format: => DateTimeFormatter): Codec[E, OffsetDateTime, F, T] =
     offsetDateTimeCodec(Format(format))
@@ -311,7 +318,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
   /** Creates a [[Codec]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -327,7 +334,7 @@ trait TimeCodecCompanion[E, F, T] extends TimeDecoderCompanion[E, F, T] with Tim
     *
     * scala> codec.decode(encoded)
     * res2: StringResult[OffsetDateTime] = Right(2000-01-01T12:00Z)
-    * }}}
+    *   }}}
     */
   def offsetDateTimeCodec(format: Format): Codec[E, OffsetDateTime, F, T] =
     Codec.from(offsetDateTimeDecoder(format), offsetDateTimeEncoder(format))

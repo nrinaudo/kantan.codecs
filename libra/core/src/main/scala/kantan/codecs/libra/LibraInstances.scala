@@ -16,22 +16,25 @@
 
 package kantan.codecs.libra
 
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import libra.Quantity
 import shapeless.HList
 
 trait DecoderInstances {
 
-  implicit def libraQuantityDecoder[E, D, F, T, X <: HList](
-    implicit decoder: Decoder[E, D, F, T]
-  ): Decoder[E, Quantity[D, X], F, T] = decoder.map(Quantity.apply)
+  implicit def libraQuantityDecoder[E, D, F, T, X <: HList](implicit
+    decoder: Decoder[E, D, F, T]
+  ): Decoder[E, Quantity[D, X], F, T] =
+    decoder.map(Quantity.apply)
 
 }
 
 trait EncoderInstances {
 
-  implicit def libraQuantyEncoder[E, D, T, X <: HList](
-    implicit encoder: Encoder[E, D, T]
-  ): Encoder[E, Quantity[D, X], T] = encoder.contramap(_.value)
+  implicit def libraQuantyEncoder[E, D, T, X <: HList](implicit
+    encoder: Encoder[E, D, T]
+  ): Encoder[E, Quantity[D, X], T] =
+    encoder.contramap(_.value)
 
 }

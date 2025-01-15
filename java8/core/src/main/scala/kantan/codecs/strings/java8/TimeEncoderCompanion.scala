@@ -16,10 +16,16 @@
 
 package kantan.codecs.strings.java8
 
-import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
-import java.time.format.DateTimeFormatter
 import kantan.codecs.Encoder
 import kantan.codecs.strings.StringEncoder
+
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 /** Provides useful methods for a java8 time encoder companions.
   *
@@ -36,7 +42,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -47,14 +53,15 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.localTimeEncoder(DateTimeFormatter.ISO_LOCAL_TIME)
     *      |   .encode(LocalTime.of(12, 0, 0, 0))
     * res1: String = 12:00:00
-    * }}}
+    *   }}}
     */
-  def localTimeEncoder(format: => DateTimeFormatter): Encoder[E, LocalTime, T] = localTimeEncoder(Format(format))
+  def localTimeEncoder(format: => DateTimeFormatter): Encoder[E, LocalTime, T] =
+    localTimeEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -65,14 +72,15 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.localTimeEncoder(fmt"HH:mm:ss.SSS")
     *      |   .encode(LocalTime.of(12, 0, 0, 0))
     * res1: String = 12:00:00.000
-    * }}}
+    *   }}}
     */
-  def localTimeEncoder(format: Format): Encoder[E, LocalTime, T] = encoderFrom(StringEncoder.from(format.format))
+  def localTimeEncoder(format: Format): Encoder[E, LocalTime, T] =
+    encoderFrom(StringEncoder.from(format.format))
 
   /** Creates an [[Encoder]] instance using the [[Format.defaultLocalTimeFormat default format]].
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -83,9 +91,10 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.defaultLocalTimeEncoder
     *      |   .encode(LocalTime.of(12, 0, 0, 0))
     * res1: String = 12:00:00
-    * }}}
+    *   }}}
     */
-  def defaultLocalTimeEncoder: Encoder[E, LocalTime, T] = localTimeEncoder(Format.defaultLocalTimeFormat)
+  def defaultLocalTimeEncoder: Encoder[E, LocalTime, T] =
+    localTimeEncoder(Format.defaultLocalTimeFormat)
 
   // - LocalDate -------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -93,7 +102,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -104,14 +113,15 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.localDateEncoder(DateTimeFormatter.ISO_LOCAL_DATE)
     *      |   .encode(LocalDate.of(2000, 1, 1))
     * res1: String = 2000-01-01
-    * }}}
+    *   }}}
     */
-  def localDateEncoder(format: => DateTimeFormatter): Encoder[E, LocalDate, T] = localDateEncoder(Format(format))
+  def localDateEncoder(format: => DateTimeFormatter): Encoder[E, LocalDate, T] =
+    localDateEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -122,14 +132,15 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.localDateEncoder(fmt"yyyy-MM-DD")
     *      |   .encode(LocalDate.of(2000, 1, 1))
     * res1: String = 2000-01-01
-    * }}}
+    *   }}}
     */
-  def localDateEncoder(format: Format): Encoder[E, LocalDate, T] = encoderFrom(StringEncoder.from(format.format))
+  def localDateEncoder(format: Format): Encoder[E, LocalDate, T] =
+    encoderFrom(StringEncoder.from(format.format))
 
   /** Creates an [[Encoder]] instance using the [[Format.defaultLocalDateFormat default format]].
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -140,9 +151,10 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.defaultLocalDateEncoder
     *      |   .encode(LocalDate.of(2000, 1, 1))
     * res1: String = 2000-01-01
-    * }}}
+    *   }}}
     */
-  def defaultLocalDateEncoder: Encoder[E, LocalDate, T] = localDateEncoder(Format.defaultLocalDateFormat)
+  def defaultLocalDateEncoder: Encoder[E, LocalDate, T] =
+    localDateEncoder(Format.defaultLocalDateFormat)
 
   // - LocalDateTime ---------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -150,7 +162,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -161,7 +173,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.localDateTimeEncoder(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
     *      |   .encode(LocalDateTime.of(2000, 1, 1, 12, 0, 0, 0))
     * res1: String = 2000-01-01T12:00:00
-    * }}}
+    *   }}}
     */
   def localDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, LocalDateTime, T] =
     localDateTimeEncoder(Format(format))
@@ -169,7 +181,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -180,7 +192,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.localDateTimeEncoder(fmt"yyyy-MM-DD'T'HH:mm:ss.SSS")
     *      |   .encode(LocalDateTime.of(2000, 1, 1, 12, 0, 0, 0))
     * res1: String = 2000-01-01T12:00:00.000
-    * }}}
+    *   }}}
     */
   def localDateTimeEncoder(format: Format): Encoder[E, LocalDateTime, T] =
     encoderFrom(StringEncoder.from(format.format))
@@ -188,7 +200,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance using the [[Format.defaultLocalDateTimeFormat default format]].
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -199,7 +211,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.defaultLocalDateTimeEncoder
     *      |   .encode(LocalDateTime.of(2000, 1, 1, 12, 0, 0, 0))
     * res1: String = 2000-01-01T12:00:00
-    * }}}
+    *   }}}
     */
   def defaultLocalDateTimeEncoder: Encoder[E, LocalDateTime, T] =
     localDateTimeEncoder(Format.defaultLocalDateTimeFormat)
@@ -210,7 +222,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -221,7 +233,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.offsetDateTimeEncoder(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
     *      |   .encode(OffsetDateTime.of(2000, 1, 1, 12, 0, 0, 0, ZoneOffset.UTC))
     * res1: String = 2000-01-01T12:00:00Z
-    * }}}
+    *   }}}
     */
   def offsetDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, OffsetDateTime, T] =
     offsetDateTimeEncoder(Format(format))
@@ -229,7 +241,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -240,7 +252,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.offsetDateTimeEncoder(fmt"yyyy-MM-DD'T'HH:mm:ss.SSSXX")
     *      |   .encode(OffsetDateTime.of(2000, 1, 1, 12, 0, 0, 0, ZoneOffset.UTC))
     * res1: String = 2000-01-01T12:00:00.000Z
-    * }}}
+    *   }}}
     */
   def offsetDateTimeEncoder(format: Format): Encoder[E, OffsetDateTime, T] =
     encoderFrom(StringEncoder.from(format.format))
@@ -248,7 +260,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance using the [[Format.defaultOffsetDateTimeFormat default format]].
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -259,7 +271,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.defaultOffsetDateTimeEncoder
     *      |   .encode(OffsetDateTime.of(2000, 1, 1, 12, 0, 0, 0, ZoneOffset.UTC))
     * res1: String = 2000-01-01T12:00:00Z
-    * }}}
+    *   }}}
     */
   def defaultOffsetDateTimeEncoder: Encoder[E, OffsetDateTime, T] =
     offsetDateTimeEncoder(Format.defaultOffsetDateTimeFormat)
@@ -270,7 +282,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -281,7 +293,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.zonedDateTimeEncoder(DateTimeFormatter.ISO_ZONED_DATE_TIME)
     *      |   .encode(ZonedDateTime.of(2000, 1, 1, 12, 0, 0, 0, ZoneOffset.UTC))
     * res1: String = 2000-01-01T12:00:00Z
-    * }}}
+    *   }}}
     */
   def zonedDateTimeEncoder(format: => DateTimeFormatter): Encoder[E, ZonedDateTime, T] =
     zonedDateTimeEncoder(Format(format))
@@ -289,7 +301,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -300,7 +312,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.zonedDateTimeEncoder(fmt"yyyy-MM-DD'T'HH:mm:ss.SSSzz")
     *      |   .encode(ZonedDateTime.of(2000, 1, 1, 12, 0, 0, 0, ZoneOffset.UTC))
     * res1: String = 2000-01-01T12:00:00.000Z
-    * }}}
+    *   }}}
     */
   def zonedDateTimeEncoder(format: Format): Encoder[E, ZonedDateTime, T] =
     encoderFrom(StringEncoder.from(format.format))
@@ -308,7 +320,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance using the [[Format.defaultZonedDateTimeFormat default format]].
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -319,7 +331,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.defaultZonedDateTimeEncoder
     *      |   .encode(ZonedDateTime.of(2000, 1, 1, 12, 0, 0, 0, ZoneOffset.UTC))
     * res1: String = 2000-01-01T12:00:00Z
-    * }}}
+    *   }}}
     */
   def defaultZonedDateTimeEncoder: Encoder[E, ZonedDateTime, T] =
     zonedDateTimeEncoder(Format.defaultZonedDateTimeFormat)
@@ -330,7 +342,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -341,14 +353,15 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.instantEncoder(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC))
     *      |   .encode(Instant.parse("2000-01-01T12:00:00.000Z"))
     * res1: String = 2000-01-01T12:00:00Z
-    * }}}
+    *   }}}
     */
-  def instantEncoder(format: => DateTimeFormatter): Encoder[E, Instant, T] = instantEncoder(Format(format))
+  def instantEncoder(format: => DateTimeFormatter): Encoder[E, Instant, T] =
+    instantEncoder(Format(format))
 
   /** Creates an [[Encoder]] instance that uses the specified format.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._, format._
     * scala> import kantan.codecs.strings._
     *
@@ -359,7 +372,7 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.instantEncoder(Format(DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC)))
     *      |   .encode(Instant.parse("2000-01-01T12:00:00.000Z"))
     * res1: String = 2000-01-01T12:00:00Z
-    * }}}
+    *   }}}
     */
   def instantEncoder(format: Format): Encoder[E, Instant, T] =
     encoderFrom(StringEncoder.from(format.format))
@@ -367,7 +380,7 @@ trait TimeEncoderCompanion[E, T] {
   /** Creates an [[Encoder]] instance using the [[Format.defaultInstantFormat default format]].
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.time._
     * scala> import kantan.codecs.strings._
     *
@@ -378,8 +391,9 @@ trait TimeEncoderCompanion[E, T] {
     * scala> Foo.defaultInstantEncoder
     *      |   .encode(Instant.parse("2000-01-01T12:00:00.000Z"))
     * res1: String = 2000-01-01T12:00:00Z
-    * }}}
+    *   }}}
     */
-  def defaultInstantEncoder: Encoder[E, Instant, T] = instantEncoder(Format.defaultInstantFormat)
+  def defaultInstantEncoder: Encoder[E, Instant, T] =
+    instantEncoder(Format.defaultInstantFormat)
 
 }

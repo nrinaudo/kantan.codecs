@@ -23,16 +23,15 @@ object VersionSpecificResultCompanion {
   trait Simple[F] {
 
     /** Turns a collection of results into a result of a collection. */
-    @inline def sequence[S, M[X] <: TraversableOnce[X]](rs: M[Either[F, S]])(
-      implicit cbf: CanBuildFrom[M[Either[F, S]], S, M[S]]
+    @inline def sequence[S, M[X] <: TraversableOnce[X]](rs: M[Either[F, S]])(implicit
+      cbf: CanBuildFrom[M[Either[F, S]], S, M[S]]
     ): Either[F, M[S]] =
       rs.foldLeft(Right(cbf(rs)): Either[F, mutable.Builder[S, M[S]]]) { (builder, res) =>
-          for {
-            b <- builder.right
-            r <- res.right
-          } yield b += r
-        }
-        .right
+        for {
+          b <- builder.right
+          r <- res.right
+        } yield b += r
+      }.right
         .map(_.result())
   }
 }

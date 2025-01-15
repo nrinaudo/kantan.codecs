@@ -23,7 +23,8 @@ package kantan.codecs.error
   * `scala.util.Try`, for example.
   */
 abstract class Error(message: String) extends Exception(message) with Product with Serializable {
-  override final def toString: String = productPrefix + ": " + getMessage
+  override final def toString: String =
+    productPrefix + ": " + getMessage
 }
 
 /** Provides useful instance creation methods for errors that might be created as a result of Java exceptions. */
@@ -35,15 +36,21 @@ abstract class ErrorCompanion[T <: Error](defaultMsg: String)(f: String => T) ex
       error
     }
 
-    override def fromMessage(msg: String) = from(msg, new Exception(msg))
+    override def fromMessage(msg: String) =
+      from(msg, new Exception(msg))
 
-    override def fromThrowable(cause: Throwable): T = from(Option(cause.getMessage).getOrElse(defaultMsg), cause)
+    override def fromThrowable(cause: Throwable): T =
+      from(Option(cause.getMessage).getOrElse(defaultMsg), cause)
   }
 
   /** Attempts to evaluate the specified argument, wrapping errors in a `T`. */
-  def safe[A](a: => A): Either[T, A] = isError.safe(a)
+  def safe[A](a: => A): Either[T, A] =
+    isError.safe(a)
 
-  def apply(msg: String, cause: Throwable): T = isError.from(msg, cause)
-  def apply(cause: Throwable): T              = isError.fromThrowable(cause)
-  def apply(msg: String): T                   = isError.fromMessage(msg)
+  def apply(msg: String, cause: Throwable): T =
+    isError.from(msg, cause)
+  def apply(cause: Throwable): T =
+    isError.fromThrowable(cause)
+  def apply(msg: String): T =
+    isError.fromMessage(msg)
 }

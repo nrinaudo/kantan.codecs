@@ -16,7 +16,8 @@
 
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.strings.{codecs, DecodeError}
+import kantan.codecs.strings.DecodeError
+import kantan.codecs.strings.codecs
 
 trait DisciplinePackage extends PlatformSpecificDisciplinePackage {
 

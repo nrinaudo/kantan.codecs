@@ -19,7 +19,9 @@ package kantan.codecs.refined.laws.discipline
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
 import eu.timepit.refined.scalacheck._
-import kantan.codecs.laws.{CodecValue, IllegalString, LegalString}
+import kantan.codecs.laws.CodecValue
+import kantan.codecs.laws.IllegalString
+import kantan.codecs.laws.LegalString
 import kantan.codecs.laws.discipline.arbitrary._
 import org.scalacheck.Arbitrary
 

@@ -27,7 +27,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for Java enumerations.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.nio.file.AccessMode
     *
     * // Decoding example
@@ -37,7 +37,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[AccessMode].encode(AccessMode.READ)
     * res2: String = READ
-    * }}}
+    *   }}}
     */
   @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
   implicit def javaEnumStringCodec[T <: Enum[T]](implicit tag: ClassTag[T]): StringCodec[T] =
@@ -49,7 +49,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Pattern`.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import java.util.regex.Pattern
     *
     * // Decoding example
@@ -59,7 +59,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Pattern].encode(Pattern.compile("[a-z]"))
     * res2: String = [a-z]
-    * }}}
+    *   }}}
     */
   implicit val patternStringCodec: StringCodec[Pattern] =
     StringCodec.from(StringDecoder.makeSafe("Pattern")(s => Pattern.compile(s.trim)))(_.pattern())
@@ -67,7 +67,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Regex`.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> import scala.util.matching.Regex
     *
     * // Decoding example
@@ -77,7 +77,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Regex].encode("[a-z]".r)
     * res2: String = [a-z]
-    * }}}
+    *   }}}
     */
   implicit val regexStringCodec: StringCodec[Regex] =
     StringCodec.from(StringDecoder.makeSafe("Regex")(s => s.trim.r))(_.pattern.pattern())
@@ -85,7 +85,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `BigDecimal`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[BigDecimal].decode("2")
     * res1: StringResult[BigDecimal] = Right(2)
@@ -93,7 +93,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[BigDecimal].encode(BigDecimal(2D))
     * res2: String = 2.0
-    * }}}
+    *   }}}
     */
   implicit val bigDecimalStringCodec: StringCodec[BigDecimal] =
     StringCodec.from(StringDecoder.makeSafe("BigDecimal")(s => BigDecimal(s.trim)))(_.toString)
@@ -101,7 +101,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `BigInt`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[BigInt].decode("2")
     * res1: StringResult[BigInt] = Right(2)
@@ -109,7 +109,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[BigInt].encode(BigInt(2))
     * res2: String = 2
-    * }}}
+    *   }}}
     */
   implicit val bigIntStringCodec: StringCodec[BigInt] =
     StringCodec.from(StringDecoder.makeSafe("BigInt")(s => BigInt(s.trim)))(_.toString)
@@ -117,7 +117,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Boolean`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[Boolean].decode("true")
     * res1: StringResult[Boolean] = Right(true)
@@ -125,7 +125,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Boolean].encode(true)
     * res2: String = true
-    * }}}
+    *   }}}
     */
   implicit val booleanStringCodec: StringCodec[Boolean] =
     StringCodec.from(StringDecoder.makeSafe("Boolean")(s => s.trim.toBoolean))(_.toString)
@@ -133,7 +133,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Char`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[Char].decode("a")
     * res1: StringResult[Char] = Right(a)
@@ -141,7 +141,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Char].encode('a')
     * res2: String = a
-    * }}}
+    *   }}}
     */
   implicit val charStringCodec: StringCodec[Char] = StringCodec.from { s =>
     // This is a bit dodgy, but necessary: if the string has a length greater than 1, it might be a legal character with
@@ -155,7 +155,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Double`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[Double].decode("2")
     * res1: StringResult[Double] = Right(2.0)
@@ -163,7 +163,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Double].encode(2D)
     * res2: String = 2.0
-    * }}}
+    *   }}}
     */
   implicit val doubleStringCodec: StringCodec[Double] =
     StringCodec.from(StringDecoder.makeSafe("Double")(s => java.lang.Double.parseDouble(s.trim)))(_.toString)
@@ -171,7 +171,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Byte`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[Byte].decode("2")
     * res1: StringResult[Byte] = Right(2)
@@ -179,7 +179,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Byte].encode(2)
     * res2: String = 2
-    * }}}
+    *   }}}
     */
   implicit val byteStringCodec: StringCodec[Byte] =
     StringCodec.from(StringDecoder.makeSafe("Byte")(s => java.lang.Byte.parseByte(s.trim)))(_.toString)
@@ -187,7 +187,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Float`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[Float].decode("2")
     * res1: StringResult[Float] = Right(2.0)
@@ -195,7 +195,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Float].encode(2F)
     * res2: String = 2.0
-    * }}}
+    *   }}}
     */
   implicit val floatStringCodec: StringCodec[Float] =
     StringCodec.from(StringDecoder.makeSafe("Float")(s => java.lang.Float.parseFloat(s.trim)))(_.toString)
@@ -203,7 +203,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Int`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[Int].decode("2")
     * res1: StringResult[Int] = Right(2)
@@ -211,7 +211,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Int].encode(2)
     * res2: String = 2
-    * }}}
+    *   }}}
     */
   implicit val intStringCodec: StringCodec[Int] =
     StringCodec.from(StringDecoder.makeSafe("Int")(s => Integer.parseInt(s.trim)))(_.toString)
@@ -219,7 +219,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Long`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[Long].decode("2")
     * res1: StringResult[Long] = Right(2)
@@ -227,7 +227,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Long].encode(2L)
     * res2: String = 2
-    * }}}
+    *   }}}
     */
   implicit val longStringCodec: StringCodec[Long] =
     StringCodec.from(StringDecoder.makeSafe("Long")(s => java.lang.Long.parseLong(s.trim)))(_.toString)
@@ -235,7 +235,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `Short`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[Short].decode("2")
     * res1: StringResult[Short] = Right(2)
@@ -243,7 +243,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Short].encode(2.toShort)
     * res2: String = 2
-    * }}}
+    *   }}}
     */
   implicit val shortStringCodec: StringCodec[Short] =
     StringCodec.from(StringDecoder.makeSafe("Short")(s => java.lang.Short.parseShort(s.trim)))(_.toString)
@@ -251,7 +251,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `String`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> StringDecoder[String].decode("foobar")
     * res1: StringResult[String] = Right(foobar)
@@ -259,7 +259,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[String].encode("foobar")
     * res2: String = foobar
-    * }}}
+    *   }}}
     */
   implicit val stringStringCodec: StringCodec[String] =
     StringCodec.from(s => Right(s))(identity)
@@ -267,7 +267,7 @@ object codecs extends PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `java.util.UUID`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> import java.util.UUID
     *
@@ -277,7 +277,7 @@ object codecs extends PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[UUID].encode(UUID.fromString("123e4567-e89b-12d3-a456-426655440000"))
     * res2: String = 123e4567-e89b-12d3-a456-426655440000
-    * }}}
+    *   }}}
     */
   implicit val uuidStringCodec: StringCodec[UUID] =
     StringCodec.from(StringDecoder.makeSafe("UUID")(s => UUID.fromString(s.trim)))(_.toString)

@@ -17,7 +17,8 @@
 package kantan.codecs.resource
 
 import imp.imp
-import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
 import org.scalatest.EitherValues._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -29,33 +30,36 @@ class ResourceIteratorTests
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
   case class FailingIterator[A](it: Iterator[A], index: Int) {
-    def resourceIterator: ResourceIterator[A] = new ResourceIterator[A] {
-      var i = 0
+    def resourceIterator: ResourceIterator[A] =
+      new ResourceIterator[A] {
+        var i = 0
 
-      def checkFail(): Unit = {
-        if(i == index) sys.error("failed")
-        i += 1
-      }
+        def checkFail(): Unit = {
+          if(i == index) sys.error("failed")
+          i += 1
+        }
 
-      override def readNext() = {
-        checkFail()
-        it.next()
-      }
+        override def readNext() = {
+          checkFail()
+          it.next()
+        }
 
-      override def checkNext = {
-        checkFail()
-        it.hasNext
+        override def checkNext = {
+          checkFail()
+          it.hasNext
+        }
+        override def release() =
+          ()
       }
-      override def release() = ()
+  }
+
+  implicit def arbFailingIterator[A: Arbitrary]: Arbitrary[FailingIterator[A]] =
+    Arbitrary {
+      for {
+        as    <- Gen.nonEmptyListOf(imp[Arbitrary[A]].arbitrary)
+        index <- Gen.choose(0, 2 * (as.length - 1))
+      } yield FailingIterator(as.iterator, index)
     }
-  }
-
-  implicit def arbFailingIterator[A: Arbitrary]: Arbitrary[FailingIterator[A]] = Arbitrary {
-    for {
-      as    <- Gen.nonEmptyListOf(imp[Arbitrary[A]].arbitrary)
-      index <- Gen.choose(0, 2 * (as.length - 1))
-    } yield FailingIterator(as.iterator, index)
-  }
 
   def closedWhenEmpty[A](r: ResourceIterator[A]): Boolean = {
     var closed = false

@@ -16,13 +16,20 @@
 
 package kantan.codecs.strings.java8
 
-import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
 import kantan.codecs.Decoder
 import kantan.codecs.export.Exported
-import kantan.codecs.laws.discipline.{DecoderTests, DisciplineSuite}
+import kantan.codecs.laws.discipline.DecoderTests
+import kantan.codecs.laws.discipline.DisciplineSuite
 import kantan.codecs.strings.DecodeError
 import kantan.codecs.strings.StringDecoder
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
+
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.ZonedDateTime
 
 class TimeDecoderCompanionTests extends DisciplineSuite {
 
@@ -30,7 +37,8 @@ class TimeDecoderCompanionTests extends DisciplineSuite {
 
   object DecoderCompanion extends TimeDecoderCompanion[String, DecodeError, codec.type] {
 
-    override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
+    override def decoderFrom[D](d: StringDecoder[D]): Decoder[String, D, DecodeError, codec.type] =
+      d.tag[codec.type]
 
     implicit val instantTestDecoder: TestDecoder[Instant]               = Exported(defaultInstantDecoder)
     implicit val zonedDateTimeTestDecoder: TestDecoder[ZonedDateTime]   = Exported(defaultZonedDateTimeDecoder)

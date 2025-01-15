@@ -16,11 +16,19 @@
 
 package kantan.codecs.laws.discipline
 
-import java.io.{EOFException, File, FileNotFoundException}
-import java.net.{URI, URL}
-import java.nio.file.{AccessMode, Path}
 import kantan.codecs.laws.CodecValue.IllegalValue
-import org.scalacheck.{Arbitrary, Cogen, Gen}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Cogen
+import org.scalacheck.Gen
+
+import java.io.EOFException
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.net.URI
+import java.net.URL
+import java.nio.file.AccessMode
+import java.nio.file.Path
 
 trait ArbitraryInstances extends CommonArbitraryInstances {
   // This is just a sample java enum.
@@ -29,15 +37,16 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
 
   implicit val cogenAccessMode: Cogen[AccessMode] = implicitly[Cogen[String]].contramap(_.name())
 
-  implicit def arbIllegalURI[T]: Arbitrary[IllegalValue[String, URI, T]] = Arbitrary {
-    for {
-      str <- Gen.nonEmptyListOf(Gen.alphaNumChar)
-      i   <- Gen.choose(0, str.length)
-    } yield {
-      val (h, t) = str.splitAt(i)
-      IllegalValue(s"${h.toString} ${t.toString}")
+  implicit def arbIllegalURI[T]: Arbitrary[IllegalValue[String, URI, T]] =
+    Arbitrary {
+      for {
+        str <- Gen.nonEmptyListOf(Gen.alphaNumChar)
+        i   <- Gen.choose(0, str.length)
+      } yield {
+        val (h, t) = str.splitAt(i)
+        IllegalValue(s"${h.toString} ${t.toString}")
+      }
     }
-  }
 
   val genPathElement: Gen[String] = for {
     length <- Gen.choose(1, 10)
@@ -71,7 +80,7 @@ trait ArbitraryInstances extends CommonArbitraryInstances {
   implicit val cogenFile: Cogen[File] = implicitly[Cogen[String]].contramap(_.toString)
   val genFileNotFound: Gen[FileNotFoundException] =
     arbFile.arbitrary.map(f => new FileNotFoundException(s"File not found: ${f.toString}"))
-  override val genIoException =
+  override val genIoException: Gen[IOException] =
     Gen.oneOf(
       genFileNotFound,
       genUnsupportedEncoding,

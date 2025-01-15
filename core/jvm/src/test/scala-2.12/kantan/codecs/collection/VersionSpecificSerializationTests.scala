@@ -16,7 +16,8 @@
 
 package kantan.codecs.collection
 
-import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.SerializableTests
 
 class VersionSpecificSerializationTests extends DisciplineSuite {
   checkAll("Factory[StreamFactoryTests]", SerializableTests[Factory[Int, Stream[Int]]].serializable)

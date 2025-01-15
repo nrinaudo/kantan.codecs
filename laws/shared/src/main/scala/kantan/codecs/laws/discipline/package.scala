@@ -16,7 +16,8 @@
 
 package kantan.codecs.laws
 
-import kantan.codecs.strings.{codecs, DecodeError}
+import kantan.codecs.strings.DecodeError
+import kantan.codecs.strings.codecs
 
 package object discipline {
 

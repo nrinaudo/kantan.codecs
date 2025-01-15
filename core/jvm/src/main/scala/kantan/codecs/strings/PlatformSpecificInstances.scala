@@ -17,8 +17,10 @@
 package kantan.codecs.strings
 
 import java.io.File
-import java.net.{URI, URL}
-import java.nio.file.{Path, Paths}
+import java.net.URI
+import java.net.URL
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.text.DateFormat
 import java.util.Date
 
@@ -28,7 +30,7 @@ trait PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `java.net.URL`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> import java.net.URL
     *
@@ -38,7 +40,7 @@ trait PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[URL].encode(new URL("http://localhost:8080"))
     * res2: String = http://localhost:8080
-    * }}}
+    *   }}}
     */
   implicit val urlStringCodec: StringCodec[URL] =
     StringCodec.from(StringDecoder.makeSafe("URL")(s => new URI(s.trim).toURL()))(_.toString)
@@ -46,7 +48,7 @@ trait PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `java.net.URI`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> import java.net.URI
     *
@@ -56,7 +58,7 @@ trait PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[URI].encode(new URI("http://localhost:8080"))
     * res2: String = http://localhost:8080
-    * }}}
+    *   }}}
     */
   implicit val uriStringCodec: StringCodec[URI] =
     StringCodec.from(StringDecoder.makeSafe("URI")(s => new URI(s.trim)))(_.toString)
@@ -64,7 +66,7 @@ trait PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `java.io.File`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> import java.io.File
     *
@@ -74,7 +76,7 @@ trait PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[File].encode(new File("/home/nrinaudo"))
     * res2: String = /home/nrinaudo
-    * }}}
+    *   }}}
     */
   implicit val fileStringCodec: StringCodec[File] =
     StringCodec.from(StringDecoder.makeSafe("File")(s => new File(s.trim)))(_.toString)
@@ -82,7 +84,7 @@ trait PlatformSpecificInstances {
   /** Defines a [[StringCodec]] instance for `java.nio.file.Path`.
     *
     * @example
-    * {{{
+    *   {{{
     * // Decoding example
     * scala> import java.nio.file.{Path, Paths}
     *
@@ -92,7 +94,7 @@ trait PlatformSpecificInstances {
     * // Encoding example
     * scala> StringEncoder[Path].encode(Paths.get("/home/nrinaudo"))
     * res2: String = /home/nrinaudo
-    * }}}
+    *   }}}
     */
   @SuppressWarnings(Array("org.wartremover.warts.ToString"))
   implicit val pathStringCodec: StringCodec[Path] =

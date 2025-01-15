@@ -17,6 +17,7 @@
 package kantan.codecs.resource
 
 import kantan.codecs.collection.Factory
+
 import scala.annotation.unchecked.{uncheckedVariance => uV}
 import scala.collection.mutable.Buffer
 import scala.reflect.ClassTag
@@ -31,21 +32,36 @@ import scala.reflect.ClassTag
 )
 trait VersionSpecificResourceIterator[+A] { self: ResourceIterator[A] =>
 
-  def to[F[_]](implicit factory: Factory[A @uV, F[A @uV]]): F[A @uV] = foldLeft(factory.newBuilder)(_ += _).result
+  def to[F[_]](implicit factory: Factory[A @uV, F[A @uV]]): F[A @uV] =
+    foldLeft(factory.newBuilder)(_ += _).result
 
-  def toList: List[A]                                        = to[List]
-  def toArray[AA >: A](implicit ct: ClassTag[AA]): Array[AA] = toIterator.toArray
-  def toBuffer[AA >: A]: Buffer[AA]                          = toIterator.toBuffer
-  def toIndexedSeq: IndexedSeq[A]                            = to[IndexedSeq]
-  def toIterable: Iterable[A]                                = to[Iterable]
-  def toSeq: Seq[A]                                          = to[Seq]
-  def seq: Seq[A]                                            = to[Seq]
-  def toSet[AA >: A]: Set[AA]                                = toIterator.toSet
-  def toVector: Vector[A]                                    = to[Vector]
-  def toTraversable: Traversable[A]                          = to[Traversable]
-  def toStream: Stream[A]                                    = if(hasNext) Stream.cons(next(), toStream) else Stream.empty
-  def toIterator: Iterator[A] = new Iterator[A] {
-    override def hasNext: Boolean = self.hasNext
-    override def next(): A        = self.next()
-  }
+  def toList: List[A] =
+    to[List]
+  def toArray[AA >: A](implicit ct: ClassTag[AA]): Array[AA] =
+    toIterator.toArray
+  def toBuffer[AA >: A]: Buffer[AA] =
+    toIterator.toBuffer
+  def toIndexedSeq: IndexedSeq[A] =
+    to[IndexedSeq]
+  def toIterable: Iterable[A] =
+    to[Iterable]
+  def toSeq: Seq[A] =
+    to[Seq]
+  def seq: Seq[A] =
+    to[Seq]
+  def toSet[AA >: A]: Set[AA] =
+    toIterator.toSet
+  def toVector: Vector[A] =
+    to[Vector]
+  def toTraversable: Traversable[A] =
+    to[Traversable]
+  def toStream: Stream[A] =
+    if(hasNext) Stream.cons(next(), toStream) else Stream.empty
+  def toIterator: Iterator[A] =
+    new Iterator[A] {
+      override def hasNext: Boolean =
+        self.hasNext
+      override def next(): A =
+        self.next()
+    }
 }

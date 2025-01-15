@@ -16,7 +16,8 @@
 
 package kantan.codecs.enumeratum.laws.discipline
 
-import enumeratum.{Enum, EnumEntry}
+import enumeratum.Enum
+import enumeratum.EnumEntry
 import enumeratum.values._
 
 /** Defines a standard `Enum` for tests to use. */
@@ -34,8 +35,8 @@ object Enumerated extends Enum[Enumerated] {
 
 /** Defines a standard `IntEnum` for tests to use.
   *
-  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd
-  * way this is designed.
+  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd way
+  * this is designed.
   */
 sealed abstract class EnumeratedInt extends IntEnumEntry
 
@@ -51,8 +52,8 @@ object EnumeratedInt extends IntEnum[EnumeratedInt] {
 
 /** Defines a standard `LongEnum` for tests to use.
   *
-  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd
-  * way this is designed.
+  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd way
+  * this is designed.
   */
 sealed abstract class EnumeratedLong extends LongEnumEntry
 
@@ -68,8 +69,8 @@ object EnumeratedLong extends LongEnum[EnumeratedLong] {
 
 /** Defines a standard `ShortEnum` for tests to use.
   *
-  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd
-  * way this is designed.
+  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd way
+  * this is designed.
   */
 sealed abstract class EnumeratedShort extends ShortEnumEntry
 
@@ -85,8 +86,8 @@ object EnumeratedShort extends ShortEnum[EnumeratedShort] {
 
 /** Defines a standard `StringEnum` for tests to use.
   *
-  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd
-  * way this is designed.
+  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd way
+  * this is designed.
   */
 sealed abstract class EnumeratedString extends StringEnumEntry
 
@@ -102,8 +103,8 @@ object EnumeratedString extends StringEnum[EnumeratedString] {
 
 /** Defines a standard `ByteEnum` for tests to use.
   *
-  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd
-  * way this is designed.
+  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd way
+  * this is designed.
   */
 sealed abstract class EnumeratedByte extends ByteEnumEntry
 
@@ -119,8 +120,8 @@ object EnumeratedByte extends ByteEnum[EnumeratedByte] {
 
 /** Defines a standard `CharEnum` for tests to use.
   *
-  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd
-  * way this is designed.
+  * See [this Enumeratum issue](https://github.com/lloydmeta/enumeratum/issues/140) for an explanation to the odd way
+  * this is designed.
   */
 sealed abstract class EnumeratedChar extends CharEnumEntry
 

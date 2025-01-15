@@ -23,8 +23,8 @@ object VersionSpecificResultCompanion {
   trait Simple[F] {
 
     /** Turns a collection of results into a result of a collection. */
-    @inline def sequence[S, M[X] <: IterableOnce[X]](rs: M[Either[F, S]])(
-      implicit bf: BuildFrom[M[Either[F, S]], S, M[S]]
+    @inline def sequence[S, M[X] <: IterableOnce[X]](rs: M[Either[F, S]])(implicit
+      bf: BuildFrom[M[Either[F, S]], S, M[S]]
     ): Either[F, M[S]] =
       rs.iterator
         .foldLeft(Right(bf.newBuilder(rs)): Either[F, mutable.Builder[S, M[S]]]) { (builder, res) =>

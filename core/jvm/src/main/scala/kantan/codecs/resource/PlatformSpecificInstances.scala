@@ -16,9 +16,15 @@
 
 package kantan.codecs.resource
 
-import java.io.{CharArrayReader, File, InputStream, OutputStream, Reader}
-import java.net.{URI, URL}
-import java.nio.file.{Files, Path}
+import java.io.CharArrayReader
+import java.io.File
+import java.io.InputStream
+import java.io.OutputStream
+import java.io.Reader
+import java.net.URI
+import java.net.URL
+import java.nio.file.Files
+import java.nio.file.Path
 
 /** JVM specific instances of [[Resource]]. */
 trait PlatformSpecificInstances {

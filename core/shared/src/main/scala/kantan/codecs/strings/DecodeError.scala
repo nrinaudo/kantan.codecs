@@ -16,7 +16,8 @@
 
 package kantan.codecs.strings
 
-import kantan.codecs.error.{Error, ErrorCompanion}
+import kantan.codecs.error.Error
+import kantan.codecs.error.ErrorCompanion
 
 sealed case class DecodeError(message: String) extends Error(message)
 

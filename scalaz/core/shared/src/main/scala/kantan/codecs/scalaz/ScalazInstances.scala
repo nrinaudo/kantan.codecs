@@ -16,10 +16,20 @@
 
 package kantan.codecs.scalaz
 
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import kantan.codecs.error.Error
 import kantan.codecs.strings.DecodeError
-import scalaz.{-\/, \/, \/-, Contravariant, Cord, Equal, Maybe, MonadError, Plus, Show}
+import scalaz.-\/
+import scalaz.Contravariant
+import scalaz.Cord
+import scalaz.Equal
+import scalaz.Maybe
+import scalaz.MonadError
+import scalaz.Plus
+import scalaz.Show
+import scalaz.\/
+import scalaz.\/-
 
 trait DecoderInstances {
 
@@ -27,15 +37,20 @@ trait DecoderInstances {
     : MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] with Plus[({ type L[A] = Decoder[E, A, F, T] })#L] =
     new MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] with Plus[({ type L[A] = Decoder[E, A, F, T] })#L] {
 
-      override def point[A](a: => A) = Decoder.from(_ => Right(a))
+      override def point[A](a: => A) =
+        Decoder.from(_ => Right(a))
 
-      override def bind[A, B](fa: Decoder[E, A, F, T])(f: A => Decoder[E, B, F, T]) = fa.flatMap(f)
+      override def bind[A, B](fa: Decoder[E, A, F, T])(f: A => Decoder[E, B, F, T]) =
+        fa.flatMap(f)
 
-      override def handleError[A](fa: Decoder[E, A, F, T])(f: F => Decoder[E, A, F, T]) = fa.handleErrorWith(f)
+      override def handleError[A](fa: Decoder[E, A, F, T])(f: F => Decoder[E, A, F, T]) =
+        fa.handleErrorWith(f)
 
-      override def raiseError[A](e: F) = Decoder.from(_ => Left(e))
+      override def raiseError[A](e: F) =
+        Decoder.from(_ => Left(e))
 
-      override def plus[A](a: Decoder[E, A, F, T], b: => Decoder[E, A, F, T]) = a.orElse(b)
+      override def plus[A](a: Decoder[E, A, F, T], b: => Decoder[E, A, F, T]) =
+        a.orElse(b)
 
     }
 }
@@ -44,23 +59,25 @@ trait EncoderInstances {
 
   implicit def encoderContravariant[E, T]: Contravariant[({ type L[A] = Encoder[E, A, T] })#L] =
     new Contravariant[({ type L[A] = Encoder[E, A, T] })#L] {
-      override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD => D) = fa.contramap(f)
+      override def contramap[D, DD](fa: Encoder[E, D, T])(f: DD => D) =
+        fa.contramap(f)
     }
 
 }
 
 trait CommonInstances {
 
-  implicit def isErrorShow[E <: Error]: Show[E] = Show.show(e => Cord(e.toString))
+  implicit def isErrorShow[E <: Error]: Show[E] =
+    Show.show(e => Cord(e.toString))
 
-  implicit def disjunctionDecoder[E, DA, DB, F, T](
-    implicit da: Decoder[E, DA, F, T],
+  implicit def disjunctionDecoder[E, DA, DB, F, T](implicit
+    da: Decoder[E, DA, F, T],
     db: Decoder[E, DB, F, T]
   ): Decoder[E, DA \/ DB, F, T] =
     da.map(-\/.apply[DA, DB]).orElse(db.map(\/-.apply[DA, DB]))
 
-  implicit def disjunctionEncoder[E, DA, DB, T](
-    implicit ea: Encoder[E, DA, T],
+  implicit def disjunctionEncoder[E, DA, DB, T](implicit
+    ea: Encoder[E, DA, T],
     eb: Encoder[E, DB, T]
   ): Encoder[E, DA \/ DB, T] =
     Encoder.from {

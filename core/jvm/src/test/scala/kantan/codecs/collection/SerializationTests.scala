@@ -17,7 +17,9 @@
 package kantan.codecs.collection
 
 import kantan.codecs.laws.discipline.SerializableTests
-import scala.collection.immutable.{Queue, TreeSet}
+
+import scala.collection.immutable.Queue
+import scala.collection.immutable.TreeSet
 
 class SerializationTests extends VersionSpecificSerializationTests {
   checkAll("Factory[TreeSet]", SerializableTests[Factory[Int, TreeSet[Int]]].serializable)

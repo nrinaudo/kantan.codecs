@@ -16,8 +16,10 @@
 
 package kantan.codecs.shapeless
 
-import kantan.codecs.strings.{StringDecoder, StringEncoder}
-import shapeless.{::, HNil}
+import kantan.codecs.strings.StringDecoder
+import kantan.codecs.strings.StringEncoder
+import shapeless.::
+import shapeless.HNil
 
 object Instances {
 
@@ -25,8 +27,8 @@ object Instances {
   // -------------------------------------------------------------------------------------------------------------------
 
   implicit def hlistEncoder[A: StringEncoder]: StringEncoder[A :: HNil] =
-    StringEncoder.from {
-      case h :: _ => StringEncoder[A].encode(h)
+    StringEncoder.from { case h :: _ =>
+      StringEncoder[A].encode(h)
     }
 
   implicit def hlistDecoder[A: StringDecoder]: StringDecoder[A :: HNil] =

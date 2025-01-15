@@ -19,7 +19,8 @@ package kantan.codecs.strings.java8
 import scala.reflect.macros.blackbox.Context
 
 final class FormatLiteral(val sc: StringContext) extends AnyVal {
-  def fmt(args: Any*): Format = macro FormatLiteral.fmtImpl
+  def fmt(args: Any*): Format =
+    macro FormatLiteral.fmtImpl
 }
 
 // Relatively distatefull trick to get rid of spurious warnings.
@@ -41,7 +42,7 @@ object FormatLiteral extends FormatLiteralMacro {
 
               Format
                 .from(spliced)
-                .getOrElse(sys.error((s"Illegal format: '$spliced'")))
+                .getOrElse(sys.error(s"Illegal format: '$spliced'"))
             }
         }
 
@@ -52,5 +53,6 @@ object FormatLiteral extends FormatLiteralMacro {
 }
 
 trait ToFormatLiteral {
-  implicit def toFormatLiteral(sc: StringContext): FormatLiteral = new FormatLiteral(sc)
+  implicit def toFormatLiteral(sc: StringContext): FormatLiteral =
+    new FormatLiteral(sc)
 }

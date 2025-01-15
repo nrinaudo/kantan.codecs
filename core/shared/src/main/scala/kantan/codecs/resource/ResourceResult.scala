@@ -24,42 +24,48 @@ object ResourceResult extends ResultCompanion.Simple[ResourceError] {
   /** Evaluates the specified value, returning an [[OpenResult]] if an error occurs.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> def f: Int = sys.error("something went wrong")
     *
     * scala> ResourceResult.open(f)
     * res0: ResourceResult[Int] = Left(OpenError: something went wrong)
-    * }}}
+    *   }}}
     *
-    * @see OpenResult.apply
+    * @see
+    *   OpenResult.apply
     */
-  def open[A](a: => A): ResourceResult[A] = OpenResult(a)
+  def open[A](a: => A): ResourceResult[A] =
+    OpenResult(a)
 
   /** Evaluates the specified value, returning a [[ProcessResult]] if an error occurs.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> def f: Int = sys.error("something went wrong")
     *
     * scala> ResourceResult.process(f)
     * res0: ResourceResult[Int] = Left(ProcessError: something went wrong)
-    * }}}
+    *   }}}
     *
-    * @see ProcessResult.apply
+    * @see
+    *   ProcessResult.apply
     */
-  def process[A](a: => A): ResourceResult[A] = ProcessResult(a)
+  def process[A](a: => A): ResourceResult[A] =
+    ProcessResult(a)
 
   /** Evaluates the specified value, returning a [[CloseResult]] if an error occurs.
     *
     * @example
-    * {{{
+    *   {{{
     * scala> def f: Int = sys.error("something went wrong")
     *
     * scala> ResourceResult.close(f)
     * res0: ResourceResult[Unit] = Left(CloseError: something went wrong)
-    * }}}
+    *   }}}
     *
-    * @see ResourceResult.apply
+    * @see
+    *   ResourceResult.apply
     */
-  def close[U](u: => U): ResourceResult[Unit] = CloseResult(u)
+  def close[U](u: => U): ResourceResult[Unit] =
+    CloseResult(u)
 }

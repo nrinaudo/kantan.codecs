@@ -16,11 +16,20 @@
 
 package kantan.codecs.strings.java8.laws.discipline
 
-import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
+import kantan.codecs.laws.IllegalString
+import kantan.codecs.laws.LegalString
+import org.scalacheck.Arbitrary
+import org.scalacheck.Cogen
+import org.scalacheck.Gen
+
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import kantan.codecs.laws.{IllegalString, LegalString}
-import org.scalacheck.{Arbitrary, Cogen, Gen}
 import scala.jdk.CollectionConverters._
 import scala.util.Try
 

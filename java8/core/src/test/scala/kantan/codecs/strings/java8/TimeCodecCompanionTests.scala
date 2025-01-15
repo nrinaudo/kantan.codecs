@@ -16,14 +16,24 @@
 
 package kantan.codecs.strings.java8
 
-import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import kantan.codecs.export.Exported
 import kantan.codecs.laws.CodecValue.LegalValue
-import kantan.codecs.laws.discipline.{CodecTests, DisciplineSuite}
-import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder}
+import kantan.codecs.laws.discipline.CodecTests
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.strings.DecodeError
+import kantan.codecs.strings.StringDecoder
+import kantan.codecs.strings.StringEncoder
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
 import org.scalacheck.Arbitrary
+
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.ZonedDateTime
 
 class TimeCodecCompanionTests extends DisciplineSuite {
 
@@ -32,8 +42,10 @@ class TimeCodecCompanionTests extends DisciplineSuite {
 
   object CodecCompanion extends TimeCodecCompanion[String, DecodeError, codec.type] {
 
-    override def decoderFrom[D](d: StringDecoder[D]) = d.tag[codec.type]
-    override def encoderFrom[D](d: StringEncoder[D]) = d.tag[codec.type]
+    override def decoderFrom[D](d: StringDecoder[D]): Decoder[String, D, DecodeError, codec.type] =
+      d.tag[codec.type]
+    override def encoderFrom[D](d: StringEncoder[D]): Encoder[String, D, codec.type] =
+      d.tag[codec.type]
 
     implicit val instantTestEncoder: TestEncoder[Instant]               = Exported(defaultInstantEncoder)
     implicit val zonedDateTimeTestEncoder: TestEncoder[ZonedDateTime]   = Exported(defaultZonedDateTimeEncoder)

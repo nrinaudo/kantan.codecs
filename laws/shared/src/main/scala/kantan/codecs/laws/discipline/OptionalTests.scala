@@ -27,12 +27,14 @@ trait OptionalTests[A] extends Laws {
 
   implicit def arbA: Arbitrary[A]
 
-  def optional: RuleSet = new SimpleRuleSet("optional", "empty uniqueness" -> forAll(laws.emptyUniqueness _))
+  def optional: RuleSet =
+    new SimpleRuleSet("optional", "empty uniqueness" -> forAll(laws.emptyUniqueness _))
 }
 
 object OptionalTests {
-  def apply[A: Arbitrary: OptionalLaws]: OptionalTests[A] = new OptionalTests[A] {
-    override val laws = imp[OptionalLaws[A]]
-    override val arbA = imp[Arbitrary[A]]
-  }
+  def apply[A: Arbitrary: OptionalLaws]: OptionalTests[A] =
+    new OptionalTests[A] {
+      override val laws = imp[OptionalLaws[A]]
+      override val arbA = imp[Arbitrary[A]]
+    }
 }

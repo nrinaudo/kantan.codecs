@@ -16,7 +16,8 @@
 
 package kantan.codecs.scalaz.laws.discipline
 
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import org.scalacheck.Arbitrary
 import scalaz.Equal
 
@@ -34,11 +35,12 @@ trait EqualInstances {
         }
     }
 
-  implicit def encoderEqual[E: Equal, D: Arbitrary, T]: Equal[Encoder[E, D, T]] = new Equal[Encoder[E, D, T]] {
-    override def equal(a1: Encoder[E, D, T], a2: Encoder[E, D, T]) =
-      kantan.codecs.laws.discipline.equality.eq(a1.encode, a2.encode) { (e1, e2) =>
-        implicitly[Equal[E]].equal(e1, e2)
-      }
-  }
+  implicit def encoderEqual[E: Equal, D: Arbitrary, T]: Equal[Encoder[E, D, T]] =
+    new Equal[Encoder[E, D, T]] {
+      override def equal(a1: Encoder[E, D, T], a2: Encoder[E, D, T]) =
+        kantan.codecs.laws.discipline.equality.eq(a1.encode, a2.encode) { (e1, e2) =>
+          implicitly[Equal[E]].equal(e1, e2)
+        }
+    }
 
 }

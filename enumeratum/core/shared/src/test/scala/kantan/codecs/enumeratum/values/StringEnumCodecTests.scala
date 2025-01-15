@@ -18,8 +18,10 @@ package kantan.codecs.enumeratum.values
 
 import kantan.codecs.enumeratum.laws.discipline.EnumeratedString
 import kantan.codecs.enumeratum.laws.discipline.arbitrary._
-import kantan.codecs.laws.discipline.{StringCodecTests, StringDecoderTests, StringEncoderTests}
 import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.StringCodecTests
+import kantan.codecs.laws.discipline.StringDecoderTests
+import kantan.codecs.laws.discipline.StringEncoderTests
 
 class StringEnumCodecTests extends DisciplineSuite {
 

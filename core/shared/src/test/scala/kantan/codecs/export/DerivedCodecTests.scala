@@ -16,10 +16,16 @@
 
 package kantan.codecs.export
 
-import kantan.codecs.{Decoder, Encoder}
-import kantan.codecs.export.DerivedCodecTests.{Just, Maybe, None}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
+import kantan.codecs.export.DerivedCodecTests.Just
+import kantan.codecs.export.DerivedCodecTests.Maybe
+import kantan.codecs.export.DerivedCodecTests.None
 import kantan.codecs.strings
-import kantan.codecs.strings.{DecodeError, StringDecoder, StringEncoder, StringResult}
+import kantan.codecs.strings.DecodeError
+import kantan.codecs.strings.StringDecoder
+import kantan.codecs.strings.StringEncoder
+import kantan.codecs.strings.StringResult
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -68,7 +74,7 @@ class DerivedCodecTests extends AnyFunSuite with ScalaCheckPropertyChecks with M
 }
 
 object DerivedCodecTests {
-  sealed abstract class Maybe[+A]    extends Product with Serializable
+  sealed abstract class Maybe[+A] extends Product with Serializable
   final case class Just[A](value: A) extends Maybe[A]
-  final case object None             extends Maybe[Nothing]
+  case object None extends Maybe[Nothing]
 }

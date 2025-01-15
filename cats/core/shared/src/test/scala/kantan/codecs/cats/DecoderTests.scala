@@ -18,12 +18,14 @@ package kantan.codecs.cats
 
 import cats.Eq
 import cats.data.EitherT
-import cats.laws.discipline.{MonadErrorTests, SemigroupKTests}
+import cats.laws.discipline.MonadErrorTests
+import cats.laws.discipline.SemigroupKTests
 import cats.laws.discipline.SemigroupalTests.Isomorphisms
 import kantan.codecs.cats.laws.discipline.DisciplineSuite
 import kantan.codecs.cats.laws.discipline.arbitrary._
 import kantan.codecs.cats.laws.discipline.equality._
-import kantan.codecs.strings.{DecodeError, StringDecoder}
+import kantan.codecs.strings.DecodeError
+import kantan.codecs.strings.StringDecoder
 
 class DecoderTests extends DisciplineSuite {
 

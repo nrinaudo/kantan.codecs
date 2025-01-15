@@ -19,8 +19,10 @@ package kantan.codecs.scalaz
 import kantan.codecs.scalaz.laws.discipline.ScalazDisciplineSuite
 import kantan.codecs.scalaz.laws.discipline.arbitrary._
 import kantan.codecs.scalaz.laws.discipline.equality._
-import kantan.codecs.strings.{DecodeError, StringDecoder}
-import scalaz.scalacheck.ScalazProperties.{monadError, plus}
+import kantan.codecs.strings.DecodeError
+import kantan.codecs.strings.StringDecoder
+import scalaz.scalacheck.ScalazProperties.monadError
+import scalaz.scalacheck.ScalazProperties.plus
 import scalaz.std.anyVal._
 
 class DecoderTests extends ScalazDisciplineSuite {

@@ -23,13 +23,14 @@ private[bom] sealed abstract class ByteOrderMark(val charset: Charset) {
 }
 
 private[bom] object ByteOrderMark {
-  object Utf8    extends ByteOrderMark(Charset.forName("UTF-8"))
+  object Utf8 extends ByteOrderMark(Charset.forName("UTF-8"))
   object Utf16BE extends ByteOrderMark(Charset.forName("UTF-16BE"))
   object Utf16LE extends ByteOrderMark(Charset.forName("UTF-16LE"))
   object Utf32BE extends ByteOrderMark(Charset.forName("UTF-32BE"))
   object Utf32LE extends ByteOrderMark(Charset.forName("UTF-32LE"))
 
-  def findFor(charset: Charset): Option[ByteOrderMark] = values.find(_.charset.name() == charset.name())
+  def findFor(charset: Charset): Option[ByteOrderMark] =
+    values.find(_.charset.name() == charset.name())
 
   val values: List[ByteOrderMark] = List(Utf8, Utf16BE, Utf16LE, Utf32BE, Utf32LE)
 }
