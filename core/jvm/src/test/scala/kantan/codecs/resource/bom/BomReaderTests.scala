@@ -16,21 +16,24 @@
 
 package kantan.codecs.resource.bom
 
-import java.io.{ByteArrayInputStream, Reader}
-import java.nio.charset.Charset
 import org.scalacheck.Gen
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+
+import java.io.ByteArrayInputStream
+import java.io.Reader
+import java.nio.charset.Charset
 import scala.io.Codec
 
 /** Makes sure `BomReader` reads BOMs as expected. */
 class BomReaderTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   def read(str: String, codec: Codec): String = {
-    def go(reader: Reader, acc: StringBuilder): String = reader.read() match {
-      case -1 => acc.toString()
-      case b  => go(reader, acc.append(b.toChar))
-    }
+    def go(reader: Reader, acc: StringBuilder): String =
+      reader.read() match {
+        case -1 => acc.toString()
+        case b  => go(reader, acc.append(b.toChar))
+      }
 
     go(BomReader(new ByteArrayInputStream(InMemoryBomWriter.write(str, codec)), Codec.ISO8859), new StringBuilder)
   }

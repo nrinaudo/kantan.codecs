@@ -16,7 +16,10 @@
 
 package kantan.codecs
 
-import java.io.{InputStream, OutputStream, Reader, Writer}
+import java.io.InputStream
+import java.io.OutputStream
+import java.io.Reader
+import java.io.Writer
 
 package object resource {
   type OpenResult[A]     = Either[ResourceError.OpenError, A]
@@ -30,9 +33,9 @@ package object resource {
   /** [[Resource]] specialised for `java.io.Reader`.
     *
     * Note that it's good practice not to declare explicit instances of [[ReaderResource]] for types that have an
-    * instance of [[InputResource]]. It's better to let the implicit resolution mechanism work out how to best turn
-    * an `InputStream` into a `Reader` - the JVM-specific `kantan.codecs.resource.bom` package, in particular, relies
-    * on this.
+    * instance of [[InputResource]]. It's better to let the implicit resolution mechanism work out how to best turn an
+    * `InputStream` into a `Reader` - the JVM-specific `kantan.codecs.resource.bom` package, in particular, relies on
+    * this.
     */
   type ReaderResource[A] = Resource[A, Reader]
 
@@ -42,9 +45,9 @@ package object resource {
   /** [[Resource]] specialised for `java.io.Writer`.
     *
     * Note that it's good practice not to declare explicit instances of [[WriterResource]] for types that have an
-    * instance of [[OutputResource]]. It's better to let the implicit resolution mechanism work out how to best turn
-    * an `OutputStream` into a `Writer` - the JVM-specific `kantan.codecs.resource.bom` package, in particular, relies
-    * on this.
+    * instance of [[OutputResource]]. It's better to let the implicit resolution mechanism work out how to best turn an
+    * `OutputStream` into a `Writer` - the JVM-specific `kantan.codecs.resource.bom` package, in particular, relies on
+    * this.
     */
   type WriterResource[A] = Resource[A, Writer]
 }

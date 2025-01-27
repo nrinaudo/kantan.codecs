@@ -16,12 +16,11 @@
 
 package kantan.codecs.laws.discipline
 
-import kantan.codecs.strings.{codecs, DecodeError}
+import kantan.codecs.strings.DecodeError
+import kantan.codecs.strings.codecs
 
 trait DisciplinePackage extends PlatformSpecificDisciplinePackage {
 
-  // We're using non-standard field names (since they're basically companion objects). Calm scalastyle down.
-  // scalastyle:off
   type CodecTests[E, D, F, T] = kantan.codecs.laws.discipline.CodecTests[E, D, F, T]
   val CodecTests = kantan.codecs.laws.discipline.CodecTests
 
@@ -41,6 +40,5 @@ trait DisciplinePackage extends PlatformSpecificDisciplinePackage {
   val StringCodecTests = kantan.codecs.laws.discipline.StringCodecTests
 
   type DisciplineSuite = kantan.codecs.laws.discipline.DisciplineSuite
-// scalastyle:on
 
 }

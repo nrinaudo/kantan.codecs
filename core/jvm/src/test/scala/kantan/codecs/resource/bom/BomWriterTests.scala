@@ -16,26 +16,31 @@
 
 package kantan.codecs.resource.bom
 
-import java.io.ByteArrayInputStream
-import java.nio.charset.Charset
-import org.apache.commons.io.{ByteOrderMark => BOM}
 import org.apache.commons.io.input.BOMInputStream
+import org.apache.commons.io.{ByteOrderMark => BOM}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+
+import java.io.ByteArrayInputStream
+import java.nio.charset.Charset
 import scala.io.Codec
 
 /** Makes sure `BomWriter` writes BOMs as expected. */
 class BomWriterTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
   def write(str: String, codec: Codec): BOM =
-    new BOMInputStream(
-      new ByteArrayInputStream(InMemoryBomWriter.write(str, codec)),
-      BOM.UTF_8,
-      BOM.UTF_16BE,
-      BOM.UTF_16LE,
-      BOM.UTF_32BE,
-      BOM.UTF_32LE
-    ).getBOM
+    BOMInputStream
+      .builder()
+      .setInputStream(new ByteArrayInputStream(InMemoryBomWriter.write(str, codec)))
+      .setByteOrderMarks(
+        BOM.UTF_8,
+        BOM.UTF_16BE,
+        BOM.UTF_16LE,
+        BOM.UTF_32BE,
+        BOM.UTF_32LE
+      )
+      .get()
+      .getBOM()
 
   test("UTF-8 BOMs should be written properly") {
     forAll { str: String =>

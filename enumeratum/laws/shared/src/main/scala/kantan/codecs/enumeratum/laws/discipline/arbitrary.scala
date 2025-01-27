@@ -17,11 +17,15 @@
 package kantan.codecs.enumeratum.laws.discipline
 
 import enumeratum.values._
-import kantan.codecs.laws.{IllegalString, LegalString}
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import kantan.codecs.strings.{codecs, StringEncoder}
-import org.scalacheck.{Arbitrary, Gen}
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
+import kantan.codecs.laws.IllegalString
+import kantan.codecs.laws.LegalString
+import kantan.codecs.strings.StringEncoder
+import kantan.codecs.strings.codecs
+import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.{arbitrary => arb}
+import org.scalacheck.Gen
 
 object arbitrary extends ArbitraryInstances with kantan.codecs.laws.discipline.ArbitraryInstances
 

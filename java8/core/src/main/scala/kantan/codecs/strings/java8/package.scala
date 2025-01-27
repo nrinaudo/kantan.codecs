@@ -16,13 +16,21 @@
 
 package kantan.codecs.strings
 
-import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime}
 import kantan.codecs.export.Exported
+
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.ZonedDateTime
 
 package object java8 extends TimeCodecCompanion[String, DecodeError, codecs.type] with ToFormatLiteral {
 
-  override def encoderFrom[D](d: StringEncoder[D]) = d
-  override def decoderFrom[D](d: StringDecoder[D]) = d
+  override def encoderFrom[D](d: StringEncoder[D]) =
+    d
+  override def decoderFrom[D](d: StringDecoder[D]) =
+    d
 
   implicit val defaultStringInstantDecoder: Exported[StringDecoder[Instant]] = Exported(defaultInstantDecoder)
   implicit val defaultStringLocalDateTimeDecoder: Exported[StringDecoder[LocalDateTime]] = Exported(

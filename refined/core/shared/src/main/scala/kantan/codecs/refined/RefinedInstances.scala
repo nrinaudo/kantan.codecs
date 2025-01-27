@@ -16,15 +16,16 @@
 
 package kantan.codecs.refined
 
-import eu.timepit.refined.api.{RefType, Validate}
-import kantan.codecs.{Decoder, Encoder}
+import eu.timepit.refined.api.RefType
+import eu.timepit.refined.api.Validate
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import kantan.codecs.error.IsError
 
 trait DecoderInstances {
 
   /** Provides a [[Decoder]] instance for any refined type such that the reference type has a [[Decoder]] instance. */
-  implicit final def refinedDecoder[E, D, F, T, P, R[_, _]](
-    implicit
+  implicit final def refinedDecoder[E, D, F, T, P, R[_, _]](implicit
     decoder: Decoder[E, D, F, T],
     validate: Validate[D, P],
     refType: RefType[R],
@@ -39,8 +40,7 @@ trait DecoderInstances {
 trait EncoderInstances {
 
   /** Provides an [[Encoder]] instance for any refined type such that the reference type has an [[Encoder]] instance. */
-  implicit final def refinedEncoder[E, D, T, P, R[_, _]](
-    implicit
+  implicit final def refinedEncoder[E, D, T, P, R[_, _]](implicit
     encoder: Encoder[E, D, T],
     refType: RefType[R]
   ): Encoder[E, R[D, P], T] =

@@ -19,8 +19,8 @@ package kantan.codecs
 /** Defines codecs for encoding to and decoding from strings.
   *
   * These codecs are not necessary meant to use directly, but more as part of larger ones.
-  * [[https://github.com/nrinaudo/kantan.csv kantan.csv]], for example, works with CSV files but delegates the act
-  * of encoding to or decoding from a CSV cell to string codecs.
+  * [[https://github.com/nrinaudo/kantan.csv kantan.csv]], for example, works with CSV files but delegates the act of
+  * encoding to or decoding from a CSV cell to string codecs.
   *
   * Default instances can be found in [[kantan.codecs.strings.codecs]].
   */

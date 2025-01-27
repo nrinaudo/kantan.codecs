@@ -16,7 +16,10 @@
 
 package kantan.codecs.resource.bom
 
-import java.io.{InputStream, InputStreamReader, PushbackInputStream, Reader}
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.PushbackInputStream
+import java.io.Reader
 import scala.io.Codec
 
 object BomReader {

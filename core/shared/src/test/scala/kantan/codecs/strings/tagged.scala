@@ -17,7 +17,9 @@
 package kantan.codecs.strings
 
 import imp.imp
-import kantan.codecs.{Codec, Decoder, Encoder}
+import kantan.codecs.Codec
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 
 object tagged {
 

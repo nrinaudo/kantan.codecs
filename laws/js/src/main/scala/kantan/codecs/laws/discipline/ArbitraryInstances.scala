@@ -16,12 +16,14 @@
 
 package kantan.codecs.laws.discipline
 
-import java.io.EOFException
 import org.scalacheck.Gen
+
+import java.io.EOFException
+import java.io.IOException
 
 trait ArbitraryInstances extends CommonArbitraryInstances {
 
-  override val genIoException =
+  override val genIoException: Gen[IOException] =
     Gen.oneOf(genUnsupportedEncoding, Gen.const(new EOFException))
 
 }

@@ -17,8 +17,10 @@
 package kantan.codecs.enumeratum.values
 
 import enumeratum.values._
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import kantan.codecs.error.IsError
+
 import scala.annotation.nowarn
 
 // I would really prefer enumeratumDecoder && enumeratumEncoder to be implicit and to be sufficient, but somehow,
@@ -29,8 +31,8 @@ import scala.annotation.nowarn
 trait DecoderInstances {
 
   @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
-  def enumeratumDecoder[V, E, D <: ValueEnumEntry[V], F, T](
-    implicit valueEnum: ValueEnum[V, D],
+  def enumeratumDecoder[V, E, D <: ValueEnumEntry[V], F, T](implicit
+    valueEnum: ValueEnum[V, D],
     decoder: Decoder[E, V, F, T],
     error: IsError[F]
   ): Decoder[E, D, F, T] = {
@@ -44,37 +46,31 @@ trait DecoderInstances {
     }
   }
 
-  implicit def intEnumeratumDecoder[E, D <: IntEnumEntry: IntEnum, F: IsError, T](
-    implicit
+  implicit def intEnumeratumDecoder[E, D <: IntEnumEntry: IntEnum, F: IsError, T](implicit
     decoder: Decoder[E, Int, F, T]
   ): Decoder[E, D, F, T] =
     enumeratumDecoder
 
-  implicit def longEnumeratumDecoder[E, D <: LongEnumEntry: LongEnum, F: IsError, T](
-    implicit
+  implicit def longEnumeratumDecoder[E, D <: LongEnumEntry: LongEnum, F: IsError, T](implicit
     decoder: Decoder[E, Long, F, T]
   ): Decoder[E, D, F, T] =
     enumeratumDecoder
 
-  implicit def shortEnumeratumDecoder[E, D <: ShortEnumEntry: ShortEnum, F: IsError, T](
-    implicit
+  implicit def shortEnumeratumDecoder[E, D <: ShortEnumEntry: ShortEnum, F: IsError, T](implicit
     decoder: Decoder[E, Short, F, T]
   ): Decoder[E, D, F, T] =
     enumeratumDecoder
 
-  implicit def stringEnumeratumDecoder[E, D <: StringEnumEntry: StringEnum, F: IsError, T](
-    implicit
+  implicit def stringEnumeratumDecoder[E, D <: StringEnumEntry: StringEnum, F: IsError, T](implicit
     decoder: Decoder[E, String, F, T]
   ): Decoder[E, D, F, T] =
     enumeratumDecoder
-  implicit def byteEnumeratumDecoder[E, D <: ByteEnumEntry: ByteEnum, F: IsError, T](
-    implicit
+  implicit def byteEnumeratumDecoder[E, D <: ByteEnumEntry: ByteEnum, F: IsError, T](implicit
     decoder: Decoder[E, Byte, F, T]
   ): Decoder[E, D, F, T] =
     enumeratumDecoder
 
-  implicit def charEnumeratumDecoder[E, D <: CharEnumEntry: CharEnum, F: IsError, T](
-    implicit
+  implicit def charEnumeratumDecoder[E, D <: CharEnumEntry: CharEnum, F: IsError, T](implicit
     decoder: Decoder[E, Char, F, T]
   ): Decoder[E, D, F, T] =
     enumeratumDecoder
@@ -90,44 +86,44 @@ trait DecoderInstances {
   */
 trait EncoderInstances {
 
-  def enumeratumEncoder[V, E, D <: ValueEnumEntry[V], T](
-    implicit encoder: Encoder[E, V, T]
+  def enumeratumEncoder[V, E, D <: ValueEnumEntry[V], T](implicit
+    encoder: Encoder[E, V, T]
   ): Encoder[E, D, T] =
     encoder.contramap(_.value)
 
   @nowarn
-  implicit def intEnumeratumEncoder[E, D <: IntEnumEntry: IntEnum, T](
-    implicit encoder: Encoder[E, Int, T]
+  implicit def intEnumeratumEncoder[E, D <: IntEnumEntry: IntEnum, T](implicit
+    encoder: Encoder[E, Int, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
   @nowarn
-  implicit def longEnumeratumEncoder[E, D <: LongEnumEntry: LongEnum, T](
-    implicit encoder: Encoder[E, Long, T]
+  implicit def longEnumeratumEncoder[E, D <: LongEnumEntry: LongEnum, T](implicit
+    encoder: Encoder[E, Long, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
   @nowarn
-  implicit def shortEnumeratumEncoder[E, D <: ShortEnumEntry: ShortEnum, T](
-    implicit encoder: Encoder[E, Short, T]
+  implicit def shortEnumeratumEncoder[E, D <: ShortEnumEntry: ShortEnum, T](implicit
+    encoder: Encoder[E, Short, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
   @nowarn
-  implicit def stringEnumeratumEncoder[E, D <: StringEnumEntry: StringEnum, T](
-    implicit encoder: Encoder[E, String, T]
+  implicit def stringEnumeratumEncoder[E, D <: StringEnumEntry: StringEnum, T](implicit
+    encoder: Encoder[E, String, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
   @nowarn
-  implicit def byteEnumeratumEncoder[E, D <: ByteEnumEntry: ByteEnum, T](
-    implicit encoder: Encoder[E, Byte, T]
+  implicit def byteEnumeratumEncoder[E, D <: ByteEnumEntry: ByteEnum, T](implicit
+    encoder: Encoder[E, Byte, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 
   @nowarn
-  implicit def charEnumeratumEncoder[E, D <: CharEnumEntry: CharEnum, T](
-    implicit encoder: Encoder[E, Char, T]
+  implicit def charEnumeratumEncoder[E, D <: CharEnumEntry: CharEnum, T](implicit
+    encoder: Encoder[E, Char, T]
   ): Encoder[E, D, T] =
     enumeratumEncoder(encoder)
 

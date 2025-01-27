@@ -17,16 +17,22 @@
 package kantan.codecs.laws.discipline
 
 import imp.imp
-import java.io.{IOException, UnsupportedEncodingException}
-import java.util.{Date, UUID}
-import java.util.regex.Pattern
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import kantan.codecs.laws.CodecValue
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.strings.DecodeError
-import org.scalacheck.{ArbitraryArities => _}
-import org.scalacheck.{Arbitrary, Cogen, Gen}
+import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.{arbitrary => arb}
+import org.scalacheck.Cogen
+import org.scalacheck.Gen
+
+import java.io.IOException
+import java.io.UnsupportedEncodingException
+import java.util.Date
+import java.util.UUID
+import java.util.regex.Pattern
 import scala.util.Try
 import scala.util.matching.Regex
 
@@ -62,15 +68,15 @@ trait CommonArbitraryInstances extends ArbitraryArities {
   } yield Pattern.compile(regex, flags)
 
   implicit val arbPattern: Arbitrary[Pattern] = Arbitrary(genPattern)
-  implicit val cogenPattern: Cogen[Pattern]   = implicitly[Cogen[(String, Int)]].contramap(p => (p.pattern(), p.flags()))
+  implicit val cogenPattern: Cogen[Pattern] = implicitly[Cogen[(String, Int)]].contramap(p => (p.pattern(), p.flags()))
 
   implicit val arbRegex: Arbitrary[Regex] = Arbitrary(genRegularExpression.map(_.r))
   implicit val cogenRegex: Cogen[Regex]   = implicitly[Cogen[String]].contramap(_.pattern.pattern())
 
   // - CodecValue ------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def arbValue[E, D, T](
-    implicit arbL: Arbitrary[LegalValue[E, D, T]],
+  implicit def arbValue[E, D, T](implicit
+    arbL: Arbitrary[LegalValue[E, D, T]],
     arbI: Arbitrary[IllegalValue[E, D, T]]
   ): Arbitrary[CodecValue[E, D, T]] =
     Arbitrary(Gen.oneOf(arbL.arbitrary, arbI.arbitrary))
@@ -78,13 +84,15 @@ trait CommonArbitraryInstances extends ArbitraryArities {
   implicit def arbLegalValueFromEnc[E, A: Arbitrary, T](implicit ea: Encoder[E, A, T]): Arbitrary[LegalValue[E, A, T]] =
     arbLegalValue(ea.encode)
 
-  implicit def arbIllegalValueFromDec[E: Arbitrary, A, T](
-    implicit da: Decoder[E, A, _, T]
-  ): Arbitrary[IllegalValue[E, A, T]] = arbIllegalValue(e => da.decode(e).isLeft)
+  implicit def arbIllegalValueFromDec[E: Arbitrary, A, T](implicit
+    da: Decoder[E, A, _, T]
+  ): Arbitrary[IllegalValue[E, A, T]] =
+    arbIllegalValue(e => da.decode(e).isLeft)
 
-  def arbLegalValue[E, A, T](encode: A => E)(implicit arbA: Arbitrary[A]): Arbitrary[LegalValue[E, A, T]] = Arbitrary {
-    arbA.arbitrary.map(a => LegalValue(encode(a), a))
-  }
+  def arbLegalValue[E, A, T](encode: A => E)(implicit arbA: Arbitrary[A]): Arbitrary[LegalValue[E, A, T]] =
+    Arbitrary {
+      arbA.arbitrary.map(a => LegalValue(encode(a), a))
+    }
 
   def arbIllegalValue[E: Arbitrary, A, T](illegal: E => Boolean): Arbitrary[IllegalValue[E, A, T]] =
     Arbitrary {
@@ -123,14 +131,11 @@ trait CommonArbitraryInstances extends ArbitraryArities {
       mc    <- mcGen
       limit <- Gen.const(math.max(x.abs.toString.length - mc.getPrecision, 0))
       scale <- Gen.choose(Int.MinValue + limit, Int.MaxValue)
-    } yield {
-      try {
-        BigDecimal(x, scale, mc)
-      }
-      catch {
-        // Handle the case where scale/precision conflict
-        case _: java.lang.ArithmeticException => BigDecimal(x, scale, UNLIMITED)
-      }
+    } yield try
+      BigDecimal(x, scale, mc)
+    catch {
+      // Handle the case where scale/precision conflict
+      case _: java.lang.ArithmeticException => BigDecimal(x, scale, UNLIMITED)
     }
     Arbitrary(bdGen)
   }
@@ -164,14 +169,16 @@ trait CommonArbitraryInstances extends ArbitraryArities {
 
   implicit val arbIoException: Arbitrary[IOException] = Arbitrary(genIoException)
 
-  implicit def genException: Gen[Exception] = Gen.oneOf(
-    genIoException,
-    genIllegalArgument,
-    Gen.const(new NullPointerException),
-    Gen.const(new IllegalArgumentException)
-  )
+  implicit def genException: Gen[Exception] =
+    Gen.oneOf(
+      genIoException,
+      genIllegalArgument,
+      Gen.const(new NullPointerException),
+      Gen.const(new IllegalArgumentException)
+    )
 
-  implicit def arbException: Arbitrary[Exception] = Arbitrary(genException)
+  implicit def arbException: Arbitrary[Exception] =
+    Arbitrary(genException)
 
   implicit def arbTry[A](implicit aa: Arbitrary[A]): Arbitrary[Try[A]] =
     Arbitrary(

@@ -17,17 +17,20 @@
 package kantan.codecs.laws.discipline
 
 import imp.imp
-import kantan.codecs.laws.{CodecLaws, CodecValue}
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.CodecLaws
+import kantan.codecs.laws.CodecValue
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.discipline.arbitrary._
-import org.scalacheck.{Arbitrary, Cogen}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Cogen
 import org.scalacheck.Prop.forAll
 
 trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[E, D, T] {
   def laws: CodecLaws[E, D, F, T]
 
-  private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](
-    implicit av: Arbitrary[CodecValue[E, D, T]]
+  private def coreRules[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit
+    av: Arbitrary[CodecValue[E, D, T]]
   ): RuleSet =
     new DefaultRuleSet(
       "round trip",
@@ -46,14 +49,15 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
       "imapEncoded composition(decoding)"  -> forAll(laws.imapEncodedCompositionDecoding[A, B] _)
     )
 
-  def bijectiveCodec[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet = new RuleSet {
-    implicit val arbValues: Arbitrary[CodecValue[E, D, T]] = Arbitrary(arbLegal.arbitrary)
+  def bijectiveCodec[A: Arbitrary: Cogen, B: Arbitrary: Cogen]: RuleSet =
+    new RuleSet {
+      implicit val arbValues: Arbitrary[CodecValue[E, D, T]] = Arbitrary(arbLegal.arbitrary)
 
-    val name    = "bijective codec"
-    val bases   = Nil
-    val parents = Seq(coreRules[A, B], bijectiveDecoder[A, B])
-    val props   = Seq.empty
-  }
+      val name    = "bijective codec"
+      val bases   = Nil
+      val parents = Seq(coreRules[A, B], bijectiveDecoder[A, B])
+      val props   = Seq.empty
+    }
 
   def codec[A: Arbitrary: Cogen, B: Arbitrary: Cogen](implicit ai: Arbitrary[IllegalValue[E, D, T]]): RuleSet =
     new RuleSet {
@@ -65,8 +69,8 @@ trait CodecTests[E, D, F, T] extends DecoderTests[E, D, F, T] with EncoderTests[
 }
 
 object CodecTests {
-  def apply[E: Arbitrary: Cogen, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](
-    implicit l: CodecLaws[E, D, F, T],
+  def apply[E: Arbitrary: Cogen, D: Arbitrary: Cogen, F: Cogen: Arbitrary, T](implicit
+    l: CodecLaws[E, D, F, T],
     al: Arbitrary[LegalValue[E, D, T]]
   ): CodecTests[E, D, F, T] =
     new CodecTests[E, D, F, T] {

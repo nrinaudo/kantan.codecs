@@ -20,10 +20,9 @@ import scala.io.Codec
 
 /** Adds Byte Order Mark support to resources.
   *
-  * By importing this package, the default behaviour of kantan libraries will be changed to:
-  *  * add a BOM when writing textual data (if one exists for the output charset).
-  *  * attempt to find a BOM when reading textual data and, if one is found, use the corresponding charset (potentially
-  *    overriding whatever charset was specified "in-code").
+  * By importing this package, the default behaviour of kantan libraries will be changed to: * add a BOM when writing
+  * textual data (if one exists for the output charset). * attempt to find a BOM when reading textual data and, if one
+  * is found, use the corresponding charset (potentially overriding whatever charset was specified "in-code").
   *
   * Those behaviours are not enabled by default as they're very Microsoft-specific.
   */

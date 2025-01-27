@@ -18,8 +18,10 @@ package kantan.codecs.refined
 
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
-import kantan.codecs.laws.discipline.{StringCodecTests, StringDecoderTests, StringEncoderTests}
 import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.StringCodecTests
+import kantan.codecs.laws.discipline.StringDecoderTests
+import kantan.codecs.laws.discipline.StringEncoderTests
 import kantan.codecs.refined.laws.discipline.arbitrary._
 
 class RefinedCodecTests extends DisciplineSuite {

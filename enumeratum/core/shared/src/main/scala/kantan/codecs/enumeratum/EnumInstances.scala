@@ -16,16 +16,19 @@
 
 package kantan.codecs.enumeratum
 
-import enumeratum.{Enum, EnumEntry}
-import kantan.codecs.{Decoder, Encoder}
+import enumeratum.Enum
+import enumeratum.EnumEntry
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import kantan.codecs.error.IsError
+
 import scala.annotation.nowarn
 
 /** Defines implicit `Decoder` instances for any enumeratum `Enum` type. */
 trait DecoderInstances {
 
-  implicit def enumeratumDecoder[E, D <: EnumEntry, F, T](
-    implicit enumD: Enum[D],
+  implicit def enumeratumDecoder[E, D <: EnumEntry, F, T](implicit
+    enumD: Enum[D],
     decoder: Decoder[E, String, F, T],
     error: IsError[F]
   ): Decoder[E, D, F, T] = {
@@ -49,8 +52,8 @@ trait EncoderInstances {
   // - I haven't been able to decide whether it was useful here or not, but it certainly can't hurt to reduce the
   //   implicit search space.
   @nowarn
-  implicit def enumeratumEncoder[E, D <: EnumEntry: Enum, T](
-    implicit encoder: Encoder[E, String, T]
+  implicit def enumeratumEncoder[E, D <: EnumEntry: Enum, T](implicit
+    encoder: Encoder[E, String, T]
   ): Encoder[E, D, T] =
     encoder.contramap(_.entryName)
 

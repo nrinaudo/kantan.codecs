@@ -35,24 +35,33 @@ trait IsError[E] extends Serializable { self =>
   def from(msg: String, t: Throwable): E
 
   /** Safely evaluates the specified argument, wrapping errors in a `E`. */
-  def safe[A](a: => A): Either[E, A] = ResultCompanion.nonFatal(fromThrowable)(a)
+  def safe[A](a: => A): Either[E, A] =
+    ResultCompanion.nonFatal(fromThrowable)(a)
 
-  def map[EE](f: E => EE): IsError[EE] = new IsError[EE] {
-    override def fromThrowable(t: Throwable)     = f(self.fromThrowable(t))
-    override def fromMessage(msg: String)        = f(self.fromMessage(msg))
-    override def from(msg: String, t: Throwable) = f(self.from(msg, t))
-  }
+  def map[EE](f: E => EE): IsError[EE] =
+    new IsError[EE] {
+      override def fromThrowable(t: Throwable) =
+        f(self.fromThrowable(t))
+      override def fromMessage(msg: String) =
+        f(self.fromMessage(msg))
+      override def from(msg: String, t: Throwable) =
+        f(self.from(msg, t))
+    }
 }
 
 object IsError {
 
   /** Summons an implicit instance of `IsError[A]` if one is found in scope, fails compilation otherwise. */
-  def apply[A](implicit ev: IsError[A]): IsError[A] = macro imp.summon[IsError[A]]
+  def apply[A](implicit ev: IsError[A]): IsError[A] =
+    macro imp.summon[IsError[A]]
 
   /** Default instance for `Exception.` */
   implicit val exceptionIsError: IsError[Exception] = new IsError[Exception] {
-    override def fromThrowable(t: Throwable)     = new Exception(t)
-    override def fromMessage(msg: String)        = new Exception(msg)
-    override def from(msg: String, t: Throwable) = new Exception(msg, t)
+    override def fromThrowable(t: Throwable) =
+      new Exception(t)
+    override def fromMessage(msg: String) =
+      new Exception(msg)
+    override def from(msg: String, t: Throwable) =
+      new Exception(msg, t)
   }
 }

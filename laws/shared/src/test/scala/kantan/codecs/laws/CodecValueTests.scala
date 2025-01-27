@@ -16,14 +16,17 @@
 
 package kantan.codecs.laws
 
-import java.util.UUID
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.discipline.arbitrary._
 import kantan.codecs.strings.{codecs => scodecs}
-import org.scalacheck.{Arbitrary, Prop}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Prop
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+
+import java.util.UUID
 import scala.util.Try
 
 class CodecValueTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers {
@@ -82,5 +85,5 @@ class CodecValueTests extends AnyFunSuite with ScalaCheckPropertyChecks with Mat
     Try(Left(s.toBoolean): Either[Boolean, Int]).getOrElse(Right(s.toInt): Either[Boolean, Int])
   }
   // TODO: re-enable?
-  //testArbitrary[Seq[String], Seq[Int], scodecs.type]("String", "Seq[Int]")(_.map(_.toInt))
+  // testArbitrary[Seq[String], Seq[Int], scodecs.type]("String", "Seq[Int]")(_.map(_.toInt))
 }

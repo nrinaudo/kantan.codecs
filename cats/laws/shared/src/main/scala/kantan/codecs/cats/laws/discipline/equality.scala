@@ -18,7 +18,8 @@ package kantan.codecs.cats.laws.discipline
 
 import cats.Eq
 import cats.instances.either._
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import org.scalacheck.Arbitrary
 
 object equality extends EqInstances

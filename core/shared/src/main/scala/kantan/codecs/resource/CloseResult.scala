@@ -19,10 +19,12 @@ package kantan.codecs.resource
 import kantan.codecs.resource.ResourceError.CloseError
 
 object CloseResult {
-  val success: CloseResult                    = Right(())
-  def failure(error: CloseError): CloseResult = Left(error)
-  def apply[U](c: => U): CloseResult = CloseError.safe {
-    c
-    ()
-  }
+  val success: CloseResult = Right(())
+  def failure(error: CloseError): CloseResult =
+    Left(error)
+  def apply[U](c: => U): CloseResult =
+    CloseError.safe {
+      c
+      ()
+    }
 }

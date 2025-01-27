@@ -16,8 +16,10 @@
 
 package kantan.codecs.scalaz
 
-import kantan.codecs.laws.discipline.{StringCodecTests, StringDecoderTests, StringEncoderTests}
 import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.StringCodecTests
+import kantan.codecs.laws.discipline.StringDecoderTests
+import kantan.codecs.laws.discipline.StringEncoderTests
 import kantan.codecs.scalaz.laws.discipline.arbitrary._
 import scalaz.\/
 

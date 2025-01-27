@@ -21,11 +21,13 @@ import kantan.codecs.Optional
 trait OptionalLaws[A] {
   def optional: Optional[A]
 
-  def emptyUniqueness(a: A): Boolean = a == optional.empty || !optional.isEmpty(a)
+  def emptyUniqueness(a: A): Boolean =
+    a == optional.empty || !optional.isEmpty(a)
 }
 
 object OptionalLaws {
-  implicit def apply[A: Optional]: OptionalLaws[A] = new OptionalLaws[A] {
-    override val optional = Optional[A]
-  }
+  implicit def apply[A: Optional]: OptionalLaws[A] =
+    new OptionalLaws[A] {
+      override val optional = Optional[A]
+    }
 }

@@ -16,7 +16,8 @@
 
 package kantan.codecs.resource
 
-import kantan.codecs.error.{Error, ErrorCompanion}
+import kantan.codecs.error.Error
+import kantan.codecs.error.ErrorCompanion
 
 /** Errors that can occur while working with a [[Resource]]. */
 sealed abstract class ResourceError(message: String) extends Error(message)

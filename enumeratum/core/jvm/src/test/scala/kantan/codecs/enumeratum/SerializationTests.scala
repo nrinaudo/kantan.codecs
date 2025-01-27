@@ -17,8 +17,10 @@
 package kantan.codecs.enumeratum
 
 import kantan.codecs.enumeratum.laws.discipline.Enumerated
-import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
-import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.SerializableTests
+import kantan.codecs.strings.StringDecoder
+import kantan.codecs.strings.StringEncoder
 
 class SerializationTests extends DisciplineSuite {
 

@@ -23,15 +23,18 @@ import org.typelevel.discipline.Laws
 trait SerializableTests[A] extends Laws {
   def laws: SerializableLaws[A]
 
-  def serializable: RuleSet = new DefaultRuleSet(
-    "serializable",
-    None,
-    "serialize" -> Prop(laws.serializable())
-  )
+  def serializable: RuleSet =
+    new DefaultRuleSet(
+      "serializable",
+      None,
+      "serialize" -> Prop(laws.serializable())
+    )
 }
 
 object SerializableTests {
-  def apply[A](implicit l: SerializableLaws[A]): SerializableTests[A] = new SerializableTests[A] {
-    override def laws = l
-  }
+  def apply[A](implicit l: SerializableLaws[A]): SerializableTests[A] =
+    new SerializableTests[A] {
+      override def laws =
+        l
+    }
 }

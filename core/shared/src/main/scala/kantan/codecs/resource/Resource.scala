@@ -16,19 +16,26 @@
 
 package kantan.codecs.resource
 
-import java.io.{Closeable => _}
-import java.io.{ByteArrayInputStream, InputStream, OutputStream}
-import java.io.{InputStreamReader, OutputStreamWriter, Reader, StringReader, Writer}
+import java.io.ByteArrayInputStream
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.OutputStream
+import java.io.OutputStreamWriter
+import java.io.Reader
+import java.io.StringReader
+import java.io.Writer
 import scala.io.Codec
 
 /** Represents a resource that can be opened and worked on.
   *
   * The purpose of this trait is to abstract over the notion of "things that can be opened", such as files, URLs...
-  * Default instances are provided for `java.io` types - `java.io.File`, for example, has instances for both
-  * opening it for reading and for writing.
+  * Default instances are provided for `java.io` types - `java.io.File`, for example, has instances for both opening it
+  * for reading and for writing.
   *
-  * @tparam I type of the resource itself (eg `java.io.File`).
-  * @tparam R type of the opened resource (eg `java.io.InputStream`)
+  * @tparam I
+  *   type of the resource itself (eg `java.io.File`).
+  * @tparam R
+  *   type of the opened resource (eg `java.io.InputStream`)
   */
 trait Resource[I, R] { self =>
 
@@ -47,7 +54,8 @@ trait Resource[I, R] { self =>
       Closeable[R].close(r).flatMap(_ => res)
     }
 
-  def contramap[II](f: II => I): Resource[II, R] = Resource.from(f andThen self.open)
+  def contramap[II](f: II => I): Resource[II, R] =
+    Resource.from(f.andThen(self.open))
 
   @deprecated("Use econtramap instead", "0.3.1")
   def contramapResult[II](f: II => OpenResult[I]): Resource[II, R] =
@@ -56,27 +64,35 @@ trait Resource[I, R] { self =>
   def econtramap[II](f: II => OpenResult[I]): Resource[II, R] =
     Resource.from(aa => f(aa).flatMap(self.open))
 
-  def map[RR](f: R => RR): Resource[I, RR] = Resource.from(a => open(a).map(f))
+  def map[RR](f: R => RR): Resource[I, RR] =
+    Resource.from(a => open(a).map(f))
 
   @deprecated("Use emap instead", "0.3.1")
-  def mapResult[RR](f: R => OpenResult[RR]): Resource[I, RR] = emap(f)
+  def mapResult[RR](f: R => OpenResult[RR]): Resource[I, RR] =
+    emap(f)
 
   def emap[RR](f: R => OpenResult[RR]): Resource[I, RR] =
     Resource.from(a => open(a).flatMap(f))
 }
 
 object Resource extends PlatformSpecificInstances {
-  def from[I, R](f: I => OpenResult[R]): Resource[I, R] = new Resource[I, R] {
-    override def open(a: I) = f(a)
-  }
+  def from[I, R](f: I => OpenResult[R]): Resource[I, R] =
+    new Resource[I, R] {
+      override def open(a: I) =
+        f(a)
+    }
 
   // - Raw streams -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  implicit def streamInputResource[I <: InputStream]: InputResource[I] = Resource.from(Right.apply)
-  implicit def readerReaderResource[R <: Reader]: ReaderResource[R]    = Resource.from(Right.apply)
+  implicit def streamInputResource[I <: InputStream]: InputResource[I] =
+    Resource.from(Right.apply)
+  implicit def readerReaderResource[R <: Reader]: ReaderResource[R] =
+    Resource.from(Right.apply)
 
-  implicit def streamOutputResource[O <: OutputStream]: OutputResource[O] = Resource.from(Right.apply)
-  implicit def writerWriterResource[W <: Writer]: WriterResource[W]       = Resource.from(Right.apply)
+  implicit def streamOutputResource[O <: OutputStream]: OutputResource[O] =
+    Resource.from(Right.apply)
+  implicit def writerWriterResource[W <: Writer]: WriterResource[W] =
+    Resource.from(Right.apply)
 
   // - Byte to char ----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

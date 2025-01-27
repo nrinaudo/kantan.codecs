@@ -20,8 +20,8 @@ import org.scalacheck.Arbitrary
 
 object equality {
   def eq[A, B: Arbitrary](a1: B => A, a2: B => A)(f: (A, A) => Boolean): Boolean = {
-    val samples = List.fill(100)(Arbitrary.arbitrary[B].sample).collect {
-      case Some(a) => a
+    val samples = List.fill(100)(Arbitrary.arbitrary[B].sample).collect { case Some(a) =>
+      a
     }
     samples.forall(b => f(a1(b), a2(b)))
   }

@@ -16,11 +16,16 @@
 
 package kantan.codecs.strings.java8
 
-import java.time.{LocalDate, LocalDateTime, LocalTime, ZonedDateTime}
-import java.time.format.DateTimeFormatter
 import kantan.codecs.laws.SerializableLaws
-import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.SerializableTests
 import kantan.codecs.strings.java8.laws.discipline.arbitrary._
+
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class FormatTests extends DisciplineSuite {
 

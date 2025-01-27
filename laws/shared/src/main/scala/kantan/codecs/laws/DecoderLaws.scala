@@ -17,21 +17,24 @@
 package kantan.codecs.laws
 
 import kantan.codecs.Decoder
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
 import org.scalacheck.Prop
 
 trait DecoderLaws[E, D, F, T] {
   def decoder: Decoder[E, D, F, T]
 
-  private def cmp(result: Either[F, D], cv: CodecValue[E, D, T]): Boolean = (cv, result) match {
-    case (IllegalValue(_), Left(_))    => true
-    case (LegalValue(_, d), Right(d2)) => d == d2
-    case _                             => false
-  }
+  private def cmp(result: Either[F, D], cv: CodecValue[E, D, T]): Boolean =
+    (cv, result) match {
+      case (IllegalValue(_), Left(_))    => true
+      case (LegalValue(_, d), Right(d2)) => d == d2
+      case _                             => false
+    }
 
   // - Simple laws -----------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  def decode(v: CodecValue[E, D, T]): Boolean = cmp(decoder.decode(v.encoded), v)
+  def decode(v: CodecValue[E, D, T]): Boolean =
+    cmp(decoder.decode(v.encoded), v)
 
   def decodeFailure(v: IllegalValue[E, D, T]): Boolean =
     Prop.throws(classOf[Exception])(decoder.unsafeDecode(v.encoded))
@@ -42,13 +45,13 @@ trait DecoderLaws[E, D, F, T] {
     decoder.decode(v.encoded) == decoder.map(identity).decode(v.encoded)
 
   def mapComposition[A, B](v: CodecValue[E, D, T], f: D => A, g: A => B): Boolean =
-    decoder.map(f andThen g).decode(v.encoded) == decoder.map(f).map(g).decode(v.encoded)
+    decoder.map(f.andThen(g)).decode(v.encoded) == decoder.map(f).map(g).decode(v.encoded)
 
   def leftMapIdentity[A](v: CodecValue[E, D, T]): Boolean =
     decoder.decode(v.encoded) == decoder.leftMap(identity).decode(v.encoded)
 
   def leftMapComposition[A, B](v: CodecValue[E, D, T], f: F => A, g: A => B): Boolean =
-    decoder.leftMap(f andThen g).decode(v.encoded) == decoder.leftMap(f).leftMap(g).decode(v.encoded)
+    decoder.leftMap(f.andThen(g)).decode(v.encoded) == decoder.leftMap(f).leftMap(g).decode(v.encoded)
 
   // - Contravariant laws ----------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -56,7 +59,7 @@ trait DecoderLaws[E, D, F, T] {
     decoder.decode(v.encoded) == decoder.contramapEncoded(identity[E]).decode(v.encoded)
 
   def contramapEncodedComposition[A, B](b: B, f: A => E, g: B => A): Boolean =
-    decoder.contramapEncoded(g andThen f).decode(b) == decoder.contramapEncoded(f).contramapEncoded(g).decode(b)
+    decoder.contramapEncoded(g.andThen(f)).decode(b) == decoder.contramapEncoded(f).contramapEncoded(g).decode(b)
 
   // - "Kleisli" laws --------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------

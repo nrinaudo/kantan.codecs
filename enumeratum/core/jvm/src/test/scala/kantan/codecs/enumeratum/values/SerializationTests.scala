@@ -16,17 +16,16 @@
 
 package kantan.codecs.enumeratum.values
 
-import kantan.codecs.enumeratum.laws.discipline.{
-  EnumeratedByte,
-  EnumeratedChar,
-  EnumeratedInt,
-  EnumeratedLong,
-  EnumeratedShort,
-  EnumeratedString
-}
+import kantan.codecs.enumeratum.laws.discipline.EnumeratedByte
+import kantan.codecs.enumeratum.laws.discipline.EnumeratedChar
+import kantan.codecs.enumeratum.laws.discipline.EnumeratedInt
+import kantan.codecs.enumeratum.laws.discipline.EnumeratedLong
+import kantan.codecs.enumeratum.laws.discipline.EnumeratedShort
+import kantan.codecs.enumeratum.laws.discipline.EnumeratedString
 import kantan.codecs.laws.discipline.DisciplineSuite
 import kantan.codecs.laws.discipline.SerializableTests
-import kantan.codecs.strings.{StringDecoder, StringEncoder}
+import kantan.codecs.strings.StringDecoder
+import kantan.codecs.strings.StringEncoder
 
 class SerializationTests extends DisciplineSuite {
 

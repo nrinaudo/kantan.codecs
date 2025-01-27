@@ -17,7 +17,8 @@
 package kantan.codecs.resource
 
 import imp.imp
-import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
 import org.scalatest.EitherValues._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -28,34 +29,37 @@ class ResourceIteratorTests
     extends AnyFunSuite with ScalaCheckPropertyChecks with Matchers with VersionSpecificResourceIteratorTests {
   // - Tools -----------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  case class FailingIterator[A](iterator: Iterator[A], index: Int) {
-    def resourceIterator: ResourceIterator[A] = new ResourceIterator[A] {
-      var i = 0
+  case class FailingIterator[A](it: Iterator[A], index: Int) {
+    def resourceIterator: ResourceIterator[A] =
+      new ResourceIterator[A] {
+        var i = 0
 
-      def checkFail(): Unit = {
-        if(i == index) sys.error("failed")
-        i += 1
-      }
+        def checkFail(): Unit = {
+          if(i == index) sys.error("failed")
+          i += 1
+        }
 
-      override def readNext() = {
-        checkFail()
-        iterator.next()
-      }
+        override def readNext() = {
+          checkFail()
+          it.next()
+        }
 
-      override def checkNext = {
-        checkFail()
-        iterator.hasNext
+        override def checkNext = {
+          checkFail()
+          it.hasNext
+        }
+        override def release() =
+          ()
       }
-      override def release() = ()
+  }
+
+  implicit def arbFailingIterator[A: Arbitrary]: Arbitrary[FailingIterator[A]] =
+    Arbitrary {
+      for {
+        as    <- Gen.nonEmptyListOf(imp[Arbitrary[A]].arbitrary)
+        index <- Gen.choose(0, 2 * (as.length - 1))
+      } yield FailingIterator(as.iterator, index)
     }
-  }
-
-  implicit def arbFailingIterator[A: Arbitrary]: Arbitrary[FailingIterator[A]] = Arbitrary {
-    for {
-      as    <- Gen.nonEmptyListOf(imp[Arbitrary[A]].arbitrary)
-      index <- Gen.choose(0, 2 * (as.length - 1))
-    } yield FailingIterator(as.iterator, index)
-  }
 
   def closedWhenEmpty[A](r: ResourceIterator[A]): Boolean = {
     var closed = false
@@ -146,7 +150,7 @@ class ResourceIteratorTests
     forAll { (is: List[Int], n: Int) =>
       val res = ResourceIterator(is: _*).take(n)
       while(res.hasNext) res.next()
-      intercept[NoSuchElementException] { res.next() }
+      intercept[NoSuchElementException](res.next())
       ()
     }
   }
@@ -162,7 +166,7 @@ class ResourceIteratorTests
     forAll { (is: List[Int], f: Int => Option[String]) =>
       val res = ResourceIterator(is: _*).collect(Function.unlift(f))
       while(res.hasNext) res.next()
-      intercept[NoSuchElementException] { res.next() }
+      intercept[NoSuchElementException](res.next())
       ()
     }
   }
@@ -224,7 +228,7 @@ class ResourceIteratorTests
   }
 
   test("the empty iterator should throw when next is called") {
-    intercept[NoSuchElementException] { ResourceIterator.empty.next() }
+    intercept[NoSuchElementException](ResourceIterator.empty.next())
     ()
   }
 
@@ -288,9 +292,8 @@ class ResourceIteratorTests
         .withClose(() => closed = true)
         .safe(new Throwable("eos"))(identity)
 
-      while(res.hasNext) {
+      while(res.hasNext)
         if(res.next().isLeft) res.hasNext should be(false)
-      }
       closed should be(true)
     }
   }
@@ -322,8 +325,9 @@ class ResourceIteratorTests
   }
 
   test("toIterable should behave as expected") {
+    import scala.collection.compat._
     forAll { (is: List[Int]) =>
-      ResourceIterator(is: _*).toIterable should be(is.toIterable)
+      ResourceIterator(is: _*).toIterable should be(is.to(Iterable))
     }
   }
 

@@ -16,7 +16,10 @@
 
 package kantan.codecs.laws
 
-import java.io.{ByteArrayInputStream, ByteArrayOutputStream, ObjectInputStream, ObjectOutputStream}
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import scala.util.Try
 
 /** Laws for serializable type class instances. */
@@ -38,11 +41,14 @@ trait SerializableLaws[A] {
     ois.readObject
   }
 
-  def serializable(): Boolean = Try(deserialize(serialize(value))).isSuccess
+  def serializable(): Boolean =
+    Try(deserialize(serialize(value))).isSuccess
 }
 
 object SerializableLaws {
-  implicit def apply[A](implicit a: A): SerializableLaws[A] = new SerializableLaws[A] {
-    override def value = a
-  }
+  implicit def apply[A](implicit a: A): SerializableLaws[A] =
+    new SerializableLaws[A] {
+      override def value =
+        a
+    }
 }

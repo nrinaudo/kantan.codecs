@@ -17,6 +17,7 @@
 package kantan.codecs.resource
 
 import kantan.codecs.ResultCompanion
+
 import scala.annotation.tailrec
 import scala.util.Try
 
@@ -33,9 +34,9 @@ import scala.util.Try
   * [[ResourceIterator.drop dropping]] elements.
   *
   * You should be able to express most common causes for not reading the entire stream through standard combinators. For
-  * example, "take the first `n` elements" is `take(n)`, or "take all odd elements" is `filter(_ % 2 == 0)`. This
-  * allows you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a
-  * situation when you just want to stop, however, [[ResourceIterator.close()*]] is available.
+  * example, "take the first `n` elements" is `take(n)`, or "take all odd elements" is `filter(_ % 2 == 0)`. This allows
+  * you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a situation
+  * when you just want to stop, however, [[ResourceIterator.close()*]] is available.
   */
 @SuppressWarnings(
   Array(
@@ -85,7 +86,8 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
 
   // - Iterator methods ------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
-  final def close(): Unit = if(!isClosed) doClose()
+  final def close(): Unit =
+    if(!isClosed) doClose()
 
   final def hasNext: Boolean =
     // We need to check for emptiness here in order to deal with a very specific case: the underlying data was empty
@@ -94,37 +96,38 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
     // close then, which would end up ignoring calls to `withClose`.
     if(isClosed) false
     else {
-      if(try {
-           checkNext
-         }
-         catch {
-           case scala.util.control.NonFatal(e) =>
-             lastError = Some(e)
-             close()
-             true
-         }) true
+      if(
+        try
+          checkNext
+        catch {
+          case scala.util.control.NonFatal(e) =>
+            lastError = Some(e)
+            close()
+            true
+        }
+      ) true
       else {
         doClose()
         false
       }
     }
 
-  final def next(): A = lastError match {
-    case Some(e) =>
-      lastError = None
-      throw e
-    case _ =>
-      try {
-        val n = readNext()
-        hasNext
-        n
-      }
-      catch {
-        case e: Throwable =>
-          close()
-          throw e
-      }
-  }
+  final def next(): A =
+    lastError match {
+      case Some(e) =>
+        lastError = None
+        throw e
+      case _ =>
+        try {
+          val n = readNext()
+          hasNext
+          n
+        } catch {
+          case e: Throwable =>
+            close()
+            throw e
+        }
+    }
 
   /** Drops the next `n` elements from the resource.
     *
@@ -145,14 +148,15 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
             rem = rem - 1
             self.next()
             hasMore()
-          }
-          else false
+          } else false
 
-        override def checkNext: Boolean = hasMore()
+        override def checkNext: Boolean =
+          hasMore()
         override def readNext() =
           if(hasMore()) self.next()
           else ResourceIterator.empty.next()
-        override def release() = self.close()
+        override def release() =
+          self.close()
       }
 
   /** Drops elements from the resource until one is found that doesn't verify `p` or the resource is empty.
@@ -177,8 +181,7 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
 
             // Otherwise, move to the 'return `n`' state.
             else state = 1
-          }
-          else
+          } else
             state = 2
 
         // We have no choice here but to perform all IO-bound operations in `checkNext` - we can't know if there are more
@@ -196,18 +199,22 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
           if(state == 1) {
             state = 2
             n
-          }
-          else self.next()
+          } else self.next()
         }
 
-        override def release() = self.close()
+        override def release() =
+          self.close()
       }
 
-  def map[B](f: A => B): ResourceIterator[B] = new ResourceIterator[B] {
-    override def checkNext  = self.hasNext
-    override def readNext() = f(self.next())
-    override def release()  = self.close()
-  }
+  def map[B](f: A => B): ResourceIterator[B] =
+    new ResourceIterator[B] {
+      override def checkNext =
+        self.hasNext
+      override def readNext() =
+        f(self.next())
+      override def release() =
+        self.close()
+    }
 
   /** Applies the specified function to the `Right` case of the underlying `Either`. */
   def mapResult[E, S, B](f: S => B)(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
@@ -216,9 +223,12 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
   def flatMap[B](f: A => ResourceIterator[B]): ResourceIterator[B] = {
     var cur: ResourceIterator[B] = ResourceIterator.empty
     new ResourceIterator[B] {
-      override def checkNext  = cur.hasNext || self.hasNext && { cur = f(self.next()); checkNext }
-      override def readNext() = cur.next()
-      override def release()  = self.close()
+      override def checkNext =
+        cur.hasNext || self.hasNext && { cur = f(self.next()); checkNext }
+      override def readNext() =
+        cur.next()
+      override def release() =
+        self.close()
     }
   }
 
@@ -229,20 +239,25 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
   def emap[E, S, B](f: S => Either[E, B])(implicit ev: A <:< Either[E, S]): ResourceIterator[Either[E, B]] =
     map(_.flatMap(f))
 
-  def filter(p: A => Boolean): ResourceIterator[A] = collect {
-    case a if p(a) => a
-  }
+  def filter(p: A => Boolean): ResourceIterator[A] =
+    collect {
+      case a if p(a) => a
+    }
 
-  def filterNot(pred: A => Boolean): ResourceIterator[A] = filter(a => !pred(a))
+  def filterNot(pred: A => Boolean): ResourceIterator[A] =
+    filter(a => !pred(a))
 
-  def withFilter(p: A => Boolean): ResourceIterator[A] = filter(p)
+  def withFilter(p: A => Boolean): ResourceIterator[A] =
+    filter(p)
 
   def filterResult[E, S](p: S => Boolean)(implicit ev: A <:< Either[E, S]): ResourceIterator[A] =
     filter(_.exists(p))
 
-  def foreach[U](f: A => U): Unit = while(hasNext) f(next())
+  def foreach[U](f: A => U): Unit =
+    while(hasNext) f(next())
 
-  def hasDefiniteSize: Boolean = isEmpty
+  def hasDefiniteSize: Boolean =
+    isEmpty
 
   def forall(p: A => Boolean): Boolean = {
     var res = true
@@ -272,24 +287,27 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
     else drop(low).take(until - low)
   }
 
-  def scanLeft[B](z: B)(f: (B, A) => B): ResourceIterator[B] = new ResourceIterator[B] {
-    var consumed = false
-    var acc      = z
+  def scanLeft[B](z: B)(f: (B, A) => B): ResourceIterator[B] =
+    new ResourceIterator[B] {
+      var consumed = false
+      var acc      = z
 
-    override def checkNext = !consumed || self.hasNext
-    override def readNext() =
-      if(consumed) {
-        acc = f(acc, self.next())
-        acc
-      }
-      else {
-        consumed = true
-        z
-      }
-    override def release() = self.close()
-  }
+      override def checkNext =
+        !consumed || self.hasNext
+      override def readNext() =
+        if(consumed) {
+          acc = f(acc, self.next())
+          acc
+        } else {
+          consumed = true
+          z
+        }
+      override def release() =
+        self.close()
+    }
 
-  def isEmpty: Boolean = !hasNext
+  def isEmpty: Boolean =
+    !hasNext
 
   def find(p: A => Boolean): Option[A] = {
     var res: Option[A] = None
@@ -306,20 +324,23 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
     res
   }
 
-  def isTraversableAgain: Boolean = false
+  def isTraversableAgain: Boolean =
+    false
 
   /** Restrict this resource to the next `n` elements, dropping whatever is left. */
-  def take(n: Int): ResourceIterator[A] = new ResourceIterator[A] {
-    var count              = n
-    override def checkNext = count > 0 && self.hasNext
-    override def readNext() =
-      if(count > 0) {
-        count -= 1
-        self.next()
-      }
-      else ResourceIterator.empty.next()
-    override def release() = self.close()
-  }
+  def take(n: Int): ResourceIterator[A] =
+    new ResourceIterator[A] {
+      var count = n
+      override def checkNext =
+        count > 0 && self.hasNext
+      override def readNext() =
+        if(count > 0) {
+          count -= 1
+          self.next()
+        } else ResourceIterator.empty.next()
+      override def release() =
+        self.close()
+    }
 
   /** Considers this resource to be empty as soon as an element is found that doesn't verify `p`. */
   def takeWhile(p: A => Boolean): ResourceIterator[A] =
@@ -352,11 +373,11 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
             if(self.hasNext) takeNext()
             else hasN = false
             n2
-          }
-          else ResourceIterator.empty.next()
+          } else ResourceIterator.empty.next()
         }
 
-        override def release() = self.close()
+        override def release() =
+          self.close()
       }
 
   def collect[B](f: PartialFunction[A, B]): ResourceIterator[B] =
@@ -384,14 +405,17 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
           f(r)
         }
 
-        override def release() = self.close()
+        override def release() =
+          self.close()
       }
 
   /** Calls the specified function when the underlying resource is empty. */
   def withClose(f: () => Unit): ResourceIterator[A] =
     new ResourceIterator[A] {
-      override def checkNext  = self.hasNext
-      override def readNext() = self.next()
+      override def checkNext =
+        self.hasNext
+      override def readNext() =
+        self.next()
       override def release() = {
         self.close()
         f()
@@ -403,34 +427,47 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
     * This is achieved by catching all non-fatal exceptions and passing them to the specified `f` to turn into a failure
     * type.
     *
-    * This is meant to be used by the various kantan.* libraries that offer stream-like APIs: it allows them to wrap
-    * IO in a safe iterator and focus on dealing with decoding.
+    * This is meant to be used by the various kantan.* libraries that offer stream-like APIs: it allows them to wrap IO
+    * in a safe iterator and focus on dealing with decoding.
     *
-    * @param empty error value for when `next` is called on an empty iterator.
-    * @param f     used to turn non-fatal exceptions into error types.
+    * @param empty
+    *   error value for when `next` is called on an empty iterator.
+    * @param f
+    *   used to turn non-fatal exceptions into error types.
     */
-  def safe[F](empty: => F)(f: Throwable => F): ResourceIterator[Either[F, A]] = new ResourceIterator[Either[F, A]] {
-    override def readNext() =
-      if(self.hasNext) ResultCompanion.nonFatal(f)(self.next())
-      else Left(empty)
-    override def checkNext = self.hasNext
-    override def release() = self.close()
-  }
+  def safe[F](empty: => F)(f: Throwable => F): ResourceIterator[Either[F, A]] =
+    new ResourceIterator[Either[F, A]] {
+      override def readNext() =
+        if(self.hasNext) ResultCompanion.nonFatal(f)(self.next())
+        else Left(empty)
+      override def checkNext =
+        self.hasNext
+      override def release() =
+        self.close()
+    }
 }
 
 object ResourceIterator {
   val empty: ResourceIterator[Nothing] = new ResourceIterator[Nothing] {
-    override def checkNext = false
+    override def checkNext =
+      false
     @SuppressWarnings(Array("org.wartremover.warts.Throw"))
-    override def readNext() = throw new NoSuchElementException("next on empty resource iterator")
-    override def release()  = ()
+    override def readNext() =
+      throw new NoSuchElementException("next on empty resource iterator")
+    override def release() =
+      ()
   }
 
-  def apply[A](as: A*): ResourceIterator[A] = ResourceIterator.fromIterator(as.iterator)
+  def apply[A](as: A*): ResourceIterator[A] =
+    ResourceIterator.fromIterator(as.iterator)
 
-  def fromIterator[A](as: Iterator[A]): ResourceIterator[A] = new ResourceIterator[A] {
-    override def checkNext  = as.hasNext
-    override def readNext() = as.next()
-    override def release()  = ()
-  }
+  def fromIterator[A](as: Iterator[A]): ResourceIterator[A] =
+    new ResourceIterator[A] {
+      override def checkNext =
+        as.hasNext
+      override def readNext() =
+        as.next()
+      override def release() =
+        ()
+    }
 }

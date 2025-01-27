@@ -16,12 +16,18 @@
 
 package kantan.codecs.strings
 
+import kantan.codecs.laws.discipline.DisciplineSuite
+import kantan.codecs.laws.discipline.SerializableTests
+
 import java.io.File
-import java.net.{URI, URL}
-import java.nio.file.{AccessMode, Path}
+import java.net.URI
+import java.net.URL
+import java.nio.file.AccessMode
+import java.nio.file.Path
 import java.text.SimpleDateFormat
-import java.util.{Date, Locale, UUID}
-import kantan.codecs.laws.discipline.{DisciplineSuite, SerializableTests}
+import java.util.Date
+import java.util.Locale
+import java.util.UUID
 
 class SerializationTests extends DisciplineSuite {
 
