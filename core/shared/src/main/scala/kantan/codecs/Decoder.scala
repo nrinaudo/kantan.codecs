@@ -181,7 +181,7 @@ trait DecoderCompanion[E, F, T] extends Serializable {
     * This is a slightly faster, less verbose version of `implicitly`.
     */
   def apply[D](implicit ev: Decoder[E, D, F, T]): Decoder[E, D, F, T] =
-    macro imp.summon[Decoder[E, D, F, T]]
+    ev
 
   /** Creates a new [[Decoder]] instance from the specified function. */
   @inline def from[D](f: E => Either[F, D]): Decoder[E, D, F, T] =

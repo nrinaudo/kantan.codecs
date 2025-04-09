@@ -16,7 +16,6 @@
 
 package kantan.codecs.resource
 
-import imp.imp
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.EitherValues._
@@ -56,7 +55,7 @@ class ResourceIteratorTests
   implicit def arbFailingIterator[A: Arbitrary]: Arbitrary[FailingIterator[A]] =
     Arbitrary {
       for {
-        as    <- Gen.nonEmptyListOf(imp[Arbitrary[A]].arbitrary)
+        as    <- Gen.nonEmptyListOf(implicitly[Arbitrary[A]].arbitrary)
         index <- Gen.choose(0, 2 * (as.length - 1))
       } yield FailingIterator(as.iterator, index)
     }

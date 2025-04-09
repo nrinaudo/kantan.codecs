@@ -16,7 +16,6 @@
 
 package kantan.codecs.laws.discipline
 
-import imp.imp
 import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.EncoderLaws
 import org.scalacheck.Arbitrary
@@ -52,6 +51,6 @@ object EncoderTests {
       override val laws     = l
       override val arbLegal = al
       override val cogenE   = ce
-      override val arbD     = imp[Arbitrary[D]]
+      override val arbD     = implicitly[Arbitrary[D]]
     }
 }

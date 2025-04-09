@@ -43,7 +43,7 @@ trait LowPriorityFactoryInstances {
 
 object Factory extends LowPriorityFactoryInstances {
   def apply[A, C](implicit ev: Factory[A, C]): Factory[A, C] =
-    macro imp.summon[Factory[A, C]]
+    ev
 
   def apply[A, C](f: => mutable.Builder[A, C]): Factory[A, C] =
     new Factory[A, C] with Serializable {
