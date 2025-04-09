@@ -16,7 +16,7 @@
 
 package kantan.codecs.strings
 
-import kantan.codecs.export.Exported
+import kantan.codecs.`export`.Exported
 
 import java.time.Instant
 import java.time.LocalDate

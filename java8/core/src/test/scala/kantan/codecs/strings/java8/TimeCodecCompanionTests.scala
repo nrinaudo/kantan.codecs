@@ -18,7 +18,7 @@ package kantan.codecs.strings.java8
 
 import kantan.codecs.Decoder
 import kantan.codecs.Encoder
-import kantan.codecs.export.Exported
+import kantan.codecs.`export`.Exported
 import kantan.codecs.laws.CodecValue.LegalValue
 import kantan.codecs.laws.discipline.CodecTests
 import kantan.codecs.laws.discipline.DisciplineSuite
