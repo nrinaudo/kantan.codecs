@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package kantan.codecs.export
+package kantan.codecs.`export`
 
 import kantan.codecs.Decoder
 
