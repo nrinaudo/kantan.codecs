@@ -34,11 +34,13 @@ trait PlatformSpecificInstances {
     * // Decoding example
     * scala> import java.net.URL
     *
+    * scala> import java.net.URI
+    *
     * scala> StringDecoder[URL].decode("http://localhost:8080")
     * res1: StringResult[URL] = Right(http://localhost:8080)
     *
     * // Encoding example
-    * scala> StringEncoder[URL].encode(new URL("http://localhost:8080"))
+    * scala> StringEncoder[URL].encode(new URI("http://localhost:8080").toURL)
     * res2: String = http://localhost:8080
     *   }}}
     */
