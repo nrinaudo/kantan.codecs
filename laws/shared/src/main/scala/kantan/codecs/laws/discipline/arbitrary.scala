@@ -16,7 +16,6 @@
 
 package kantan.codecs.laws.discipline
 
-import imp.imp
 import kantan.codecs.Decoder
 import kantan.codecs.Encoder
 import kantan.codecs.laws.CodecValue
@@ -96,7 +95,7 @@ trait CommonArbitraryInstances extends ArbitraryArities {
 
   def arbIllegalValue[E: Arbitrary, A, T](illegal: E => Boolean): Arbitrary[IllegalValue[E, A, T]] =
     Arbitrary {
-      imp[Arbitrary[E]].arbitrary.suchThat(illegal).map(e => IllegalValue(e))
+      implicitly[Arbitrary[E]].arbitrary.suchThat(illegal).map(e => IllegalValue(e))
     }
 
   // - Codecs ----------------------------------------------------------------------------------------------------------

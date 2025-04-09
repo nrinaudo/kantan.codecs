@@ -55,7 +55,7 @@ trait EncoderCompanion[E, T] {
     * This is a slightly faster, less verbose version of `implicitly`.
     */
   def apply[D](implicit ev: Encoder[E, D, T]): Encoder[E, D, T] =
-    macro imp.summon[Encoder[E, D, T]]
+    ev
 
   /** Creates a new instance of [[Encoder]] from the specified function. */
   @inline def from[D](f: D => E): Encoder[E, D, T] =

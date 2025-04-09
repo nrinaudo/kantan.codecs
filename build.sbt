@@ -58,7 +58,6 @@ lazy val core = kantanCrossProject("core")
   .settings(moduleName := "kantan.codecs")
   .settings(
     libraryDependencies ++= Seq(
-      "org.spire-math"         %%% "imp"                     % Versions.imp,
       "org.scala-lang.modules" %%% "scala-collection-compat" % Versions.collectionCompat % Test,
       "org.scalatest"          %%% "scalatest"               % Versions.scalatest        % Test
     ),

@@ -16,7 +16,6 @@
 
 package kantan.codecs.strings
 
-import imp.imp
 import kantan.codecs.Codec
 import kantan.codecs.Decoder
 import kantan.codecs.Encoder
@@ -30,6 +29,6 @@ object tagged {
     StringEncoder[D].tag[tagged.type]
 
   def codec[D: StringCodec]: Codec[String, D, DecodeError, tagged.type] =
-    imp[StringCodec[D]].tag[tagged.type]
+    implicitly[StringCodec[D]].tag[tagged.type]
 
 }

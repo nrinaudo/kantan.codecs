@@ -25,7 +25,7 @@ trait Closeable[A] {
 
 object Closeable {
   def apply[A](implicit ev: Closeable[A]): Closeable[A] =
-    macro imp.summon[Closeable[A]]
+    ev
 
   def from[A](f: A => CloseResult): Closeable[A] =
     new Closeable[A] {

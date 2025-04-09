@@ -53,7 +53,7 @@ object IsError {
 
   /** Summons an implicit instance of `IsError[A]` if one is found in scope, fails compilation otherwise. */
   def apply[A](implicit ev: IsError[A]): IsError[A] =
-    macro imp.summon[IsError[A]]
+    ev
 
   /** Default instance for `Exception.` */
   implicit val exceptionIsError: IsError[Exception] = new IsError[Exception] {

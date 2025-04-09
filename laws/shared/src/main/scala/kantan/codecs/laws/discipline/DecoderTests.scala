@@ -16,7 +16,6 @@
 
 package kantan.codecs.laws.discipline
 
-import imp.imp
 import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.IllegalValue
 import kantan.codecs.laws.CodecValue.LegalValue
@@ -76,10 +75,10 @@ object DecoderTests {
     new DecoderTests[E, D, F, T] {
       override val laws     = l
       override val arbLegal = al
-      override val arbF     = imp[Arbitrary[F]]
+      override val arbF     = implicitly[Arbitrary[F]]
       override val cogenF   = Cogen[F]
       override val cogenD   = Cogen[D]
-      override val arbD     = imp[Arbitrary[D]]
-      override val arbE     = imp[Arbitrary[E]]
+      override val arbD     = implicitly[Arbitrary[D]]
+      override val arbE     = implicitly[Arbitrary[E]]
     }
 }

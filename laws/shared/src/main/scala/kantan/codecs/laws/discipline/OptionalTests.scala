@@ -16,7 +16,6 @@
 
 package kantan.codecs.laws.discipline
 
-import imp.imp
 import kantan.codecs.laws.OptionalLaws
 import org.scalacheck.Arbitrary
 import org.scalacheck.Prop.forAll
@@ -34,7 +33,7 @@ trait OptionalTests[A] extends Laws {
 object OptionalTests {
   def apply[A: Arbitrary: OptionalLaws]: OptionalTests[A] =
     new OptionalTests[A] {
-      override val laws = imp[OptionalLaws[A]]
-      override val arbA = imp[Arbitrary[A]]
+      override val laws = implicitly[OptionalLaws[A]]
+      override val arbA = implicitly[Arbitrary[A]]
     }
 }

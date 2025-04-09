@@ -21,5 +21,5 @@ object OutputResource {
 
   /** Summons an implicit instance of [[OutputResource]] if one is found in scope, fails compilation otherwise. */
   def apply[A](implicit ev: OutputResource[A]): OutputResource[A] =
-    macro imp.summon[OutputResource[A]]
+    ev
 }

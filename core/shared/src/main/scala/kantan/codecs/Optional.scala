@@ -32,7 +32,7 @@ trait Optional[A] extends Serializable {
 
 object Optional {
   def apply[A](implicit ev: Optional[A]): Optional[A] =
-    macro imp.summon[Optional[A]]
+    ev
 
   def apply[A](a: A): Optional[A] =
     new Optional[A] {
