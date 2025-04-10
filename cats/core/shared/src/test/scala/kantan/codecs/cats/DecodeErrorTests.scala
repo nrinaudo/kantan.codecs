@@ -27,7 +27,7 @@ class DecodeErrorTests extends DisciplineSuite {
   checkAll("DecodeError", EqTests[DecodeError].eqv)
 
   test("Show[DecodeError] should yield a string containing the error message") {
-    forAll { error: DecodeError =>
+    forAll { (error: DecodeError) =>
       Show[DecodeError].show(error) should include(error.message)
     }
   }

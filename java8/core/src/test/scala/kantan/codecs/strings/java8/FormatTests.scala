@@ -42,7 +42,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: LocalDateTime =>
+    forAll { (d: LocalDateTime) =>
       val str: String = formatter.format(d)
 
       format.parseLocalDateTime(str) should be(Right(LocalDateTime.parse(str, formatter)))
@@ -57,7 +57,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: ZonedDateTime =>
+    forAll { (d: ZonedDateTime) =>
       val str: String = formatter.format(d)
 
       format.parseZonedDateTime(str) should be(Right(ZonedDateTime.parse(str, formatter)))
@@ -71,7 +71,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: LocalTime =>
+    forAll { (d: LocalTime) =>
       val str: String = formatter.format(d)
 
       format.parseLocalTime(str) should be(Right(LocalTime.parse(str, formatter)))
@@ -86,7 +86,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: LocalDate =>
+    forAll { (d: LocalDate) =>
       val str: String = formatter.format(d)
 
       format.parseLocalDate(str) should be(Right(LocalDate.parse(str, formatter)))
@@ -100,7 +100,7 @@ class FormatTests extends DisciplineSuite {
     val format    = Format.from(formatStr).getOrElse(sys.error(s"Not a valid format: '$formatStr"))
     val formatter = DateTimeFormatter.ofPattern(formatStr)
 
-    forAll { d: ZonedDateTime =>
+    forAll { (d: ZonedDateTime) =>
       val str: String = formatter.format(d)
 
       format.parseZonedDateTime(str) should be(Right(ZonedDateTime.parse(str, formatter)))

@@ -27,7 +27,7 @@ class DecodeErrorTests extends ScalazDisciplineSuite {
   checkAll("DecodeError", equ.laws[DecodeError])
 
   test("Show[DecodeError] should yield a string containing the error message") {
-    forAll { error: DecodeError =>
+    forAll { (error: DecodeError) =>
       Show[DecodeError].shows(error) should include(error.message)
     }
   }
