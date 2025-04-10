@@ -53,13 +53,13 @@ class CodecValueTests extends AnyFunSuite with ScalaCheckPropertyChecks with Mat
     f: E => D
   )(implicit arbL: Arbitrary[LegalValue[E, D, T]], arbI: Arbitrary[IllegalValue[E, D, T]]): Unit = {
     test(s"Arbitrary[LegalValue[$e, $d]] should generate legal values") {
-      forAll { li: LegalValue[E, D, T] =>
+      forAll { (li: LegalValue[E, D, T]) =>
         f(li.encoded) should be(li.decoded)
       }
     }
 
     test(s"Arbitrary[IllegalValue[$e, $d]] should generate illegal values") {
-      forAll { li: IllegalValue[E, D, T] =>
+      forAll { (li: IllegalValue[E, D, T]) =>
         Prop.throws(classOf[Exception])(f(li.encoded))
         ()
       }

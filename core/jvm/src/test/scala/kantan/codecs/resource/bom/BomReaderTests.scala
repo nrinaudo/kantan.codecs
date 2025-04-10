@@ -39,38 +39,38 @@ class BomReaderTests extends AnyFunSuite with ScalaCheckPropertyChecks with Matc
   }
 
   test("UTF-8 BOMs should be read properly") {
-    forAll { str: String =>
+    forAll { (str: String) =>
       read(str, Codec.UTF8) should be(str)
     }
   }
 
   test("UTF-16LE BOMs should be read properly") {
-    forAll { str: String =>
+    forAll { (str: String) =>
       read(str, Codec(Charset.forName("UTF-16LE"))) should be(str)
     }
   }
 
   test("UTF-16BE BOMs should be read properly") {
-    forAll { str: String =>
+    forAll { (str: String) =>
       read(str, Codec(Charset.forName("UTF-16BE"))) should be(str)
     }
   }
 
   test("UTF-32LE BOMs should be read properly") {
-    forAll { str: String =>
+    forAll { (str: String) =>
       read(str, Codec(Charset.forName("UTF-32LE"))) should be(str)
     }
   }
 
   test("UTF-32BE BOMs should be read properly") {
-    forAll { str: String =>
+    forAll { (str: String) =>
       read(str, Codec(Charset.forName("UTF-32BE"))) should be(str)
     }
   }
 
   // Uses Gen.identifier to make sure we only get strings that are actually encodable in ISO-8859-1.
   test("Non-BOM encodings should be read properly") {
-    forAll(Gen.identifier) { str: String =>
+    forAll(Gen.identifier) { (str: String) =>
       read(str, Codec.ISO8859) should be(str)
     }
   }

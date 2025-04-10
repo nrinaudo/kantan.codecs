@@ -284,7 +284,7 @@ class ResourceIteratorTests
   }
 
   test("a safe iterator should wrap errors in next") {
-    forAll { is: FailingIterator[Int] =>
+    forAll { (is: FailingIterator[Int]) =>
       var closed = false
 
       val res = is.resourceIterator
@@ -298,7 +298,7 @@ class ResourceIteratorTests
   }
 
   test("A closed iterator should not have next elements") {
-    forAll { is: List[Int] =>
+    forAll { (is: List[Int]) =>
       val res = ResourceIterator(is: _*)
       res.close()
       res.hasNext should be(false)
