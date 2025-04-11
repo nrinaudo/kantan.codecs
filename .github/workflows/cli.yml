@@ -47,3 +47,19 @@ jobs:
       - name: Test JS
         if: matrix.platform == 'js'
         run: sbt ++${{ matrix.scala }} validateJS
+
+  scala3:
+    needs: pre_job
+    if: needs.pre_job.outputs.should_skip != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: coursier/setup-action@v1
+        with:
+          jvm: "adopt:8"
+          apps: sbt
+
+      - uses: coursier/cache-action@v6
+
+      - run: sbt "project scala3root" "++ 3.x" test
