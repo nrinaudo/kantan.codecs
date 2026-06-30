@@ -7,7 +7,7 @@ object Versions {
   val enumeratumScalacheck = "1.7.5"
   val imp                  = "0.5.0"
   val libra                = "0.7.0"
-  val refined              = "0.11.3"
+  val refined              = "0.11.4"
   val scalacheck           = "1.18.1"
   val scalacheckShapeless  = "1.3.2"
   val scalatest            = "3.2.19"
